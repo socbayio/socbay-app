@@ -1,11 +1,46 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+﻿<!DOCTYPE html>
+<html lang="en">
+
+  <%- include("head"); -%>
+
+<body>
+  <%- include("headerUnsigned"); -%>
+  <%- include("leftSideBar"); -%>
+	<!-- Body Start -->
+	<div class="wrapper">
+		<div class="sa4d25">
+			<div class="container-fluid">			
+				<div class="row">
+					<div class="col-xl-9 col-lg-8">
+          
+            <!-- <%- include("featureCourses"); -%> -->
+            <!-- <%- include("newestCourses"); -%>  -->
+            <%- include("modifiedVideos"); -%>
+
+	
+					</div>
+					<div class="col-xl-3 col-lg-4">
+            <%- include("rightSide"); -%>
+					</div>
+					<div class="col-xl-12 col-lg-12">
+            <!-- <%- include("bottomPost"); -%> -->
+					</div>
+				</div>
+			</div>
+		</div>
+    
+    <%- include("footer"); -%>
+	</div>
+	<!-- Body End -->
+
+	<script src="js/vertical-responsive-menu.min.js"></script>
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="vendor/OwlCarousel/owl.carousel.js"></script>
+	<script src="vendor/semantic/semantic.min.js"></script>
+	<script src="js/custom.js"></script>
+	<script src="js/night-mode.js"></script>
+	
+	
+</body>
 </html>
