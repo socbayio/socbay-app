@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+	<%- include("head"); -%>
+
+
+<body>
+
+	<% if(loggedIn) { %>
+		<%- include("header"); -%>		
+	<% } %>
+   
+	<% if(!loggedIn) { %>
+		<%- include("headerUnsigned"); -%>
+	<% } %>
+	<%- include("leftSideBar"); -%>	
+	<!-- Body Start -->
+	<div class="wrapper">
+		<div class="sa4d25">
+			<div class="container-fluid">			
+				<div class="row justify-content-md-center">
+					<div class="col-lg-8 col-md-10">
+						<div class="section3125 stream_tabs">
+						
+							<div class="tab-content" id="myTabContent">
+								<div class="tab-pane fade show active" id="add-straming" role="tabpanel">
+									<div class="add_stream_content">
+										<h4 class="strm_title">Connect your live stream to the Live API</h4>
+										<div class="sf475">Use live-streaming software or a hardware encoder. <a href="#">Learn More</a></div>
+										<div class="stm_key">Preview your broadcast with a stream key or paired encoder.</div>
+										
+										<form action="/uploadvideo/store" method="POST">
+											<div class="live_form">
+												<div class="group-form">
+													<label>Content identifier</label>
+													<input name="CID" class="_dlor1" type="text" placeholder="CID" value="">
+													<button class="_6tf7s" type="submit" value="1">Paste</button>
+												</div>
+												<div class="group-form">
+													<label>Title</label>
+													<input name="title" class="_dlor1" type="text" placeholder="" value="">
+													<button class="_6tf7s" type="" value="1">Paste</button>
+												</div>
+												<div class="group-form">
+													<label>Thumbnail URL</label>
+													<input name="thumbnail" class="_dlor1" type="text" placeholder="Place image link" value="">
+													<button class="_6tf7s" type="" value="1">Paste</button>
+												</div>
+		
+												<div class="ui search focus mt-15">	
+													<label>Description</label>															
+													<div class="ui form swdh30">
+														<div class="field">
+															<textarea rows="5" name="description" id="id_answer" placeholder="Short description"></textarea>
+														</div>
+													</div>
+												</div>
+												<button class="_145d1" type="submit"><i class='uil uil-video'></i>Upload</button>
+
+											</div>
+										</form>
+
+									</div>
+								</div>
+							
+							</div>							
+						</div>							
+					</div>								
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!-- Body End -->
+
+	<script src="js/vertical-responsive-menu.min.js"></script>
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="vendor/OwlCarousel/owl.carousel.js"></script>
+	<script src="vendor/semantic/semantic.min.js"></script>
+	<script src="js/custom.js"></script>
+	<script src="js/night-mode.js"></script>
+	
+</body>
+</html>

@@ -16,9 +16,9 @@ var usersRouter = require('./routes/users');
 var registerRouter = require('./routes/register');
 var loginRouter = require('./routes/login');
 var userLoginRouter = require('./routes/userLogin');
+var uploadVideoRouter = require('./routes/uploadVideo');
+var storeVideoRouter = require('./routes/storeVideo');
 
-
-////////////
 var videoRouter = require('./routes/video');
 var storeUser = require('./routes/storeUser');
 var userLogout = require('./routes/logout');
@@ -54,6 +54,8 @@ app.use('/login', loginRouter);
 app.use('/user/login', userLoginRouter);
 app.use('/logout',userLogout);
 app.use('/video', videoRouter);
+app.use('/uploadvideo', uploadVideoRouter);
+app.use('/uploadvideo/store', storeVideoRouter);
 
 ////////////////////
 app.use('/register/store', storeUser);
