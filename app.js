@@ -19,6 +19,7 @@ var userLoginRouter = require('./routes/userLogin');
 
 
 ////////////
+var videoRouter = require('./routes/video');
 var storeUser = require('./routes/storeUser');
 var userLogout = require('./routes/logout');
 var app = express();
@@ -52,6 +53,7 @@ app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 app.use('/user/login', userLoginRouter);
 app.use('/logout',userLogout);
+app.use('/video', videoRouter);
 
 ////////////////////
 app.use('/register/store', storeUser);
