@@ -45,20 +45,30 @@
 					<div class="sign_form">
 						<h2>Welcome to Edututs+</h2>
 						<p>Sign Up and Start Learning!</p>
-						<form>
+
+						<% if(errors != null && errors.length > 0){ %>
+						<ul class="list-group"></ul>
+						<% for (var i = 0; i < errors.length; i++) { %>
+						<li class="list-group-item list-group-item-danger"><%= errors[i] %></li>
+						<% } %>
+						</ul>
+						<% } %>
+						<br>
+
+						<form action="/register/store" method="POST">
 							<div class="ui search focus">
 								<div class="ui left icon input swdh11 swdh19">
-									<input class="prompt srch_explore" type="text" name="fullname" value="" id="id_fullname" required="" maxlength="64" placeholder="Full Name">															
+									<input class="prompt srch_explore" type="text" name="username" value="<%=username%>" id="id_fullname" maxlength="64" placeholder="Full Name">															
 								</div>
 							</div>
 							<div class="ui search focus mt-15">
 								<div class="ui left icon input swdh11 swdh19">
-									<input class="prompt srch_explore" type="email" name="emailaddress" value="" id="id_email" required="" maxlength="64" placeholder="Email Address">															
+									<input class="prompt srch_explore" type="email" name="emailaddress" value="<%=emailaddress%>" id="id_email" maxlength="64" placeholder="Email Address">															
 								</div>
 							</div>
 							<div class="ui search focus mt-15">
 								<div class="ui left icon input swdh11 swdh19">
-									<input class="prompt srch_explore" type="password" name="password" value="" id="id_password" required="" maxlength="64" placeholder="Password">															
+									<input class="prompt srch_explore" type="password" name="password" value="<%=password%>" id="id_password" maxlength="64" placeholder="Password">															
 								</div>
 							</div>
 							<div class="ui form mt-30 checkbox_sign">

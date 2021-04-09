@@ -4,8 +4,14 @@
   <%- include("head"); -%>
 
 <body>
-  <%- include("headerUnsigned"); -%>
-  <%- include("leftSideBar"); -%>
+  	<% if(loggedIn) { %>
+		<%- include("header"); -%>		
+	<% } %>
+   
+	<% if(!loggedIn) { %>
+		<%- include("headerUnsigned"); -%>
+	<% } %>
+  	<%- include("leftSideBar"); -%>
 	<!-- Body Start -->
 	<div class="wrapper">
 		<div class="sa4d25">
@@ -15,7 +21,8 @@
           
             <!-- <%- include("featureCourses"); -%> -->
             <!-- <%- include("newestCourses"); -%>  -->
-            <%- include("modifiedVideos"); -%>
+			<%- include("modifiedVideos"); -%>
+
 
 	
 					</div>
