@@ -7,7 +7,7 @@ var logger = require('morgan');
 const mongoose = require('mongoose');
 const expressSession = require('express-session');
 const flash = require('connect-flash');
-mongoose.connect('mongodb://localhost/or', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost/openroom', {useNewUrlParser: true});
 
   
 
