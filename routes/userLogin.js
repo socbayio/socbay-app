@@ -8,9 +8,9 @@ const redirectIfAuthenticatedMiddleware = require('../middleware/redirectIfAuthe
 
 router.post('/', redirectIfAuthenticatedMiddleware, function(req, res, next) {
 
-    const { username, password } = req.body;
+    const { emailaddress, password } = req.body;
 
-    User.findOne({username:username}, (error,user) => {
+    User.findOne({emailaddress:emailaddress}, (error,user) => {
         if (user){
             bcrypt.compare(password, user.password, (error, same) =>{
                 if(same){ // if passwords match
