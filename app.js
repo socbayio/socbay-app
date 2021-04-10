@@ -7,7 +7,7 @@ var logger = require('morgan');
 const mongoose = require('mongoose');
 const expressSession = require('express-session');
 const flash = require('connect-flash');
-mongoose.connect('mongodb://localhost/openroom', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost/opennetwork', {useNewUrlParser: true});
 
   
 
@@ -22,6 +22,8 @@ var storeVideoRouter = require('./routes/storeVideo');
 var videoRouter = require('./routes/video');
 var storeUser = require('./routes/storeUser');
 var userLogout = require('./routes/logout');
+
+var pullvideoRouter = require('./routes/pullvideo');
 var app = express();
 
 // view engine setup
@@ -56,7 +58,7 @@ app.use('/logout',userLogout);
 app.use('/video', videoRouter);
 app.use('/uploadvideo', uploadVideoRouter);
 app.use('/uploadvideo/store', storeVideoRouter);
-
+app.use('/video/:videoId',pullvideoRouter);
 ////////////////////
 app.use('/register/store', storeUser);
 

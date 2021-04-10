@@ -22,6 +22,10 @@ const VideoSchema = new Schema({
         type: Number,
         default: 0
     },
+    banned: {
+        type: Boolean,
+        default: false
+    },
     author: {
         username: String,
         emailaddress: String

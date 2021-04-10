@@ -11,7 +11,7 @@ mongoose.connect('mongodb://localhost/videodatabase', {useNewUrlParser: true});
 // to create a new BlogPost doc in our database, we will use 
 // a function in our model called create
 
-Video.create({CID: 'QmdUkfAMwiyPnRGNoaGjuK1JEP4W8C4raoskkdTikUAsc4',title:'11h Animal',author:{username:'nghia',emailaddress:'n@b.c'}}, (error, video) =>{
+Video.create({CID: 'QmdUkfAMwiyPnRGNoaGjuK1JEP4W8C4raoskkdTikUAsc4',title:'12h Animal',author:{username:'nghia',emailaddress:'n@b.c'}}, (error, video) =>{
     console.log(error,video)
 })
 

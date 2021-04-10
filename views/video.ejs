@@ -21,16 +21,19 @@
 					<div class="col-xl-8 col-lg-8">
 						<div class="section3125">
 							<div class="live1452">
-								<iframe src="http://ipfs.io/ipfs/QmNbmaa5gjw1WFSJ4rKNvJ9eCW8rWGgD7kkvsn6LqgAFn9" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+								<iframe src="http://ipfs.io/ipfs/<%=CID%>" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+							</div>
+							<div class="user_dt5">
+								<h3><%=title%></h3>
 							</div>
 							<div class="user_dt5">
 								<div class="user_dt_left">
 									<div class="live_user_dt">
 										<div class="user_img5">
-											<img src="images/left-imgs/img-4.jpg" alt="">												
+											<img src="/images/left-imgs/img-4.jpg" alt="">												
 										</div>
 										<div class="user_cntnt">
-											<h4>Jassica William</h4>
+											<h4><%=videoAuthor%></h4>
 											<button class="subscribe-btn">Subscribe</button>
 										</div>
 									</div>
@@ -38,19 +41,17 @@
 								<div class="user_dt_right">
 									<ul>
 										<li>
-											<a href="#" class="lkcm152"><i class='uil uil-eye'></i><span>1452</span></a>
+											<a href="#" class="lkcm152"><i class='uil uil-eye'></i><span><%=view%></span></a>
 										</li>
 										<li>
-											<a href="#" class="lkcm152"><i class='uil uil-thumbs-up'></i><span>100</span></a>
+											<a href="#" class="lkcm152"><i class='uil uil-thumbs-up'></i><span><%=like%></span></a>
 										</li>
-										<li>
-											<a href="#" class="lkcm152"><i class='uil uil-thumbs-down'></i><span>20</span></a>
-										</li>
-										<li>
-											<a href="#" class="lkcm152"><i class='uil uil-share-alt'></i><span>9</span></a>
-										</li>
+								
 									</ul>
 								</div>
+							</div>
+							<div class="user_dt5">
+								<p><%=description%></p>
 							</div>
 						</div>							
 					</div>
@@ -80,98 +81,7 @@
 								</div>
 							</div>													
 						</div>
-					</div>
-					<div class="col-md-12">
-						<div class="section3125 mb-15 mt-20">
-							<h4 class="item_title">Live Streams</h4>
-							<a href="live_streams.html" class="see150">See all</a>
-							<div class="la5lo1">
-								<div class="owl-carousel live_stream owl-theme">
-									<div class="item">
-										<div class="stream_1">
-											<a href="live_output.html" class="stream_bg">
-												<img src="images/left-imgs/img-1.jpg" alt="">
-												<h4>John Doe</h4>
-												<p>live<span></span></p>
-											</a>
-										</div>
-									</div>
-									<div class="item">
-										<div class="stream_1">
-											<a href="live_output.html" class="stream_bg">
-												<img src="images/left-imgs/img-2.jpg" alt="">
-												<h4>Jassica</h4>
-												<p>live<span></span></p>
-											</a>
-										</div>
-									</div>
-									<div class="item">
-										<div class="stream_1">
-											<a href="live_output.html" class="stream_bg">
-												<img src="images/left-imgs/img-9.jpg" alt="">
-												<h4>Edututs+</h4>
-												<p>live<span></span></p>
-											</a>
-										</div>
-									</div>
-									<div class="item">
-										<div class="stream_1">
-											<a href="live_output.html" class="stream_bg">
-												<img src="images/left-imgs/img-3.jpg" alt="">
-												<h4>Joginder Singh</h4>
-												<p>live<span></span></p>
-											</a>
-										</div>
-									</div>
-									<div class="item">
-										<div class="stream_1">
-											<a href="live_output.html" class="stream_bg">
-												<img src="images/left-imgs/img-4.jpg" alt="">
-												<h4>Zoena</h4>
-												<p>live<span></span></p>
-											</a>
-										</div>
-									</div>
-									<div class="item">
-										<div class="stream_1">
-											<a href="live_output.html" class="stream_bg">
-												<img src="images/left-imgs/img-5.jpg" alt="">
-												<h4>Albert Dua</h4>
-												<p>live<span></span></p>
-											</a>
-										</div>
-									</div>
-									<div class="item">
-										<div class="stream_1">
-											<a href="live_output.html" class="stream_bg">
-												<img src="images/left-imgs/img-6.jpg" alt="">
-												<h4>Ridhima</h4>
-												<p>live<span></span></p>
-											</a>
-										</div>
-									</div>
-									<div class="item">
-										<div class="stream_1">
-											<a href="live_output.html" class="stream_bg">
-												<img src="images/left-imgs/img-7.jpg" alt="">
-												<h4>Amritpal</h4>
-												<p>live<span></span></p>
-											</a>
-										</div>
-									</div>
-									<div class="item">
-										<div class="stream_1">
-											<a href="live_output.html" class="stream_bg">
-												<img src="images/left-imgs/img-8.jpg" alt="">
-												<h4>Jimmy</h4>
-												<p>live<span></span></p>
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>					
+					</div>				
 				</div>
 			</div>
 		</div>
@@ -179,13 +89,13 @@
 	</div>
 	<!-- Body End -->
 
-	<script src="js/vertical-responsive-menu.min.js"></script>
-	<script src="js/jquery-3.3.1.min.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src="vendor/OwlCarousel/owl.carousel.js"></script>
-	<script src="vendor/semantic/semantic.min.js"></script>
-	<script src="js/custom.js"></script>
-	<script src="js/night-mode.js"></script>
+	<script src="/js/vertical-responsive-menu.min.js"></script>
+	<script src="/js/jquery-3.3.1.min.js"></script>
+	<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="/vendor/OwlCarousel/owl.carousel.js"></script>
+	<script src="/vendor/semantic/semantic.min.js"></script>
+	<script src="/js/custom.js"></script>
+	<script src="/js/night-mode.js"></script>
 	
 </body>
 </html>
