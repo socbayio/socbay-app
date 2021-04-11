@@ -11,10 +11,12 @@ router.get('/', function(req, res, next) {
   var username = "";
   var newVideosInfo = [];
   newVideo.find({},(error, results)=>{
-    for (let videoCount = results.length-1; videoCount>-1; videoCount--){
+    let pushedvideo = 0;
+    for (let videoCount = 0; videoCount<results.length; videoCount++){
       Video.findById(results[videoCount].videoId, (error,foundVideo)=>{
-        newVideosInfo.push(foundVideo)
-        if (!videoCount){
+        newVideosInfo.push(foundVideo);
+        pushedvideo++;
+        if (pushedvideo==results.length){
           //console.log(newVideosInfo[0])
           if(req.session.userId){
             User.findById(req.session.userId, (error, user)=>{
@@ -24,7 +26,7 @@ router.get('/', function(req, res, next) {
             }) 
           }
           else {
-            console.log('zzzzzzzzzzzzzzzzz')
+            console.log(newVideosInfo)
             //res.render('index');
             return res.render('index',{videos: newVideosInfo});
           }
