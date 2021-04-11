@@ -1,12 +1,36 @@
+<h4 class="item_title">New videos</h4>
+
 <div class="section3126">
     <div class="row">
-        <%- include("item"); -%>
-        <%- include("item"); -%>
-        <%- include("item"); -%>
-        <%- include("item"); -%>        
-        <%- include("item"); -%>
-        <%- include("item"); -%>
-        <%- include("item"); -%>
-        <%- include("item"); -%>
+        <% for(let videoCount = 0; videoCount<videos.length; videoCount++) {%>
+        
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xxl-4">
+                <div class="item">
+                    <div class="fcrse_1 mb-20">
+                        <a href="video/<%=videos[videoCount]._id%>" class="fcrse_img">
+                            <img src="<%=videos[videoCount].thumbnail%>" alt="">
+                            <div class="course-overlay">
+                                <div class="badge_seller">NEWEST</div>
+                                <span class="play_btn1"><i class="uil uil-play"></i></span>
+                                <div class="crse_timer">
+                                    5 mins
+                                </div>
+                            </div>
+                        </a>
+                        <div class="fcrse_content">
+                            <div class="vdtodt">
+                                <span class="vdt14"><%=videos[videoCount].view%> views</span>
+                                <span class="vdt14">15 days ago</span>
+                            </div>
+                            <a href="video" class="crse14s"><%=videos[videoCount].title%></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        <%}%>
+
+
     </div>
 </div>

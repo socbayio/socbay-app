@@ -10,7 +10,10 @@ const VideoSchema = new Schema({
         type: String,
         required: true
     },
-    thumbnail: String,
+    thumbnail: {
+        type: String,
+        default: '/images/courses/img-1.jpg'
+    },
     description: String,
     durationInSecond: Number,
     date: Date,
@@ -28,7 +31,7 @@ const VideoSchema = new Schema({
     },
     author: {
         username: String,
-        emailaddress: String
+        authorId: String
     }
 });
 
