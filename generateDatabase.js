@@ -3,7 +3,7 @@ const newVideo = require('./models/newVideosModel');
 const video = require('./models/videoModel');
 const user = require('./models/userModel')
 
-mongoose.connect("mongodb://localhost:27017/opennetwork1", {
+mongoose.connect("mongodb://localhost:27017/opennetwork", {
     "auth": { "authSource": "admin" },
     "user": "ntnadmin",
     "pass": "zxcvbnm1@",
