@@ -12,12 +12,13 @@ router.get('/', function(req, res, next) {
       User.findById(req.session.userId, (error, user)=>{
         username = user.username;
         emailaddress = user.emailaddress;
-        res.render('video', {emailaddress: emailaddress, username: username});
-      }) 
+        Video.findById(req.params.videoId, (error, video)=>{
+          res.render('video', {emailaddress: emailaddress, username: username,CID: video.CID, title:video.title, view: video.view, like: video.like, videoAuthor:video.author.username, description: video.description});
+        })
+      })
     }
     else {
         Video.findById(req.params.videoId, (error, video)=>{
-            console.log('-----------------------------');
             res.render('video', {CID: video.CID, title:video.title, view: video.view, like: video.like, videoAuthor:video.author.username, description: video.description});
         })
     }
