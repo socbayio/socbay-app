@@ -11,10 +11,11 @@ const newVideo = require('../models/newVideosModel.js');
 router.post('/', function(req, res, next) {
     console.log('-------------------');
     User.findById(req.session.userId, (error, user ) =>{
-        if (error) {
+        if (!user) {
             return res.redirect('/login');
         }
         else {
+            if (req.body.thumbnail == "") {req.body.thumbnail= "/images/courses/img-1.jpg"}
             req.body.author ={username:user.username, authorId: user._id};
             console.log(req.body);
             Video.create(req.body,(error,video)=>{
