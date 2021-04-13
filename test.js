@@ -3,20 +3,21 @@ const mongoose = require('mongoose')
 
 // import the model we just created
 // BlogPost represents the BlogPosts collection in the database
-const newVideo = require('./models/newVideosModel')
+const video = require('./models/videoModel')
 
 // if my_database doesn't exist, it will be created for us
-mongoose.connect("mongodb://localhost:27017/opennetwork", {
+mongoose.connect("mongodb://localhost:27017/crustlive", {
     "auth": { "authSource": "admin" },
-    "user": "ntnadmin",
-    "pass": "zxcvbnm1@",
+    "user": "ntn",
+    "pass": "wv%nzw=VY$fMwV4",
     "useNewUrlParser": true
 });
 // to create a new BlogPost doc in our database, we will use 
 // a function in our model called create
 
-newVideo.create({videoId: 'QmdUkfAMwiyPnRGNoaGjuK1JEP4W8C4raoskkdTikUAsc6'}, (error, newVideo) =>{
-    console.log(error,newVideo)
+video.findByIdAndUpdate('607559a599b02423a46ca432',{$inc : {'view' : 1}},(error,video)=>{
+
+    console.log(error,video);
 })
 
 // var id = "5cb436980b33147489eadfbb";

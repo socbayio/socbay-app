@@ -27,7 +27,7 @@ var storeVideoRouter = require('./routes/storeVideo');
 var videoRouter = require('./routes/video');
 var storeUser = require('./routes/storeUser');
 var userLogout = require('./routes/logout');
-
+var aboutUsRouter = require('./routes/aboutUs')
 var pullvideoRouter = require('./routes/pullvideo');
 var app = express();
 
@@ -66,6 +66,7 @@ app.use('/uploadvideo/store', storeVideoRouter);
 app.use('/video/:videoId',pullvideoRouter);
 ////////////////////
 app.use('/register/store', storeUser);
+app.use('/aboutus', aboutUsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

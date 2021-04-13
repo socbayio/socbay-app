@@ -18,9 +18,12 @@ router.get('/', function(req, res, next) {
       })
     }
     else {
-        Video.findById(req.params.videoId, (error, video)=>{
+      Video.findByIdAndUpdate(req.params.videoId,{$inc : {'view' : 1}} ,(error, video)=>{
+        res.render('video', {CID: video.CID, title:video.title, view: video.view, like: video.like, videoAuthor:video.author.username, description: video.description});
+    })
+       /*  Video.findById(req.params.videoId, (error, video)=>{
             res.render('video', {CID: video.CID, title:video.title, view: video.view, like: video.like, videoAuthor:video.author.username, description: video.description});
-        })
+        }) */
     }
 });
 
