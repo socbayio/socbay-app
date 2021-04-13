@@ -16,7 +16,10 @@ const VideoSchema = new Schema({
     },
     description: String,
     durationInSecond: Number,
-    date: Date,
+    timestamp: {
+        type: Number,
+        default: Date.now
+    },
     view: {
         type: Number,
         default: 0
