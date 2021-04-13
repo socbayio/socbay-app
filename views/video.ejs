@@ -21,7 +21,7 @@
 					<div class="col-xl-8 col-lg-8">
 						<div class="section3125">
 							<div class="live1452">
-								<iframe src="http://ipfs.io/ipfs/<%=CID%>" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+								<iframe src="<%=link%>" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 							</div>
 							<div class="user_dt5">
 								<h3><%=title%></h3>
@@ -55,8 +55,9 @@
 							</div>
 							<div>
 								<div class="user_cntnt">
-									<button class="subscribe-btn">IPFS</button>
-									<button class="subscribe-btn">CRUST</button>
+									<a href="/video/<%=videoId%>?gateway=ipfs"><button class="subscribe-btn">IPFS</button></a>
+									<a href="/video/<%=videoId%>?gateway=crust"><button class="subscribe-btn">Crust</button></a>
+									<a href="/video/<%=videoId%>?gateway=oneloveipfs"><button class="subscribe-btn">OneLove</button></a>
 								</div>
 							</div>
 							<div class="user_dt5">

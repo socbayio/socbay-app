@@ -7,19 +7,44 @@ const Video = require('../models/videoModel.js');
 router.get('/', function(req, res, next) {
     var emailaddress = "";
     var username = "";
+    var link = "";
+    switch (req.query.gateway){
+      case 'ipfs':
+        link = 'https://ipfs.io/ipfs/';
+        break;
+      case 'crust':
+        link = 'https://crustwebsites.net/ipfs/';
+        break;
+      case 'oneloveipfs':
+        link = 'https://video.oneloveipfs.com/ipfs/';
+        break;
+      default:
+        link = 'https://ipfs.io/ipfs/';
+    }
+    
     if(req.session.userId){
       User.findById(req.session.userId, (error, user)=>{
         username = user.username;
         emailaddress = user.emailaddress;
-        Video.findById(req.params.videoId, (error, video)=>{
-          res.render('video', {emailaddress: emailaddress, username: username,CID: video.CID, title:video.title, view: video.view, like: video.like, videoAuthor:video.author.username, description: video.description});
+        Video.findByIdAndUpdate(req.params.videoId, {$inc : {'view' : 1}} , (error, video)=>{
+          if (error) {
+            res.render('/');
+          }
+          else{
+          res.render('video', {videoId: req.params.videoId ,emailaddress: emailaddress, username: username,link: link + video.CID, title:video.title, view: video.view, like: video.like, videoAuthor:video.author.username, description: video.description});
+          }
         })
       })
     }
     else {
       Video.findByIdAndUpdate(req.params.videoId,{$inc : {'view' : 1}} ,(error, video)=>{
-        res.render('video', {CID: video.CID, title:video.title, view: video.view, like: video.like, videoAuthor:video.author.username, description: video.description});
-    })
+        if (error){
+          res.render('/')
+        }
+        else {
+        res.render('video', {videoId: req.params.videoId, link: link+video.CID, title:video.title, view: video.view, like: video.like, videoAuthor:video.author.username, description: video.description});
+        }
+      })
        /*  Video.findById(req.params.videoId, (error, video)=>{
             res.render('video', {CID: video.CID, title:video.title, view: video.view, like: video.like, videoAuthor:video.author.username, description: video.description});
         }) */
