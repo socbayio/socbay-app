@@ -3,7 +3,6 @@ var router = express.Router({ mergeParams: true });
 const User = require('../models/userModel.js');
 const Video = require('../models/videoModel.js');
 
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
     var emailaddress = "";

@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const expressSession = require('express-session');
 const flash = require('connect-flash');
 //mongoose.connect('mongodb://myUserAdmin:Suiuu2904@127.0.0.1:27017/opennetwork', {useNewUrlParser: true});
-mongoose.connect("mongodb://localhost:27028/crustlive", {
+mongoose.connect("mongodb://localhost:27017/crustlive", {
     "auth": { "authSource": "admin" },
     "user": "ntn",
     "pass": "wv%nzw=VY$fMwV4",
@@ -64,9 +64,17 @@ app.use('/video', videoRouter);
 app.use('/uploadvideo', uploadVideoRouter);
 app.use('/uploadvideo/store', storeVideoRouter);
 app.use('/video/:videoId',pullvideoRouter);
-////////////////////
 app.use('/register/store', storeUser);
 app.use('/aboutus', aboutUsRouter);
+
+
+const fileUpload = require('express-fileupload')
+app.use(fileUpload())
+
+var uploadFileRouter = require('./routes/uploadFile');
+var uploadFileStoreRouter = require('./routes/uploadFileStore');
+app.use('/uploadfile',uploadFileRouter);
+app.use('/uploadfile/store',uploadFileStoreRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
