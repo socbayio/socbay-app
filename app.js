@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const expressSession = require('express-session');
 const flash = require('connect-flash');
 //mongoose.connect('mongodb://myUserAdmin:Suiuu2904@127.0.0.1:27017/opennetwork', {useNewUrlParser: true});
-mongoose.connect("mongodb://localhost:27017/crustlive", {
+mongoose.connect("mongodb://localhost:27028/crustlive", {
     "auth": { "authSource": "admin" },
     "user": "ntn",
     "pass": "wv%nzw=VY$fMwV4",
