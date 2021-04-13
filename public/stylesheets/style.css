@@ -12,3 +12,8 @@ a {
 	padding: 20px 0;
 	border-top: 1px solid #454545;
 }
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+}
