@@ -1,8 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-
   <%- include("head"); -%>
-
 <body>
   	<% if(loggedIn) { %>
 		<%- include("header"); -%>		
@@ -17,17 +15,9 @@
 		<div class="sa4d25">
 			<div class="container-fluid">			
 				<div class="row">
-					<div class="col-12">
-			
-						
-            <!-- <%- include("featureCourses"); -%> -->
-            <!-- <%- include("newestCourses"); -%>  -->
-			<%- include("modifiedVideos"); -%>
-
-	
+					<div class="col-12">	
+						<%- include("modifiedVideos"); -%>
 					</div>
-				
-			
 				</div>
 			</div>
 		</div>

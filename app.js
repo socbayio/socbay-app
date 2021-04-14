@@ -3,11 +3,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-///////////////////////
 const mongoose = require('mongoose');
 const expressSession = require('express-session');
 const flash = require('connect-flash');
-//mongoose.connect('mongodb://myUserAdmin:Suiuu2904@127.0.0.1:27017/opennetwork', {useNewUrlParser: true});
 mongoose.connect("mongodb://localhost:27028/crustlive", {
     "auth": { "authSource": "admin" },
     "user": "ntn",
@@ -15,7 +13,6 @@ mongoose.connect("mongodb://localhost:27028/crustlive", {
     "useNewUrlParser": true
 });
   
-
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var registerRouter = require('./routes/register');
@@ -31,7 +28,6 @@ var aboutUsRouter = require('./routes/aboutUs')
 var pullvideoRouter = require('./routes/pullvideo');
 var app = express();
 
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -41,7 +37,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//////////////
 app.use(flash());
 app.use(expressSession({
   secret: 'keyboard cat'
@@ -52,7 +47,6 @@ app.use("*", (req, res, next) => {
   loggedIn = req.session.userId;
   next()
 });
-
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

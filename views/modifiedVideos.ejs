@@ -12,9 +12,13 @@
                             <div class="course-overlay">
                                 <div class="badge_seller">NEWEST</div>
                                 <span class="play_btn1"><i class="uil uil-play"></i></span>
-                                <!-- <div class="crse_timer">
-                                    5 mins
-                                </div> -->
+                                 <div class="crse_timer">
+                                    <%if(Math.floor(videos[videoCount].durationInSecond/3600)) {%>
+                                    <%=Math.floor(videos[videoCount].durationInSecond/3600) +'h'+ Math.floor(videos[videoCount].durationInSecond%3600/60)+ 'm'%>
+                                    <%}else{%>
+                                    <%= Math.floor(videos[videoCount].durationInSecond%3600/60)+ 'm'+Math.floor(videos[videoCount].durationInSecond%3600%60)+'s'%>
+                                    <%}%>
+                                </div>
                             </div>
                         </a>
                         <div class="fcrse_content">

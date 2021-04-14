@@ -26,6 +26,8 @@ router.get('/', function(req, res, next) {
           }
           else {
             return res.render('index',{videos: newVideosInfo});
+            //console.log(newVideosInfo);
+            //return res.render('index');
           }
         }
       })
