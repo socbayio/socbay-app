@@ -32,7 +32,7 @@ router.post('/', function(req, res, next) {
                     return;
                 }
                 newVideo.create({videoId:video._id});
-                videoTag.updateOne({tagName:'newVideos'},{ $push: { videos: video._id} },(error,tag)=>{});
+                videoTag.updateOne({tagName:'newvideos'},{ $push: { videos: video._id} },(error,tag)=>{});
                 videoTag.findOne({tagName:req.body.tag},(error,tag)=>{
                     if (!tag){
                         videoTag.create({tagName: req.body.tag, videos:[video._id]},(errortag,newtag)=>{})

@@ -1,7 +1,7 @@
 <% videos = renderVideos[0].videos %>
 
 <% for (let tagCount = 0; tagCount < renderVideos.length; tagCount++) { %>
-<h4 class="item_title">#<%=renderVideos[tagCount].name.toLowerCase()%></h4>
+<a href="/tag/<%=renderVideos[tagCount].name.toLowerCase()%>" class="item_title"><h4 class="item_title">#<%=renderVideos[tagCount].name.toLowerCase()%></h4></a>
 
 <div class="section3126">
     <div class="row">

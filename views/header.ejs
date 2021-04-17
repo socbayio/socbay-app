@@ -16,14 +16,14 @@
             <div class="ui simple dropdown item">
                 <a href="#" class="option_links p-0" title="categories"><i class="uil uil-apps"></i></a>
                 <div class="menu dropdown_category5">
-                    <a href="#" class="item channel_item">Gaming</a>
-                    <a href="#" class="item channel_item">Tech</a>
-                    <a href="#" class="item channel_item">Finance 2.0</a>
-                    <a href="#" class="item channel_item">Crypto News</a>
-                    <a href="#" class="item channel_item">News</a>
-                    <a href="#" class="item channel_item">Lifestyle</a>
-                    <a href="#" class="item channel_item">Health & Fitness</a>
-                    <a href="#" class="item channel_item">Music</a>
+                    <a href="/tag/gaming" class="item channel_item">Gaming</a>
+                    <a href="/tag/tech" class="item channel_item">Tech</a>
+                    <a href="/tag/finance" class="item channel_item">Finance 2.0</a>
+                    <a href="/tag/cryptonews" class="item channel_item">Crypto News</a>
+                    <a href="/tag/news" class="item channel_item">News</a>
+                    <a href="/tag/lifestyle" class="item channel_item">Lifestyle</a>
+                    <a href="/tag/healthandfitness" class="item channel_item">Health & Fitness</a>
+                    <a href="/tag/music" class="item channel_item">Music</a>
                    
                 </div>
             </div>
@@ -38,58 +38,70 @@
         </div>
     </div>
     <div class="header_right">
-        <ul>
-            <li class="ui dropdown">
-                <a href="#" class="option_links" title="Notifications"><i class='uil uil-bell'></i><span class="noti_count">3</span></a>
-                <div class="menu dropdown_mn">
-                    <a href="#" class="channel_my item">
-                        <div class="profile_link">
-                            <img src="/images/logo1.svg" alt="">
-                            <div class="pd_content">
-                                <h6>Crust Live notification</h6>
-                                <p>This function is under development. Thanks for your understanding</strong>.</p>
-                                <span class="nm_time">0 min ago</span>
+        <% if(loggedIn) { %>
+            <ul>
+                <li class="ui dropdown">
+                    <a href="#" class="option_links" title="Notifications"><i class='uil uil-bell'></i><span class="noti_count">3</span></a>
+                    <div class="menu dropdown_mn">
+                        <a href="#" class="channel_my item">
+                            <div class="profile_link">
+                                <img src="/images/logo1.svg" alt="">
+                                <div class="pd_content">
+                                    <h6>Crust Live notification</h6>
+                                    <p>This function is under development. Thanks for your understanding</strong>.</p>
+                                    <span class="nm_time">0 min ago</span>
+                                </div>							
                             </div>							
-                        </div>							
-                    </a>
-                    
-                   
-                    <a class="vbm_btn" href="/">View All <i class='uil uil-arrow-right disabled'></i></a>
-                </div>
-            </li>
-            <li class="ui dropdown">
-                <a href="#" class="opts_account" title="Account">
-                    <img src="/images/hd_dp.jpg" alt="">
-                </a>
-                <div class="menu dropdown_account">
-                    <div class="channel_my">
-                        <div class="profile_link">
-                            <img src="/images/hd_dp.jpg" alt="">
-                            <div class="pd_content">
-                                <div class="rhte85">
-                                    <h6><%= username %></h6>
-                                    <div class="mef78" title="Verify">
-                                        <i class='uil uil-check-circle'></i>
-                                    </div>
-                                </div>
-                                <span><%= emailaddress %></span>
-                            </div>							
-                        </div>
-                        <a href="" class="dp_link_12">View Profile</a>						
-                    </div>
-                    <div class="night_mode_switch__btn">
-                        <a href="#" id="night-mode" class="btn-night-mode">
-                            <i class="uil uil-moon"></i> Night mode
-                            <span class="btn-night-mode-switch">
-                                <span class="uk-switch-button"></span>
-                            </span>
                         </a>
+                        
+                       
+                        <a class="vbm_btn" href="/">View All <i class='uil uil-arrow-right disabled'></i></a>
                     </div>
-                    <a href="/uploadvideo" class="item channel_item">Upload Video</a>						
-                    <a href="/logout" class="item channel_item">Sign Out</a>
-                </div>
-            </li>
-        </ul>
+                </li>
+                <li class="ui dropdown">
+                    <a href="#" class="opts_account" title="Account">
+                        <img src="/images/hd_dp.jpg" alt="">
+                    </a>
+                    <div class="menu dropdown_account">
+                        <div class="channel_my">
+                            <div class="profile_link">
+                                <img src="/images/hd_dp.jpg" alt="">
+                                <div class="pd_content">
+                                    <div class="rhte85">
+                                        <h6><%= username %></h6>
+                                        <div class="mef78" title="Verify">
+                                            <i class='uil uil-check-circle'></i>
+                                        </div>
+                                    </div>
+                                    <span><%= emailaddress %></span>
+                                </div>							
+                            </div>
+                            <a href="" class="dp_link_12">View Profile</a>						
+                        </div>
+                        <div class="night_mode_switch__btn">
+                            <a href="#" id="night-mode" class="btn-night-mode">
+                                <i class="uil uil-moon"></i> Night mode
+                                <span class="btn-night-mode-switch">
+                                    <span class="uk-switch-button"></span>
+                                </span>
+                            </a>
+                        </div>
+                        <a href="/uploadvideo" class="item channel_item">Upload Video</a>						
+                        <a href="/logout" class="item channel_item">Sign Out</a>
+                    </div>
+                </li>
+            </ul>	
+        <% } %>
+       
+        <% if(!loggedIn) { %>
+            <ul>
+                <li>
+                    <a href="/login" class="upload_btn" title="Create New Course"><i class='uil uil-user'></i>Sign in</a>
+                </li>
+    
+            </ul>
+        <% } %>
+        
     </div>
 </header>
 <!-- Header End -->
