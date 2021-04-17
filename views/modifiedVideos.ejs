@@ -1,32 +1,35 @@
-<h4 class="item_title">New videos</h4>
+<% videos = renderVideos[0].videos %>
+
+<% for (let tagCount = 0; tagCount < renderVideos.length; tagCount++) { %>
+<h4 class="item_title">#<%=renderVideos[tagCount].name.toLowerCase()%></h4>
 
 <div class="section3126">
     <div class="row">
-        <% for(let videoCount = 0; videoCount<videos.length; videoCount++) {%>
+        <% for(let videoCount = 0; videoCount<renderVideos[tagCount].videos.length; videoCount++) {%>
         
             <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xxl-4">
                 <div class="item">
                     <div class="fcrse_1 mb-20">
-                        <a href="video/<%=videos[videoCount]._id%>" class="fcrse_img">
-                            <img src="<%=videos[videoCount].thumbnail%>" alt="">
+                        <a href="video/<%=renderVideos[tagCount].videos[videoCount]._id%>" class="fcrse_img">
+                            <img src="<%=renderVideos[tagCount].videos[videoCount].thumbnail%>" alt="">
                             <div class="course-overlay">
-                                <div class="badge_seller">NEWEST</div>
+                                <div class="badge_seller"><%=renderVideos[tagCount].name.toUpperCase()%></div>
                                 <span class="play_btn1"><i class="uil uil-play"></i></span>
                                  <div class="crse_timer">
-                                    <%if(Math.floor(videos[videoCount].durationInSecond/3600)) {%>
-                                    <%=Math.floor(videos[videoCount].durationInSecond/3600) +'h'+ Math.floor(videos[videoCount].durationInSecond%3600/60)+ 'm'%>
+                                    <%if(Math.floor(renderVideos[tagCount].videos[videoCount].durationInSecond/3600)) {%>
+                                    <%=Math.floor(renderVideos[tagCount].videos[videoCount].durationInSecond/3600) +'h'+ Math.floor(renderVideos[tagCount].videos[videoCount].durationInSecond%3600/60)+ 'm'%>
                                     <%}else{%>
-                                    <%= Math.floor(videos[videoCount].durationInSecond%3600/60)+ 'm'+Math.floor(videos[videoCount].durationInSecond%3600%60)+'s'%>
+                                    <%= Math.floor(renderVideos[tagCount].videos[videoCount].durationInSecond%3600/60)+ 'm'+Math.floor(renderVideos[tagCount].videos[videoCount].durationInSecond%3600%60)+'s'%>
                                     <%}%>
                                 </div>
                             </div>
                         </a>
                         <div class="fcrse_content">
                             <div class="vdtodt">
-                                <span class="vdt14"><%=videos[videoCount].view%> views</span>
+                                <span class="vdt14"><%=renderVideos[tagCount].videos[videoCount].view%> views</span>
                                 <!-- <span class="vdt14">15 days ago</span> -->
                             </div>
-                            <a href="video/<%=videos[videoCount]._id%>" class="crse14s"><%=videos[videoCount].title%></a>
+                            <a href="video/<%=renderVideos[tagCount].videos[videoCount]._id%>" class="crse14s"><%=renderVideos[tagCount].videos[videoCount].title%></a>
                         </div>
                     </div>
                 </div>
@@ -38,3 +41,4 @@
 
     </div>
 </div>
+<%}%>

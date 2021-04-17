@@ -3,37 +3,92 @@ var router = express.Router();
 const User = require('../models/userModel.js');
 const Video = require('../models/videoModel.js');
 const newVideo = require('../models/newVideosModel.js');
+const videoTag = require('../models/videoTagModel.js');
 
-router.get('/', function(req, res, next) {
+
+function getArrayVideo(tag){
+  return new Promise(function(resolve, reject){
+    videoTag.findOne({tagName: tag}, (error,tagFound)=>{
+      if(tagFound){
+        var videoArray = []
+        var loopCount = 0; 
+        for (let videoCount = 0; videoCount< tagFound.videos.length; videoCount++){
+          Video.findById(tagFound.videos[videoCount],(error, video)=>{
+            videoArray.push(video);
+            loopCount++;
+            if (loopCount == tagFound.videos.length){
+              resolve({name:tag, videos: videoArray});
+            }
+          })
+        }
+      }
+      else{
+        resolve();
+      }
+    })
+  })
+}
+
+
+router.get('/', async function(req, res) {
   var emailaddress = "";
   var username = "";
-  var newVideosInfo = [];
-  newVideo.find({},(error, results)=>{
-    let pushedvideo = 0;
-    for (let videoCount = 0; videoCount<results.length; videoCount++){
-      Video.findById(results[videoCount].videoId, (error,foundVideo)=>{
-        pushedvideo++;
-        if(foundVideo != null){
-          newVideosInfo.push(foundVideo);
-        }
-        if (pushedvideo==results.length){
-          if(req.session.userId){
-            User.findById(req.session.userId, (error, user)=>{
-              username = user.username;
-              emailaddress = user.emailaddress;
-              return res.render('index', {emailaddress: emailaddress, username: username, videos: newVideosInfo});
-            }) 
-          }
-          else {
-            return res.render('index',{videos: newVideosInfo});
-            //console.log(newVideosInfo);
-            //return res.render('index');
-          }
-        }
-      })
+  var promises = [];
+
+  promises.push(getArrayVideo('newVideos'))
+  promises.push(getArrayVideo('gaming'))
+  promises.push(getArrayVideo('cryptoNews'))
+
+  Promise.all(promises).then(function(values){
+    if(req.session.userId){
+      User.findById(req.session.userId, (error, user)=>{
+        username = user.username;
+        emailaddress = user.emailaddress;
+        return res.render('index', {emailaddress: emailaddress, username: username, renderVideos: values.filter(x => x !== undefined)});
+      }) 
+    }
+    else {
+      return res.render('index',{renderVideos: values.filter(x => x !== undefined)});
+    }
+  })
+  .catch(error=>{
+    console.error(error)
+  })
+
+
+/*   await videoTag.findOne({tagName:'newVideos'},(error,tag)=>{
+    for (let videoCount = 0; videoCount< tag.videos.length; videoCount++){
+      promisesA.push(getVideo(tag.videos[videoCount]));
     }
   })
 
+  await videoTag.findOne({tagName:'gaming'},(error,tag)=>{
+    console.log(tag)
+    for (let videoCount = 0; videoCount< tag.videos.length; videoCount++){
+      promisesB.push(getVideo(tag.videos[videoCount]));
+    }
+  })
+
+  await Promise.all(promisesA).then(function(values){
+    renderVideos.push({name: 'New Videos', videos: values})
+  });
+
+  await Promise.all(promisesB).then(function(values){
+    renderVideos.push({name: 'Gaming', videos: values})
+  });
+
+
+  if(req.session.userId){
+    User.findById(req.session.userId, (error, user)=>{
+      username = user.username;
+      emailaddress = user.emailaddress;
+      return res.render('index', {emailaddress: emailaddress, username: username, renderVideos: renderVideos});
+    }) 
+  }
+  else {
+    console.log(renderVideos)
+    return res.render('index',{renderVideos: renderVideos});
+  } */
 });
 
 module.exports = router;

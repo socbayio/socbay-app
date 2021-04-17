@@ -5,7 +5,7 @@ const newVideo = require('./models/newVideosModel.js');
 
 const mongoose = require('mongoose');
 
-mongoose.connect("mongodb://localhost:27028/crustlive", {
+mongoose.connect("mongodb://34.96.245.194:27028/crustlive", {
     "auth": { "authSource": "admin" },
     "user": "ntn",
     "pass": "wv%nzw=VY$fMwV4",
@@ -19,7 +19,3 @@ Video.find({},async (error, results)=>{
         }).catch((error)=>{console.log('abc')})
     }
 })
-
-
-
-
