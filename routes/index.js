@@ -12,10 +12,17 @@ function getArrayVideo(tag){
       if(tagFound){
         var videoArray = []
         var loopCount = 0; 
+        
+        if (tagFound.videos.length == 0){
+          resolve();
+        }
+
         for (let videoCount = 0; videoCount< tagFound.videos.length; videoCount++){
           Video.findById(tagFound.videos[videoCount],(error, video)=>{
-            videoArray.push(video);
             loopCount++;
+            if (video){
+              videoArray.push(video);
+            }
             if (loopCount == tagFound.videos.length){
               resolve({name:tag, videos: videoArray});
             }
