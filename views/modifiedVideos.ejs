@@ -1,13 +1,13 @@
 <% videos = renderVideos[0].videos %>
 
 <% for (let tagCount = 0; tagCount < renderVideos.length; tagCount++) { %>
-<a href="/tag/<%=renderVideos[tagCount].name.toLowerCase()%>" class="item_title"><h4 class="item_title">#<%=renderVideos[tagCount].name.toLowerCase()%></h4></a>
+<a href="/tag/<%=renderVideos[tagCount].name.toLowerCase()%>" class="item_title title-video-catalog"><h4 class="item_title">#<%=renderVideos[tagCount].name.toLowerCase()%></h4></a>
 
 <div class="section3126">
-    <div class="row">
+    <div class="row no-gutters">
         <% for(let videoCount = 0; videoCount<renderVideos[tagCount].videos.length; videoCount++) {%>
         
-            <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 video-item">
                 <div class="item">
                     <div class="fcrse_1 mb-20">
                         <a href="video/<%=renderVideos[tagCount].videos[videoCount]._id%>" class="fcrse_img">

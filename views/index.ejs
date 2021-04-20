@@ -1,5 +1,22 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
+<style>
+	.video-catalog-container {
+		padding-left: 0px !important;
+	}
+	.title-video-catalog {
+		padding-left: 1em !important;
+	}
+	.video-item {
+		padding-left: 1em !important;
+	}
+
+	a.item_title.title-video-catalog {
+		margin-bottom: 10px !important;
+	}
+</style>
+
   <%- include("head"); -%>
 <body>
 	<%- include("header"); -%>
@@ -8,7 +25,7 @@
 	<!-- Body Start -->
 	<div class="wrapper">
 		<div class="sa4d25">
-			<div class="container-fluid">			
+			<div class="container-fluid video-catalog-container">			
 				<div class="row">
 					<div class="col-12">	
 						<%- include("modifiedVideos"); -%>
