@@ -991,6 +991,8 @@ i.icon1 {
 
 .fcrse_img img {
     width: 100%;
+    object-fit: cover;
+    height: 150px;
     border-radius: 5px;
 }
 
