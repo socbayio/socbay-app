@@ -991,7 +991,7 @@ i.icon1 {
 
 .fcrse_img img {
     width: 100%;
-    object-fit: cover;
+    object-fit: cover;  /*NTN*/
     height: 150px;
     border-radius: 5px;
 }
