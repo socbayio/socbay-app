@@ -997,11 +997,13 @@ i.icon1 {
 }
 
 .fcrse_content {
-    padding: 10px 5px;
+    padding: 10px 5px 0px 5px;  /* NTN */
 	float: left;
     width: 100%;
 	position: relative;
 }
+
+
 
 .crse14s {
 	display: block;
@@ -1012,6 +1014,17 @@ i.icon1 {
     text-align: left;
     margin-bottom: 7px;
     line-height: 24px;
+}
+
+/* NTN */
+.title_video_catalog {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    -webkit-box-orient: vertical;
+    min-height: 3em;
+    margin-bottom: 0px;
 }
 
 .crse-cate {
