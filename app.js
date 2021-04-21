@@ -28,6 +28,8 @@ var aboutUsRouter = require('./routes/aboutUs')
 var pullvideoRouter = require('./routes/pullvideo');
 var tagVideoRouter = require('./routes/tagVideo');
 
+var trafficTracking = require('./middleware/trafficTrackingMiddleware');
+
 var app = express();
 
 app.set('views', path.join(__dirname, 'views'));
@@ -50,6 +52,7 @@ app.use("*", (req, res, next) => {
   next()
 });
 
+app.use(trafficTracking);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/register', registerRouter);
