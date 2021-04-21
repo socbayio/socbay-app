@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router({ mergeParams: true });
 const User = require('../models/userModel.js');
 const Video = require('../models/videoModel.js');
+const liveChat = require('../models/liveChatModel');
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -31,7 +33,9 @@ router.get('/', function(req, res, next) {
             res.render('/');
           }
           else{
-          res.render('video', {videoId: req.params.videoId ,emailaddress: emailaddress, username: username,link: link + video.CID, title:video.title, view: video.view, like: video.like, videoAuthor:video.author.username, description: video.description});
+            liveChat.findOne({channel:'global'},(error,channelLiveChat)=>{
+              res.render('video', {liveChat: channelLiveChat.messages, videoId: req.params.videoId ,emailaddress: emailaddress, username: username,link: link + video.CID, title:video.title, view: video.view, like: video.like, videoAuthor:video.author.username, description: video.description});
+            })
           }
         })
       })
@@ -42,7 +46,10 @@ router.get('/', function(req, res, next) {
           res.render('/')
         }
         else {
-        res.render('video', {videoId: req.params.videoId, link: link+video.CID, title:video.title, view: video.view, like: video.like, videoAuthor:video.author.username, description: video.description});
+          liveChat.findOne({channel:'global'},(error,channelLiveChat)=>{
+            console.log(error,channelLiveChat)
+            res.render('video', {liveChat: channelLiveChat.messages, videoId: req.params.videoId, link: link+video.CID, title:video.title, view: video.view, like: video.like, videoAuthor:video.author.username, description: video.description});
+          })
         }
       })
        /*  Video.findById(req.params.videoId, (error, video)=>{

@@ -67,16 +67,18 @@
 								<div class="cater_ttle">
 									<h4>Live Chat</h4>
 								</div>
-								<div class="live_chat">
-									<div class="chat1">
-										<p><a href="#">Anonymous 1</a>Great video!</p>
-										<p><a href="#">Anonymous 2</a>Best video ever!</p>
+								<div class="live_chat" id="livechat">
+									<div class="chat1" id="messages">
+										<%for(let chatCount = 0; chatCount < liveChat.length;chatCount++){%>
+											<p><a href="#"><%=liveChat[chatCount].author%></a><%=liveChat[chatCount].message%></p>
+										<%}%>
+										<!-- <p><a href="#">Anonymous 1</a>Great video!</p> -->
 									</div>
 								</div>
-								<div class="live_comment">
-									<input class="live_input" type="text" placeholder="Say Something..." disabled/>
+								<form class="live_comment" id="form">
+									<input id="input" class="live_input" type="text" placeholder="Say Something..."/>
 									<button class="btn_live"><i class='uil uil-message'></i></button>
-								</div>
+								</form>
 							</div>													
 						</div>
 					</div>				
@@ -94,6 +96,35 @@
 	<script src="/vendor/semantic/semantic.min.js"></script>
 	<script src="/js/custom.js"></script>
 	<script src="/js/night-mode.js"></script>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+	  var socket = io();
+  
+	  var messages = document.getElementById('messages');
+	  var form = document.getElementById('form');
+	  var input = document.getElementById('input');
+	  var livechat = document.getElementById('livechat');
+  
+	  form.addEventListener('submit', function(e) {
+		e.preventDefault();
+		if (input.value) {
+		  socket.emit('chat message', input.value);
+		  input.value = '';
+		}
+	  });
+  
+	  socket.on('chat message', function(msg) {
+		var nameArrayTempo = ['The Fat Dog', 'The Phoenix', 'Redbird', 'The Black Cat', 'The Thirsty Crow', 'The Fat Cow','Lucky Duck'];
+		var messageElement = document.createElement('p');
+		var authorElement = document.createElement('a');
+		authorElement.textContent = nameArrayTempo[Math.floor(Math.random() * nameArrayTempo.length)];
+		messageElement.appendChild(authorElement);
+		messageElement.insertAdjacentHTML( 'beforeend', msg );
+		messages.appendChild(messageElement);
+		livechat.scrollTop = livechat.scrollHeight;
+	  });
+	</script>
 	
 </body>
 </html>
