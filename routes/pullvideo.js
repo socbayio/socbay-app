@@ -47,7 +47,6 @@ router.get('/', function(req, res, next) {
         }
         else {
           liveChat.findOne({channel:'global'},(error,channelLiveChat)=>{
-            console.log(error,channelLiveChat)
             res.render('video', {liveChat: channelLiveChat.messages, videoId: req.params.videoId, link: link+video.CID, title:video.title, view: video.view, like: video.like, videoAuthor:video.author.username, description: video.description});
           })
         }

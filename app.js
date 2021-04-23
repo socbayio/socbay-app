@@ -27,6 +27,7 @@ var userLogout = require('./routes/logout');
 var aboutUsRouter = require('./routes/aboutUs')
 var pullvideoRouter = require('./routes/pullvideo');
 var tagVideoRouter = require('./routes/tagVideo');
+var boomVideoRouter = require('./routes/boomVideo')
 
 var trafficTracking = require('./middleware/trafficTrackingMiddleware');
 
@@ -67,6 +68,7 @@ app.use('/video/:videoId',pullvideoRouter);
 app.use('/register/store', storeUser);
 app.use('/aboutus', aboutUsRouter);
 app.use('/tag/:tagId',tagVideoRouter);
+app.use('/boom/:videoId',boomVideoRouter);
 
 const fileUpload = require('express-fileupload')
 app.use(fileUpload())

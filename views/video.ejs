@@ -37,10 +37,10 @@
 								<div class="user_dt_right">
 									<ul>
 										<li>
-											<a href="#" class="lkcm152"><i class='uil uil-eye'></i><span><%=view%></span></a>
+											<a href="#/" class="lkcm152"><i class='uil uil-eye'></i><span><%=view%></span></a>
 										</li>
 										<li>
-											<a href="#" class="lkcm152"><i class='uil uil-thumbs-up'></i><span><%=like%></span></a>
+											<a href="#/" class="lkcm152" onclick="boomVideo()"><i class='uil uil-rocket'></i><span id="boom-count"><%=like%></span></a>
 										</li>
 								
 									</ul>
@@ -125,6 +125,12 @@
 		livechat.scrollTop = livechat.scrollHeight;
 	  });
 	</script>
-	
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script>
+		function boomVideo() {
+			document.querySelector('#boom-count').textContent++;
+			axios.post('/boom/<%=videoId%>');
+		}
+	</script>
 </body>
 </html>
