@@ -2531,7 +2531,7 @@ i.icon1 {
 .ui[class*="left icon"].swdh11.input>input {
     padding-left: 4.2em!important;
     padding-right: 1em!important;
-	height: 50px;
+	/* height: 50px; NTN*/ 
 	font-size: 14px;
     font-weight: 400;
     font-family: 'Roboto', sans-serif;

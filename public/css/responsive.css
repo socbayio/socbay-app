@@ -481,6 +481,20 @@
 }
 }
 
+/* NTN */
+@media (min-width: 768px) {
+    .searchhomepage {
+        display: none !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .searchhomepage {
+        padding-left: 1em !important;
+        padding-bottom: 1em !important;
+    }
+}
+
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) and (max-width: 991.98px) {
 .main_logo {
@@ -488,7 +502,7 @@
 }
 
 .search120 {
-    display: none;
+    /* display: none; NTN*/
     margin-left: 0 !important;
 }
 
@@ -616,7 +630,7 @@ body {
 }
 
 .search120 {
-    display: none;
+    /* display: none; NTN*/
     margin-left: 0 !important;
 }
 

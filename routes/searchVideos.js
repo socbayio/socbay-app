@@ -6,7 +6,6 @@ const Video = require('../models/videoModel.js');
 router.get('/', (req,res)=>{
     var emailaddress = "";
     var username = "";
-    var promises = [];
 
     Video.find({$text: {$search: req.query.keyword}}, (error,result)=>{
         if(req.session.userId){

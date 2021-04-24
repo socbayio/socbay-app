@@ -31,7 +31,19 @@
 		<div class="sa4d25">
 			<div class="container-fluid video-catalog-container">			
 				<div class="row">
-					<div class="col-12">	
+					<div class="col-12">
+						<div class="section3125 searchhomepage">
+							<form action="/search" method="GET">
+							<div class="explore_search">
+								<div class="ui search focus">
+									<div class="ui left icon input swdh11">
+										<input name="keyword" class="prompt srch_explore" type="text" placeholder="Search..">
+										<i class="uil uil-search-alt icon icon2"></i>
+									</div>
+								</div>
+							</div>
+							</form>							
+						</div>		
 						<%- include("modifiedVideos"); -%>
 					</div>
 				</div>
