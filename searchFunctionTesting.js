@@ -1,4 +1,9 @@
+const { getVideoDurationInSeconds } = require('get-video-duration')
+const User = require('./models/userModel.js');
+const newVideo = require('./models/newVideosModel.js');
+
 const mongoose = require('mongoose');
+
 
 const Schema = mongoose.Schema;
 const VideoSchema = new Schema({
@@ -38,7 +43,18 @@ const VideoSchema = new Schema({
     }
 });
 
-VideoSchema.index({title: 'text', description: 'text'});
+VideoSchema.index({title: 'text'});
 
 const Video = mongoose.model('Video',VideoSchema);
-module.exports = Video;
+
+mongoose.connect("mongodb://34.96.245.194:27028/crustlive", {
+    "auth": { "authSource": "admin" },
+    "user": "ntn",
+    "pass": "wv%nzw=VY$fMwV4",
+    "useNewUrlParser": true
+});
+
+//Video.createIndexes();
+
+
+Video.find({$text: {$search: 'fish'}}, (error,res)=>{console.log(error,res)})
