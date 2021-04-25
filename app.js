@@ -29,6 +29,8 @@ var pullvideoRouter = require('./routes/pullvideo');
 var tagVideoRouter = require('./routes/tagVideo');
 var boomVideoRouter = require('./routes/boomVideo')
 var searchRouter = require('./routes/searchVideos');
+var myInfoRouter = require('./routes/myinfo.js');
+
 var trafficTracking = require('./middleware/trafficTrackingMiddleware');
 
 var app = express();
@@ -70,6 +72,7 @@ app.use('/aboutus', aboutUsRouter);
 app.use('/tag/:tagId',tagVideoRouter);
 app.use('/boom/:videoId',boomVideoRouter);
 app.use('/search', searchRouter);
+app.use('/myinfo', myInfoRouter);
 //app.get('/search', (req,res)=>{console.log(req.query.keyword)})
 const fileUpload = require('express-fileupload')
 app.use(fileUpload())

@@ -16,7 +16,13 @@ const UserSchema = new Schema({
     password: {
         type: String,
         required: [true, 'Please provide password']
-    }
+    },
+    profilePicture: {
+        type: String,
+        default: 'https://i.stack.imgur.com/l60Hf.png'
+    },
+    uploadedVideos: [],
+    subscriptions: []
 });
 
 UserSchema.plugin(uniqueValidator);

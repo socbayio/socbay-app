@@ -26,6 +26,7 @@
 .opts_account img {
     margin-left: 5px !important;
 	width: 30px !important;
+    height: 30px !important; /* NTN */
 }
 
 .menu.dropdown_mn {

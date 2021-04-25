@@ -62,7 +62,7 @@
                 </li>
                 <li class="ui dropdown">
                     <a href="#" class="opts_account" title="Account">
-                        <img src="/images/hd_dp.jpg" alt="">
+                        <img src="<%= userInfo.profilePicture %>" alt="">
                     </a>
                     <div class="menu dropdown_account">
                         <div class="channel_my">
@@ -70,12 +70,12 @@
                                 <img src="/images/hd_dp.jpg" alt="">
                                 <div class="pd_content">
                                     <div class="rhte85">
-                                        <h6><%= username %></h6>
+                                        <h6><%= userInfo.username %></h6>
                                         <div class="mef78" title="Verify">
                                             <i class='uil uil-check-circle'></i>
                                         </div>
                                     </div>
-                                    <span><%= emailaddress %></span>
+                                    <span><%= userInfo.emailaddress %></span>
                                 </div>							
                             </div>
                             <a href="" class="dp_link_12">View Profile</a>						
@@ -88,6 +88,7 @@
                                 </span>
                             </a>
                         </div>
+                        <a href="/myinfo" class="item channel_item">My Info</a>	
                         <a href="/uploadvideo" class="item channel_item">Upload Video</a>						
                         <a href="/logout" class="item channel_item">Sign Out</a>
                     </div>

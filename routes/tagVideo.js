@@ -10,7 +10,7 @@ function getArrayVideo(tag){
   return new Promise(function(resolve, reject){
     videoTag.findOne({tagName: tag}, (error,tagFound)=>{
       if(tagFound){
-        var videoArray = []
+        var videoArray = [];
         var loopCount = 0; 
         for (let videoCount = 0; videoCount< tagFound.videos.length; videoCount++){
           Video.findById(tagFound.videos[videoCount],(error, video)=>{

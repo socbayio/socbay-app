@@ -6,11 +6,11 @@ const User = require('../models/userModel.js');
 const newVideo = require('../models/newVideosModel.js');
 const videoTag = require('../models/videoTagModel.js');
 
-//const redirectIfAuthenticatedMiddleware = require('../middleware/redirectIfAuthenticatedMiddleware');
+const redirectIfNotAuthenticatedMiddleware = require('../middleware/redirectIfNotAuthenticatedMiddleware');
 
 
 router.post('/', function(req, res, next) {
-    console.log('-------------------');
+    //console.log('-------------------');
     User.findById(req.session.userId, async (error, user ) =>{
         if (!user) {
             return res.redirect('/login');

@@ -3,10 +3,11 @@ var router = express.Router({ mergeParams: true });
 const User = require('../models/userModel.js');
 const Video = require('../models/videoModel.js');
 const liveChat = require('../models/liveChatModel');
+const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated.js');
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', getInfoIfAuthenticated, function(req, res, next) {
     var emailaddress = "";
     var username = "";
     var link = "";
@@ -34,7 +35,7 @@ router.get('/', function(req, res, next) {
           }
           else{
             liveChat.findOne({channel:'global'},(error,channelLiveChat)=>{
-              res.render('video', {liveChat: channelLiveChat.messages, videoId: req.params.videoId ,emailaddress: emailaddress, username: username,link: link + video.CID, title:video.title, view: video.view, like: video.like, videoAuthor:video.author.username, description: video.description});
+              res.render('video', {userInfo: req.userInfo, liveChat: channelLiveChat.messages, videoId: req.params.videoId ,emailaddress: emailaddress, username: username,link: link + video.CID, title:video.title, view: video.view, like: video.like, videoAuthor:video.author.username, description: video.description});
             })
           }
         })
@@ -47,7 +48,7 @@ router.get('/', function(req, res, next) {
         }
         else {
           liveChat.findOne({channel:'global'},(error,channelLiveChat)=>{
-            res.render('video', {liveChat: channelLiveChat.messages, videoId: req.params.videoId, link: link+video.CID, title:video.title, view: video.view, like: video.like, videoAuthor:video.author.username, description: video.description});
+            res.render('video', {userInfo: req.userInfo, liveChat: channelLiveChat.messages, videoId: req.params.videoId, link: link+video.CID, title:video.title, view: video.view, like: video.like, videoAuthor:video.author.username, description: video.description});
           })
         }
       })

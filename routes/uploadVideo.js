@@ -1,21 +1,11 @@
 var express = require('express');
+const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated.js');
+const redirectIfNotAuthenticatedMiddleware = require('../middleware/redirectIfNotAuthenticatedMiddleware.js');
 var router = express.Router();
 const User = require('../models/userModel.js');
 
-router.get('/', function(req, res, next) {
-  var emailaddress = "";
-  var username = "";
-  if(req.session.userId){
-    User.findById(req.session.userId, (error, user)=>{
-      username = user.username;
-      emailaddress = user.emailaddress;
-      res.render('uploadVideo', {emailaddress: emailaddress, username: username});
-    }) 
-  }
-  else {
-    res.render('uploadVideo');
-  }
+router.get('/', redirectIfNotAuthenticatedMiddleware, getInfoIfAuthenticated, function(req, res, next) {
+  res.render('uploadVideo', req.userInfo);
 });
-
 
 module.exports = router;

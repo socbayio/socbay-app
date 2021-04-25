@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<%- include('head'); -%>
+
+<body>
+
+	<%- include('header'); -%>
+
+    <%- include("leftSideBar"); -%>
+
+	<!-- Body Start -->
+	<div class="wrapper _bg4586">
+		<div class="_216b01">
+			<div class="container-fluid">			
+				<div class="row justify-content-md-center">
+					<div class="col-md-10">
+						<div class="section3125 rpt145">							
+							<div class="row">						
+								<div class="col-lg-7">
+									<a href="#" class="_216b22">										
+										<span><i class="uil uil-cog"></i></span>Setting
+									</a>
+									<div class="dp_dt150">						
+										<div class="img148">
+											<img src="<%=userInfo.profilePicture%>" alt="">										
+										</div>
+										<div class="prfledt1">
+											<h2><%=userInfo.username%></h2>
+											<span><%=userInfo.emailaddress%></span>
+										</div>										
+									</div>
+
+								</div>
+								<div class="col-lg-5">
+									<a href="setting.html" class="_216b12">										
+										<span><i class="uil uil-cog"></i></span>Setting
+									</a>
+									<div class="rgt-145">
+										<ul class="tutor_social_links">
+											<li><a href="#" class="fb"><i class="fab fa-facebook-f"></i></a></li>
+											<li><a href="#" class="tw"><i class="fab fa-twitter"></i></a></li>
+											<li><a href="#" class="ln"><i class="fab fa-linkedin-in"></i></a></li>
+											<li><a href="#" class="yu"><i class="fab fa-youtube"></i></a></li>
+										</ul>
+									</div>
+									<ul class="_bty149">
+										<li><button class="msg125 btn500" onclick="window.location.href = 'setting.html';">Edit</button></li>								
+									</ul>
+									
+								</div>													
+							</div>							
+						</div>							
+					</div>															
+				</div>
+			</div>
+		</div>
+		<div class="_215b15">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12">						
+						<div class="course_tabs">
+							<nav>
+								<div class="nav nav-tabs tab_crse" id="nav-tab" role="tablist">
+									<a class="nav-item nav-link active" id="nav-courses-tab" data-toggle="tab" href="#nav-purchased" role="tab" aria-selected="true">Uploaded videos</a>
+									<a class="nav-item nav-link" id="nav-subscriptions-tab" data-toggle="tab" href="#nav-subscriptions" role="tab" aria-selected="false">Subscriptions</a>
+                                    <a class="nav-item nav-link" id="nav-reviews-tab" data-toggle="tab" href="#nav-reviews" role="tab" aria-selected="false">Discussion</a>
+									
+								</div>
+							</nav>						
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="_215b17">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="course_tab_content">
+							<div class="tab-content" id="nav-tabContent">
+								<div class="tab-pane fade show active" id="nav-purchased" role="tabpanel">
+									<div class="_htg451">
+										<div class="_htg452">
+											<div class="row">
+												<div class="col-md-9">
+                                                    <% for(let videoCount = 0; videoCount<userInfo.uploadedVideos.length; videoCount++) { %>
+													<div class="fcrse_1 mt-20">
+														<a href="/video/<%=userInfo.uploadedVideos[videoCount]._id%>" class="hf_img">
+															<img src="<%=userInfo.uploadedVideos[videoCount].thumbnail%>" alt="">
+															<div class="course-overlay">
+																<span class="play_btn1"><i class="uil uil-play"></i></span>
+																<div class="crse_timer">
+																	<%=userInfo.uploadedVideos[videoCount].durationInSecond%>
+																</div>
+															</div>
+														</a>
+														<div class="hs_content">
+															<div class="eps_dots eps_dots10 more_dropdown">
+																<a href="#"><i class="uil uil-ellipsis-v"></i></a>
+																<div class="dropdown-content">
+																	<span><i class="uil uil-download-alt"></i>Download</span>															
+																	<span><i class="uil uil-trash-alt"></i>Delete</span>															
+																</div>																											
+															</div>
+															<div class="vdtodt">
+																<span class="vdt14"><%=userInfo.uploadedVideos[videoCount].view%> views</span>
+																<span class="vdt14"><%=userInfo.uploadedVideos[videoCount].like%> rockets</span>
+															</div>
+															<a href="course_detail_view.html" class="crse14s title900"><%=userInfo.uploadedVideos[videoCount].title%></a>
+															<a href="#" class="crse-cate">Tag 1 | Tag 2</a>
+															
+														</div>
+													</div>
+                                                    <% } %>
+												</div>									
+											</div>
+										</div>																	
+									</div>							
+								</div>
+								<div class="tab-pane fade" id="nav-reviews" role="tabpanel">
+									<div class="student_reviews">
+										<div class="row">
+											<div class="col-lg-12">
+												<div class="review_right">
+													<div class="review_right_heading">
+														<h3>Discussions</h3>
+													</div>
+												</div>
+												<div class="cmmnt_1526">
+													<div class="cmnt_group">
+														<div class="img160">
+															<img src="images/hd_dp.jpg" alt="">									
+														</div>
+														<textarea class="_cmnt001" placeholder="Add a public comment"></textarea>
+													</div>
+													<button class="cmnt-btn" type="submit">Comment</button>
+												</div>
+												<div class="review_all120">
+													<div class="review_item">
+														<div class="review_usr_dt">
+															<img src="images/left-imgs/img-1.jpg" alt="">
+															<div class="rv1458">
+																<h4 class="tutor_name1">John Doe</h4>
+																<span class="time_145">2 hour ago</span>
+															</div>
+															<div class="eps_dots more_dropdown">
+																<a href="#"><i class="uil uil-ellipsis-v"></i></a>
+																<div class="dropdown-content">
+																	<span><i class='uil uil-comment-alt-edit'></i>Edit</span>
+																	<span><i class='uil uil-trash-alt'></i>Delete</span>
+																</div>																											
+															</div>
+														</div>
+														<p class="rvds10">Nam gravida elit a velit rutrum, eget dapibus ex elementum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce lacinia, nunc sit amet tincidunt venenatis.</p>
+														<div class="rpt101">
+															<a href="#" class="report155"><i class='uil uil-thumbs-up'></i> 10</a>
+															<a href="#" class="report155"><i class='uil uil-thumbs-down'></i> 1</a>
+															<a href="#" class="report155"><i class='uil uil-heart'></i></a>
+															<a href="#" class="report155 ml-3">Reply</a>
+														</div>
+													</div>
+													<div class="review_reply">
+														<div class="review_item">
+															<div class="review_usr_dt">
+																<img src="images/left-imgs/img-3.jpg" alt="">
+																<div class="rv1458">
+																	<h4 class="tutor_name1">Rock Doe</h4>
+																	<span class="time_145">1 hour ago</span>
+																</div>
+																<div class="eps_dots more_dropdown">
+																	<a href="#"><i class="uil uil-ellipsis-v"></i></a>
+																	<div class="dropdown-content">
+																		<span><i class='uil uil-trash-alt'></i>Delete</span>
+																	</div>																											
+																</div>
+															</div>
+															<p class="rvds10">Fusce lacinia, nunc sit amet tincidunt venenatis.</p>
+															<div class="rpt101">
+																<a href="#" class="report155"><i class='uil uil-thumbs-up'></i> 4</a>
+																<a href="#" class="report155"><i class='uil uil-thumbs-down'></i> 2</a>
+																<a href="#" class="report155"><i class='uil uil-heart'></i></a>
+																<a href="#" class="report155 ml-3">Reply</a>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane fade show" id="nav-subscriptions" role="tabpanel">
+									<div class="_htg451">
+										<div class="_htg452">
+											<div class="row">
+                                                <% for(let subCount = 0; subCount < userInfo.subscriptions.length; subCount++){ %>
+												<div class="col-lg-3 col-md-4">
+													<div class="fcrse_1 mt-30">
+														<div class="tutor_img">
+															<a href="#"><img src="<%=userInfo.subscriptions[subCount].profilePicture%>" alt=""></a>												
+														</div>
+														<div class="tutor_content_dt">
+															<div class="tutor150">
+																<a href="#" class="tutor_name"><%= userInfo.subscriptions[subCount].username%></a>
+																<div class="mef78" title="Verify">
+																	<i class="uil uil-check-circle"></i>
+																</div>
+															</div>
+															<div class="tutor_cate">Wordpress &amp; Plugin Tutor</div>
+															<ul class="tutor_social_links">
+																<li><button class="sbbc145">Subscribed</button></li>
+																<li><button class="sbbc146"><i class="uil uil-bell"></i></button></li>
+															</ul>
+															<div class="tut1250">
+																<span class="vdt15">15 Videos</span>
+															</div>
+														</div>
+													</div>										
+												</div>
+                                                <%}%>
+											</div>				
+										</div>																	
+									</div>							
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        <%- include('footer'); -%>
+	</div>
+	<!-- Body End -->
+
+	<script src="js/vertical-responsive-menu.min.js"></script>
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="vendor/OwlCarousel/owl.carousel.js"></script>
+	<script src="vendor/semantic/semantic.min.js"></script>
+	<script src="js/custom.js"></script>	
+	<script src="js/night-mode.js"></script>	
+	
+</body>
+</html>

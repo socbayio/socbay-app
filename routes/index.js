@@ -4,7 +4,7 @@ const User = require('../models/userModel.js');
 const Video = require('../models/videoModel.js');
 const newVideo = require('../models/newVideosModel.js');
 const videoTag = require('../models/videoTagModel.js');
-
+const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated.js');
 
 function getArrayVideo(tag){
   return new Promise(function(resolve, reject){
@@ -12,11 +12,9 @@ function getArrayVideo(tag){
       if(tagFound){
         var videoArray = []
         var loopCount = 0; 
-        
         if (tagFound.videos.length == 0){
           resolve();
         }
-
         for (let videoCount = 0; videoCount< tagFound.videos.length; videoCount++){
           Video.findById(tagFound.videos[videoCount],(error, video)=>{
             loopCount++;
@@ -36,8 +34,7 @@ function getArrayVideo(tag){
   })
 }
 
-
-router.get('/', function(req, res) {
+router.get('/', getInfoIfAuthenticated, function(req, res) {
   var emailaddress = "";
   var username = "";
   var promises = [];
@@ -57,7 +54,7 @@ router.get('/', function(req, res) {
       User.findById(req.session.userId, (error, user)=>{
         username = user.username;
         emailaddress = user.emailaddress;
-        return res.render('index', {emailaddress: emailaddress, username: username, renderVideos: values.filter(x => x !== undefined)});
+        return res.render('index', {userInfo: req.userInfo, emailaddress: emailaddress, username: username, renderVideos: values.filter(x => x !== undefined)});
       }) 
     }
     else {
@@ -67,41 +64,6 @@ router.get('/', function(req, res) {
   .catch(error=>{
     console.error(error)
   })
-
-
-/*   await videoTag.findOne({tagName:'newVideos'},(error,tag)=>{
-    for (let videoCount = 0; videoCount< tag.videos.length; videoCount++){
-      promisesA.push(getVideo(tag.videos[videoCount]));
-    }
-  })
-
-  await videoTag.findOne({tagName:'gaming'},(error,tag)=>{
-    console.log(tag)
-    for (let videoCount = 0; videoCount< tag.videos.length; videoCount++){
-      promisesB.push(getVideo(tag.videos[videoCount]));
-    }
-  })
-
-  await Promise.all(promisesA).then(function(values){
-    renderVideos.push({name: 'New Videos', videos: values})
-  });
-
-  await Promise.all(promisesB).then(function(values){
-    renderVideos.push({name: 'Gaming', videos: values})
-  });
-
-
-  if(req.session.userId){
-    User.findById(req.session.userId, (error, user)=>{
-      username = user.username;
-      emailaddress = user.emailaddress;
-      return res.render('index', {emailaddress: emailaddress, username: username, renderVideos: renderVideos});
-    }) 
-  }
-  else {
-    console.log(renderVideos)
-    return res.render('index',{renderVideos: renderVideos});
-  } */
 });
 
 module.exports = router;
