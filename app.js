@@ -33,11 +33,19 @@ var myInfoRouter = require('./routes/myinfo.js');
 
 var trafficTracking = require('./middleware/trafficTrackingMiddleware');
 
+const fileUpload = require('express-fileupload')
+
+
+
 var app = express();
 
 app.set('trust proxy', true);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+app.use(fileUpload( {
+  createParentPath: true
+} ));
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -74,8 +82,7 @@ app.use('/boom/:videoId',boomVideoRouter);
 app.use('/search', searchRouter);
 app.use('/myinfo', myInfoRouter);
 //app.get('/search', (req,res)=>{console.log(req.query.keyword)})
-const fileUpload = require('express-fileupload')
-app.use(fileUpload())
+
 
 var uploadFileRouter = require('./routes/uploadFile');
 var uploadFileStoreRouter = require('./routes/uploadFileStore');

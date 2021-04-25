@@ -5,7 +5,7 @@ var router = express.Router();
 const User = require('../models/userModel.js');
 
 router.get('/', redirectIfNotAuthenticatedMiddleware, getInfoIfAuthenticated, function(req, res, next) {
-  res.render('uploadVideo', req.userInfo);
+  res.render('uploadVideo', {userInfo: req.userInfo});
 });
 
 module.exports = router;

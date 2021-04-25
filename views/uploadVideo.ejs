@@ -27,7 +27,7 @@
 									<div class="add_stream_content">
 										<h4 class="strm_title">Upload your video on IPFS system and connect to Socbay.io</h4>
 										
-										<form action="/uploadvideo/store" method="POST">
+										<form action="/uploadvideo/store" method="POST" enctype="multipart/form-data">
 											<div class="live_form">
 												<div class="group-form">
 													<label>Content identifier</label>
@@ -39,6 +39,7 @@
 													<input name="title" class="_dlor1" type="text" placeholder="" value="">
 													<button class="_6tf7s" type="" value="1">Paste</button>
 												</div>
+
 												<div class="group-form">
 													<label>Tag</label>
 													<select class="ui hj145 dropdown cntry152 prompt srch_explore" name='tag'>
@@ -51,18 +52,24 @@
 														<option value="lifestyle">Lifestyle</option>
 														<option value="healthandfitness">Health & Fitness</option>
 														<option value="music">Music</option>
-														
 													</select>
 												</div>
 												
-												<div class="group-form">
-													<label>Thumbnail URL</label>
-													<input name="thumbnail" class="_dlor1" type="text" placeholder="Place Address of an Image" value="">
-													<button class="_6tf7s" type="" value="1">Paste</button>
+												<div class="form-group1 mt-30">
+													<label for="file5">Thumbnail</label>
+													<div class="image-upload-wrap">
+														<input name="thumbnail" class="file-upload-input" id="file5" type="file" onchange="readURL(this);" accept="image/*">
+														<div class="drag-text">
+														  <i class="fas fa-cloud-upload-alt"></i>
+														  <h4>Select photo to upload</h4>
+														  <p>or drag and drop screenshots</p>
+														</div>
+													</div>															
 												</div>
-											
+
+
 												<div class="ui search focus mt-15">	
-													<label>Description</label>															
+													<label><b>Description</b></label>															
 													<div class="ui form swdh30">
 														<div class="field">
 															<textarea rows="5" name="description" id="id_answer" placeholder="Short description"></textarea>

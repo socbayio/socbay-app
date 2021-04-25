@@ -43,7 +43,7 @@ function getArraySubscriptions(subscriptionsId){
     })
 }
 
-/* GET home page. */
+
 router.get('/', redirectIfNotAuthenticatedMiddleware, getInfoIfAuthenticated, function(req, res, next) {
     var promises = [];
     promises.push(getArrayVideo(req.userInfo.uploadedVideos)); 
