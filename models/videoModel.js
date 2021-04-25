@@ -11,8 +11,7 @@ const VideoSchema = new Schema({
         required: true
     },
     thumbnail: {
-        type: String,
-        default: '/images/courses/img-1.jpg'
+        type: String
     },
     description: String,
     durationInSecond: Number,

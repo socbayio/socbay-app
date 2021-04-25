@@ -12,10 +12,13 @@ mongoose.connect("mongodb://34.96.245.194:27028/crustlive", {
     "useNewUrlParser": true
 });
 
+
+
 Video.find({},async (error, results)=>{
     for (let videoCount = 0; videoCount<results.length; videoCount++){
-        await getVideoDurationInSeconds('https://ipfs.io/ipfs/'+results[videoCount].CID).then((duration) => {
-            Video.findByIdAndUpdate(results[videoCount]._id, {$set : {durationInSecond: duration}}, {upsert:true}, (res,error)=>{console.log(res,error)})
-        }).catch((error)=>{console.log('abc')})
+        User.updateOne({_id:results[videoCount].author.authorId},{ $push: { uploadedVideos: results[videoCount]._id} },(error,tag)=>{});
+        
     }
-})
+}) 
+
+
