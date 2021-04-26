@@ -6,7 +6,7 @@ var logger = require('morgan');
 const mongoose = require('mongoose');
 const expressSession = require('express-session');
 const flash = require('connect-flash');
-mongoose.connect("mongodb://localhost:27028/crustlive", {
+mongoose.connect("mongodb://localhost:27028/socbay", {
     "auth": { "authSource": "admin" },
     "user": "ntn",
     "pass": "wv%nzw=VY$fMwV4",
