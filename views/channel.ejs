@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <style>
+        .video-catalog-container {
+            padding-left: 0px !important;
+        }
+        .title-video-catalog {
+            padding-left: 1em !important;
+        }
+        .video-item {
+            padding-left: 1em !important;
+        }
+    
+        a.item_title.title-video-catalog {
+            margin-bottom: 10px !important;
+        }
+    
+        .fcrse_1.mb-20 {
+            padding-bottom: 5px !important;
+        }
+    </style>
+
+	<%- include('head'); -%>
+
+<body>
+
+	<%- include('header'); -%>
+
+    <%- include("leftSideBar"); -%>
+
+	<!-- Body Start -->
+	<div class="wrapper _bg4586">
+		<div class="_216b01">
+			<div class="container-fluid">			
+				<div class="row justify-content-md-center">
+					<div class="col-md-10">
+						<div class="section3125 rpt145">							
+							<div class="row">						
+								<div class="col-lg-7">
+									
+									<div class="dp_dt150">						
+										<div class="img148">
+											<img src="<%=channelInfo.profilePicture%>" alt="">										
+										</div>
+										<div class="prfledt1">
+											<h2><%=channelInfo.username%></h2>
+											<span><%=channelInfo.emailaddress%></span>
+										</div>										
+									</div>
+
+								</div>
+								<div class="col-lg-5">
+									
+									<div class="rgt-145">
+										<ul class="tutor_social_links">
+											<li><a href="#" class="fb"><i class="fab fa-facebook-f"></i></a></li>
+											<li><a href="#" class="tw"><i class="fab fa-twitter"></i></a></li>
+											<li><a href="#" class="ln"><i class="fab fa-linkedin-in"></i></a></li>
+											<li><a href="#" class="yu"><i class="fab fa-youtube"></i></a></li>
+										</ul>
+									</div>
+								
+								</div>													
+							</div>							
+						</div>							
+					</div>															
+				</div>
+			</div>
+		</div>
+		<div class="_215b15">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12">						
+						<div class="course_tabs">
+							<nav>
+								<div class="nav nav-tabs tab_crse" id="nav-tab" role="tablist">
+									<a class="nav-item nav-link active" id="nav-courses-tab" data-toggle="tab" href="#nav-purchased" role="tab" aria-selected="true">Uploaded videos</a>
+                                    <a class="nav-item nav-link" id="nav-reviews-tab" data-toggle="tab" href="#nav-reviews" role="tab" aria-selected="false">Discussion</a>
+									
+								</div>
+							</nav>						
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="_215b17">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="course_tab_content">
+							<div class="tab-content" id="nav-tabContent">
+								<div class="tab-pane fade show active" id="nav-purchased" role="tabpanel">
+									<div class="section3126">
+                                        <div class="row no-gutters">
+                                            <% for(let videoCount2 = 0; videoCount2<channelInfo.uploadedVideos.length; videoCount2++) {%>
+                                            
+                                                <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 video-item">
+                                                    <div class="item">
+                                                        <div class="fcrse_1 mb-20">
+                                                            <a href="/video/<%=channelInfo.uploadedVideos[videoCount2]._id%>" class="fcrse_img">
+                                                                <img src="<%=channelInfo.uploadedVideos[videoCount2].thumbnail%>" alt="">
+                                                                <div class="course-overlay">
+                                                                    <span class="play_btn1"><i class="uil uil-play"></i></span>
+                                                                     <div class="crse_timer">
+                                                                        <%if(Math.floor(channelInfo.uploadedVideos[videoCount2].durationInSecond/3600)) {%>
+                                                                        <%=Math.floor(channelInfo.uploadedVideos[videoCount2].durationInSecond/3600) +'h'+ Math.floor(channelInfo.uploadedVideos[videoCount2].durationInSecond%3600/60)+ 'm'%>
+                                                                        <%}else{%>
+                                                                        <%= Math.floor(channelInfo.uploadedVideos[videoCount2].durationInSecond%3600/60)+ 'm'+Math.floor(channelInfo.uploadedVideos[videoCount2].durationInSecond%3600%60)+'s'%>
+                                                                        <%}%>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                            <div class="fcrse_content">
+                                                                <div class="vdtodt">
+                                                                    <span class="vdt14"><%=channelInfo.uploadedVideos[videoCount2].view%> views</span>
+                                                                    <span class="vdt14"><%=channelInfo.uploadedVideos[videoCount2].like%> rockets</span>
+                                                                    <!-- <span class="vdt14">15 days ago</span> -->
+                                                                </div>
+                                                                <a href="/video/<%=channelInfo.uploadedVideos[videoCount2]._id%>" class="crse14s title_video_catalog"><%=channelInfo.uploadedVideos[videoCount2].title%></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                    
+                                            <%}%>
+                                        </div>
+                                    </div>							
+								</div>
+								<div class="tab-pane fade" id="nav-reviews" role="tabpanel">
+									<div class="student_reviews">
+										<div class="row">
+											<div class="col-lg-12">
+												<div class="review_right">
+													<div class="review_right_heading">
+														<h3>Discussions</h3>
+													</div>
+												</div>
+												<div class="cmmnt_1526">
+													<div class="cmnt_group">
+														<div class="img160">
+															<img src="/images/hd_dp.jpg" alt="">									
+														</div>
+														<textarea class="_cmnt001" placeholder="Add a public comment"></textarea>
+													</div>
+													<button class="cmnt-btn" type="submit">Comment</button>
+												</div>
+												<div class="review_all120">
+													<div class="review_item">
+														<div class="review_usr_dt">
+															<img src="/images/left-imgs/img-1.jpg" alt="">
+															<div class="rv1458">
+																<h4 class="tutor_name1">John Doe</h4>
+																<span class="time_145">2 hour ago</span>
+															</div>
+															<div class="eps_dots more_dropdown">
+																<a href="#"><i class="uil uil-ellipsis-v"></i></a>
+																<div class="dropdown-content">
+																	<span><i class='uil uil-comment-alt-edit'></i>Edit</span>
+																	<span><i class='uil uil-trash-alt'></i>Delete</span>
+																</div>																											
+															</div>
+														</div>
+														<p class="rvds10">Nam gravida elit a velit rutrum, eget dapibus ex elementum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce lacinia, nunc sit amet tincidunt venenatis.</p>
+														<div class="rpt101">
+															<a href="#" class="report155"><i class='uil uil-thumbs-up'></i> 10</a>
+															<a href="#" class="report155"><i class='uil uil-thumbs-down'></i> 1</a>
+															<a href="#" class="report155"><i class='uil uil-heart'></i></a>
+															<a href="#" class="report155 ml-3">Reply</a>
+														</div>
+													</div>
+													<div class="review_reply">
+														<div class="review_item">
+															<div class="review_usr_dt">
+																<img src="/images/left-imgs/img-3.jpg" alt="">
+																<div class="rv1458">
+																	<h4 class="tutor_name1">Rock Doe</h4>
+																	<span class="time_145">1 hour ago</span>
+																</div>
+																<div class="eps_dots more_dropdown">
+																	<a href="#"><i class="uil uil-ellipsis-v"></i></a>
+																	<div class="dropdown-content">
+																		<span><i class='uil uil-trash-alt'></i>Delete</span>
+																	</div>																											
+																</div>
+															</div>
+															<p class="rvds10">Fusce lacinia, nunc sit amet tincidunt venenatis.</p>
+															<div class="rpt101">
+																<a href="#" class="report155"><i class='uil uil-thumbs-up'></i> 4</a>
+																<a href="#" class="report155"><i class='uil uil-thumbs-down'></i> 2</a>
+																<a href="#" class="report155"><i class='uil uil-heart'></i></a>
+																<a href="#" class="report155 ml-3">Reply</a>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        <%- include('footer'); -%>
+	</div>
+	<!-- Body End -->
+
+	<script src="/js/vertical-responsive-menu.min.js"></script>
+	<script src="/js/jquery-3.3.1.min.js"></script>
+	<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="/vendor/OwlCarousel/owl.carousel.js"></script>
+	<script src="/vendor/semantic/semantic.min.js"></script>
+	<script src="/js/custom.js"></script>	
+	<script src="/js/night-mode.js"></script>	
+	
+</body>
+</html>

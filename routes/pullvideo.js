@@ -35,7 +35,7 @@ router.get('/', getInfoIfAuthenticated, function(req, res, next) {
           }
           else{
             liveChat.findOne({channel:'global'},(error,channelLiveChat)=>{
-              res.render('video', {userInfo: req.userInfo, liveChat: channelLiveChat.messages, videoId: req.params.videoId ,emailaddress: emailaddress, username: username,link: link + video.CID, title:video.title, view: video.view, like: video.like, videoAuthor:video.author.username, description: video.description});
+              res.render('video', {videoAuthorId: video.author.authorId, userInfo: req.userInfo, liveChat: channelLiveChat.messages, videoId: req.params.videoId ,emailaddress: emailaddress, username: username,link: link + video.CID, title:video.title, view: video.view, like: video.like, videoAuthor:video.author.username, description: video.description});
             })
           }
         })
@@ -48,7 +48,7 @@ router.get('/', getInfoIfAuthenticated, function(req, res, next) {
         }
         else {
           liveChat.findOne({channel:'global'},(error,channelLiveChat)=>{
-            res.render('video', {userInfo: req.userInfo, liveChat: channelLiveChat.messages, videoId: req.params.videoId, link: link+video.CID, title:video.title, view: video.view, like: video.like, videoAuthor:video.author.username, description: video.description});
+            res.render('video', {videoAuthorId: video.author.authorId, userInfo: req.userInfo, liveChat: channelLiveChat.messages, videoId: req.params.videoId, link: link+video.CID, title:video.title, view: video.view, like: video.like, videoAuthor:video.author.username, description: video.description});
           })
         }
       })
