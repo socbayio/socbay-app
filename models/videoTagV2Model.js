@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const Schema = mongoose.Schema;
 
 const videoElementSchema = new Schema(
@@ -12,7 +13,7 @@ const videoElementSchema = new Schema(
     { _id : false }
 );
 
-const videoTagSchema = new Schema(
+const videoTagV2Schema = new Schema(
     {
         tagName: {
             type: String,
@@ -24,5 +25,5 @@ const videoTagSchema = new Schema(
     }
 );
 
-const videoTag = mongoose.model('videoTag', videoTagSchema);
-module.exports = videoTag;
+const videoTagV2 = mongoose.model('videoTagV2', videoTagV2Schema);
+module.exports = videoTagV2;

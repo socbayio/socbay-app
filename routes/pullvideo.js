@@ -1,60 +1,50 @@
 var express = require('express');
 var router = express.Router({ mergeParams: true });
-const User = require('../models/userModel.js');
 const Video = require('../models/videoModel.js');
-const liveChat = require('../models/liveChatModel');
+const liveChatVideo = require('../models/liveChatVideoModel');
 const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated.js');
 
+const gateway = {
+  'ipfs': 'https://ipfs.io/ipfs/',
+  'crust': 'https://crustwebsites.net/ipfs/',
+  'oneloveipfs': 'https://video.oneloveipfs.com/ipfs/'
+}
 
-/* GET home page. */
-router.get('/', getInfoIfAuthenticated, function(req, res, next) {
-    var emailaddress = "";
-    var username = "";
-    var link = "";
-    switch (req.query.gateway){
-      case 'ipfs':
-        link = 'https://ipfs.io/ipfs/';
-        break;
-      case 'crust':
-        link = 'https://crustwebsites.net/ipfs/';
-        break;
-      case 'oneloveipfs':
-        link = 'https://video.oneloveipfs.com/ipfs/';
-        break;
-      default:
-        link = 'https://ipfs.io/ipfs/';
+router.get('/', getInfoIfAuthenticated, async (req, res, next) => {
+    let link = "https://ipfs.io/ipfs/";
+    if(req.query.gateway in gateway) {
+      link = gateway[req.query.gateway]
     }
-    
-    if(req.session.userId){
-      User.findById(req.session.userId, (error, user)=>{
-        username = user.username;
-        emailaddress = user.emailaddress;
-        Video.findByIdAndUpdate(req.params.videoId, {$inc : {'view' : 1}} , (error, video)=>{
-          if (error) {
-            res.render('/');
-          }
-          else{
-            liveChat.findOne({channel:'global'},(error,channelLiveChat)=>{
-              res.render('video', {videoAuthorId: video.author.authorId, userInfo: req.userInfo, liveChat: channelLiveChat.messages, videoId: req.params.videoId ,emailaddress: emailaddress, username: username,link: link + video.CID, title:video.title, view: video.view, like: video.like, videoAuthor:video.author.username, description: video.description});
-            })
-          }
-        })
-      })
-    }
-    else {
-      Video.findByIdAndUpdate(req.params.videoId,{$inc : {'view' : 1}} ,(error, video)=>{
-        if (error){
-          res.render('/')
+ 
+    try {
+      const videoFound = await Video.findByIdAndUpdate(req.params.videoId, {$inc : {'view' : 1}}).populate('authorId','profilePicture username');
+      const liveChatVideoFound = await liveChatVideo.findOne({videoId: req.params.videoId});
+
+      if (videoFound && liveChatVideoFound ) {
+        let videoInfo = {
+          videoId: req.params.videoId,
+          link: link + videoFound.networkStatus.CID,
+          title:videoFound.title,
+          view: videoFound.view, 
+          like: videoFound.like, 
+          videoAuthor:videoFound.authorId.username,
+          videoAuthorId: videoFound.authorId._id,
+          videoAuthorPicture: videoFound.authorId.profilePicture,
+          description: videoFound.description
         }
-        else {
-          liveChat.findOne({channel:'global'},(error,channelLiveChat)=>{
-            res.render('video', {videoAuthorId: video.author.authorId, userInfo: req.userInfo, liveChat: channelLiveChat.messages, videoId: req.params.videoId, link: link+video.CID, title:video.title, view: video.view, like: video.like, videoAuthor:video.author.username, description: video.description});
-          })
+        let liveChat = {
+          messages: liveChatVideoFound.messages
         }
-      })
-       /*  Video.findById(req.params.videoId, (error, video)=>{
-            res.render('video', {CID: video.CID, title:video.title, view: video.view, like: video.like, videoAuthor:video.author.username, description: video.description});
-        }) */
+        console.log(videoInfo)
+        console.log(liveChat)
+        res.render('video', {userInfo: req.userInfo, liveChat, videoInfo});
+      }
+      else {
+        throw new Error('No livechat | No video');
+      }
+    } catch (e) {
+      console.error(`Error: ${e}`)
+      next(e);
     }
 });
 

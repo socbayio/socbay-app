@@ -17,10 +17,10 @@
 					<div class="col-xl-8 col-lg-8">
 						<div class="section3125">
 							<div class="live1452">
-								<iframe src="<%=link%>" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+								<iframe src="<%=videoInfo.link%>" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 							</div>
 							<div class="user_dt5">
-								<h3><%=title%></h3>
+								<h3><%=videoInfo.title%></h3>
 							</div>
 							<div class="user_dt5">
 								<div class="user_dt_left">
@@ -29,7 +29,7 @@
 											<img src="/images/left-imgs/img-4.jpg" alt="">												
 										</div>
 										<div class="user_cntnt">
-											<a href="/channel/<%=videoAuthorId%>"><h4><%=videoAuthor%></h4></a>
+											<a href="/channel/<%=videoInfo.videoAuthorId%>"><h4><%=videoInfo.videoAuthor%></h4></a>
 											<button class="subscribe-btn">Subscribe</button>
 										</div>
 									</div>
@@ -37,10 +37,10 @@
 								<div class="user_dt_right">
 									<ul>
 										<li>
-											<a href="#/" class="lkcm152"><i class='uil uil-eye'></i><span><%=view%></span></a>
+											<a href="#/" class="lkcm152"><i class='uil uil-eye'></i><span><%=videoInfo.view%></span></a>
 										</li>
 										<li>
-											<a href="#/" class="lkcm152" onclick="boomVideo()"><i class='uil uil-rocket'></i><span id="boom-count"><%=like%></span></a>
+											<a href="#/" class="lkcm152" onclick="boomVideo()"><i class='uil uil-rocket'></i><span id="boom-count"><%=videoInfo.like%></span></a>
 										</li>
 								
 									</ul>
@@ -51,13 +51,13 @@
 							</div>
 							<div>
 								<div class="user_cntnt">
-									<a href="/video/<%=videoId%>?gateway=ipfs"><button class="subscribe-btn">IPFS</button></a>
-									<a href="/video/<%=videoId%>?gateway=crust"><button class="subscribe-btn">Crust</button></a>
-									<a href="/video/<%=videoId%>?gateway=oneloveipfs"><button class="subscribe-btn">OneLove</button></a>
+									<a href="/video/<%=videoInfo.videoId%>?gateway=ipfs"><button class="subscribe-btn">IPFS</button></a>
+									<a href="/video/<%=videoInfo.videoId%>?gateway=crust"><button class="subscribe-btn">Crust</button></a>
+									<a href="/video/<%=videoInfo.videoId%>?gateway=oneloveipfs"><button class="subscribe-btn">OneLove</button></a>
 								</div>
 							</div>
 							<div class="user_dt5">
-								<p><%=description%></p>
+								<p><%=videoInfo.description%></p>
 							</div>
 						</div>							
 					</div>
@@ -69,8 +69,8 @@
 								</div>
 								<div class="live_chat" id="livechat">
 									<div class="chat1" id="messages">
-										<%for(let chatCount = 0; chatCount < liveChat.length;chatCount++){%>
-											<p><a href="#"><%=liveChat[chatCount].author%></a><%=liveChat[chatCount].message%></p>
+										<%for(let chatCount = 0; chatCount < liveChat.messages.length;chatCount++){%>
+											<p><a href="#"><%=liveChat.messages[chatCount].author%></a><%=liveChat.messages[chatCount].message%></p>
 										<%}%>
 										<!-- <p><a href="#">Anonymous 1</a>Great video!</p> -->
 									</div>
@@ -129,7 +129,7 @@
 	<script>
 		function boomVideo() {
 			document.querySelector('#boom-count').textContent++;
-			axios.post('/boom/<%=videoId%>');
+			axios.post('/boom/<%=videoInfo.videoId%>');
 		}
 	</script>
 </body>

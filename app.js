@@ -31,7 +31,7 @@ var boomVideoRouter = require('./routes/boomVideo')
 var searchRouter = require('./routes/searchVideos');
 var myInfoRouter = require('./routes/myinfo.js');
 var channelRouter = require('./routes/channel');
-
+var uploadHistoryRouter = require('./routes/uploadHistory')
 var trafficTracking = require('./middleware/trafficTrackingMiddleware');
 
 const fileUpload = require('express-fileupload')
@@ -83,6 +83,7 @@ app.use('/boom/:videoId',boomVideoRouter);
 app.use('/search', searchRouter);
 app.use('/myinfo', myInfoRouter);
 app.use('/channel/:channelId', channelRouter);
+app.use('/uploadhistory', uploadHistoryRouter);
 //app.get('/search', (req,res)=>{console.log(req.query.keyword)})
 
 

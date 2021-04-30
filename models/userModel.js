@@ -3,6 +3,29 @@ const bcrypt = require('bcrypt');
 var uniqueValidator = require('mongoose-unique-validator');
 
 const Schema = mongoose.Schema;
+
+const videoElementSchema = new Schema(
+    {
+        videoId: {
+            type: Schema.Types.ObjectId,
+            ref: 'Video',
+            required: true
+        }
+    },
+    { _id : false }
+);
+
+const userElementSchema = new Schema(
+    {
+        userId: {
+            type: Schema.Types.ObjectId,
+            ref: 'User',
+            required: true
+        }
+    },
+    { _id : false }
+);
+
 const UserSchema = new Schema({
     username: {
         type: String,
@@ -19,10 +42,10 @@ const UserSchema = new Schema({
     },
     profilePicture: {
         type: String,
-        default: 'https://i.stack.imgur.com/l60Hf.png'
+        default: '/images/profilepicture/default.png'
     },
-    uploadedVideos: [],
-    subscriptions: []
+    uploadedVideos: [videoElementSchema],
+    subscriptions: [userElementSchema]
 });
 
 UserSchema.plugin(uniqueValidator);

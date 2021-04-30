@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 const VideoSchema = new Schema({
-    CID: {
-        type: String,
-        required: true
-    },
     title: {
         type: String,
         required: true
@@ -19,6 +15,9 @@ const VideoSchema = new Schema({
         type: Number,
         default: Date.now
     },
+    fileUploadStatus: {
+        type: String // Successful|Pending|Failed
+    },
     view: {
         type: Number,
         default: 0
@@ -27,13 +26,28 @@ const VideoSchema = new Schema({
         type: Number,
         default: 0
     },
-    banned: {
-        type: Boolean,
-        default: false
+    isBanned: {
+        status: {
+            type: Boolean,
+            default: false
+        },
+        reason: String
     },
-    author: {
-        username: String,
-        authorId: String
+    fileSize: Number,
+    networkStatus: {
+        networkName: String,
+        CID: String,
+        expiredOnBlock: Number,
+        expiredOnDate: Date,
+        replicas: Number,
+        status: String,
+        orderFee: Number,
+        renewPoolBalance: Number
+    },
+    authorId: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     }
 });
 

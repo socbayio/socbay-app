@@ -3,80 +3,74 @@ var router = express.Router();
 const { getVideoDurationInSeconds } = require('get-video-duration');
 const Video = require('../models/videoModel.js');
 const User = require('../models/userModel.js');
-const newVideo = require('../models/newVideosModel.js');
 const videoTag = require('../models/videoTagModel.js');
+const liveChatVideo = require('../models/liveChatVideoModel');
 var path = require('path');
 
-const redirectIfNotAuthenticatedMiddleware = require('../middleware/redirectIfNotAuthenticatedMiddleware');
 
-router.post('/', function(req, res, next) {
-    User.findById(req.session.userId, async (error, user ) =>{
-        if (!user) {
-            return res.redirect('/login');
+const redirectIfNotAuthenticatedMiddleware = require('../middleware/redirectIfNotAuthenticatedMiddleware');
+const verificationUpload = require('../middleware/verificationUpload');
+const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated.js');
+
+const { pushVideoToTag, pushVideoToMe } = require('./common');
+
+const createLiveChatForVideo = async (videoId)=>{
+    await liveChatVideo.create({videoId: videoId});
+}
+
+const thumbnailDictionary = {
+    'gaming': '/images/thumbnails/default/gaming.jpg',
+    'tech': '/images/thumbnails/default/tech.jpg',
+    'finance': '/images/thumbnails/default/finance.jpg',
+    'cryptonews': '/images/thumbnails/default/cryptonews.jpg',
+    'news': '/images/thumbnails/default/news.jpg',
+    'lifestyle': '/images/thumbnails/default/lifestyle.jpg',
+    'healthandfitness': '/images/thumbnails/default/healthandfitness.jpg',
+    'music': '/images/thumbnails/default/notselected.jpg',
+    'default': '/images/thumbnails/default/notselected.jpg'
+}
+
+router.post('/', redirectIfNotAuthenticatedMiddleware, getInfoIfAuthenticated, verificationUpload, async (req, res, next) => {  
+    res.redirect('/');
+    let fileToUpload = req.body;
+    if (req.files && req.files.thumbnail) {
+        let image = req.files.thumbnail;
+        await image.mv(path.resolve(__dirname,'..','public/images/thumbnails',image.name)) //, (error)=>{}
+        fileToUpload.thumbnail = '/images/thumbnails/' + image.name;
+        let chooseDefaultImage = false; // To implement: when uploading fail -> chooseDefaultImage = true
+    }
+    
+    if (!(req.files && req.files.thumbnail) || chooseDefaultImage) {
+        if(req.body.tag in thumbnailDictionary){
+            fileToUpload.thumbnail = thumbnailDictionary[req.body.tag];
         }
         else {
-            res.redirect('/');
-            if (!(req.files && req.files.thumbnail)) {
-                switch (req.body.tag) {
-                    case 'gaming':
-                        req.body.thumbnail = '/images/thumbnails/default/gaming.jpg';
-                        break;
-                    case 'tech':
-                        req.body.thumbnail = '/images/thumbnails/default/tech.jpg';
-                        break;
-                    case 'finance':
-                        req.body.thumbnail = '/images/thumbnails/default/finance.jpg';
-                        break;
-                    case 'cryptonews':
-                        req.body.thumbnail = '/images/thumbnails/default/cryptonews.jpg';
-                        break;
-                    case 'news':
-                        req.body.thumbnail = '/images/thumbnails/default/news.jpg';
-                        break;
-                    case 'lifestyle':
-                        req.body.thumbnail = '/images/thumbnails/default/lifestyle.jpg';
-                        break;
-                    case 'healthandfitness':
-                        req.body.thumbnail = '/images/thumbnails/default/healthandfitness.jpg';
-                        break;
-                    case 'music':
-                        req.body.thumbnail = '/images/thumbnails/default/music.jpg';
-                        break;
-                    default: 
-                        req.body.thumbnail = '/images/thumbnails/default/notselected.jpg';
-                }
-            }
-            else {
-                let image = req.files.thumbnail;
-                image.mv(path.resolve(__dirname,'..','public/images/thumbnails',image.name), (error)=>{ 
-                })
-                req.body.thumbnail = '/images/thumbnails/' + image.name;
-            }
-            req.body.author ={username:user.username, authorId: user._id};  
-            await getVideoDurationInSeconds('https://ipfs.io/ipfs/'+req.body.CID)
-            .then((duration) => {
-                req.body.durationInSecond = duration;})
-            .catch((error)=>{})
-            
-            Video.create(req.body,(error,video)=>{
-                if (error) {
-                    return;
-                }
-                newVideo.create({videoId:video._id});
-                User.updateOne({_id: user._id},{ $push: { uploadedVideos: video._id} },(error,tag)=>{});
-                videoTag.updateOne({tagName:'newvideos'},{ $push: { videos: video._id} },(error,tag)=>{});
-                videoTag.findOne({tagName:req.body.tag},(error,tag)=>{
-                    if (!tag){
-                        videoTag.create({tagName: req.body.tag, videos:[video._id]},(errortag,newtag)=>{})
-                    }
-                    else {
-                        videoTag.updateOne({tagName:req.body.tag},{ $push: { videos: video._id} },(error,tag)=>{});
-                    }
-                })
-                return;
-            });  
+            fileToUpload.thumbnail = thumbnailDictionary["default"];
         }
+    }
+    
+    fileToUpload.authorId = req.userInfo.userId;
+    fileToUpload.networkStatus = {
+        CID: req.body.CID, 
+        networkName: 'local'
+    }
+
+    await getVideoDurationInSeconds('https://ipfs.io/ipfs/'+req.body.CID)
+    .then((duration) => {
+        fileToUpload.durationInSecond = duration;
+        fileToUpload.fileUploadStatus = 'Successful';
     })
+    .catch((error)=>{})
+
+    const uploadedVideo = await Video.create(fileToUpload);
+    
+    if (uploadedVideo._id){
+        await pushVideoToTag('newvideos',uploadedVideo._id);
+        await pushVideoToTag(req.body.tag,uploadedVideo._id);
+        await pushVideoToMe(req.userInfo.userId,uploadedVideo._id);
+        await createLiveChatForVideo(uploadedVideo._id);
+    }
+    return;
 });
 
 module.exports = router;

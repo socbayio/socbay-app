@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
+
 const liveChatSchema = new Schema({
     channel: {
         type: String,
