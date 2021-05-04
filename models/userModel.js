@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 var uniqueValidator = require('mongoose-unique-validator');
+const subReferencesPopulate = require('mongoose-sub-references-populate');
 
 const Schema = mongoose.Schema;
 
@@ -9,6 +10,17 @@ const videoElementSchema = new Schema(
         videoId: {
             type: Schema.Types.ObjectId,
             ref: 'Video',
+            required: true
+        }
+    },
+    { _id : false }
+);
+
+const fileElementSchema = new Schema(
+    {
+        fileId: {
+            type: Schema.Types.ObjectId,
+            subRef: 'uploadBlock.filesInfo',
             required: true
         }
     },
@@ -45,10 +57,12 @@ const UserSchema = new Schema({
         default: '/images/profilepicture/default.png'
     },
     uploadedVideos: [videoElementSchema],
+    uploadedFiles: [fileElementSchema],
     subscriptions: [userElementSchema]
 });
 
 UserSchema.plugin(uniqueValidator);
+fileElementSchema.plugin(subReferencesPopulate);
 
 UserSchema.pre('save', function(next){
     const user = this      

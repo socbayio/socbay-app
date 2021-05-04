@@ -3,7 +3,6 @@ const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated.js'
 var router = express.Router();
 const User = require('../models/userModel.js');
 
-/* GET home page. */
 router.get('/', getInfoIfAuthenticated, function(req, res, next) {
   res.render('video', {userInfo: req.userInfo});
 });

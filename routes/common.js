@@ -1,6 +1,9 @@
 const videoTag = require('../models/videoTagModel.js');
 const Video = require('../models/videoModel.js');
 const User = require('../models/userModel.js');
+const uploadBlock = require('../models/uploadBlockModel');
+
+const { spawn } = require('child_process');
 
 const getVideosFromTag = async (tagName) => {
     const tagFound = await videoTag.findOne({tagName: tagName});
@@ -84,4 +87,48 @@ const pushVideoToMe = async (myId, videoId)=>{
     const videoTagFound = await User.findOneAndUpdate({_id: myId },{$push: {uploadedVideos: {videoId: videoId}}});
 }
 
-module.exports = { getVideosFromTag, getVideosFromTagPromiseStyle, getVideosChannel, pushVideoToTag, pushVideoToMe };
+const uploadFilesNumber = async (blockNumber,numberAddedFiles)=>{
+    const blockFound = await uploadBlock.findOneAndUpdate({blockNumber: blockNumber},{$inc : {'uploadedFilesNumber' : numberAddedFiles}});
+}
+const uploadTotalSizeInByte = async (blockNumber,totalSizeInByteAdded)=>{
+    const blockFound = await uploadBlock.findOneAndUpdate({blockNumber: blockNumber},{$inc : {'totalSizeInByte' : totalSizeInByteAdded}});
+}
+const addFileInfo = async (blockNumber,fileName,fileSizeInByte,CID)=>{
+    const blockFound = await uploadBlock.findOneAndUpdate({blockNumber: blockNumber},{$push: {filesInfo:{fileName,fileSizeInByte,CID}}});
+    await uploadTotalSizeInByte(blockNumber,fileSizeInByte);
+    await uploadFilesNumber(blockNumber,1);
+}
+
+var addFileToIPFSPromise = function(pathFile)
+{
+    return new Promise(function(resolve, reject){
+        pathFile = '"'+pathFile+'"';
+        const addToIPFS = spawn('ipfs', ['add', pathFile],{shell: true});
+        
+        var mergeData = "";
+        addToIPFS.stdout.on('data', (data) => {
+            mergeData+=data;
+        });
+
+        var mergeError = "";
+        addToIPFS.stderr.on('data', (data) => {
+            mergeError+=data;
+        });
+
+        addToIPFS.on('close', (code) => {
+            if (code==0){  
+                var searchCID = mergeData.match(/added\s([a-zA-Z0-9]*)\s/);
+                if (searchCID[1]){
+                    resolve(searchCID[1]);
+                }
+                else {
+                    reject(mergeData+mergeError);
+                }
+            } else {
+                reject(mergeError);
+            }
+        });
+    });
+}
+
+module.exports = { getVideosFromTag, getVideosFromTagPromiseStyle, getVideosChannel, pushVideoToTag, pushVideoToMe, uploadFilesNumber, uploadTotalSizeInByte, addFileInfo, addFileToIPFSPromise };

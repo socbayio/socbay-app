@@ -11,7 +11,7 @@ router.get('/', getInfoIfAuthenticated, async function(req, res,next) {
       const values = [await getVideosFromTagPromiseStyle(req.params.tagId)];
       res.render('index',{userInfo: req.userInfo, renderVideos: values.filter(x => x !== undefined)});
   } catch (e) {
-      console.error(`Pull videos fail with error: ${e}`);
+      console.error(`Tag page fail with error: ${e}`);
       next(e);
   }
 });

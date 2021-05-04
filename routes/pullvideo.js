@@ -3,7 +3,7 @@ var router = express.Router({ mergeParams: true });
 const Video = require('../models/videoModel.js');
 const liveChatVideo = require('../models/liveChatVideoModel');
 const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated.js');
-
+const liveChat = require('../models/liveChatModel');
 const gateway = {
   'ipfs': 'https://ipfs.io/ipfs/',
   'crust': 'https://crustwebsites.net/ipfs/',
@@ -18,8 +18,8 @@ router.get('/', getInfoIfAuthenticated, async (req, res, next) => {
  
     try {
       const videoFound = await Video.findByIdAndUpdate(req.params.videoId, {$inc : {'view' : 1}}).populate('authorId','profilePicture username');
-      const liveChatVideoFound = await liveChatVideo.findOne({videoId: req.params.videoId});
-
+      //const liveChatVideoFound = await liveChatVideo.findOne({videoId: req.params.videoId});
+      const liveChatVideoFound = await liveChat.findOne({channel:'global'});// Just for test
       if (videoFound && liveChatVideoFound ) {
         let videoInfo = {
           videoId: req.params.videoId,
@@ -43,7 +43,7 @@ router.get('/', getInfoIfAuthenticated, async (req, res, next) => {
         throw new Error('No livechat | No video');
       }
     } catch (e) {
-      console.error(`Error: ${e}`)
+      console.error(`Pull video fail with error: ${e}`)
       next(e);
     }
 });

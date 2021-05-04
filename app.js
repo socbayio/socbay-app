@@ -33,6 +33,9 @@ var myInfoRouter = require('./routes/myinfo.js');
 var channelRouter = require('./routes/channel');
 var uploadHistoryRouter = require('./routes/uploadHistory')
 var trafficTracking = require('./middleware/trafficTrackingMiddleware');
+var universalUploadRouter = require('./routes/universalUpload');
+var universalStoreRouter = require('./routes/universalStore');
+var blockExplorerRouter = require('./routes/blockExplorer')
 
 const fileUpload = require('express-fileupload')
 
@@ -84,13 +87,9 @@ app.use('/search', searchRouter);
 app.use('/myinfo', myInfoRouter);
 app.use('/channel/:channelId', channelRouter);
 app.use('/uploadhistory', uploadHistoryRouter);
-//app.get('/search', (req,res)=>{console.log(req.query.keyword)})
-
-
-var uploadFileRouter = require('./routes/uploadFile');
-var uploadFileStoreRouter = require('./routes/uploadFileStore');
-app.use('/uploadfile',uploadFileRouter);
-app.use('/uploadfile/store',uploadFileStoreRouter);
+app.use('/upload', universalUploadRouter);
+app.use('/upload/store', universalStoreRouter);
+app.use('/blockexplorer',blockExplorerRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
