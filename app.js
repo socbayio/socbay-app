@@ -3,16 +3,20 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var config = require('./config');
+/**
+  MongooseDB
+ */
 const mongoose = require('mongoose');
 const expressSession = require('express-session');
 const flash = require('connect-flash');
-mongoose.connect("mongodb://localhost:27028/socbay", {
-    "auth": { "authSource": "admin" },
-    "user": "ntn",
-    "pass": "wv%nzw=VY$fMwV4",
-    "useNewUrlParser": true
-});
+console.log(config);
+
+mongoose.connect(config.dbServerUrl + 'socbay', config.userAuth);
   
+/**
+  Routes
+ */
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var registerRouter = require('./routes/register');
@@ -20,7 +24,6 @@ var loginRouter = require('./routes/login');
 var userLoginRouter = require('./routes/userLogin');
 var uploadVideoRouter = require('./routes/uploadVideo');
 var storeVideoRouter = require('./routes/storeVideo');
-
 var videoRouter = require('./routes/video');
 var storeUser = require('./routes/storeUser');
 var userLogout = require('./routes/logout');
@@ -32,14 +35,17 @@ var searchRouter = require('./routes/searchVideos');
 var myInfoRouter = require('./routes/myinfo.js');
 var channelRouter = require('./routes/channel');
 var uploadHistoryRouter = require('./routes/uploadHistory')
-var trafficTracking = require('./middleware/trafficTrackingMiddleware');
 var universalUploadRouter = require('./routes/universalUpload');
 var universalStoreRouter = require('./routes/universalStore');
 var blockExplorerRouter = require('./routes/blockExplorer')
 
+
+/**
+  Middleware
+ */
+var pageTrafficTracking = require('./middleware/pageTrafficTrackingMiddleware');
+
 const fileUpload = require('express-fileupload')
-
-
 
 var app = express();
 
@@ -59,7 +65,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(flash());
 app.use(expressSession({
-  secret: 'keyboard cat'
+  secret: config.secretKeyExpressSession
 }))
 
 global.loggedIn = null;
@@ -68,7 +74,7 @@ app.use("*", (req, res, next) => {
   next()
 });
 
-app.use(trafficTracking);
+app.use(pageTrafficTracking);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/register', registerRouter);
