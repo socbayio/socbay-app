@@ -43,7 +43,7 @@ var blockExplorerRouter = require('./routes/blockExplorer')
 /**
   Middleware
  */
-var trafficTracking = require('./middleware/trafficTrackingMiddleware');
+var pageTrafficTracking = require('./middleware/pageTrafficTrackingMiddleware');
 
 const fileUpload = require('express-fileupload')
 
@@ -74,7 +74,7 @@ app.use("*", (req, res, next) => {
   next()
 });
 
-app.use(trafficTracking);
+app.use(pageTrafficTracking);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/register', registerRouter);
