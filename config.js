@@ -5,7 +5,8 @@ const config = {
         "pass": "wv%nzw=VY$fMwV4",
         "useNewUrlParser": true
     },
-    "dbServerUrl": "mongodb://34.92.155.214:27028/"
+    "dbServerUrl": "mongodb://localhost:27028/",
+    secretKeyExpressSession: "keyboard cat"
 }
 
 module.exports = config;
