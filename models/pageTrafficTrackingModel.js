@@ -8,17 +8,23 @@ const visiterInfo = new Schema(
         headers: {},
         timestamp: {
             type: Number,
-            default: Date.now
-        }
+            default: Date.now,
+        },
     },
-    { _id : false }
+    { _id: false }
 );
 
-const pageTrafficTrackingSchema = new Schema({
-    pageUrl: String,
-    visiterInfo: [visiterInfo],
-    count: Number
-},{ strict: false });
+const pageTrafficTrackingSchema = new Schema(
+    {
+        pageUrl: String,
+        visiterInfo: [visiterInfo],
+        count: Number,
+    },
+    { strict: false }
+);
 
-const pageTrafficTracking = mongoose.model('pageTrafficTracking', pageTrafficTrackingSchema);
+const pageTrafficTracking = mongoose.model(
+    'pageTrafficTracking',
+    pageTrafficTrackingSchema
+);
 module.exports = pageTrafficTracking;

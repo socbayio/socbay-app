@@ -4,8 +4,13 @@ const redirectIfNotAuthenticatedMiddleware = require('../middleware/redirectIfNo
 var router = express.Router();
 const User = require('../models/userModel.js');
 
-router.get('/', redirectIfNotAuthenticatedMiddleware, getInfoIfAuthenticated, function(req, res, next) {
-  res.render('uploadVideo', {userInfo: req.userInfo});
-});
+router.get(
+    '/',
+    redirectIfNotAuthenticatedMiddleware,
+    getInfoIfAuthenticated,
+    function (req, res, next) {
+        res.render('uploadVideo', { userInfo: req.userInfo });
+    }
+);
 
 module.exports = router;

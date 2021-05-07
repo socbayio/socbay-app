@@ -13,7 +13,7 @@ const flash = require('connect-flash');
 console.log(config);
 
 mongoose.connect(config.dbServerUrl + 'socbay', config.userAuth);
-  
+
 /**
   Routes
  */
@@ -27,25 +27,24 @@ var storeVideoRouter = require('./routes/storeVideo');
 var videoRouter = require('./routes/video');
 var storeUser = require('./routes/storeUser');
 var userLogout = require('./routes/logout');
-var aboutUsRouter = require('./routes/aboutUs')
+var aboutUsRouter = require('./routes/aboutUs');
 var pullvideoRouter = require('./routes/pullvideo');
 var tagVideoRouter = require('./routes/tagVideo');
-var boomVideoRouter = require('./routes/boomVideo')
+var boomVideoRouter = require('./routes/boomVideo');
 var searchRouter = require('./routes/searchVideos');
 var myInfoRouter = require('./routes/myinfo.js');
 var channelRouter = require('./routes/channel');
-var uploadHistoryRouter = require('./routes/uploadHistory')
+var uploadHistoryRouter = require('./routes/uploadHistory');
 var universalUploadRouter = require('./routes/universalUpload');
 var universalStoreRouter = require('./routes/universalStore');
-var blockExplorerRouter = require('./routes/blockExplorer')
-
+var blockExplorerRouter = require('./routes/blockExplorer');
 
 /**
   Middleware
  */
 var pageTrafficTracking = require('./middleware/pageTrafficTrackingMiddleware');
 
-const fileUpload = require('express-fileupload')
+const fileUpload = require('express-fileupload');
 
 var app = express();
 
@@ -53,9 +52,11 @@ app.set('trust proxy', true);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(fileUpload( {
-  createParentPath: true
-} ));
+app.use(
+    fileUpload({
+        createParentPath: true,
+    })
+);
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -64,14 +65,16 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(flash());
-app.use(expressSession({
-  secret: config.secretKeyExpressSession
-}))
+app.use(
+    expressSession({
+        secret: config.secretKeyExpressSession,
+    })
+);
 
 global.loggedIn = null;
-app.use("*", (req, res, next) => {
-  loggedIn = req.session.userId;
-  next()
+app.use('*', (req, res, next) => {
+    loggedIn = req.session.userId;
+    next();
 });
 
 app.use(pageTrafficTracking);
@@ -80,37 +83,37 @@ app.use('/users', usersRouter);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 app.use('/user/login', userLoginRouter);
-app.use('/logout',userLogout);
+app.use('/logout', userLogout);
 app.use('/video', videoRouter);
 app.use('/uploadvideo', uploadVideoRouter);
 app.use('/uploadvideo/store', storeVideoRouter);
-app.use('/video/:videoId',pullvideoRouter);
+app.use('/video/:videoId', pullvideoRouter);
 app.use('/register/store', storeUser);
 app.use('/aboutus', aboutUsRouter);
-app.use('/tag/:tagId',tagVideoRouter);
-app.use('/boom/:videoId',boomVideoRouter);
+app.use('/tag/:tagId', tagVideoRouter);
+app.use('/boom/:videoId', boomVideoRouter);
 app.use('/search', searchRouter);
 app.use('/myinfo', myInfoRouter);
 app.use('/channel/:channelId', channelRouter);
 app.use('/uploadhistory', uploadHistoryRouter);
 app.use('/upload', universalUploadRouter);
 app.use('/upload/store', universalStoreRouter);
-app.use('/blockexplorer',blockExplorerRouter);
+app.use('/blockexplorer', blockExplorerRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+app.use(function (req, res, next) {
+    next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.use(function (err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 module.exports = app;
