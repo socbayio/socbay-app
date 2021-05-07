@@ -22,26 +22,6 @@ const crust = new crustPin(`${crustPrivateKey}`);
 const {ApiPromise, WsProvider} = require('@polkadot/api') ;
 const {typesBundleForPolkadot} = require('@crustio/type-definitions');
 
-
-const checkBlockAndUploadToCrust = async()=>{
-  const globalUploadBlockInfo = await global.findOne({variableName: "updateblock"});
-  const currentBlock = await uploadBlock.findOne({blockNumber:globalUploadBlockInfo._doc.currentBlock})
-  if (currentBlock.totalSizeInByte > 100) {
-    console.log('start ---------------');
-    // await crust.pin('QmQzNuEXeDwL7r6ZWuYoNLneP2T19gRQG3fcjro8UqHc2h'); //failed
-    //const abc = await crust.pin('QmVzuGGkeK9FmLNXtUQVLVhTEKSqQvSUKNayCV6fkbq1Tz');
-    //const abc = await crust.pin('QmPqizz12QPCVHXFHf1gKTyJcNELjG4FBog2cjEzHbH2YG');
-    const abc = await crust.pin('QmQzNuEXeDwL7r6ZWuYoNLneP2T19gRQG3fcjro8UqHc2h');
-    
-    console.log('finish......');
-    console.log(abc);
-  }
-}
-
-
-
-
-
 const getStatus = async  () => {
     const api = new ApiPromise({
       provider: new WsProvider('wss://api.crust.network'),
@@ -52,8 +32,6 @@ const getStatus = async  () => {
     //const fileInfo = await api.query.market.files('QmPqizz12QPCVHXFHf1gKTyJcNELjG4FBog2cjEzHbH2YG');
     //const fileInfo = await api.query.market.files('QmQzNuEXeDwL7r6ZWuYoNLneP2T19gRQG3fcjro8UqHc2h');
     const fileInfo = await api.query.market.files('QmQyqzCeGzqfivN6ZwAVUDyLVrUNV93xpPtChp9VhbZjks');
-    
-    
     console.log(fileInfo.toHuman());
 }
 
@@ -186,18 +164,25 @@ var checkStatusByCrustCLI = function(CID)
 //getStatus();
 let pathFile = path.resolve(__dirname,'middleware');
 
-loginCrustCLI(crustPrivateKey).then((value)=>{
-    console.log(`value ${value}`);
-    pinByCrustCLI(pathFile).then((value)=>{
-        console.log(value)
-        publishByCrustCLI(value).then((value)=>{
-            console.log('Finish')
-            console.log(`value publish ${value}`)
-        })
-        .catch((e)=>{
-            console.log('not finish');
-            console.log(`error ${e}`)});
-        checkStatusByCrustCLI(value);
-    });
-}).catch((e)=>{console.log(`error ${e}`)});
-
+// loginCrustCLI(crustPrivateKey).then((value)=>{
+//     console.log(`value ${value}`);
+//     pinByCrustCLI(pathFile).then((value)=>{
+//         console.log(value)
+//         publishByCrustCLI(value).then((value)=>{
+//             console.log('Finish')
+//             console.log(`value publish ${value}`)
+//         })
+//         .catch((e)=>{
+//             console.log('not finish');
+//             console.log(`error ${e}`)});
+//         checkStatusByCrustCLI(value);
+//     });
+// }).catch((e)=>{console.log(`error ${e}`)});
+var logger = require("./logger").Logger;
+const {checkBlockAndUploadToCrust} = require('./crust-socbay-pinner')
+console.log('start.....')
+console.log(`start ${crustPrivateKey} ${pathFile}`)
+checkBlockAndUploadToCrust(crustPrivateKey,pathFile).then(()=>{
+        console.log('finish');
+    }  
+);
