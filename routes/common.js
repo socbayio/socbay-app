@@ -2,6 +2,7 @@ const videoTag = require('../models/videoTagModel.js');
 const Video = require('../models/videoModel.js');
 const User = require('../models/userModel.js');
 const uploadBlock = require('../models/uploadBlockModel');
+const global = require('../models/globalModel');
 
 const { spawn } = require('child_process');
 
