@@ -6,6 +6,9 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "@crustio/crust-pin": "^0.0.1",
+    "@crustio/type-definitions": "^0.0.6",
+    "@polkadot/api": "^4.9.2",
     "bcrypt": "^5.0.1",
     "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.4",
