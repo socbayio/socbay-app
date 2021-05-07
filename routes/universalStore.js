@@ -12,6 +12,7 @@ router.post('/', async function(req, res, next) {
         let pathFile = path.resolve(__dirname,'..','public/block',updateBlock._doc.currentBlock.toString(),file.name);
         await file.mv(pathFile);
         const output = await addFileToIPFSPromise(pathFile);
+        console.log(updateBlock._doc.currentBlock,file.name,file.size,output)
         addFileInfo(updateBlock._doc.currentBlock,file.name,file.size,output);
         res.send({CID:output})
         res.end();
