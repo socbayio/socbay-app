@@ -7,7 +7,7 @@ const User = require('../models/userModel.js');
 router.get('/', getInfoIfAuthenticated, async (req, res, next) => {
     try {
         userInfo = req.userInfo;
-        res.render('blockExplorer', {userInfo});
+        res.render('blockExplorer', { userInfo });
     } catch (e) {
         console.error(`BlockExplorer fail with error: ${e}`);
         next(e);

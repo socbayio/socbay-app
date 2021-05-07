@@ -4,7 +4,9 @@ const Video = require('../models/videoModel.js');
 
 router.post('/', async (req, res, next) => {
     try {
-        await Video.findByIdAndUpdate(req.params.videoId,{$inc : {'like' : 1}});
+        await Video.findByIdAndUpdate(req.params.videoId, {
+            $inc: { like: 1 },
+        });
         res.end();
     } catch (e) {
         next(e);
