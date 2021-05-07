@@ -6,10 +6,10 @@ const liveChatSchema = new Schema({
     channel: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
     },
-    messages: []
+    messages: [],
 });
 
-const liveChat = mongoose.model('liveChat',liveChatSchema);
+const liveChat = mongoose.model('liveChat', liveChatSchema);
 module.exports = liveChat;

@@ -1,12 +1,12 @@
 var express = require('express');
 const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated.js');
 var router = express.Router({ mergeParams: true });
-const {getVideosChannel} = require('./common')
+const { getVideosChannel } = require('./common');
 
 router.get('/', getInfoIfAuthenticated, async (req, res, next) => {
     try {
         const channelInfo = await getVideosChannel(req.params.channelId);
-        res.render('channel', {channelInfo, userInfo: req.userInfo});  
+        res.render('channel', { channelInfo, userInfo: req.userInfo });
     } catch (e) {
         next(e);
     }

@@ -7,21 +7,21 @@ const messageSchema = new Schema(
         authorId: {
             type: Schema.Types.ObjectId,
             ref: 'User',
-            required: true
+            required: true,
         },
-        message: String
+        message: String,
     },
-    { _id : false }
+    { _id: false }
 );
 
 const liveChatVideoSchema = new Schema({
     videoId: {
         type: Schema.Types.ObjectId,
         ref: 'Video',
-        required: true
+        required: true,
     },
-    messages: [messageSchema]
+    messages: [messageSchema],
 });
 
-const liveChatVideo = mongoose.model('liveChatVideo',liveChatVideoSchema);
+const liveChatVideo = mongoose.model('liveChatVideo', liveChatVideoSchema);
 module.exports = liveChatVideo;
