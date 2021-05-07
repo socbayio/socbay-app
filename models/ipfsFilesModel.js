@@ -17,14 +17,14 @@ const IPFSFilesSchema = new Schema({
     authorId: {
         type: Schema.Types.ObjectId,
         ref: 'User',
-        required: true
+        required: true,
     },
     videoId: {
         type: Schema.Types.ObjectId,
         ref: 'Video',
-        required: true
-    }
+        required: true,
+    },
 });
 
-const IPFSFile = mongoose.model('IPFSFile',IPFSFilesSchema);
+const IPFSFile = mongoose.model('IPFSFile', IPFSFilesSchema);
 module.exports = IPFSFile;
