@@ -1,6 +1,6 @@
 //const {checkBlockAndUploadToCrust} = require('./routes/common')
 const uploadBlock = require('./models/uploadBlockModel');
-const global = require('./models/globalModel');
+const globalConfig = require('./models/globalConfigModel');
 var config = require('./config');
 const { spawn } = require('child_process');
 var path = require('path');
@@ -39,7 +39,6 @@ const getStatus = async  () => {
 //createNewBlock();
 //getStatus();
 let pathFile = path.resolve(__dirname,'middleware');
-
 // loginCrustCLI(crustPrivateKey).then((value)=>{
 //     console.log(`value ${value}`);
 //     pinByCrustCLI(pathFile).then((value)=>{
@@ -54,18 +53,21 @@ let pathFile = path.resolve(__dirname,'middleware');
 //         checkStatusByCrustCLI(value);
 //     });
 // }).catch((e)=>{console.log(`error ${e}`)});
-var logger = require("./logger").Logger;
-const { checkBlockAndUploadToCrust, getStatusByCrustJs } = require('./crust-socbay-pinner')
-console.log('start.....')
-console.log(`start ${crustPrivateKey} ${pathFile}`)
-checkBlockAndUploadToCrust(crustPrivateKey,pathFile).then(()=>{
-        console.log('finish');
-    }
-).catch((e)=>{
-    //console.log(e)
-    logger.crustSocbayPinner(`----- FINISH PINNING BLOCK WITHOUT DIRECT SUCCESS -----`);
 
-}
-);
 
-//getStatusByCrustJs('QmSS847cLSzv1f2r3uD3Dswb4jo4HF5nWakdLGmbfeUFXH').then((value)=>{console.log(value)})
+
+
+
+// var logger = require("./logger").Logger;
+ const {  getStatusByCrustJs } = require('./crust-socbay-pinner')
+// console.log('start.....')
+// console.log(`start ${crustPrivateKey} ${pathFile}`)
+// checkBlockAndUploadToCrust(crustPrivateKey,pathFile)
+// .then(()=>{
+//         console.log('finish');
+// })
+// .catch((e)=>{
+//     logger.crustSocbayPinner(`----- FINISH PINNING BLOCK WITHOUT DIRECT SUCCESS -----`);
+// });
+
+getStatusByCrustJs('QmSFkfspLXYB7JiZq7bwxTaBNZJcZBUjDVhFb6J5RcDGHx').then((value)=>{console.log(value)})

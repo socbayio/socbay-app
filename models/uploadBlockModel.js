@@ -19,7 +19,10 @@ const uploadBlockSchema = new Schema({
     timeStamp: Number,
     uploadedBy: Number,
     uploadedFilesNumber: Number,
-    totalSizeInByte: Number,
+    totalSizeInByte: {
+        type: Number,
+        default: 0
+    },
     orderFee: Number,
     currentInfo: {
         expiredOnBlockHeight: Number,

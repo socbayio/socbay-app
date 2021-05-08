@@ -6,7 +6,9 @@ const config = {
         "useNewUrlParser": true
     },
     "dbServerUrl": "mongodb://localhost:27028/",
-    secretKeyExpressSession: "keyboard cat"
+    secretKeyExpressSession: "keyboard cat",
+    crustPrivateKey: "trial portion crucial caught word amused slot struggle need scissors polar curtainxx"
+
 }
 
 module.exports = config;

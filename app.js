@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var config = require('./config');
+const globalConfig = require('./models/globalConfigModel');
 /**
   MongooseDB
  */
@@ -45,7 +46,8 @@ var blockExplorerRouter = require('./routes/blockExplorer')
  */
 var pageTrafficTracking = require('./middleware/pageTrafficTrackingMiddleware');
 
-const fileUpload = require('express-fileupload')
+const fileUpload = require('express-fileupload');
+const uploadBlock = require('./models/uploadBlockModel');
 
 var app = express();
 
@@ -67,6 +69,15 @@ app.use(flash());
 app.use(expressSession({
   secret: config.secretKeyExpressSession
 }))
+
+globalConfig.findOne({variableName:"updateblock"},(error,updateBlock)=>{
+  uploadBlock.findOne({blockNumber: updateBlock._doc.currentBlock},(error,currentUploadBlock)=>{
+    global.globalCurrentBlock = {
+      blockNumber: updateBlock._doc.currentBlock,
+      totalSize: currentUploadBlock.totalSizeInByte
+    };
+  })
+})
 
 global.loggedIn = null;
 app.use("*", (req, res, next) => {
