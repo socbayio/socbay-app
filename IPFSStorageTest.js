@@ -35,130 +35,6 @@ const getStatus = async  () => {
     console.log(fileInfo.toHuman());
 }
 
-var loginCrustCLI = function(seed)
-{
-    return new Promise(function(resolve, reject){
-        seed = '"'+ seed + '"';
-        const login = spawn('crust-cli', ['login', seed],{shell: true});
-        
-        var mergeData = "";
-        login.stdout.on('data', (data) => {
-            mergeData+=data;
-        });
-
-        var mergeError = "";
-        login.stderr.on('data', (data) => {
-            mergeError+=data;
-        });
-
-        login.on('close', (code) => {
-            if (code==0){  
-                if (mergeData == "Login success!\n"){
-                    resolve();
-                }
-                else {
-                    reject(mergeData + mergeError);
-                }
-            } else {
-                reject(mergeError);
-            } 
-        });
-    });
-}
-
-var pinByCrustCLI = function(path)
-{
-    return new Promise(function(resolve, reject){
-        path = '"'+path+'"';
-        const pin = spawn('crust-cli', ['pin', path],{shell: true});
-        
-        var mergeData = "";
-        pin.stdout.on('data', (data) => {
-            mergeData+=data;
-        });
-
-        var mergeError = "";
-        pin.stderr.on('data', (data) => {
-            mergeError+=data;
-        });
-
-        pin.on('close', (code) => {
-            if (code==0){  
-                var searchCID = mergeData.match(/Pin\ssuccess:\s([a-zA-Z0-9]*)\n/);
-                if (searchCID[1]){
-                    resolve(searchCID[1]);
-                }
-                else {
-                    reject(mergeData + mergeError);
-                }
-            } else {
-                reject(mergeError);
-            }
-        });
-    });
-}
-
-
-var publishByCrustCLI = function(CID) {
-    return new Promise(function(resolve, reject){
-      const timer = setTimeout(() => {
-        console.log(`Publish Sdtout: ${mergeData}`);
-        console.log(`Publish Stderr: ${mergeError}`);
-        reject(new Error(`publishByCrustCLI promise timed out after 30s`));
-      }, 30000);
-      
-      const publish = spawn('crust-cli', ['publish', CID],{shell: true});
-      
-      var mergeData = "";
-      publish.stdout.on('data', (data) => {
-        mergeData+=data;
-      });
-  
-      var mergeError = "";
-      publish.stderr.on('data', (data) => {
-        mergeError+=data;
-      });
-      
-      publish.on('close', (code) => {
-        if (code==0){  
-          clearTimeout(timer);
-          resolve(mergeData);
-        } else {
-          clearTimeout(timer);
-          reject(mergeError);
-        }
-      });
-    });
-}
-
-var checkStatusByCrustCLI = function(CID)
-{
-    return new Promise(function(resolve, reject){
-        path = '"'+path+'"';
-        const status = spawn('crust-cli', ['status', CID],{shell: true});
-        
-        var mergeData = "";
-        status.stdout.on('data', (data) => {
-            console.log(`stdout: ${data}`);
-            mergeData+=data;
-        });
-
-        var mergeError = "";
-        status.stderr.on('data', (data) => {
-            console.log(`stderr: ${data}`);
-            mergeError+=data;
-        });
-
-        status.on('close', (code) => {
-            if (code==0){  
-                resolve(mergeData);
-            } else {
-                reject(mergeError);
-            }
-        });
-    });
-}
-
 //checkBlockAndUploadToCrust();
 //createNewBlock();
 //getStatus();
@@ -179,10 +55,17 @@ let pathFile = path.resolve(__dirname,'middleware');
 //     });
 // }).catch((e)=>{console.log(`error ${e}`)});
 var logger = require("./logger").Logger;
-const {checkBlockAndUploadToCrust} = require('./crust-socbay-pinner')
+const { checkBlockAndUploadToCrust, getStatusByCrustJs } = require('./crust-socbay-pinner')
 console.log('start.....')
 console.log(`start ${crustPrivateKey} ${pathFile}`)
 checkBlockAndUploadToCrust(crustPrivateKey,pathFile).then(()=>{
         console.log('finish');
-    }  
+    }
+).catch((e)=>{
+    //console.log(e)
+    logger.crustSocbayPinner(`----- FINISH PINNING BLOCK WITHOUT DIRECT SUCCESS -----`);
+
+}
 );
+
+//getStatusByCrustJs('QmSS847cLSzv1f2r3uD3Dswb4jo4HF5nWakdLGmbfeUFXH').then((value)=>{console.log(value)})

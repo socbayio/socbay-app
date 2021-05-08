@@ -5,6 +5,7 @@ const { spawn } = require('child_process');
 var path = require('path');
 var logger = require("./logger").Logger;
 
+/* Crust JS */
 const {ApiPromise, WsProvider} = require('@polkadot/api') ;
 const {typesBundleForPolkadot} = require('@crustio/type-definitions');
 
@@ -150,8 +151,21 @@ var checkStatusByCrustCLI = function(CID)
   });
 }
 
+const getStatusByCrustJs = async (CID) => {
+  const api = new ApiPromise({
+    provider: new WsProvider('wss://api.crust.network'),
+    typesBundle: typesBundleForPolkadot,
+  });
+  await api.isReady;
+  const fileInfo = await api.query.market.files(CID);
+  return (fileInfo.toHuman());
+}
+
 const createNewBlock = async ()=>{
-  const globalUploadBlockInfo = await global.findOneAndUpdate({variableName: "updateblock"},{$inc:{'currentBlock':1}});
+  const globalUploadBlockInfo = await global.findOneAndUpdate(
+    {variableName: "updateblock"},
+    {$inc:{'currentBlock':1}}
+  );
   await uploadBlock.create({blockNumber:globalUploadBlockInfo._doc.currentBlock+1});
 }
 
@@ -159,15 +173,21 @@ const checkBlockAndUploadToCrust = async(seed,path)=>{
   const updateBlock = await global.findOne({variableName: "updateblock"});
   const currentBlock = await uploadBlock.findOne({blockNumber:updateBlock._doc.currentBlock})
   if (currentBlock.totalSizeInByte > 100) {
+    //await createNewBlock();
+    logger.crustSocbayPinner(`----- START PINNING BLOCK ${updateBlock._doc.currentBlock} -----`);
     await loginCrustCLI(seed);
     const pinCID = await pinByCrustCLI(path);
-    publishByCrustCLI(pinCID).then(
-
-    )
-    .catch((e)=>{
-      console.error(`Publish by Crust-CLI error: ${e}`);
-    });
+    await publishByCrustCLI(pinCID);
+    logger.crustSocbayPinner(`----- FINISH PINNING BLOCK ${updateBlock._doc.currentBlock} -----`);
   }
 }
 
-module.exports = { checkBlockAndUploadToCrust };
+module.exports = { 
+  loginCrustCLI,
+  pinByCrustCLI,
+  publishByCrustCLI,
+  checkStatusByCrustCLI,
+  getStatusByCrustJs,
+  createNewBlock,
+  checkBlockAndUploadToCrust
+};
