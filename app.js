@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var config = require('./config');
-const globalConfig = require('./models/globalConfigModel');
+
 /**
   MongooseDB
  */
@@ -14,6 +14,12 @@ const flash = require('connect-flash');
 console.log(config);
 
 mongoose.connect(config.dbServerUrl + 'socbay', config.userAuth);
+
+/**
+  Models
+ */
+const uploadBlock = require('./models/uploadBlockModel');
+const globalConfig = require('./models/globalConfigModel');  
 
 /**
   Routes
@@ -46,7 +52,6 @@ var blockExplorerRouter = require('./routes/blockExplorer');
 var pageTrafficTracking = require('./middleware/pageTrafficTrackingMiddleware');
 
 const fileUpload = require('express-fileupload');
-const uploadBlock = require('./models/uploadBlockModel');
 
 var app = express();
 
