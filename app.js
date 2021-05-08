@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var config = require('./config');
+
 /**
   MongooseDB
  */
@@ -13,6 +14,12 @@ const flash = require('connect-flash');
 console.log(config);
 
 mongoose.connect(config.dbServerUrl + 'socbay', config.userAuth);
+
+/**
+  Models
+ */
+const uploadBlock = require('./models/uploadBlockModel');
+const globalConfig = require('./models/globalConfigModel');  
 
 /**
   Routes
@@ -70,6 +77,15 @@ app.use(
         secret: config.secretKeyExpressSession,
     })
 );
+
+globalConfig.findOne({variableName:"updateblock"},(error,updateBlock)=>{
+  uploadBlock.findOne({blockNumber: updateBlock._doc.currentBlock},(error,currentUploadBlock)=>{
+    global.globalCurrentBlock = {
+      blockNumber: updateBlock._doc.currentBlock,
+      totalSize: currentUploadBlock.totalSizeInByte
+    };
+  })
+})
 
 global.loggedIn = null;
 app.use('*', (req, res, next) => {
