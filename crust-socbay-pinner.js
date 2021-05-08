@@ -175,7 +175,7 @@ const uploadBlockToCrust = async(seed,blockNumber)=>{
     logger.crustSocbayPinner(`----- START PINNING BLOCK ${blockNumber} -----`);
     await loginCrustCLI(seed,blockNumber);
     const pinCID = await pinByCrustCLI(pathFolderToUpload,blockNumber);
-    uploadBlock.findOneAndUpdate({blockNumber},{CID:pinCID, timeStamp:Date.now()});
+    await uploadBlock.findOneAndUpdate({blockNumber},{CID:pinCID, timeStamp:Date.now()});
     await publishByCrustCLI(pinCID,blockNumber);
     logger.crustSocbayPinner(`----- FINISH SUCCESSFULLY PINNING BLOCK ${blockNumber} -----`);
   } catch (e) {
