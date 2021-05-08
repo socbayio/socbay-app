@@ -11,21 +11,21 @@ var crustSocbayPinnerStream = fs.createWriteStream("logs/crustSocbayPinnerLog.tx
 var debugStream = fs.createWriteStream("logs/debug.txt", {'flags': 'a'});
 
 Logger.info = function(msg) {
-  var message = new Date().toISOString() + " : " + msg + "\n";
+  var message = new Date().toUTCString() + " : " + msg + "\n";
   infoStream.write(message);
 };
 
 Logger.debug = function(msg) {
-  var message = new Date().toISOString() + " : " + msg + "\n";
+  var message = new Date().toUTCString() + " : " + msg + "\n";
   debugStream.write(message);
 };
 
 Logger.error = function(msg) {
-  var message = new Date().toISOString() + " : " + msg + "\n";
+  var message = new Date().toUTCString() + " : " + msg + "\n";
   errorStream.write(message);
 };
 
 Logger.crustSocbayPinner = function(msg) {
-    var message = new Date().toISOString() + " : " + msg + "\n";
+    var message = new Date().toUTCString() + " : " + msg + "\n";
     crustSocbayPinnerStream.write(message);
 };

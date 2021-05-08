@@ -3,5 +3,5 @@ const Schema = mongoose.Schema;
 
 const globalSchema = new Schema({}, { strict: false });
 
-const global = mongoose.model('global', globalSchema);
-module.exports = global;
+const globalConfig = mongoose.model('globalConfig', globalSchema);
+module.exports = globalConfig;

@@ -2,8 +2,8 @@ node_modules
 public/block
 package-lock.json
 yarn.lock
-config.js
 logs/crustSocbayPinnerLog.txt
 logs/debug.txt
 logs/error.txt
 logs/info.txt
+seeds

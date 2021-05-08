@@ -1,66 +1,67 @@
 const uploadBlock = require('./models/uploadBlockModel');
-const global = require('./models/globalModel');
+const globalConfig = require('./models/globalConfigModel');
 var config = require('./config');
 const { spawn } = require('child_process');
 var path = require('path');
 var logger = require("./logger").Logger;
 
+/* Crust JS */
 const {ApiPromise, WsProvider} = require('@polkadot/api') ;
 const {typesBundleForPolkadot} = require('@crustio/type-definitions');
 
 /* Crust CLI */
-var loginCrustCLI = function(seed)
+var loginCrustCLI = function(seed, blockNumber)
 {
   return new Promise(function(resolve, reject){
-    logger.crustSocbayPinner('Start Logging');
+    logger.crustSocbayPinner(`[Block ${blockNumber}] Start Logging`);
     seed = '"'+ seed + '"';
     const login = spawn('crust-cli', ['login', seed],{shell: true});
     
     var mergeData = "";
     login.stdout.on('data', (data) => {
-      logger.crustSocbayPinner(`Stdout: ${data.toString().trimEnd()}`);
+      logger.crustSocbayPinner(`[Block ${blockNumber}] Stdout: ${data.toString().trimEnd()}`);
       mergeData+=data;
     });
 
     var mergeError = "";
     login.stderr.on('data', (data) => {
-      logger.crustSocbayPinner(`Stderr: ${data.toString().trimEnd()}`);
+      logger.crustSocbayPinner(`[Block ${blockNumber}] Stderr: ${data.toString().trimEnd()}`);
       mergeError+=data;
     });
 
     login.on('close', (code) => {
       if (code==0){  
         if (mergeData == "Login success!\n"){
-          logger.crustSocbayPinner('Close Code: 0. Exit successfully! Login success!');
+          logger.crustSocbayPinner(`[Block ${blockNumber}] Close Code: 0. Exit successfully! Login success!`);
           resolve();
         }
         else {
-          logger.crustSocbayPinner('Close Code: 0. Exit failed! Login failed!');
+          logger.crustSocbayPinner(`[Block ${blockNumber}] Close Code: 0. Exit failed! Login failed!`);
           reject(mergeData + mergeError);
         }
       } else {
-        logger.crustSocbayPinner(`Close code: ${code}. Exit failed!`);
+        logger.crustSocbayPinner(`[Block ${blockNumber}] Close code: ${code}. Exit failed!`);
         reject(mergeError);
       } 
     });
   });
 }
 
-var pinByCrustCLI = function(path)
+var pinByCrustCLI = function(path, blockNumber)
 {
   return new Promise(function(resolve, reject){
-    logger.crustSocbayPinner(`Pinning Started: ${path}`);
+    logger.crustSocbayPinner(`[Block ${blockNumber}] Pinning Started: ${path}`);
     path = '"'+path+'"';
     const pin = spawn('crust-cli', ['pin', path],{shell: true});
     var mergeData = "";
     pin.stdout.on('data', (data) => {
-      logger.crustSocbayPinner(`Stdout: ${data.toString().trimEnd()}`);
+      logger.crustSocbayPinner(`[Block ${blockNumber}] Stdout: ${data.toString().trimEnd()}`);
       mergeData+=data;
     });
 
     var mergeError = "";
     pin.stderr.on('data', (data) => {
-      logger.crustSocbayPinner(`Stderr: ${data.toString().trimEnd()}`);
+      logger.crustSocbayPinner(`[Block ${blockNumber}] Stderr: ${data.toString().trimEnd()}`);
       mergeError+=data;
     });
 
@@ -68,17 +69,17 @@ var pinByCrustCLI = function(path)
       if (code==0){
         var searchCID = mergeData.match(/Pin\ssuccess:\s([a-zA-Z0-9]*)\n/);
         if (searchCID[1]){
-          logger.crustSocbayPinner(`Close Code:0. Exit successfully! Pattern matches, CID found: ${searchCID[1]}`);
+          logger.crustSocbayPinner(`[Block ${blockNumber}] Close Code:0. Exit successfully! Pattern matches, CID found: ${searchCID[1]}`);
           resolve(searchCID[1]);
         }
         else {
-          logger.crustSocbayPinner("Close Code: 0. Exit failed! Pattern doesn't match:");
+          logger.crustSocbayPinner(`[Block ${blockNumber}] Close Code: 0. Exit failed! Pattern doesn't match:`);
           logger.crustSocbayPinner(`mergeData: ${mergeData}`);
           logger.crustSocbayPinner(`searchCID: ${searchCID}`);
           reject(mergeData + mergeError);
         }
       } else {
-        logger.crustSocbayPinner(`Close Code: ${code}. Exit failed!`);
+        logger.crustSocbayPinner(`[Block ${blockNumber}] Close Code: ${code}. Exit failed!`);
         logger.crustSocbayPinner(`mergeError: ${mergeError}`);
         reject(mergeError);
       }
@@ -86,36 +87,36 @@ var pinByCrustCLI = function(path)
   });
 }
 
-var publishByCrustCLI = function(CID) {
+var publishByCrustCLI = function(CID, blockNumber) {
   return new Promise(function(resolve, reject){
-    logger.crustSocbayPinner(`Publishing Started: ${CID}`);
+    logger.crustSocbayPinner(`[Block ${blockNumber}] Publishing Started: ${CID}`);
     const timer = setTimeout(() => {
-      logger.crustSocbayPinner("Exit failed! Timeout after 30s!");
-      reject(new Error(`Timed out after 30s`));
-    }, 30000);
+      logger.crustSocbayPinner(`[Block ${blockNumber}] Exit failed! Timeout after 60s!`);
+      reject(new Error(`Timed out after 60s`));
+    }, 60000);
     
     const publish = spawn('crust-cli', ['publish', CID],{shell: true});
     
     var mergeData = "";
     publish.stdout.on('data', (data) => {
-      logger.crustSocbayPinner(`Stdout: ${data.toString().trimEnd()}`);
+      logger.crustSocbayPinner(`[Block ${blockNumber}] Stdout: ${data.toString().trimEnd()}`);
       mergeData+=data;
     });
 
     var mergeError = "";
     publish.stderr.on('data', (data) => {
-      logger.crustSocbayPinner(`Stderr: ${data.toString().trimEnd()}`);
+      logger.crustSocbayPinner(`[Block ${blockNumber}] Stderr: ${data.toString().trimEnd()}`);
       mergeError+=data;
     });
     
     publish.on('close', (code) => {
       if (code==0){  
         clearTimeout(timer);
-        logger.crustSocbayPinner("Close Code: 0. Exit successfully!");
+        logger.crustSocbayPinner(`[Block ${blockNumber}] Close Code: 0. Exit successfully!`);
         resolve(mergeData);
       } else {
         clearTimeout(timer);
-        logger.crustSocbayPinner(`Close Code: ${code}. Exit failed!`);
+        logger.crustSocbayPinner(`[Block ${blockNumber}] Close Code: ${code}. Exit failed!`);
         reject(mergeError);
       }
     });
@@ -150,24 +151,44 @@ var checkStatusByCrustCLI = function(CID)
   });
 }
 
+const getStatusByCrustJs = async (CID) => {
+  const api = new ApiPromise({
+    provider: new WsProvider('wss://api.crust.network'),
+    typesBundle: typesBundleForPolkadot,
+  });
+  await api.isReady;
+  const fileInfo = await api.query.market.files(CID);
+  return (fileInfo.toHuman());
+}
+
 const createNewBlock = async ()=>{
-  const globalUploadBlockInfo = await global.findOneAndUpdate({variableName: "updateblock"},{$inc:{'currentBlock':1}});
+  const globalUploadBlockInfo = await globalConfig.findOneAndUpdate(
+    {variableName: "updateblock"},
+    {$inc:{'currentBlock':1}}
+  );
   await uploadBlock.create({blockNumber:globalUploadBlockInfo._doc.currentBlock+1});
 }
 
-const checkBlockAndUploadToCrust = async(seed,path)=>{
-  const updateBlock = await global.findOne({variableName: "updateblock"});
-  const currentBlock = await uploadBlock.findOne({blockNumber:updateBlock._doc.currentBlock})
-  if (currentBlock.totalSizeInByte > 100) {
-    await loginCrustCLI(seed);
-    const pinCID = await pinByCrustCLI(path);
-    publishByCrustCLI(pinCID).then(
-
-    )
-    .catch((e)=>{
-      console.error(`Publish by Crust-CLI error: ${e}`);
-    });
+const uploadBlockToCrust = async(seed,blockNumber)=>{
+  try {
+    let pathFolderToUpload = path.resolve(__dirname,'public/block',blockNumber.toString());
+    logger.crustSocbayPinner(`----- START PINNING BLOCK ${blockNumber} -----`);
+    await loginCrustCLI(seed,blockNumber);
+    const pinCID = await pinByCrustCLI(pathFolderToUpload,blockNumber);
+    uploadBlock.findOneAndUpdate({blockNumber},{CID:pinCID, timeStamp:Date.now()});
+    await publishByCrustCLI(pinCID,blockNumber);
+    logger.crustSocbayPinner(`----- FINISH SUCCESSFULLY PINNING BLOCK ${blockNumber} -----`);
+  } catch (e) {
+    logger.crustSocbayPinner(`----- FINISH PINNING BLOCK ${blockNumber} WITH ERROR ${e} -----`);
   }
 }
 
-module.exports = { checkBlockAndUploadToCrust };
+module.exports = { 
+  loginCrustCLI,
+  pinByCrustCLI,
+  publishByCrustCLI,
+  checkStatusByCrustCLI,
+  getStatusByCrustJs,
+  createNewBlock,
+  uploadBlockToCrust
+};
