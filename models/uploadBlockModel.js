@@ -2,18 +2,16 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const fileInfoSchema = new Schema(
-    {
-        fileName: String,
-        fileSizeInByte: Number,
-        CID: String
-    }
-);
+const fileInfoSchema = new Schema({
+    fileName: String,
+    fileSizeInByte: Number,
+    CID: String,
+});
 
 const uploadBlockSchema = new Schema({
     blockNumber: {
         type: Number,
-        unique: true
+        unique: true,
     },
     CID: String,
     timeStamp: Number,
@@ -28,13 +26,14 @@ const uploadBlockSchema = new Schema({
         expiredOnBlockHeight: Number,
         replicas: Number,
         status: String,
-        renewPoolBalance: Number
+        renewPoolBalance: Number,
     },
     filesInfo: [fileInfoSchema],
     uploadedToNetwork: {
         type: Boolean,
-        default: false}
+        default: false,
+    },
 });
 
-const uploadBlock = mongoose.model('uploadBlock',uploadBlockSchema);
+const uploadBlock = mongoose.model('uploadBlock', uploadBlockSchema);
 module.exports = uploadBlock;

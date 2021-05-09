@@ -4,34 +4,34 @@ const Schema = mongoose.Schema;
 const VideoSchema = new Schema({
     title: {
         type: String,
-        required: true
+        required: true,
     },
     thumbnail: {
-        type: String
+        type: String,
     },
     description: String,
     durationInSecond: Number,
     timestamp: {
         type: Number,
-        default: Date.now
+        default: Date.now,
     },
     fileUploadStatus: {
-        type: String // Successful|Pending|Failed
+        type: String, // Successful|Pending|Failed
     },
     view: {
         type: Number,
-        default: 0
+        default: 0,
     },
     like: {
         type: Number,
-        default: 0
+        default: 0,
     },
     isBanned: {
         status: {
             type: Boolean,
-            default: false
+            default: false,
         },
-        reason: String
+        reason: String,
     },
     fileSize: Number,
     networkStatus: {
@@ -42,16 +42,16 @@ const VideoSchema = new Schema({
         replicas: Number,
         status: String,
         orderFee: Number,
-        renewPoolBalance: Number
+        renewPoolBalance: Number,
     },
     authorId: {
         type: Schema.Types.ObjectId,
         ref: 'User',
-        required: true
-    }
+        required: true,
+    },
 });
 
-VideoSchema.index({title: 'text', description: 'text'});
+VideoSchema.index({ title: 'text', description: 'text' });
 
-const Video = mongoose.model('Video',VideoSchema);
+const Video = mongoose.model('Video', VideoSchema);
 module.exports = Video;
