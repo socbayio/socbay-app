@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<!-- release v5.1.6, copyright 2014 - 2021 Kartik Visweswaran -->
-<!--suppress JSUnresolvedLibraryURL -->
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <title>Krajee JQuery Plugins - &copy; Kartik</title>
+    <title>SocBay Upload</title>
     
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
-    <link rel='stylesheet' href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link href="/bootstrapfileinput/assets/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
+    <link href="/bootstrapfileinput/assets/themes/explorer-fas/theme.css" media="all" rel="stylesheet" type="text/css"/>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     
@@ -100,7 +100,11 @@
     }).on('fileuploaded', function(event,databack) {
         var CIDback = document.getElementById('CIDback');
         var CIDcontent = document.createElement('h4');
-		CIDcontent.textContent = databack.response.CID;
+        var a = document.createElement('a');
+        a.href = "https://ipfs.io/ipfs/" + databack.response.CID;
+        a.textContent = "Link";
+        a.target = "_blank";
+        CIDcontent.appendChild(a);
 		CIDback.appendChild(CIDcontent);		
     }); 
 

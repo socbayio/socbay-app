@@ -39,8 +39,6 @@ router.get('/', getInfoIfAuthenticated, async (req, res, next) => {
             let liveChat = {
                 messages: liveChatVideoFound.messages,
             };
-            console.log(videoInfo);
-            console.log(liveChat);
             res.render('video', {
                 userInfo: req.userInfo,
                 liveChat,
