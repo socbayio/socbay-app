@@ -1,0 +1,43 @@
+{
+    "header": {
+        "notification": "Thông báo",
+        "msg": "Chức năng này đang được phát triển, cảm ơn sự ủng hộ của bạn!",
+        "viewall": "Xem tất cả",
+        "signin": "Đăng nhập"
+    },
+    "categories":{
+        "gaming": "Trò chơi",
+        "tech": "Công nghệ",
+        "finance": "Tài chính",
+        "cryptonews": "Tin Crypto",
+        "news": "Tin tức",
+        "lifestyle": "Phong cách sống",
+        "healthandfitness": "Sức khỏe",
+        "music": "Âm nhạc"
+    },
+    "leftSideBar": {
+        "home": "Trang chủ",
+        "explore": "Khám phá",
+        "categories": "Danh mục",
+        "testbox": "IPFS thử nghiệm",
+        "savedvideos": "Video đã lưu",
+        "subscriptions": "ĐĂNG KÝ (Đang Phát Triển.)",
+        "allsubscriptions": "Tất cả đăng ký",
+        "setting": "Cài đặt",
+        "help": "Trợ giúp",
+        "sendfeedback": "Gửi phản hồi",
+        "about": "Thông tin",
+        "press": "Báo chí",
+        "contactus": "Liên hệ",
+        "career": "Việc làm",
+        "privacy": "Chính sách"
+    },
+    "home": {
+        "title": "Sob Bay",
+        "total": "ABCED",
+        "buttonText": "Обновить страницу",
+        "buttonHTML": "<button onClick='window.location.reload();'>$t(buttonText)</button>"
+    },
+    "Something for Nothing": "Кое что задаром",
+    "Harry Potter and the Philosopher's Stone": "Гарри Поттер и Философский камень"
+}

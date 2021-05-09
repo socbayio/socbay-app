@@ -16,6 +16,27 @@ console.log(config);
 mongoose.connect(config.dbServerUrl + 'socbay', config.userAuth);
 
 /**
+  i18next
+ */
+const i18next= require('i18next');
+const i18nextMiddleware = require('i18next-express-middleware');
+const Backend = require('i18next-node-fs-backend');
+i18next
+  .use(Backend)
+  .use(i18nextMiddleware.LanguageDetector)
+  .init({
+    backend: {
+      loadPath: __dirname + '/locales/{{lng}}/{{ns}}.json',
+    },
+    detection: {
+      order: ['querystring','cookie'],
+      caches: ['cookie']
+    },
+    fallbackLng: 'en',
+    preload: ['en','vn']
+  });
+
+/**
   Models
  */
 const uploadBlock = require('./models/uploadBlockModel');
@@ -54,6 +75,8 @@ var pageTrafficTracking = require('./middleware/pageTrafficTrackingMiddleware');
 const fileUpload = require('express-fileupload');
 
 var app = express();
+
+app.use(i18nextMiddleware.handle(i18next));
 
 app.set('trust proxy', true);
 app.set('views', path.join(__dirname, 'views'));
