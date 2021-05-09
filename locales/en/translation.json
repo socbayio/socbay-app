@@ -1,0 +1,41 @@
+{
+    "header": {
+        "notification": "Socbay Notification",
+        "msg": "This function is under development. Thanks for your understanding",
+        "viewall": "View All",
+        "signin": "Sign In"
+    },
+    "categories":{
+        "gaming": "Gaming",
+        "tech": "Tech",
+        "finance": "Finance 2.0",
+        "cryptonews": "Crypto News",
+        "news": "News",
+        "lifestyle": "Lifestyle",
+        "healthandfitness": "Health & Fitness",
+        "music": "Music"
+    },
+    "leftSideBar": {
+        "home": "Home",
+        "explore": "Explore",
+        "categories": "Categories",
+        "testbox": "IPFS testbox",
+        "savedvideos": "Saved Videos",
+        "subscriptions": "SUBSCRIPTIONS (In Dev.)",
+        "allsubscriptions": "All subscriptions",
+        "setting": "Setting",
+        "help": "Help",
+        "sendfeedback": "Send Feedback",
+        "about": "About",
+        "press": "Press",
+        "contactus": "Contact Us",
+        "career": "Career",
+        "privacy": "Privacy Policy"
+    },
+    "home": {
+        "title": "Book shop",
+        "total": "There are {{counter}} books in the list",
+        "buttonText": "Refresh button",
+        "buttonHTML": "<button onClick='window.location.reload();'>$t(buttonText)</button>"
+    }
+}

@@ -16,14 +16,14 @@
             <div class="ui simple dropdown item">
                 <a href="#" class="option_links p-0" title="categories"><i class="uil uil-apps"></i></a>
                 <div class="menu dropdown_category5">
-                    <a href="/tag/gaming" class="item channel_item">Gaming</a>
-                    <a href="/tag/tech" class="item channel_item">Tech</a>
-                    <a href="/tag/finance" class="item channel_item">Finance 2.0</a>
-                    <a href="/tag/cryptonews" class="item channel_item">Crypto News</a>
-                    <a href="/tag/news" class="item channel_item">News</a>
-                    <a href="/tag/lifestyle" class="item channel_item">Lifestyle</a>
-                    <a href="/tag/healthandfitness" class="item channel_item">Health & Fitness</a>
-                    <a href="/tag/music" class="item channel_item">Music</a>
+                    <a href="/tag/gaming" class="item channel_item"><%=t('categories.gaming')%></a>
+                    <a href="/tag/tech" class="item channel_item"><%=t('categories.tech')%></a>
+                    <a href="/tag/finance" class="item channel_item"><%=t('categories.finance')%></a>
+                    <a href="/tag/cryptonews" class="item channel_item"><%=t('categories.cryptonews')%></a>
+                    <a href="/tag/news" class="item channel_item"><%=t('categories.news')%></a>
+                    <a href="/tag/lifestyle" class="item channel_item"><%=t('categories.lifestyle')%></a>
+                    <a href="/tag/healthandfitness" class="item channel_item"><%=t('categories.healthandfitness')%></a>
+                    <a href="/tag/music" class="item channel_item"><%=t('categories.music')%></a>
                    
                 </div>
             </div>
@@ -49,15 +49,15 @@
                             <div class="profile_link">
                                 <img src="/images/logo1.svg" alt="">
                                 <div class="pd_content">
-                                    <h6>Crust Live notification</h6>
-                                    <p>This function is under development. Thanks for your understanding</strong>.</p>
+                                    <h6><%=t('header.notification')%></h6>
+                                    <p><%=t('header.msg')%></strong>.</p>
                                     <span class="nm_time">0 min ago</span>
                                 </div>							
                             </div>							
                         </a>
                         
                        
-                        <a class="vbm_btn" href="/">View All <i class='uil uil-arrow-right disabled'></i></a>
+                        <a class="vbm_btn" href="/"><%=t('header.viewall')%> <i class='uil uil-arrow-right disabled'></i></a>
                     </div>
                 </li>
                 <li class="ui dropdown">
@@ -100,7 +100,7 @@
         <% if(!loggedIn) { %>
             <ul>
                 <li>
-                    <a href="/login" class="upload_btn" title="Create New Course"><i class='uil uil-user'></i>Sign in</a>
+                    <a href="/login" class="upload_btn" title="Create New Course"><i class='uil uil-user'></i><%=t('header.signin')%></a>
                 </li>
     
             </ul>

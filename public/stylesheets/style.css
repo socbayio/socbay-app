@@ -21,3 +21,15 @@ a.disabled {
 h3 {
   font-family: 'Roboto', sans-serif !important;
 }
+
+
+
+.lng_btn {
+  margin-top: 0px !important;
+  margin-left: 20px !important;
+}
+
+.buttons-footer{
+  display: flex !important;
+  justify-content: flex-end !important;
+}
