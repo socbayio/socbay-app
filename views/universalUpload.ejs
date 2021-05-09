@@ -96,7 +96,8 @@
     });
     $("#file-4").fileinput({
         theme: 'fas',
-        uploadExtraData: {kvId: '10'}
+        uploadExtraData: {kvId: '10'},
+        maxFileSize: 100*1024
     }).on('fileuploaded', function(event,databack) {
         var CIDback = document.getElementById('CIDback');
         var CIDcontent = document.createElement('h4');
