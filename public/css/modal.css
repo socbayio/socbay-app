@@ -39,6 +39,30 @@
     border-radius: 10px;
 }
 
+@media (max-width: 1200px) {
+    .modalContent {
+        width: 40%;
+    }
+}
+
+@media (max-width: 900px) {
+    .modalContent {
+        width: 60%;
+    }
+}
+
+@media (max-width: 600px) {
+    .modalContent {
+        width: 80%;
+    }
+}
+
+@media (max-width: 400px) {
+    .modalContent {
+        width: 90%;
+    }
+}
+
 /* Modal Header */
 .modalContent .header__modal {
     display: flex;
