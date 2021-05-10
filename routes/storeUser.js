@@ -15,7 +15,10 @@ router.post('/', redirectIfAuthenticatedMiddleware, function (req, res, next) {
 
             return res.redirect('/register');
         }
+
         req.session.userId = user._id;
+        req.session.webLang = user.lang;
+
         return res.redirect('/');
     }); // could do either User.create(req.body,(error, user)=>{res.redirect()})
 });

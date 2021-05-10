@@ -8,6 +8,11 @@ const videoElementSchema = new Schema(
             ref: 'Video',
             required: true,
         },
+        lang: String,
+        timestamp: {
+            type: Number,
+            default: Date.now,
+        }
     },
     { _id: false }
 );
