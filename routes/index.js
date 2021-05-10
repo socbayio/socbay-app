@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated.js');
 
-const { getVideosFromTagPromiseStyle } = require('./common.js');
+const { getVideoFromTagByLanguage } = require('./common.js');
 
 router.get('/', getInfoIfAuthenticated, async function (req, res, next) {
     try {
@@ -18,7 +18,7 @@ router.get('/', getInfoIfAuthenticated, async function (req, res, next) {
             'music',
         ];
 
-        const promises = homepageTags.map(getVideosFromTagPromiseStyle);
+        const promises = homepageTags.map((tagName)=>getVideoFromTagByLanguage(tagName, 'vn', 20, 0));
         const values = await Promise.all(promises);
         res.render('index', {
             userInfo: req.userInfo,

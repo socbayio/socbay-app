@@ -48,7 +48,7 @@ router.post(
                 )
             ); //, (error)=>{}
             fileToUpload.thumbnail = '/images/thumbnails/' + image.name;
-            let chooseDefaultImage = false; // To implement: when uploading fail -> chooseDefaultImage = true
+            let chooseDefaultImage = false; // TODO: when uploading fail -> chooseDefaultImage = true
         }
 
         if (!(req.files && req.files.thumbnail) || chooseDefaultImage) {

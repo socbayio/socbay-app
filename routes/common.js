@@ -62,6 +62,58 @@ const getVideosFromTagPromiseStyle = async (tagName) => {
     return;
 };
 
+const getVideoFromTagByLanguage = async (tagName, lang, videosNumber, skippedVideos) => {
+    const pipeline = [
+        { 
+            '$match': {
+                tagName: tagName, 
+                "videos.lang": lang
+            }
+        },
+        { 
+            '$unwind': '$videos' 
+        },
+        { 
+            '$match': {       
+                "videos.lang":"vn"
+            }
+        },
+        {
+            "$sort": {
+                "videos.timestamp": -1
+            }
+        },
+        {   
+            "$skip" : skippedVideos
+        },
+        {
+            "$limit": videosNumber
+        },
+        {
+            '$group': {
+                '_id': '$_id',
+                'videos':{
+                    '$push': '$videos'
+                }
+            }
+        }
+    ];
+    const tagFound = await videoTag.aggregate(pipeline);
+    if (tagFound.length){
+        const populatedResult = await Video.populate(tagFound,{path: 'videos.videoId'})     
+        let videoArray = [];
+        for (
+            let videoCount = 0;
+            videoCount < populatedResult[0].videos.length;
+            videoCount++
+        ) {
+            videoArray.push(populatedResult[0].videos[videoCount].videoId);
+        }
+        return { name: tagName, videos: videoArray };
+    }
+    return;
+}
+
 const getVideosChannelOld = async (channelId) => {
     const userFound = await User.findById(channelId);
     if (userFound) {
@@ -179,4 +231,5 @@ module.exports = {
     uploadTotalSizeInByte,
     addFileInfo,
     addFileToIPFSPromise,
+    getVideoFromTagByLanguage,
 };

@@ -9,6 +9,7 @@ const VideoSchema = new Schema({
     thumbnail: {
         type: String,
     },
+    lang: String,
     description: String,
     durationInSecond: Number,
     timestamp: {
