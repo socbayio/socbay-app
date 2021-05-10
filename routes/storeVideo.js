@@ -21,7 +21,7 @@ const thumbnailDictionary = {
     gaming: '/images/thumbnails/default/gaming.jpg',
     tech: '/images/thumbnails/default/tech.jpg',
     finance: '/images/thumbnails/default/finance.jpg',
-    cryptonews: '/images/thumbnails/default/cryptonews.jpg',
+    cryptonews: '/images/thumbnails/default/crypto.jpg',
     news: '/images/thumbnails/default/news.jpg',
     lifestyle: '/images/thumbnails/default/lifestyle.jpg',
     healthandfitness: '/images/thumbnails/default/healthandfitness.jpg',
@@ -75,9 +75,9 @@ router.post(
         const uploadedVideo = await Video.create(fileToUpload);
 
         if (uploadedVideo._id) {
-            await pushVideoToTag('newvideos', uploadedVideo._id);
-            await pushVideoToTag(req.body.tag, uploadedVideo._id);
-            await pushVideoToMe(req.userInfo.userId, uploadedVideo._id);
+            await pushVideoToTag('newvideos', uploadedVideo._id, uploadedVideo.lang);
+            await pushVideoToTag(req.body.tag, uploadedVideo._id, uploadedVideo.lang);
+            await pushVideoToMe(req.userInfo.userId, uploadedVideo._id, uploadedVideo.lang);
             await createLiveChatForVideo(uploadedVideo._id);
         }
         return;

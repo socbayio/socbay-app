@@ -75,7 +75,7 @@ const getVideoFromTagByLanguage = async (tagName, lang, videosNumber, skippedVid
         },
         { 
             '$match': {       
-                "videos.lang":"vn"
+                "videos.lang": lang
             }
         },
         {
@@ -153,20 +153,20 @@ const getVideosChannel = async (channelId) => {
     }
 };
 
-const pushVideoToTag = async (tagName, videoId) => {
+const pushVideoToTag = async (tagName, videoId, lang) => {
     const videoTagFound = await videoTag.findOneAndUpdate(
         { tagName: tagName },
-        { $push: { videos: { videoId: videoId } } }
+        { $push: { videos: { videoId, lang } } }
     );
     if (!videoTagFound) {
         videoTag.create({ tagName: tagName, videos: [{ videoId: videoId }] });
     }
 };
 
-const pushVideoToMe = async (myId, videoId) => {
+const pushVideoToMe = async (myId, videoId, lang) => {
     const videoTagFound = await User.findOneAndUpdate(
         { _id: myId },
-        { $push: { uploadedVideos: { videoId: videoId } } }
+        { $push: { uploadedVideos: { videoId, lang } } }
     );
 };
 
