@@ -12,6 +12,11 @@ const videoElementSchema = new Schema(
             ref: 'Video',
             required: true,
         },
+        lang: String,
+        timestamp: {
+            type: Number,
+            default: Date.now,
+        }
     },
     { _id: false }
 );
@@ -55,6 +60,10 @@ const UserSchema = new Schema({
     profilePicture: {
         type: String,
         default: '/images/profilepicture/default.png',
+    },
+    lang: {
+        type: String,
+        default: 'en',
     },
     uploadedVideos: [videoElementSchema],
     uploadedFiles: [fileElementSchema],
