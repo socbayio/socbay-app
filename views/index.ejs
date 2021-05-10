@@ -27,6 +27,7 @@
   	<%- include("leftSideBar"); -%>
 	<!-- Body Start -->
 	<div class="wrapper">
+		
 		<div class="sa4d25">
 			<div class="container-fluid video-catalog-container">			
 				<div class="row">
@@ -71,19 +72,10 @@
 		
 		$( document ).ready(function() {
 
-			console.log(document.getElementsByClassName('modalDemoWeb')[0].style.display);
-			
-
 			function displayDemoVerNotification(){
-				console.log(localStorage);
-				
 				let disableNotification = localStorage.getItem('disableNotification') == 'true';
-				console.log(disableNotification);
-
-				if(disableNotification){
-					let notif = document.getElementsByClassName('modalDemoWeb')[0];
-					notif.style.display = 'none';
-				}
+				let notif = document.getElementsByClassName('modalDemoWeb')[0];
+				notif.style.display = disableNotification ? 'none' : 'flex';
 			}
 
 			displayDemoVerNotification();

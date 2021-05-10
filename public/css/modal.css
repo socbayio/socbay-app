@@ -14,7 +14,7 @@
 .modalDemoWeb {
     z-index: 999;
     background-color: rgba(50, 50, 50, 0.5);
-    display: flex;
+    display: none;
     position: absolute;
     top: 0;
     left: 0;

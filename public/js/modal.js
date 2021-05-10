@@ -4,7 +4,6 @@
 //     var modal = document.getElementsByClassName('modalDemoWeb')[0];
 
 //     var modalBg = document.getElementsByClassName('modalDemoBg')[0];
-//     console.log(modalBg);
 
 //     modalBg.addEventListener('click', function () {
 //         console.log('bg clicked');
@@ -14,6 +13,7 @@
 //     });
 
 //     var disableBtn = document.getElementsByClassName('disable_model_btn')[0];
+
 //     disableBtn.addEventListener('click', function () {
 //         console.log('btn clicked');
 
@@ -24,12 +24,11 @@
 
 console.log('reload page');
 
-//localStorage.setItem('disableNotification', false);
+localStorage.setItem('disableNotification', false);
 
 var modal = document.getElementsByClassName('modalDemoWeb')[0];
 
 var modalBg = document.getElementsByClassName('modalDemoBg')[0];
-console.log(modalBg);
 
 modalBg.addEventListener('click', function () {
     console.log('bg clicked');
