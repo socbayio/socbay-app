@@ -7,15 +7,16 @@ const redirectIfAuthenticatedMiddleware = require('../middleware/redirectIfAuthe
 
 router.post('/', redirectIfAuthenticatedMiddleware, function (req, res, next) {
     const { emailaddress, password } = req.body;
-
     User.findOne({ emailaddress: emailaddress }, (error, user) => {
         if (user) {
             bcrypt.compare(password, user.password, (error, same) => {
                 if (same) {
                     // if passwords match
-                    // store user session, will talk about it later
-                    req.session.userId = user._id;
-                    res.redirect('/');
+
+                    req.session.userId = user._id; // store user session, will talk about it later
+                    req.session.webLang = user.lang; // store language to session
+
+                    res.redirect('/?lng=' + user.lang);
                 } else {
                     res.redirect('/login');
                 }

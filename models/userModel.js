@@ -56,6 +56,10 @@ const UserSchema = new Schema({
         type: String,
         default: '/images/profilepicture/default.png',
     },
+    lang: {
+        type: String,
+        default: 'en',
+    },
     uploadedVideos: [videoElementSchema],
     uploadedFiles: [fileElementSchema],
     subscriptions: [userElementSchema],
