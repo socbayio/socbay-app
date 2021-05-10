@@ -4,6 +4,11 @@ const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated.js'
 
 const { getVideoFromTagByLanguage } = require('./common.js');
 
+function callback(tagName) {
+    return getVideoFromTagByLanguage(tagName, this.lang, this.videosNumber, this.skippedVideos)
+  };
+
+var middleware = require("i18next-express-middleware");  
 router.get('/', getInfoIfAuthenticated, async function (req, res, next) {
     try {
         homepageTags = [
@@ -17,8 +22,8 @@ router.get('/', getInfoIfAuthenticated, async function (req, res, next) {
             'healthandfitness',
             'music',
         ];
-
-        const promises = homepageTags.map((tagName)=>getVideoFromTagByLanguage(tagName, 'vn', 20, 0));
+        const lang = req.language;
+        const promises = homepageTags.map(callback, {lang: lang, videosNumber: 20, skippedVideos: 0});
         const values = await Promise.all(promises);
         res.render('index', {
             userInfo: req.userInfo,
