@@ -73,7 +73,7 @@
 		$( document ).ready(function() {
 
 			function displayDemoVerNotification(){
-				let disableNotification = localStorage.getItem('disableNotification') == 'true';
+				let disableNotification = sessionStorage.getItem('disableNotification') == 'true';
 				let notif = document.getElementsByClassName('modalDemoWeb')[0];
 				notif.style.display = disableNotification ? 'none' : 'flex';
 			}
