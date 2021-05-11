@@ -71,7 +71,7 @@ var blockExplorerRouter = require('./routes/blockExplorer');
   Middleware
  */
 var pageTrafficTracking = require('./middleware/pageTrafficTrackingMiddleware');
-var fallbackLanguageMiddleware = require('./middleware/fallbackLanguageMiddleware');
+var getCurrentLanguageMiddleware = require('./middleware/getCurrentLanguageMiddleware');
 
 const fileUpload = require('express-fileupload');
 
@@ -118,8 +118,7 @@ app.use('*', (req, res, next) => {
 });
 
 app.use(pageTrafficTracking);
-app.use(fallbackLanguageMiddleware);
-app.use('/', indexRouter);
+app.use('/', getCurrentLanguageMiddleware, indexRouter);
 app.use('/users', usersRouter);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
@@ -131,7 +130,7 @@ app.use('/uploadvideo/store', storeVideoRouter);
 app.use('/video/:videoId', pullvideoRouter);
 app.use('/register/store', storeUser);
 app.use('/aboutus', aboutUsRouter);
-app.use('/tag/:tagId', tagVideoRouter);
+app.use('/tag/:tagId', getCurrentLanguageMiddleware, tagVideoRouter);
 app.use('/boom/:videoId', boomVideoRouter);
 app.use('/search', searchRouter);
 app.use('/myinfo', myInfoRouter);
