@@ -30,3 +30,8 @@ Logger.crustSocbayPinner = function(msg) {
     var message = new Date().toUTCString() + " : " + msg + "\n";
     crustSocbayPinnerStream.write(message);
 };
+
+Logger.reports = function(msg) {
+  var message = new Date().toUTCString() + " : " + msg + "\n";
+  errorStream.write(message);
+};

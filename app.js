@@ -66,6 +66,7 @@ var uploadHistoryRouter = require('./routes/uploadHistory');
 var universalUploadRouter = require('./routes/universalUpload');
 var universalStoreRouter = require('./routes/universalStore');
 var blockExplorerRouter = require('./routes/blockExplorer');
+var reportRouter = require('./routes/reportVideo');
 
 /**
   Middleware
@@ -139,6 +140,7 @@ app.use('/uploadhistory', uploadHistoryRouter);
 app.use('/upload', universalUploadRouter);
 app.use('/upload/store', universalStoreRouter);
 app.use('/blockexplorer', blockExplorerRouter);
+app.use('/video/:videoId/report', reportRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
