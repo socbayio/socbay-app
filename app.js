@@ -29,11 +29,11 @@ i18next
       loadPath: __dirname + '/locales/{{lng}}/{{ns}}.json',
     },
     detection: {
-      order: ['querystring','cookie'],
+      order: ['querystring','cookie','header'],
       caches: ['cookie']
     },
     fallbackLng: 'en',
-    preload: ['en','vn']
+    preload: ['en','vi']
   });
 
 /**
