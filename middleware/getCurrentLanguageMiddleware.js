@@ -1,5 +1,3 @@
-var logger = require("../logger").Logger;
-
 module.exports = (req, res, next) => {
     let languagesBase = ['en','vi']
     let userLangs = req.languages;
