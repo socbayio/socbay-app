@@ -29,11 +29,11 @@ i18next
       loadPath: __dirname + '/locales/{{lng}}/{{ns}}.json',
     },
     detection: {
-      order: ['querystring','cookie'],
+      order: ['querystring','cookie','header'],
       caches: ['cookie']
     },
     fallbackLng: 'en',
-    preload: ['en','vn']
+    preload: ['en','vi']
   });
 
 /**
@@ -71,6 +71,7 @@ var blockExplorerRouter = require('./routes/blockExplorer');
   Middleware
  */
 var pageTrafficTracking = require('./middleware/pageTrafficTrackingMiddleware');
+var fallbackLanguageMiddleware = require('./middleware/fallbackLanguageMiddleware');
 
 const fileUpload = require('express-fileupload');
 
@@ -117,6 +118,7 @@ app.use('*', (req, res, next) => {
 });
 
 app.use(pageTrafficTracking);
+app.use(fallbackLanguageMiddleware);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/register', registerRouter);
