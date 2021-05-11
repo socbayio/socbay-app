@@ -22,7 +22,7 @@ router.get('/', getInfoIfAuthenticated, async function (req, res, next) {
             'healthandfitness',
             'music',
         ];
-        const lang = req.language;
+        const lang = req.currentLang;
         const promises = homepageTags.map(callback, {lang: lang, videosNumber: 20, skippedVideos: 0});
         const values = await Promise.all(promises);
         res.render('index', {
