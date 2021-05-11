@@ -36,11 +36,3 @@ modalBg.addEventListener('click', function () {
     sessionStorage.setItem('disableNotification', true);
     modal.style.display = 'none';
 });
-
-var disableBtn = document.getElementsByClassName('disable_model_btn')[0];
-disableBtn.addEventListener('click', function () {
-    console.log('btn clicked');
-
-    sessionStorage.setItem('disableNotification', true);
-    modal.style.display = 'none';
-});
