@@ -5,10 +5,11 @@ const Video = require('../models/videoModel.js');
 const videoTag = require('../models/videoTagModel.js');
 const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated');
 const { getVideoFromTagByLanguage } = require('./common.js');
+const getCurrentLanguageMiddleware = require('../middleware/getCurrentLanguageMiddleware.js');
 
-router.get('/', getInfoIfAuthenticated, async function (req, res, next) {
+router.get('/', getInfoIfAuthenticated, getCurrentLanguageMiddleware, async function (req, res, next) {
     try {
-        const values = [await getVideoFromTagByLanguage(req.params.tagId, 'vn', 20, 0)];
+        const values = [await getVideoFromTagByLanguage(req.params.tagId, req.currentLang, 20, 0)];
         res.render('index', {
             userInfo: req.userInfo,
             renderVideos: values.filter((x) => x !== undefined),
