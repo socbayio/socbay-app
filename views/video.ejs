@@ -139,21 +139,18 @@
 	<script src="/js/video.js"></script>
 	<script>
 		if (subscribed()) {
-			document.getElementById('subscribeBtn').style.display = 'block';
-			document.getElementById('subscribedBtn').style.display = 'none';
-		} else {
 			document.getElementById('subscribeBtn').style.display = 'none';
 			document.getElementById('subscribedBtn').style.display = 'block';
+		} else {
+			document.getElementById('subscribeBtn').style.display = 'block';
+			document.getElementById('subscribedBtn').style.display = 'none';
 		}
 
 		function subscribed(){
-			if ('<%= userInfo %>') {
-				if (!'<%= userInfo.authorSubscribed %>') {
-					return true;
-				}
-			}
+			if(!'<%= userInfo %>') return false;
+			if('<%= userInfo.authorSubscribed %>') return false;
 
-			return false;
+			return true;
 		}
 		
 		const videoAuthorId = '<%= videoInfo.videoAuthorId %>';
