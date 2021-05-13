@@ -67,7 +67,6 @@ var universalUploadRouter = require('./routes/universalUpload');
 var universalStoreRouter = require('./routes/universalStore');
 var blockExplorerRouter = require('./routes/blockExplorer');
 
-var userSubscribeRouter = require('./routes/userSubscribe');
 var allUsersRouter = require('./routes/allUsers');
 
 /**
@@ -147,7 +146,6 @@ app.use('/upload', universalUploadRouter);
 app.use('/upload/store', universalStoreRouter);
 app.use('/blockexplorer', blockExplorerRouter);
 
-app.use('/user', userSubscribeRouter);
 app.use('/allUsers', allUsersRouter);
 
 // catch 404 and forward to error handler
