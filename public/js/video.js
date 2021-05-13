@@ -1,5 +1,5 @@
 async function subscribeUser(authorId) {
-    const response = await fetch('/video//author/subscribe', {
+    const response = await fetch('/video/author/subscribe', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

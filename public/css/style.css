@@ -2294,6 +2294,18 @@ i.icon1 {
   outline: none;
 }
 
+.subscribed-btn {
+    border: 0;
+    background: #b3b3b3;
+    padding: 0 20px;
+    height: 30px;
+    border-radius: 30px;
+    color: black;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+}
+
 .Subscribed-btn {
   background: #c72127 !important;
   color: white;

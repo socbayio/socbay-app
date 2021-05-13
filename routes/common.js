@@ -252,6 +252,9 @@ const getUserById = async (userId) => {
     return userFound;
 };
 
+const isEmptyObject = (obj) =>
+    Object.keys(obj).length === 0 && obj.constructor === Object;
+
 module.exports = {
     getVideosFromTag,
     getVideosFromTagPromiseStyle,
@@ -264,4 +267,5 @@ module.exports = {
     addFileToIPFSPromise,
     getVideoFromTagByLanguage,
     getAllUsers,
+    isEmptyObject,
 };

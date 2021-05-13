@@ -30,7 +30,11 @@
 										</div>
 										<div class="user_cntnt">
 											<a href="/channel/<%=videoInfo.videoAuthorId%>"><h4><%=videoInfo.videoAuthor%></h4></a>
-											<button id="subscribeBtn" class="subscribe-btn">Subscribe</button>
+											<% if(userInfo) { if(!userInfo.authorSubscribeb) { %>
+												<button id="subscribeBtn" class="subscribe-btn">Subscribe</button>
+											<%}else{%>
+												<button id="subscribedBtn" class="subscribed-btn">Subscribed</button>
+											<%}}%>
 										</div>
 									</div>
 								</div>
@@ -142,10 +146,12 @@
 		
 		const videoAuthorId = '<%= videoInfo.videoAuthorId %>';
 		const subscribeBtn = document.getElementById('subscribeBtn');
-		subscribeBtn.addEventListener('click', function (e) {
-			subscribeUser(videoAuthorId)
-			.then(data => console.log(data));
-		});
+		if(subscribeBtn){
+				subscribeBtn.addEventListener('click', function (e) {
+				subscribeUser(videoAuthorId)
+				.then(data => console.log(data));
+			});
+		}
 	</script>
 </body>
 </html>
