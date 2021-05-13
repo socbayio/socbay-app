@@ -6,6 +6,10 @@ const fileInfoSchema = new Schema({
     fileName: String,
     fileSizeInByte: Number,
     CID: String,
+    timestamp: {
+        type: Number,
+        default: Date.now,
+    },
 });
 
 const uploadBlockSchema = new Schema({
