@@ -30,7 +30,7 @@
 										</div>
 										<div class="user_cntnt">
 											<a href="/channel/<%=videoInfo.videoAuthorId%>"><h4><%=videoInfo.videoAuthor%></h4></a>
-											<button class="subscribe-btn">Subscribe</button>
+											<button id="subscribeBtn" class="subscribe-btn">Subscribe</button>
 										</div>
 									</div>
 								</div>
@@ -87,6 +87,8 @@
 		</div>
 		<%- include("footer"); -%>
 	</div>
+
+
 	<!-- Body End -->
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -132,6 +134,18 @@
 			document.querySelector('#boom-count').textContent++;
 			axios.post('/boom/<%=videoInfo.videoId%>');
 		}
+	</script>
+	<script src="/js/video.js"></script>
+	<script>
+		console.log('<%= videoInfo.videoAuthorId %>');
+		console.log('<%= userInfo.username %>');
+		
+		const videoAuthorId = '<%= videoInfo.videoAuthorId %>';
+		const subscribeBtn = document.getElementById('subscribeBtn');
+		subscribeBtn.addEventListener('click', function (e) {
+			subscribeUser(videoAuthorId)
+			.then(data => console.log(data));
+		});
 	</script>
 </body>
 </html>

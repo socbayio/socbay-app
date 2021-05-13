@@ -247,6 +247,11 @@ const getAllUsers = async () => {
     return usersReturning;
 };
 
+const getUserById = async (userId) => {
+    const userFound = await User.findById(userId);
+    return userFound;
+};
+
 module.exports = {
     getVideosFromTag,
     getVideosFromTagPromiseStyle,
