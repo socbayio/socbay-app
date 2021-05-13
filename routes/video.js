@@ -12,17 +12,14 @@ async function getAuthorInfo(req, res, next) {
 }
 
 async function subscribeUser(req, res, next) {
-    const userUpdated = await User.findOneAndUpdate(
-        { _id: req.userInfo.userId },
-        {
-            $push: {
-                subscriptions: req.authorInfo._id,
-            },
-        }
-    );
-    const userInfo = await User.findById(req.userInfo.userId);
+    const authorId = req.authorInfo._id;
 
-    res.send({ updateduserInfo: userInfo, authorInfo: req.authorInfo });
+    const updatedUser = await User.findOneAndUpdate(
+        { _id: req.userInfo.userId },
+        { $push: { subscriptions: { userId: authorId } } }
+    );
+
+    res.send({ updateduserInfo: updatedUser, authorInfo: req.authorInfo });
 }
 
 router.get('/', getInfoIfAuthenticated, function (req, res, next) {
