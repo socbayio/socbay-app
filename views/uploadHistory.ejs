@@ -111,9 +111,9 @@
 										<table class="table ucp-table">
 											<thead class="thead-s">
 												<tr>
-													<th class="text-center" scope="col">Item No.</th>
-													<th class="cell-ta" scope="col">Title</th>
-													<th class="cell-ta" scope="col">Vendor</th>
+													<th class="text-center" scope="col">Title</th>
+													<th class="cell-ta" scope="col">CID</th>
+													<th class="cell-ta" scope="col">Size</th>
 													<th class="cell-ta" scope="col">Category</th>
 													<th class="text-center" scope="col">Delivery Type</th>
 													<th class="text-center" scope="col">Price</th>
@@ -122,10 +122,10 @@
 												</tr>
 											</thead>
 											<tbody>
-												<% for(let fileCount = 0; fileCount < uploadedFiles.length; fileCount++) {%>
+												<% for(let fileCount = 0; fileCount < uploadedVideos.length; fileCount++) {%>
 												<tr>
-													<td class="text-center">001</td>
-													<td class="cell-ta">Course Title Here</td>
+													<td class="text-center"><%=uploadedVideos[fileCount].title%></td>
+													<td class="cell-ta"><%=uploadedVideos[fileCount].networkStatus.CID%></td>
 													<td class="cell-ta"><a href="#">Zoena Singh</a></td>
 													<td class="cell-ta"><a href="#">Web Development</a></td>
 													<td class="text-center"><b class="course_active">Download</b></td>

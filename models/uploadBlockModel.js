@@ -28,6 +28,7 @@ const uploadBlockSchema = new Schema({
     orderFee: Number,
     currentInfo: {
         expiredOnBlockHeight: Number,
+        expiredOnDate: Date,
         replicas: Number,
         status: String,
         renewPoolBalance: Number,
@@ -38,6 +39,7 @@ const uploadBlockSchema = new Schema({
         default: false,
     },
 });
+
 
 const uploadBlock = mongoose.model('uploadBlock', uploadBlockSchema);
 module.exports = uploadBlock;

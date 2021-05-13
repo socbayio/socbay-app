@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const subReferencesPopulate = require('mongoose-sub-references-populate');
 
 const Schema = mongoose.Schema;
 const VideoSchema = new Schema({
@@ -45,6 +46,15 @@ const VideoSchema = new Schema({
         orderFee: Number,
         renewPoolBalance: Number,
     },
+    fileId: {
+        type: Schema.Types.ObjectId,
+        subRef: 'uploadBlock.filesInfo',
+        required: true,
+    },
+    blockId: {
+        type: Schema.Types.ObjectId,
+        ref: 'uploadBlock',
+    },
     authorId: {
         type: Schema.Types.ObjectId,
         ref: 'User',
@@ -53,6 +63,7 @@ const VideoSchema = new Schema({
 });
 
 VideoSchema.index({ title: 'text', description: 'text' });
+VideoSchema.plugin(subReferencesPopulate);
 
 const Video = mongoose.model('Video', VideoSchema);
 module.exports = Video;

@@ -31,6 +31,7 @@ router.get('/', getInfoIfAuthenticated, async (req, res, next) => {
             file.videoInfo = userFound.uploadedFiles[fileCount].relatedVideo || null; // Would be null if there is not related video
             uploadedFiles.push(file);
         }
+        console.log(uploadedVideos)
         res.render('uploadHistory', { userInfo: req.userInfo, uploadedFiles, uploadedVideos });
     } catch (e) {
 
