@@ -14,10 +14,15 @@ async function getAuthorInfo(req, res, next) {
 async function subscribeUser(req, res, next) {
     const authorId = req.authorInfo._id;
 
-    const updatedUser = await User.findOneAndUpdate(
-        { _id: req.userInfo.userId },
-        { $push: { subscriptions: { userId: authorId } } }
-    );
+    const updatedUser = await User.findById(req.userInfo.userId);
+    if (
+        !updatedUser.subscriptions.some(sub => sub.userId.toString() === authorId.toString()) && 
+        !(req.userInfo.userId.toString() == authorId.toString())
+        )
+    {
+        updatedUser.subscriptions.push({userId: authorId});
+        await updatedUser.save();
+    }
 
     res.send({ updateduserInfo: updatedUser, authorInfo: req.authorInfo });
 }
