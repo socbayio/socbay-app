@@ -58,8 +58,13 @@ const userfound = User.findById("609aa0011fc122ea787c9e84")
     }
 );
 
-userfound.then((v)=>{
-    console.log(v.uploadedVideos[0].videoId)
+userfound.then(async (v)=>{
+    console.log(v)
+    a = v.uploadedVideos[0].videoId;
+    const b = await a.subPopulate('fileId')
+    console.log(a)
+    console.log(b)
+    //console.log(v.uploadedVideos[0].videoId)
 })
 
 

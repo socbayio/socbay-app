@@ -5,13 +5,11 @@ var router = express.Router({ mergeParams: true });
 const User = require('../models/userModel.js');
 const Video = require('../models/videoModel');
 const uploadBlock = require('../models/uploadBlockModel');
+var logger = require("../logger").Logger;
 
 
-router.get('/', getInfoIfAuthenticated, async (req, res, next) => {
+router.get('/', redirectIfNotAuthenticatedMiddleware, getInfoIfAuthenticated, async (req, res, next) => {
     try {
-        req.userInfo.userId = "6091872bb34b5058453d1e02"
-        //req.userInfo.userId = "6093b8596714568b3c1dd146"
-
         const userFound = await User.findById(
             req.userInfo.userId
         ).populate(
@@ -19,10 +17,22 @@ router.get('/', getInfoIfAuthenticated, async (req, res, next) => {
         ).populate(
             'uploadedFiles.relatedVideo', 'title'
         ).populate(
-            'uploadedVideos.videoId'
+            {
+                path: 'uploadedVideos.videoId',
+                populate: {
+                    path: "blockId",
+                    select: "currentInfo uploadedToNetwork",
+                }
+            
+            }
         );
         const uploadedFiles = [];
-        const uploadedVideos = userFound.uploadedVideos.map((v) => v.videoId);
+        const uploadedVideos = await Promise.all(userFound.uploadedVideos.map(async (video) => {
+                await video.videoId.subPopulate('fileId');
+                return video.videoId;
+            })
+        )
+
         let file = {};
         for (let fileCount = 0; fileCount < userFound.uploadedFiles.length; fileCount++) {
             file = {};
@@ -31,10 +41,11 @@ router.get('/', getInfoIfAuthenticated, async (req, res, next) => {
             file.videoInfo = userFound.uploadedFiles[fileCount].relatedVideo || null; // Would be null if there is not related video
             uploadedFiles.push(file);
         }
-        console.log(uploadedVideos)
+
         res.render('uploadHistory', { userInfo: req.userInfo, uploadedFiles, uploadedVideos });
     } catch (e) {
-
+        logger.error(`Error found on uploadhistory.js ${e}`);
+        next()
     }
 });
 
