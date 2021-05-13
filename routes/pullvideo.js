@@ -14,11 +14,11 @@ const gateway = {
 
 function checkSubscribed(req, res, next) {
     if (!isEmptyObject(req.userInfo)) {
-        req.userInfo.authorSubscribeb = false;
+        req.userInfo.authorSubscribed = false;
         const authorSubscribed = req.userInfo.subscriptionsId.find(
             (s) => s.userId === req.userInfo.videoAuthorId
         );
-        req.userInfo.authorSubscribeb = authorSubscribed !== null;
+        req.userInfo.authorSubscribed = authorSubscribed !== null;
     }
     next();
 }

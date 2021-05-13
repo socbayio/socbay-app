@@ -16,7 +16,7 @@ const videoElementSchema = new Schema(
         timestamp: {
             type: Number,
             default: Date.now,
-        }
+        },
     },
     { _id: false }
 );

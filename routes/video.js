@@ -22,6 +22,17 @@ async function subscribeUser(req, res, next) {
     res.send({ updateduserInfo: updatedUser, authorInfo: req.authorInfo });
 }
 
+async function unsubscribeUser(req, res, next) {
+    const authorId = req.authorInfo._id;
+
+    const updatedUser = await User.findOneAndUpdate(
+        { _id: req.userInfo.userId },
+        { $pull: { subscriptions: { userId: authorId } } }
+    );
+
+    res.send({ updateduserInfo: updatedUser, authorInfo: req.authorInfo });
+}
+
 router.get('/', getInfoIfAuthenticated, function (req, res, next) {
     res.render('video', { userInfo: req.userInfo });
 });
@@ -32,6 +43,14 @@ router.post(
     getInfoIfAuthenticated,
     getAuthorInfo,
     subscribeUser
+);
+
+router.post(
+    '/author/unsubscribe',
+    redirectIfNotAuthenticatedMiddleware,
+    getInfoIfAuthenticated,
+    getAuthorInfo,
+    unsubscribeUser
 );
 
 module.exports = router;

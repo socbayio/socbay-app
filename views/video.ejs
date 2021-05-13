@@ -30,11 +30,8 @@
 										</div>
 										<div class="user_cntnt">
 											<a href="/channel/<%=videoInfo.videoAuthorId%>"><h4><%=videoInfo.videoAuthor%></h4></a>
-											<% if(userInfo) { if(!userInfo.authorSubscribeb) { %>
-												<button id="subscribeBtn" class="subscribe-btn">Subscribe</button>
-											<%}else{%>
-												<button id="subscribedBtn" class="subscribed-btn">Subscribed</button>
-											<%}}%>
+											<button id="subscribeBtn" class="subscribe-btn">Subscribe</button>
+											<button id="subscribedBtn" class="subscribed-btn">Subscribed</button>
 										</div>
 									</div>
 								</div>
@@ -141,17 +138,35 @@
 	</script>
 	<script src="/js/video.js"></script>
 	<script>
-		console.log('<%= videoInfo.videoAuthorId %>');
-		console.log('<%= userInfo.username %>');
+		if (subscribed()) {
+			document.getElementById('subscribeBtn').style.display = 'block';
+			document.getElementById('subscribedBtn').style.display = 'none';
+		} else {
+			document.getElementById('subscribeBtn').style.display = 'none';
+			document.getElementById('subscribedBtn').style.display = 'block';
+		}
+
+		function subscribed(){
+			if ('<%= userInfo %>') {
+				if (!'<%= userInfo.authorSubscribed %>') {
+					return true;
+				}
+			}
+
+			return false;
+		}
 		
 		const videoAuthorId = '<%= videoInfo.videoAuthorId %>';
+
 		const subscribeBtn = document.getElementById('subscribeBtn');
-		if(subscribeBtn){
-				subscribeBtn.addEventListener('click', function (e) {
-				subscribeUser(videoAuthorId)
-				.then(data => console.log(data));
-			});
-		}
+		subscribeBtn.addEventListener('click', function (e) {
+			subscribeUser(videoAuthorId);
+		});
+
+		const subscribedBtn = document.getElementById('subscribedBtn');
+		subscribedBtn.addEventListener('click', function (e) {
+			unsubscribeUser(videoAuthorId);
+		});
 	</script>
 </body>
 </html>

@@ -2275,6 +2275,7 @@ i.icon1 {
 } 
 
 .subscribe-btn {
+    display: none;
     border: 0;
     background: #ed2a26;
     padding: 0 20px;
@@ -2295,6 +2296,7 @@ i.icon1 {
 }
 
 .subscribed-btn {
+    display: none;
     border: 0;
     background: #b3b3b3;
     padding: 0 20px;

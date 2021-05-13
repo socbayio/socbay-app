@@ -12,8 +12,9 @@ module.exports = (req, res, next) => {
                 uploadedVideos: user.uploadedVideos,
                 userId: user._id,
             };
+            next();
         });
+    } else {
+        next();
     }
-
-    next();
 };
