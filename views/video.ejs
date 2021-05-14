@@ -147,10 +147,10 @@
 		}
 
 		function subscribed(){
-			if(!'<%= userInfo %>') return false;
-			if('<%= userInfo.authorSubscribed %>') return false;
+			if(!'<%= loggedIn %>') return false;
+			if('<%= userInfo.authorSubscribed %>' == "true") return true;
 
-			return true;
+			return false;
 		}
 		
 		const videoAuthorId = '<%= videoInfo.videoAuthorId %>';

@@ -12,13 +12,13 @@ const gateway = {
     oneloveipfs: 'https://video.oneloveipfs.com/ipfs/',
 };
 
-function checkSubscribed(req, res, next) {
+async function checkSubscribed(req, res, next) {
     if (!isEmptyObject(req.userInfo)) {
         req.userInfo.authorSubscribed = false;
         const authorSubscribed = req.userInfo.subscriptionsId.find(
-            (s) => s.userId === req.userInfo.videoAuthorId
+            (s) => s.userId.toString() === req.videoInfo.videoAuthorId.toString()
         );
-        req.userInfo.authorSubscribed = authorSubscribed !== null;
+        req.userInfo.authorSubscribed = authorSubscribed !== undefined;
     }
     next();
 }
