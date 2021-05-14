@@ -40,75 +40,61 @@
 								<div class="tab-pane fade show active" id="add-straming" role="tabpanel">
 									<div class="add_stream_content">
 										<h4 class="strm_title">Upload your video on IPFS system and connect to Socbay.io</h4>
-										
-										<div style="font-weight: 500; margin-bottom: 10px; margin-top: 30px;">Video</div>
-										<div class="container">
-											<form enctype="multipart/form-data">
-												<div class="file-loading">
-													<input id="file-4" type="file" class="file" multiple data-preview-file-type="any" data-theme="fas">
-												</div>
-											</form>
-											<br>
-										
-										</div>
-										<div class="text-center">
-											<button type="button" class="btn btn-lg btn-success btn-upload-3"><i class="fa fa-upload"></i> Upload</button>
-										</div>
+										<form action="/testUploadFiles" method="POST">
 
-										<form action="/uploadvideo/store" method="POST" enctype="multipart/form-data">
-											<div class="live_form">
-												<div class="group-form">
-													<label>Content identifier</label>
-													<input name="CID" class="_dlor1" type="text" placeholder="CID" value="" id="CIDback">
-													<button class="_6tf7s" type="submit" value="1">Paste</button>
-												</div>
-												<div class="group-form">
-													<label>Title</label>
-													<input name="title" class="_dlor1" type="text" placeholder="" value="">
-													<button class="_6tf7s" type="" value="1">Paste</button>
-												</div>
+											<div class="group-form">
+												<div style="font-weight: 500; margin-bottom: 10px; margin-top: 30px;">Video</div>
+												<input id="file-4" type="file" class="file" multiple data-preview-file-type="any">
+											</div>
+											<div class="group-form">
+												<label>Content identifier</label>
+												<input name="CID" class="_dlor1" type="text" placeholder="CID" value="" id="CIDback">
+												<button class="_6tf7s" type="submit" value="1">Paste</button>
+											</div>
+											<div class="group-form">
+												<label>Title</label>
+												<input name="title" class="_dlor1" type="text" placeholder="" value="">
+												<button class="_6tf7s" type="" value="1">Paste</button>
+											</div>
 
-												<div class="group-form">
-													<label>Tag</label>
-													<select class="ui hj145 dropdown cntry152 prompt srch_explore" name='tag'>
-														<option value="notselected">Select Category</option>
-														<option value="gaming">Gaming</option>
-														<option value="tech">Tech</option>
-														<option value="finance">Finance 2.0</option>
-														<option value="cryptonews">Crypto News</option>
-														<option value="news">News</option>
-														<option value="lifestyle">Lifestyle</option>
-														<option value="healthandfitness">Health & Fitness</option>
-														<option value="music">Music</option>
-													</select>
-												</div>
-												
-												<div class="form-group1 mt-30">
-													<label for="file5">Thumbnail</label>
-													<div class="image-upload-wrap">
-														<input name="thumbnail" class="file-upload-input" id="file5" type="file" onchange="readURL(this);" accept="image/*">
-														<div class="drag-text">
-														  <i class="fas fa-cloud-upload-alt"></i>
-														  <h4>Select photo to upload</h4>
-														  <p>or drag and drop screenshots</p>
-														</div>
-													</div>															
-												</div>
-
-
-												<div class="ui search focus mt-15">	
-													<label><b>Description</b></label>															
-													<div class="ui form swdh30">
-														<div class="field">
-															<textarea rows="5" name="description" id="id_answer" placeholder="Short description"></textarea>
-														</div>
+											<div class="group-form">
+												<label>Tag</label>
+												<select class="ui hj145 dropdown cntry152 prompt srch_explore" name='tag'>
+													<option value="notselected">Select Category</option>
+													<option value="gaming">Gaming</option>
+													<option value="tech">Tech</option>
+													<option value="finance">Finance 2.0</option>
+													<option value="cryptonews">Crypto News</option>
+													<option value="news">News</option>
+													<option value="lifestyle">Lifestyle</option>
+													<option value="healthandfitness">Health & Fitness</option>
+													<option value="music">Music</option>
+												</select>
+											</div>
+											
+											<div class="form-group1 mt-30">
+												<label for="file5">Thumbnail</label>
+												<div class="image-upload-wrap">
+													<input name="thumbnail" class="file-upload-input" id="file5" type="file" accept="image/*">
+													<div class="drag-text">
+													  <i class="fas fa-cloud-upload-alt"></i>
+													  <h4>Select photo to upload</h4>
+													  <p>or drag and drop screenshots</p>
 													</div>
 												</div>
-												<button class="_145d1" type="submit"><i class='uil uil-video'></i>Upload</button>
-
 											</div>
-										</form>
 
+											<div class="ui search focus mt-15">
+												<label><b>Description</b></label>
+												<div class="ui form swdh30">
+													<div class="field">
+														<textarea rows="5" name="description" id="id_answer" placeholder="Short description"></textarea>
+													</div>
+												</div>
+											</div>
+
+											<button class="_145d1" type="submit"><i class='uil uil-video'></i>Upload</button>
+										</form>
 									</div>
 								</div>
 							
@@ -134,23 +120,17 @@
 
 	<script>
 		$("#file-4").fileinput({
-			uploadUrl: "/upload/store",
 			theme: 'fas',
 			uploadExtraData: {kvId: '10'},
 			maxFileSize: 100*1024,
 			browseClass: "btn btn-primary btn-block",
-        	showCaption: false,
-        	showRemove: false,
-        	showUpload: false
-		}).on('fileuploaded', function(event,databack) {
+			showCaption: false,
+			showRemove: false,
+			showUpload: false
+		}).on('fileuploaded', function(event, databack) {
 			var CIDback = document.getElementById('CIDback');
 			CIDback.placeholder = databack.response.CID;
-				
 		});
-		$(".btn-upload-3").on("click", function() {
-        	$("#file-4").fileinput('upload');
-    	});
-	
 	</script>
 </body>
 </html>

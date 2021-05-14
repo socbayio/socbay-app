@@ -13,4 +13,15 @@ router.get(
     }
 );
 
+function getDataFromReq(req, res, next) {
+    const body = req.body;
+}
+
+router.post(
+    '/testUploadFiles',
+    redirectIfNotAuthenticatedMiddleware,
+    getInfoIfAuthenticated,
+    getDataFromReq
+);
+
 module.exports = router;
