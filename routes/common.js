@@ -6,6 +6,7 @@ const globalConfig = require('../models/globalConfigModel');
 
 const { spawn } = require('child_process');
 
+// Video tasks
 const getVideosFromTag = async (tagName) => {
     const tagFound = await videoTag.findOne({ tagName: tagName });
     if (tagFound) {
@@ -62,45 +63,52 @@ const getVideosFromTagPromiseStyle = async (tagName) => {
     return;
 };
 
-const getVideoFromTagByLanguage = async (tagName, lang, videosNumber, skippedVideos) => {
+const getVideoFromTagByLanguage = async (
+    tagName,
+    lang,
+    videosNumber,
+    skippedVideos
+) => {
     const pipeline = [
-        { 
-            '$match': {
-                tagName: tagName, 
-                "videos.lang": lang
-            }
-        },
-        { 
-            '$unwind': '$videos' 
-        },
-        { 
-            '$match': {       
-                "videos.lang": lang
-            }
+        {
+            $match: {
+                tagName: tagName,
+                'videos.lang': lang,
+            },
         },
         {
-            "$sort": {
-                "videos.timestamp": -1
-            }
-        },
-        {   
-            "$skip" : skippedVideos
+            $unwind: '$videos',
         },
         {
-            "$limit": videosNumber
+            $match: {
+                'videos.lang': lang,
+            },
         },
         {
-            '$group': {
-                '_id': '$_id',
-                'videos':{
-                    '$push': '$videos'
-                }
-            }
-        }
+            $sort: {
+                'videos.timestamp': -1,
+            },
+        },
+        {
+            $skip: skippedVideos,
+        },
+        {
+            $limit: videosNumber,
+        },
+        {
+            $group: {
+                _id: '$_id',
+                videos: {
+                    $push: '$videos',
+                },
+            },
+        },
     ];
     const tagFound = await videoTag.aggregate(pipeline);
-    if (tagFound.length){
-        const populatedResult = await Video.populate(tagFound,{path: 'videos.videoId'})     
+    if (tagFound.length) {
+        const populatedResult = await Video.populate(tagFound, {
+            path: 'videos.videoId',
+        });
         let videoArray = [];
         for (
             let videoCount = 0;
@@ -112,7 +120,7 @@ const getVideoFromTagByLanguage = async (tagName, lang, videosNumber, skippedVid
         return { name: tagName, videos: videoArray };
     }
     return;
-}
+};
 
 const getVideosChannelOld = async (channelId) => {
     const userFound = await User.findById(channelId);
@@ -221,6 +229,32 @@ var addFileToIPFSPromise = function (pathFile) {
     });
 };
 
+// User tasks
+const getAllUsers = async () => {
+    const users = await User.find();
+
+    const usersReturning = [];
+    for (let i = 0; i < users.length; i++) {
+        let user = users[i];
+        usersReturning.push({
+            id: user._id,
+            username: user.username,
+            profilePicture: user.profilePicture,
+            emailaddress: user.emailaddress,
+        });
+    }
+
+    return usersReturning;
+};
+
+const getUserById = async (userId) => {
+    const userFound = await User.findById(userId);
+    return userFound;
+};
+
+const isEmptyObject = (obj) =>
+    Object.keys(obj).length === 0 && obj.constructor === Object;
+
 module.exports = {
     getVideosFromTag,
     getVideosFromTagPromiseStyle,
@@ -232,4 +266,6 @@ module.exports = {
     addFileInfo,
     addFileToIPFSPromise,
     getVideoFromTagByLanguage,
+    getAllUsers,
+    isEmptyObject,
 };
