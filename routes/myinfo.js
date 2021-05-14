@@ -11,13 +11,16 @@ router.get(
     async (req, res, next) => {
         try {
             userInfo = req.userInfo;
-            const userFound = await User.findById(req.userInfo.userId).populate(
-                'uploadedVideos.videoId'
-            );
+            const userFound = await User.findById(req.userInfo.userId)
+                .populate('uploadedVideos.videoId')
+                .populate('subscriptions.userId');
             userInfo.uploadedVideos = userFound.uploadedVideos.map(
                 (v) => v.videoId
             );
-            userInfo.subscriptions = [];
+            userInfo.subscriptions = userFound.subscriptions.map(
+                (s) => s.userId
+            );
+
             res.render('myinfo', { userInfo });
         } catch (e) {
             console.error(`Myinfo fail with error: ${e}`);

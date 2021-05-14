@@ -16,7 +16,7 @@ const videoElementSchema = new Schema(
         timestamp: {
             type: Number,
             default: Date.now,
-        }
+        },
     },
     { _id: false }
 );
@@ -74,8 +74,11 @@ UserSchema.plugin(uniqueValidator);
 fileElementSchema.plugin(subReferencesPopulate);
 
 UserSchema.pre('save', function (next) {
+    if(!this.isModified('password')){
+        return next();
+    }
+    
     const user = this;
-
     bcrypt.hash(user.password, 10, (error, hash) => {
         user.password = hash;
         next();

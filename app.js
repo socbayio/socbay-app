@@ -18,29 +18,29 @@ mongoose.connect(config.dbServerUrl + 'socbay', config.userAuth);
 /**
   i18next
  */
-const i18next= require('i18next');
+const i18next = require('i18next');
 const i18nextMiddleware = require('i18next-express-middleware');
 const Backend = require('i18next-node-fs-backend');
 i18next
-  .use(Backend)
-  .use(i18nextMiddleware.LanguageDetector)
-  .init({
-    backend: {
-      loadPath: __dirname + '/locales/{{lng}}/{{ns}}.json',
-    },
-    detection: {
-      order: ['querystring','cookie','header'],
-      caches: ['cookie']
-    },
-    fallbackLng: 'en',
-    preload: ['en','vi']
-  });
+    .use(Backend)
+    .use(i18nextMiddleware.LanguageDetector)
+    .init({
+        backend: {
+            loadPath: __dirname + '/locales/{{lng}}/{{ns}}.json',
+        },
+        detection: {
+            order: ['querystring', 'cookie', 'header'],
+            caches: ['cookie'],
+        },
+        fallbackLng: 'en',
+        preload: ['en', 'vi'],
+    });
 
 /**
   Models
  */
 const uploadBlock = require('./models/uploadBlockModel');
-const globalConfig = require('./models/globalConfigModel');  
+const globalConfig = require('./models/globalConfigModel');
 
 /**
   Routes
@@ -66,6 +66,8 @@ var uploadHistoryRouter = require('./routes/uploadHistory');
 var universalUploadRouter = require('./routes/universalUpload');
 var universalStoreRouter = require('./routes/universalStore');
 var blockExplorerRouter = require('./routes/blockExplorer');
+
+var allUsersRouter = require('./routes/allUsers');
 
 /**
   Middleware
@@ -102,14 +104,17 @@ app.use(
     })
 );
 
-globalConfig.findOne({variableName:"updateblock"},(error,updateBlock)=>{
-  uploadBlock.findOne({blockNumber: updateBlock._doc.currentBlock},(error,currentUploadBlock)=>{
-    global.globalCurrentBlock = {
-      blockNumber: updateBlock._doc.currentBlock,
-      totalSize: currentUploadBlock.totalSizeInByte
-    };
-  })
-})
+globalConfig.findOne({ variableName: 'updateblock' }, (error, updateBlock) => {
+    uploadBlock.findOne(
+        { blockNumber: updateBlock._doc.currentBlock },
+        (error, currentUploadBlock) => {
+            global.globalCurrentBlock = {
+                blockNumber: updateBlock._doc.currentBlock,
+                totalSize: currentUploadBlock.totalSizeInByte,
+            };
+        }
+    );
+});
 
 global.loggedIn = null;
 app.use('*', (req, res, next) => {
@@ -139,6 +144,8 @@ app.use('/uploadhistory', uploadHistoryRouter);
 app.use('/upload', universalUploadRouter);
 app.use('/upload/store', universalStoreRouter);
 app.use('/blockexplorer', blockExplorerRouter);
+
+app.use('/allUsers', allUsersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
