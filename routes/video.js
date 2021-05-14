@@ -24,7 +24,7 @@ async function subscribeUser(req, res, next) {
         await updatedUser.save();
     }
 
-    res.send({ updateduserInfo: updatedUser, authorInfo: req.authorInfo });
+    res.send({});
 }
 
 async function unsubscribeUser(req, res, next) {
@@ -35,7 +35,7 @@ async function unsubscribeUser(req, res, next) {
         { $pull: { subscriptions: { userId: authorId } } }
     );
 
-    res.send({ updateduserInfo: updatedUser, authorInfo: req.authorInfo });
+    res.send({});
 }
 
 router.get('/', getInfoIfAuthenticated, function (req, res, next) {
