@@ -29,13 +29,24 @@ const thumbnailDictionary = {
     default: '/images/thumbnails/default/notselected.jpg',
 };
 
+const fileVerification
+
+
 router.post(
     '/',
-    redirectIfNotAuthenticatedMiddleware,
+    //redirectIfNotAuthenticatedMiddleware,
     getInfoIfAuthenticated,
-    verificationUpload,
+    fileVerification,
     async (req, res, next) => {
-        res.redirect('/');
+        res.send({})
+        try {
+            console.log(req.files)
+            console.log(req.files.file_data.length)
+
+        } catch (e) {
+
+        }
+/*         res.redirect('/');
         let fileToUpload = req.body;
         if (req.files && req.files.thumbnail) {
             let image = req.files.thumbnail;
@@ -80,7 +91,7 @@ router.post(
             await pushVideoToMe(req.userInfo.userId, uploadedVideo._id, uploadedVideo.lang);
             await createLiveChatForVideo(uploadedVideo._id);
         }
-        return;
+        return; */
     }
 );
 

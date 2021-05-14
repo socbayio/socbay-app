@@ -40,26 +40,21 @@
 								<div class="tab-pane fade show active" id="add-straming" role="tabpanel">
 									<div class="add_stream_content">
 										<h4 class="strm_title">Upload your video on IPFS system and connect to Socbay.io</h4>
-										<form action="/uploadVideo/testUploadFiles" method="POST" enctype="multipart/form-data">
-
+										<form enctype="multipart/form-data">
 											<div class="group-form">
 												<div style="font-weight: 500; margin-bottom: 10px; margin-top: 30px;">Video</div>
-												<input name='video' id="file-4" type="file" class="_dlor1" data-preview-file-type="any">
+												<input id="filesupload" type="file" class="file" multiple data-preview-file-type="any" data-theme="fas">
 											</div>
-											<div class="group-form">
-												<label>Content identifier</label>
-												<input name="CID" class="_dlor1" type="text" placeholder="CID" value="" id="CIDback">
-												<button class="_6tf7s" type="submit" value="1">Paste</button>
-											</div>
+										</form>
 											<div class="group-form">
 												<label>Title</label>
-												<input name="title" class="_dlor1" type="text" placeholder="" value="">
+												<input name="title" class="_dlor1" type="text" placeholder="" value="" id="title">
 												<button class="_6tf7s" type="" value="1">Paste</button>
 											</div>
 
 											<div class="group-form">
 												<label>Tag</label>
-												<select class="ui hj145 dropdown cntry152 prompt srch_explore" name='tag'>
+												<select class="ui hj145 dropdown cntry152 prompt srch_explore" name='tag' id="tag">
 													<option value="notselected">Select Category</option>
 													<option value="gaming">Gaming</option>
 													<option value="tech">Tech</option>
@@ -71,30 +66,18 @@
 													<option value="music">Music</option>
 												</select>
 											</div>
-											
-											<div class="form-group1 mt-30">
-												<label for="file5">Thumbnail</label>
-												<div class="image-upload-wrap">
-													<input name="thumbnail" class="file-upload-input" id="file5" type="file" accept="image/*">
-													<div class="drag-text">
-													  <i class="fas fa-cloud-upload-alt"></i>
-													  <h4>Select photo to upload</h4>
-													  <p>or drag and drop screenshots</p>
-													</div>
-												</div>
-											</div>
 
 											<div class="ui search focus mt-15">
 												<label><b>Description</b></label>
 												<div class="ui form swdh30">
 													<div class="field">
-														<textarea rows="5" name="description" id="id_answer" placeholder="Short description"></textarea>
+														<textarea rows="5" name="description" id="desc" placeholder="Short description"></textarea>
 													</div>
 												</div>
 											</div>
 
-											<button class="_145d1" type="submit"><i class='uil uil-video'></i>Upload</button>
-										</form>
+											<button class="_145d1 btn-upload-3"><i class='uil uil-video'></i>Upload</button>
+										
 									</div>
 								</div>
 							
@@ -119,18 +102,47 @@
 	
 
 	<script>
-		$("#file-4").fileinput({
+		$("#filesupload").fileinput({
+			uploadUrl: "/uploadvideo/store",
 			theme: 'fas',
-			uploadExtraData: {kvId: '10'},
-			maxFileSize: 100*1024,
+			uploadAsync: false,
+			maxFileSize: 1000*1024,
+			minFileCount: 1,
+			maxFileCount: 2,
+			allowedFileExtensions: ["jpg", "png", "gif", "mp4", "webm", "flv", "avi"],
 			browseClass: "btn btn-primary btn-block",
 			showCaption: false,
 			showRemove: false,
-			showUpload: false
+			showUpload: false,
+			uploadExtraData: function() {  // callback example
+            	return {
+					title: document.getElementById("title").value,
+					tag: document.getElementById("tag").value,
+					desc: document.getElementById("desc").value
+				}
+        	}
 		}).on('fileuploaded', function(event, databack) {
-			var CIDback = document.getElementById('CIDback');
-			CIDback.placeholder = databack.response.CID;
+			// var CIDback = document.getElementById('CIDback');
+			// CIDback.placeholder = databack.response.CID;
 		});
+		$(".btn-upload-3").on("click", function() {
+			var filesToUpload = $('#filesupload').fileinput('getFileList');
+			var validatedVideo = 0;
+			var wrongFile = false;
+			for (var count = 0; count < filesToUpload.length; count++){
+				if (filesToUpload[count].type.includes("video")){
+					validatedVideo++;
+				}
+				if (!(filesToUpload[count].type.includes("video")||filesToUpload[count].type.includes("image"))){
+					wrongFile = true;
+				}
+			}
+			if ((validatedVideo == 1)&&(!wrongFile)){
+				$("#filesupload").fileinput('upload');
+			} else {
+				//alert
+			}
+        });
 	</script>
 </body>
 </html>
