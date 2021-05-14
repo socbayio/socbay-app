@@ -157,7 +157,11 @@
 
 		const subscribeBtn = document.getElementById('subscribeBtn');
 		subscribeBtn.addEventListener('click', function (e) {
-			subscribeUser(videoAuthorId);
+			if ('<%= loggedIn %>') {
+				subscribeUser(videoAuthorId);
+			} else {
+				location.replace("/login");
+			}
 		});
 
 		const subscribedBtn = document.getElementById('subscribedBtn');
