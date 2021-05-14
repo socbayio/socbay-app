@@ -6,6 +6,14 @@ const User = require('../models/userModel.js');
 const videoTag = require('../models/videoTagModel.js');
 const liveChatVideo = require('../models/liveChatVideoModel');
 var path = require('path');
+const config = require("../config.js");
+
+const { addFileInfo, addFileToIPFSPromise } = require('./common');
+const { 
+    checkBlockAndUploadToCrust, 
+    uploadBlockToCrust, 
+    createNewBlock 
+} = require('../crust-socbay-pinner');
 
 const redirectIfNotAuthenticatedMiddleware = require('../middleware/redirectIfNotAuthenticatedMiddleware');
 const verificationUpload = require('../middleware/verificationUpload');
@@ -29,20 +37,77 @@ const thumbnailDictionary = {
     default: '/images/thumbnails/default/notselected.jpg',
 };
 
-const fileVerification
+const filesValidation = async (req, res, next) => {
+    let fileList = [];
+    if (!Array.isArray(req.files.file_data)){
+        req.files.file_data = [req.files.file_data];
+    }
+    var validatedVideo = 0;
+    var wrongFile = false;
+    for (var count = 0; count < req.files.file_data.length; count++){
+        if (req.files.file_data[count].mimetype.includes("video")){
+            validatedVideo++;
+        }
+        if (!(req.files.file_data[count].mimetype.includes("video")||req.files.file_data[count].mimetype.includes("image"))){
+            wrongFile = true;
+        }
+    }
+    if ((validatedVideo == 1)&&(!wrongFile)){
+        next();
+    } else {
+        //TODO: Log this case and return error
+        console.error("There is hacker");
+        return res.send({});
+    }
+}
 
+const chooseStorageBlock = (file, sizeLimitInByte) => {
+    let localCurrentBlock = {
+        totalSize: globalCurrentBlock.totalSize,
+        blockNumber: globalCurrentBlock.blockNumber
+    };
+    globalCurrentBlock.totalSize += file.size;
+    if (globalCurrentBlock.totalSize > sizeLimitInByte){
+        globalCurrentBlock.blockNumber++;
+        globalCurrentBlock.totalSize = 0;
+        createNewBlock();
+    }
+    pathFile = path.resolve(
+        __dirname,
+        '..',
+        'public/block',
+        localCurrentBlock.blockNumber.toString(),
+        file.name
+    ); 
+    return {pathFile, localCurrentBlock}
+}
 
 router.post(
     '/',
     //redirectIfNotAuthenticatedMiddleware,
     getInfoIfAuthenticated,
-    fileVerification,
+    filesValidation,
     async (req, res, next) => {
         res.send({})
         try {
-            console.log(req.files)
-            console.log(req.files.file_data.length)
 
+            for (var fileCount = 0; fileCount < req.files.file_data.length; fileCount++){
+                var fileStorageInfo = chooseStorageBlock(req.files.file_data[fileCount], 100*1024*1024);
+                await req.files.file_data[fileCount].mv(fileStorageInfo.pathFile);
+                const output = await addFileToIPFSPromise(fileStorageInfo.pathFile);
+                addFileInfo(
+                    fileStorageInfo.localCurrentBlock.blockNumber,
+                    req.files.file_data[fileCount].name, 
+                    req.files.file_data[fileCount].size,
+                    output
+                );
+                if ( fileStorageInfo.localCurrentBlock.totalSize + req.files.file_data[fileCount].size > 100*1024*1024){
+                    uploadBlockToCrust(
+                        config.crustPrivateKey,
+                        fileStorageInfo.localCurrentBlock.blockNumber
+                    );
+                }
+            }
         } catch (e) {
 
         }
