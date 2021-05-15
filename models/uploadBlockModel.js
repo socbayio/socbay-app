@@ -6,6 +6,10 @@ const subFileSchema = new Schema({
     fileName: String,
     fileSizeInByte: Number,
     CID: String,
+    timestamp: {
+        type: Number,
+        default: Date.now,
+    },
 });
 
 const uploadBlockSchema = new Schema({
@@ -24,6 +28,7 @@ const uploadBlockSchema = new Schema({
     orderFee: Number,
     currentInfo: {
         expiredOnBlockHeight: Number,
+        expiredOnDate: Date,
         replicas: Number,
         status: String,
         renewPoolBalance: Number,
@@ -34,6 +39,7 @@ const uploadBlockSchema = new Schema({
         default: false,
     },
 });
+
 
 const uploadBlock = mongoose.model('uploadBlock', uploadBlockSchema);
 const subFile = mongoose.model('subFile', subFileSchema);
