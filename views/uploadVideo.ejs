@@ -149,7 +149,7 @@
 				// 	wrongFile = true;
 				// }
 			}
-			if ((validatedVideo == 1)&&(validatedImage == 1)/* (!wrongFile) */){
+			if ((validatedVideo == 1)&&(validatedImage == 1)&&(document.getElementById("title").value)/* (!wrongFile) */){
 				$("#filesupload").fileinput('upload');
 			} else {
 				//alert
