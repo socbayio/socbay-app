@@ -1,7 +1,9 @@
 const videoTag = require('../models/videoTagModel.js');
 const Video = require('../models/videoModel.js');
 const User = require('../models/userModel.js');
-const uploadBlock = require('../models/uploadBlockModel');
+const { uploadBlock, subFile } = require('../models/uploadBlockModel');
+
+//const uploadBlock = require('../models/uploadBlockModel');
 const globalConfig = require('../models/globalConfigModel');
 
 const { spawn } = require('child_process');
@@ -182,13 +184,26 @@ const uploadTotalSizeInByte = async (blockNumber, totalSizeInByteAdded) => {
         { $inc: { totalSizeInByte: totalSizeInByteAdded } }
     );
 };
-const addFileInfo = async (blockNumber, fileName, fileSizeInByte, CID) => {
+const addFileInfoOld = async (blockNumber, fileName, fileSizeInByte, CID) => {
     const blockFound = await uploadBlock.findOneAndUpdate(
         { blockNumber: blockNumber },
         { $push: { filesInfo: { fileName, fileSizeInByte, CID } } }
     );
     await uploadTotalSizeInByte(blockNumber, fileSizeInByte);
     await uploadFilesNumber(blockNumber, 1);
+    return {blockId: blockFound._id}
+};
+
+const addFileInfo = async (blockNumber, fileName, fileSizeInByte, CID) => {
+    const blockFound = await uploadBlock.findOne(
+        { blockNumber: blockNumber }
+    );
+    var fileToPush = new subFile({fileName, fileSizeInByte, CID})
+    blockFound.filesInfo.push(fileToPush);
+    blockFound.save();
+    await uploadTotalSizeInByte(blockNumber, fileSizeInByte);
+    await uploadFilesNumber(blockNumber, 1);
+    return {blockId: blockFound._id, fileId: fileToPush._id}
 };
 
 var addFileToIPFSPromise = function (pathFile) {

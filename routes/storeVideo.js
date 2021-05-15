@@ -41,18 +41,23 @@ const filesValidation = async (req, res, next) => {
     let fileList = [];
     if (!Array.isArray(req.files.file_data)){
         req.files.file_data = [req.files.file_data];
+        req.files.videoIndex = 0;
     }
     var validatedVideo = 0;
     var wrongFile = false;
+    
     for (var count = 0; count < req.files.file_data.length; count++){
         if (req.files.file_data[count].mimetype.includes("video")){
             validatedVideo++;
+            req.files.videoIndex = count;
+        } else {
+            req.files.thumbnailIndex = count;
         }
         if (!(req.files.file_data[count].mimetype.includes("video")||req.files.file_data[count].mimetype.includes("image"))){
             wrongFile = true;
         }
     }
-    if ((validatedVideo == 1)&&(!wrongFile)){
+    if ((validatedVideo == 1)&&(!wrongFile)&&(req.files.file_data.length<3)){
         next();
     } else {
         //TODO: Log this case and return error
@@ -61,6 +66,12 @@ const filesValidation = async (req, res, next) => {
     }
 }
 
+/***************************************************************************/
+//@brief        Choose the storage block for each file, use global variable 
+//              for fast access to to its value          
+//@param[in]    file input from krajee fileinput, the sizeLimitInByte of block
+//@returns      path to save the file, block of file
+/***************************************************************************/
 const chooseStorageBlock = (file, sizeLimitInByte) => {
     let localCurrentBlock = {
         totalSize: globalCurrentBlock.totalSize,
@@ -79,7 +90,33 @@ const chooseStorageBlock = (file, sizeLimitInByte) => {
         localCurrentBlock.blockNumber.toString(),
         file.name
     ); 
-    return {pathFile, localCurrentBlock}
+    return {pathFile, block: localCurrentBlock}
+}
+
+/***************************************************************************/
+//@brief        Upload file to block, if block reaches its limit, upload to
+//              Crust   
+//@param[in]    file input from krajee fileinput, the sizeLimitInByte of block
+//@returns      
+/***************************************************************************/
+const uploadFile = async (file, sizeLimitInByte) => {
+    var fileStorageInfo = chooseStorageBlock(file, sizeLimitInByte);
+    await file.mv(fileStorageInfo.pathFile);
+    const output = await addFileToIPFSPromise(fileStorageInfo.pathFile);
+    const fileInfo = await addFileInfo(
+        fileStorageInfo.block.blockNumber,
+        file.name, 
+        file.size,
+        output
+    );
+    if ( fileStorageInfo.block.totalSize + file.size > sizeLimitInByte){
+        uploadBlockToCrust(
+            config.crustPrivateKey,
+            fileStorageInfo.block.blockNumber
+        );
+    }
+    fileInfo.CID = output;
+    return fileInfo;
 }
 
 router.post(
@@ -88,28 +125,48 @@ router.post(
     getInfoIfAuthenticated,
     filesValidation,
     async (req, res, next) => {
+        const blockSizeLimitInByte = 100*1024*1024;
         res.send({})
+        console.log(req.body)
         try {
+            let thumbnailInfo = {};
+            let videoInfo = await uploadFile(req.files.file_data[req.files.videoIndex], blockSizeLimitInByte);
 
-            for (var fileCount = 0; fileCount < req.files.file_data.length; fileCount++){
-                var fileStorageInfo = chooseStorageBlock(req.files.file_data[fileCount], 100*1024*1024);
-                await req.files.file_data[fileCount].mv(fileStorageInfo.pathFile);
-                const output = await addFileToIPFSPromise(fileStorageInfo.pathFile);
-                addFileInfo(
-                    fileStorageInfo.localCurrentBlock.blockNumber,
-                    req.files.file_data[fileCount].name, 
-                    req.files.file_data[fileCount].size,
-                    output
-                );
-                if ( fileStorageInfo.localCurrentBlock.totalSize + req.files.file_data[fileCount].size > 100*1024*1024){
-                    uploadBlockToCrust(
-                        config.crustPrivateKey,
-                        fileStorageInfo.localCurrentBlock.blockNumber
-                    );
-                }
+            if (req.files.file_data.length == 2){
+                thumbnailInfo = await uploadFile(req.files.file_data[req.files.thumbnailIndex], blockSizeLimitInByte);
             }
-        } catch (e) {
+            
+            let videoToUpload = {
+                title: req.body.title,
+                thumbnail: thumbnailInfo.CID,
+                lang: req.body.lang,
+                description: req.body.desc,
+                //durationInSecond:
+                //fileSize:
+                networkStatus: {
+                    CID: videoInfo.CID,
+                    //fileId: (await videoInfo).fileId,
+                    //blockId: (await videoInfo).blockId,
+                    fileId: videoInfo.fileId,
+                    blockId: videoInfo.blockId
+                },
+                authorId: "6091872bb34b5058453d1e02"
+            };
 
+            // await getVideoDurationInSeconds('https://ipfs.io/ipfs/' + videoInfo.CID)
+            // .then((duration) => {
+            //     fileToUpload.durationInSecond = duration;
+            //     fileToUpload.fileUploadStatus = 'Successful';
+            // })
+            // .catch((error) => {console.error(error)});
+
+            console.log(videoToUpload);
+            const uploadedVideo = await Video.create(videoToUpload);
+
+
+
+        } catch (e) {
+            console.log(e)
         }
 /*         res.redirect('/');
         let fileToUpload = req.body;

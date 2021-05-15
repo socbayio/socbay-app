@@ -39,7 +39,7 @@ i18next
 /**
   Models
  */
-const uploadBlock = require('./models/uploadBlockModel');
+const { uploadBlock } = require('./models/uploadBlockModel');
 const globalConfig = require('./models/globalConfigModel');  
 
 /**
