@@ -121,7 +121,7 @@ const uploadFile = async (file, sizeLimitInByte) => {
 
 router.post(
     '/',
-    //redirectIfNotAuthenticatedMiddleware,
+    redirectIfNotAuthenticatedMiddleware,
     getInfoIfAuthenticated,
     filesValidation,
     async (req, res, next) => {
@@ -135,7 +135,6 @@ router.post(
             if (req.files.file_data.length == 2){
                 thumbnailInfo = await uploadFile(req.files.file_data[req.files.thumbnailIndex], blockSizeLimitInByte);
             }
-            
             let videoToUpload = {
                 title: req.body.title,
                 thumbnail: thumbnailInfo.CID,
@@ -150,7 +149,7 @@ router.post(
                     fileId: videoInfo.fileId,
                     blockId: videoInfo.blockId
                 },
-                authorId: "6091872bb34b5058453d1e02"
+                authorId: req.userInfo.userId
             };
 
             // await getVideoDurationInSeconds('https://ipfs.io/ipfs/' + videoInfo.CID)
@@ -160,60 +159,16 @@ router.post(
             // })
             // .catch((error) => {console.error(error)});
 
-            console.log(videoToUpload);
+            //console.log(videoToUpload);
             const uploadedVideo = await Video.create(videoToUpload);
-
-
-
-        } catch (e) {
-            console.log(e)
-        }
-/*         res.redirect('/');
-        let fileToUpload = req.body;
-        if (req.files && req.files.thumbnail) {
-            let image = req.files.thumbnail;
-            await image.mv(
-                path.resolve(
-                    __dirname,
-                    '..',
-                    'public/images/thumbnails',
-                    image.name
-                )
-            ); //, (error)=>{}
-            fileToUpload.thumbnail = '/images/thumbnails/' + image.name;
-            let chooseDefaultImage = false; // TODO: when uploading fail -> chooseDefaultImage = true
-        }
-
-        if (!(req.files && req.files.thumbnail) || chooseDefaultImage) {
-            if (req.body.tag in thumbnailDictionary) {
-                fileToUpload.thumbnail = thumbnailDictionary[req.body.tag];
-            } else {
-                fileToUpload.thumbnail = thumbnailDictionary['default'];
-            }
-        }
-
-        fileToUpload.authorId = req.userInfo.userId;
-        fileToUpload.networkStatus = {
-            CID: req.body.CID,
-            networkName: 'local',
-        };
-
-        await getVideoDurationInSeconds('https://ipfs.io/ipfs/' + req.body.CID)
-            .then((duration) => {
-                fileToUpload.durationInSecond = duration;
-                fileToUpload.fileUploadStatus = 'Successful';
-            })
-            .catch((error) => {});
-
-        const uploadedVideo = await Video.create(fileToUpload);
-
-        if (uploadedVideo._id) {
             await pushVideoToTag('newvideos', uploadedVideo._id, uploadedVideo.lang);
             await pushVideoToTag(req.body.tag, uploadedVideo._id, uploadedVideo.lang);
             await pushVideoToMe(req.userInfo.userId, uploadedVideo._id, uploadedVideo.lang);
             await createLiveChatForVideo(uploadedVideo._id);
+
+        } catch (e) {
+            console.log(e)
         }
-        return; */
     }
 );
 

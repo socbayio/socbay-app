@@ -161,7 +161,7 @@ const pushVideoToTag = async (tagName, videoId, lang) => {
         { $push: { videos: { videoId, lang } } }
     );
     if (!videoTagFound) {
-        videoTag.create({ tagName: tagName, videos: [{ videoId: videoId }] });
+        videoTag.create({ tagName: tagName, videos: [{ videoId, lang }] });
     }
 };
 

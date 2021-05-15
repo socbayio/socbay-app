@@ -116,12 +116,12 @@
 			maxFileSize: 1000*1024,
 			minFileCount: 1,
 			maxFileCount: 2,
-			allowedFileExtensions: ["jpg", "png", "gif", "mp4", "webm", "flv", "avi"],
+			allowedFileExtensions: ["jpg", "png", "gif", "jpeg", "mp4", "webm", "flv", "avi"],
 			browseClass: "btn btn-primary btn-block",
 			showCaption: false,
 			showRemove: false,
 			showUpload: false,
-			uploadExtraData: function() {  // callback example
+			uploadExtraData: function() {
             	return {
 					title: document.getElementById("title").value,
 					tag: document.getElementById("tag").value,
@@ -136,16 +136,20 @@
 		$(".btn-upload-3").on("click", function() {
 			var filesToUpload = $('#filesupload').fileinput('getFileList');
 			var validatedVideo = 0;
+			var validatedImage = 0;
 			var wrongFile = false;
 			for (var count = 0; count < filesToUpload.length; count++){
 				if (filesToUpload[count].type.includes("video")){
 					validatedVideo++;
 				}
-				if (!(filesToUpload[count].type.includes("video")||filesToUpload[count].type.includes("image"))){
-					wrongFile = true;
+				if (filesToUpload[count].type.includes("image")){
+					validatedImage++;
 				}
+				// if (!(filesToUpload[count].type.includes("video")||filesToUpload[count].type.includes("image"))){
+				// 	wrongFile = true;
+				// }
 			}
-			if ((validatedVideo == 1)&&(!wrongFile)){
+			if ((validatedVideo == 1)&&(validatedImage == 1)/* (!wrongFile) */){
 				$("#filesupload").fileinput('upload');
 			} else {
 				//alert
