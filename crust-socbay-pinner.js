@@ -1,4 +1,4 @@
-const uploadBlock = require('./models/uploadBlockModel');
+const { uploadBlock } = require('./models/uploadBlockModel');
 const globalConfig = require('./models/globalConfigModel');
 var config = require('./config');
 const { spawn } = require('child_process');

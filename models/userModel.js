@@ -28,6 +28,14 @@ const fileElementSchema = new Schema(
             subRef: 'uploadBlock.filesInfo',
             required: true,
         },
+        blockId: {
+            type: Schema.Types.ObjectId,
+            ref: 'uploadBlock',
+        },
+        relatedVideo: {
+            type: Schema.Types.ObjectId,
+            ref: 'Video',
+        }
     },
     { _id: false }
 );

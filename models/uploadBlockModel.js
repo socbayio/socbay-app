@@ -2,10 +2,14 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const fileInfoSchema = new Schema({
+const subFileSchema = new Schema({
     fileName: String,
     fileSizeInByte: Number,
     CID: String,
+    timestamp: {
+        type: Number,
+        default: Date.now,
+    },
 });
 
 const uploadBlockSchema = new Schema({
@@ -24,16 +28,19 @@ const uploadBlockSchema = new Schema({
     orderFee: Number,
     currentInfo: {
         expiredOnBlockHeight: Number,
+        expiredOnDate: Date,
         replicas: Number,
         status: String,
         renewPoolBalance: Number,
     },
-    filesInfo: [fileInfoSchema],
+    filesInfo: [subFileSchema],
     uploadedToNetwork: {
         type: Boolean,
         default: false,
     },
 });
 
+
 const uploadBlock = mongoose.model('uploadBlock', uploadBlockSchema);
-module.exports = uploadBlock;
+const subFile = mongoose.model('subFile', subFileSchema);
+module.exports = {uploadBlock, subFile};
