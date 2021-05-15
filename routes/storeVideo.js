@@ -8,7 +8,9 @@ const liveChatVideo = require('../models/liveChatVideoModel');
 var path = require('path');
 const config = require("../config.js");
 
-const { addFileInfo, addFileToIPFSPromise } = require('./common');
+const { addFileInfo, addFileToIPFSPromise, pushFileToMe } = require('./common');
+const { pushVideoToTag, pushVideoToMe } = require('./common');
+
 const { 
     checkBlockAndUploadToCrust, 
     uploadBlockToCrust, 
@@ -19,7 +21,6 @@ const redirectIfNotAuthenticatedMiddleware = require('../middleware/redirectIfNo
 const verificationUpload = require('../middleware/verificationUpload');
 const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated.js');
 
-const { pushVideoToTag, pushVideoToMe } = require('./common');
 
 const createLiveChatForVideo = async (videoId) => {
     await liveChatVideo.create({ videoId: videoId });
@@ -127,7 +128,6 @@ router.post(
     async (req, res, next) => {
         const blockSizeLimitInByte = 100*1024*1024;
         res.send({})
-        console.log(req.body)
         try {
             let thumbnailInfo = {};
             let videoInfo = await uploadFile(req.files.file_data[req.files.videoIndex], blockSizeLimitInByte);
@@ -141,7 +141,6 @@ router.post(
                 lang: req.body.lang,
                 description: req.body.desc,
                 //durationInSecond:
-                //fileSize:
                 networkStatus: {
                     CID: videoInfo.CID,
                     //fileId: (await videoInfo).fileId,
@@ -159,11 +158,12 @@ router.post(
             // })
             // .catch((error) => {console.error(error)});
 
-            //console.log(videoToUpload);
             const uploadedVideo = await Video.create(videoToUpload);
             await pushVideoToTag('newvideos', uploadedVideo._id, uploadedVideo.lang);
             await pushVideoToTag(req.body.tag, uploadedVideo._id, uploadedVideo.lang);
             await pushVideoToMe(req.userInfo.userId, uploadedVideo._id, uploadedVideo.lang);
+            await pushFileToMe(req.userInfo.userId, videoInfo.fileId, videoInfo.blockId, uploadedVideo._id);
+            await pushFileToMe(req.userInfo.userId, thumbnailInfo.fileId, thumbnailInfo.blockId, null);
             await createLiveChatForVideo(uploadedVideo._id);
 
         } catch (e) {

@@ -172,6 +172,13 @@ const pushVideoToMe = async (myId, videoId, lang) => {
     );
 };
 
+const pushFileToMe = async (myId, fileId, blockId, videoId) => {
+    const videoTagFound = await User.findOneAndUpdate(
+        { _id: myId },
+        { $push: { uploadedFiles: { fileId, blockId, relatedVideo: videoId } } }
+    );
+};
+
 const uploadFilesNumber = async (blockNumber, numberAddedFiles) => {
     const blockFound = await uploadBlock.findOneAndUpdate(
         { blockNumber: blockNumber },
@@ -247,4 +254,5 @@ module.exports = {
     addFileInfo,
     addFileToIPFSPromise,
     getVideoFromTagByLanguage,
+    pushFileToMe,
 };

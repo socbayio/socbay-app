@@ -14,7 +14,7 @@ const fs = require('fs');
 
 router.get(
     '/',
-    //redirectIfNotAuthenticatedMiddleware,
+    redirectIfNotAuthenticatedMiddleware,
     getInfoIfAuthenticated,
     function (req, res, next) {
         res.render('uploadVideo', { userInfo: req.userInfo });
