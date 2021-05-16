@@ -1,0 +1,48 @@
+/* Report Video content */
+.reportVideoBg {
+    z-index: 999;
+    position: absolute;
+    display: flex;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    color: black;
+}
+
+.reportVideo {
+    z-index: 999;
+    background-color: rgba(50, 50, 50, 0.5);
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    color: black;
+}
+
+.reportVideoContent {
+    z-index: 1000;
+    top: 100px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    position: absolute;
+    background-color: white;
+    margin: auto;
+    width: 40%;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+    border-radius: 10px;
+}
+
+.reportVideoContent .reportExcusion .radioBtn {
+    margin-left: 20px;
+}
+
+.reportVideoContent .reportBtns {
+    display: flex;
+    flex-direction: row;
+}

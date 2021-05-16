@@ -3,6 +3,8 @@
 
 	<%- include("head"); -%>
 
+	<link rel='stylesheet' href='/css/reportVideoPopup.css'>
+
 <body>
 	
 	<%- include("header"); -%>
@@ -24,8 +26,8 @@
 								<div class="eps_dots more_dropdown dropdownvideopage">
 									<a href="#"><i class="uil uil-ellipsis-h"></i></a>
 									<div class="dropdown-content">
-										<span><i class='uil uil-share-alt'></i>Share</span>
-										<span><i class="uil uil-windsock"></i>Report</span>
+										<span id="shareSpan"><i class='uil uil-share-alt'></i>Share</span>
+										<span id="reportSpan"><i class="uil uil-windsock"></i>Report</span>
 									 </div>																										
 								</div>
 							</div>
@@ -66,7 +68,7 @@
 							<div class="user_dt5">
 								<p><%=videoInfo.description%></p>
 							</div>
-						</div>							
+						</div>
 					</div>
 					<div class="col-xl-4 col-lg-4">
 						<div class="right_side">							
@@ -88,14 +90,17 @@
 								</form>
 							</div>													
 						</div>
-					</div>				
+					</div>
 				</div>
 			</div>
 		</div>
 		<%- include("footer"); -%>
 	</div>
+
 	<!-- Body End -->
 
+	<%- include("reportVideoPopup"); -%>
+	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="/owlcarousel/owl.carousel.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -104,6 +109,7 @@
 	<script src="/js/vertical-responsive-menu.min.js"></script>
 	<script src="/js/custom.js"></script>
 	<script src="/js/night-mode.js"></script>
+	<script src="/js/reportVideo.js"></script>
 
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
@@ -139,6 +145,18 @@
 			document.querySelector('#boom-count').textContent++;
 			axios.post('/boom/<%=videoInfo.videoId%>');
 		}
+	</script>
+
+	<script>
+		$(document).ready(function(){
+			const reportSpan = document.getElementById('reportSpan');
+			const popup = document.getElementsByClassName('reportVideo')[0];
+    		
+			reportSpan.addEventListener('click', function(e){
+				console.log('report span clicked');
+				popup.style.display = 'flex';
+			})
+		})
 	</script>
 </body>
 </html>
