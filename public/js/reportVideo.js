@@ -34,10 +34,11 @@ $(document).ready(function () {
 
 function reportVideo() {
     const videoId = document.getElementById('videoId').value;
-    const reportCode = document.querySelector(
-        'input[name="reportCode"]:checked'
+    const reportType = document.querySelector(
+        'input[name="reportType"]:checked'
     ).value;
-    const descriptions = document.getElementById('descriptions').value;
+    const reportCode = document.querySelector('#'+ reportType + ' option:checked').value;
+    const descriptions = document.getElementById('description').value;
 
     const reportInfo = {
         videoId: videoId,

@@ -1,4 +1,10 @@
 <!-- Report Video content -->
+<style>
+    .sub1, .sub2 { display: none; }
+    :checked ~ .sub1, :checked ~ .sub2 {
+        display: block;
+    }
+</style>
 <div class="reportVideo">
     <div class="reportedVideoMain">
         <div class="reportedContent">
@@ -12,14 +18,50 @@
         <form>
             <div class="reportContent">
                 <p><%=t('reportVideo.caption')%></p>
-                <input class="radioBtn" type="radio" name="reportCode" value="rpCode_A" checked> <%=t('reportVideo.reportA')%>
-                <br/>
-                <input class="radioBtn" type="radio" name="reportCode" value="rpCode_B"> <%=t('reportVideo.reportB')%>
-                <br/>
-                <input class="radioBtn" type="radio" name="reportCode" value="rpCode_C"> <%=t('reportVideo.reportC')%>
-                <br/>
-                <p><%=t('reportVideo.descriptions')%></p>
-                <textarea type="text" name="descriptions" multiple id="descriptions" rows="7"></textarea>
+                <div class="live_form">
+                    <div>
+                        <input type="radio" name="reportType" value="sexual" id="A"/>
+                        <label for="A"><%=t('reportVideo.reportA')%></label>
+                        <div class="sub1">
+                            <div class="mb-20">
+                                <select class="ui hj145 dropdown cntry152 prompt srch_explore" id='sexual'>
+                                    <option value="notselected">Choose one</option>
+                                    <option value="1">Graphic sexual activity</option>
+                                    <option value="2">Nudity</option>
+                                    <option value="3">Suggestive but without nudity</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="radio" name="reportType" value="copyright" id="B"/>
+                        <label for="B"><%=t('reportVideo.reportB')%></label>
+                        <div class="sub1">
+                            <div class="mb-20">
+                                <select class="ui hj145 dropdown cntry152 prompt srch_explore" id='copyright'>
+                                    <option value="4">Choose one</option>
+                                    <option value="5">Copyright issue</option>
+                                    <option value="6">Privacy issue</option>
+                                    <option value="7">Trademark infringement</option>
+                                    <option value="8">Defamation</option>
+                                    <option value="9">Counterfeit</option>
+                                    <option value="10">Other legal issue</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <p><%=t('reportVideo.descriptions')%></p>
+                        <div class="ui search focus">	
+                            <div class="ui form swdh30">
+                                <div class="field">
+                                    <textarea rows="5" name="other" id="description" placeholder="Short description"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                </div>
             </div>
             <div class="reportBtns">
                 <button class="general-btn" id="cancelBtn"><%=t('button.cancel')%></button>
