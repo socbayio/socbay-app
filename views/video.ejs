@@ -27,7 +27,11 @@
 									<a href="#"><i class="uil uil-ellipsis-h"></i></a>
 									<div class="dropdown-content">
 										<span id="shareSpan"><i class='uil uil-share-alt'></i>Share</span>
-										<span id="reportSpan"><i class="uil uil-windsock"></i>Report</span>
+										<% if(!loggedIn) { %>
+											<a href="/login"><span id=""><i class="uil uil-windsock"></i>Report</span></a>
+										<% } else {%>
+											<span id="reportSpan"><i class="uil uil-windsock"></i>Report</span>
+										<% } %>
 									 </div>																										
 								</div>
 							</div>
