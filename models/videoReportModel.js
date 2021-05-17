@@ -8,6 +8,7 @@ const VideoReporSchema = new Schema({
         ref: 'User',
         required: true,
     },
+    videoId: String,
     reportCode: String,
     descriptions: String,
     timestamp: {
