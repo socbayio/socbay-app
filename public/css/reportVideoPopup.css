@@ -24,25 +24,45 @@
     color: black;
 }
 
-.reportVideoContent {
+.reportVideoMain {
     z-index: 1000;
-    top: 100px;
     padding-top: 10px;
     padding-bottom: 10px;
-    position: absolute;
     background-color: white;
     margin: auto;
     width: 40%;
     animation-name: animatetop;
     animation-duration: 0.4s;
     border-radius: 10px;
+    justify-content: center;
 }
 
-.reportVideoContent .reportExcusion .radioBtn {
+.reportVideoMain form {
+    width: 95%;
+    margin: auto;
+}
+
+.reportContent p {
+    font-size: 17px;
+    color: black;
+}
+
+.reportContent .radioBtn {
     margin-left: 20px;
 }
 
-.reportVideoContent .reportBtns {
+.reportContent textarea {
+    width: 100%;
+    min-height: 100px;
+}
+
+.reportBtns {
+    float: right;
     display: flex;
     flex-direction: row;
+    margin-top: 10px;
+}
+
+.general-btn {
+    margin-left: 10px;
 }

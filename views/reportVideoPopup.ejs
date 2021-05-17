@@ -1,17 +1,22 @@
 <!-- Report Video content -->
 <div class="reportVideo">
-    <div class="reportVideoContent">
+    <div class="reportVideoMain">
         <form>
-            <div class="reportExcusion">
-                Report Video
+            <div class="reportContent">
+                <p>Report Video</p>
+                <input class="radioBtn" type="radio" name="gender" value="male"> <%=t('reportVideo.reportA')%>
                 <br/>
-                <input class="radioBtn" type="radio" name="gender" value="male"> Excuse 1<br>
-                <input class="radioBtn" type="radio" name="gender" value="female"> Excuse 2<br>
-                <input class="radioBtn" type="radio" name="gender" value="other"> Excuse 3
+                <input class="radioBtn" type="radio" name="gender" value="female"> <%=t('reportVideo.reportB')%>
+                <br/>
+                <input class="radioBtn" type="radio" name="gender" value="other"> <%=t('reportVideo.reportC')%>
+                <br/>
+                <br/>
+                <p>Descriptions</p>
+                <textarea type="text" name="descriptions" multiple id="" rows="7"></textarea>
             </div>
             <div class="reportBtns">
-                <button>Cancel</button>
-                <button>Next</button>
+                <button class="general-btn">Cancel</button>
+                <button class="general-btn">Send</button>
             </div>
         </form>
     </div>
