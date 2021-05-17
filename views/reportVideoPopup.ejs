@@ -1,23 +1,32 @@
 <!-- Report Video content -->
 <div class="reportVideo">
+    <div class="reportedVideoMain">
+        <div class="reportedContent">
+            <p>Notification</p>
+            <div class="reportedMessage">
+                Thank you for your feedback for the video.
+            </div>
+        </div>
+    </div>
     <div class="reportVideoMain">
         <form>
             <div class="reportContent">
-                <p>Report Video</p>
-                <input class="radioBtn" type="radio" name="reportCode" value="rpCode_A"> <%=t('reportVideo.reportA')%>
+                <p><%=t('reportVideo.caption')%></p>
+                <input class="radioBtn" type="radio" name="reportCode" value="rpCode_A" checked> <%=t('reportVideo.reportA')%>
                 <br/>
                 <input class="radioBtn" type="radio" name="reportCode" value="rpCode_B"> <%=t('reportVideo.reportB')%>
                 <br/>
                 <input class="radioBtn" type="radio" name="reportCode" value="rpCode_C"> <%=t('reportVideo.reportC')%>
                 <br/>
-                <p>Descriptions</p>
+                <p><%=t('reportVideo.descriptions')%></p>
                 <textarea type="text" name="descriptions" multiple id="descriptions" rows="7"></textarea>
             </div>
             <div class="reportBtns">
-                <button class="general-btn" id="cancelBtn">Cancel</button>
-                <button class="general-btn" id="sendBtn">Send</button>
+                <button class="general-btn" id="cancelBtn"><%=t('button.cancel')%></button>
+                <button class="general-btn" id="sendBtn"><%=t('button.send')%></button>
             </div>
         </form>
     </div>
+    
     <div class="reportVideoBg"></div>
 </div>

@@ -2407,6 +2407,10 @@ i.icon1 {
     outline: none;
 }
 
+.general-btn:hover {
+    color: rgb(199, 199, 199);
+}
+
 .Subscribed-btn {
     background: #c72127 !important;
     color: white;

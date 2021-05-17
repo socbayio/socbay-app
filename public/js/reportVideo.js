@@ -1,20 +1,29 @@
 $(document).ready(function () {
     const reportSpan = document.getElementById('reportSpan');
-    const popup = document.getElementsByClassName('reportVideo')[0];
+    const reportPopup = document.getElementsByClassName('reportVideo')[0];
+    const reportedMain =
+        document.getElementsByClassName('reportedVideoMain')[0];
+    const reportMain = document.getElementsByClassName('reportVideoMain')[0];
     const bg = document.getElementsByClassName('reportVideoBg')[0];
     const reportBtn = document.getElementById('sendBtn');
     const cancelBtn = document.getElementById('cancelBtn');
 
     reportSpan.addEventListener('click', function (e) {
-        popup.style.display = 'flex';
+        e.preventDefault();
+
+        reportPopup.style.display = 'flex';
+        reportMain.style.display = 'flex';
+        reportedMain.style.display = 'none';
     });
 
-    bg.addEventListener('click', function () {
-        popup.style.display = 'none';
+    bg.addEventListener('click', function (e) {
+        e.preventDefault();
+        reportPopup.style.display = 'none';
     });
 
     cancelBtn.addEventListener('click', function (e) {
-        popup.style.display = 'none';
+        e.preventDefault();
+        reportPopup.style.display = 'none';
     });
 
     reportBtn.addEventListener('click', function (e) {
@@ -36,8 +45,10 @@ function reportVideo() {
         descriptions: descriptions,
     };
 
-    console.log(reportInfo);
+    sendData(reportInfo);
+}
 
+function sendData(reportInfo) {
     fetch('/video/report', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -45,11 +56,11 @@ function reportVideo() {
     })
         .then((res) => res.json())
         .then((data) => {
-            setTimeout(function () {
-                document.getElementsByClassName(
-                    'reportVideo'
-                )[0].style.display = 'none';
-            }, 2000);
+            document.getElementsByClassName('reportVideo')[0].style.display =
+                'none';
+            document.getElementsByClassName(
+                'reportedVideoMain'
+            )[0].style.display = 'flex';
 
             console.log(data);
         });

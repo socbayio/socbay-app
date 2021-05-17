@@ -41,8 +41,19 @@
     "Something for Nothing": "Кое что задаром",
     "Harry Potter and the Philosopher's Stone": "Гарри Поттер и Философский камень",
     "reportVideo": {
+        "caption": "Báo cáo vi phạm video",
         "reportA": "Video bị report vì lý do A",
         "reportB": "Video bị report vì lý do B",
-        "reportC": "Video bị report vì lý do C"
+        "reportC": "Video bị report vì lý do C",
+        "descriptions": "Thông tin thêm"
+    },
+    "button": {
+        "ok": "OK",
+        "cancel": "Hủy bỏ",
+        "submit": "Xác nhận",
+        "send": "Gửi"
+    },
+    "commonCaption": {
+        "description": "Descriptions"
     }
 }
