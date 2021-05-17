@@ -1,8 +1,10 @@
 var express = require('express');
 const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated.js');
-const redirectIfNotAuthenticatedMiddleware = require('../middleware/redirectIfNotAuthenticatedMiddleware.js');
+const redirectIfNotAuthenticated = require('../middleware/redirectIfNotAuthenticatedMiddleware');
+
 var router = express.Router();
 const User = require('../models/userModel.js');
+const VideoReport = require('../models/videoReportModel.js');
 
 async function getAuthorInfo(req, res, next) {
     const authorInfo = await User.findById(req.body.authorId);
@@ -44,7 +46,7 @@ router.get('/', getInfoIfAuthenticated, function (req, res, next) {
 
 router.post(
     '/author/subscribe',
-    redirectIfNotAuthenticatedMiddleware,
+    redirectIfNotAuthenticated,
     getInfoIfAuthenticated,
     getAuthorInfo,
     subscribeUser
@@ -52,10 +54,41 @@ router.post(
 
 router.post(
     '/author/unsubscribe',
-    redirectIfNotAuthenticatedMiddleware,
+    redirectIfNotAuthenticated,
     getInfoIfAuthenticated,
     getAuthorInfo,
     unsubscribeUser
+);
+
+async function saveToDb(req, res, next) {
+    req.result = {
+        success: 'OK',
+        errorMessage: '',
+    };
+
+    try {
+        const reportInfo = req.body.reportInfo;
+        reportInfo.userId = req.userInfo.userId;
+
+        const report = await VideoReport.create(reportInfo);
+    } catch (err) {
+        req.result.success = 'Failed';
+        req.result.errorMessage = err.message;
+    } finally {
+        next();
+    }
+}
+
+function response(req, res, next) {
+    res.send(req.result);
+}
+
+router.post(
+    '/report',
+    redirectIfNotAuthenticated,
+    getInfoIfAuthenticated,
+    saveToDb,
+    response
 );
 
 module.exports = router;
