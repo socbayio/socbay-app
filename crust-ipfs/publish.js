@@ -3,11 +3,13 @@ const { typesBundleForPolkadot } = require('@crustio/type-definitions');
 const IpfsHttpClient = require('ipfs-http-client');
 const { CID, create } = IpfsHttpClient;
 const fs = require('fs');
-const { chainAddr, seedsPath, ipfsTimeout } = require('./consts');
+const { chainAddr, ipfsTimeout } = require('../ipfsconfig');
+const logger = require('../logger').Logger;
+
 const { sendTx, parseObj } = require('./util');
 
 module.exports = {
-    default: async (cid, tip) => {
+    default: async (seeds, cid, tip) => {
         try {
             // 1. Check cid locally
             const cidObj = new CID(cid);
@@ -22,7 +24,7 @@ module.exports = {
                 if (cidObj.equals(pin.cid)) existed = true;
             }
             if (!existed) {
-                console.error(`Cid ${cid} don't existed, please pin it first`);
+                logger.crustSocbayPinner(`Cid ${cid} don't existed, please pin it first`)
                 return;
             }
 
@@ -38,21 +40,21 @@ module.exports = {
             await chain.isReadyOrError;
 
             // 4. Load seeds info
-            const seeds = fs.readFileSync(seedsPath, 'utf8');
+            //const seeds = fs.readFileSync(seedsPath, 'utf8');
 
             // 5. Send place storage order tx
             const tx = chain.tx.market.placeStorageOrder(cid, fileSize, 0.001);
             const res = await sendTx(tx, seeds);
             if (res) {
-                console.log(`Publish ${cid} success`)
+                logger.crustSocbayPinner(`Publish ${cid} success`)
             } else {
-                console.error('Publish failed with \'Send transaction failed\'')
+                logger.crustSocbayPinner('Publish failed with \'Send transaction failed\'')
             }
 
             // 6. Disconnect with chain
             chain.disconnect();
         } catch (e) {
-            console.error(`Publish failed with: ${e}`);
+            logger.crustSocbayPinner(`Publish failed with: ${e}`);
         }
     }
 }

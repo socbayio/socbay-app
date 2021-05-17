@@ -2,8 +2,7 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 const { addFileInfo, addFileToIPFSPromise } = require('./common');
-const { 
-    checkBlockAndUploadToCrust, 
+const {  
     uploadBlockToCrust, 
     createNewBlock 
 } = require('../crust-socbay-pinner');

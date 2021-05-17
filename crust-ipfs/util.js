@@ -1,4 +1,5 @@
 const { Keyring } = require('@polkadot/keyring');
+const logger = require('../logger').Logger;
 
 /**
  * Judge arg exist with calling different functions
@@ -20,12 +21,12 @@ function withHelper(arg, err, handler) {
  * @param {string} seeds tx already been sent
  */
 async function sendTx(tx, seeds) {
-    console.log('⛓  Send tx to chain...');
+    logger.crustSocbayPinner('⛓  Send tx to chain...');
     const krp = loadKeyringPair(seeds);
 
     return new Promise((resolve, reject) => {
         tx.signAndSend(krp, ({events = [], status}) => {
-            console.log(
+            logger.crustSocbayPinner(
                 `  ↪ 💸  Transaction status: ${status.type}, nonce: ${tx.nonce}`
             );
 
@@ -44,10 +45,10 @@ async function sendTx(tx, seeds) {
                 events.forEach(({event: {method, section}}) => {
                 if (section === 'system' && method === 'ExtrinsicFailed') {
                     // Error with no detail, just return error
-                    console.error(`  ↪ ❌  Send transaction(${tx.type}) failed.`);
+                    logger.crustSocbayPinner(`  ↪ ❌  Send transaction(${tx.type}) failed.`);
                     resolve(false);
                 } else if (method === 'ExtrinsicSuccess') {
-                    console.log(`  ↪ ✅  Send transaction(${tx.type}) success.`);
+                    logger.crustSocbayPinner(`  ↪ ✅  Send transaction(${tx.type}) success.`);
                     resolve(true);
                 }
                 });

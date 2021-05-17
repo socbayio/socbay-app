@@ -5,6 +5,8 @@ const liveChatVideo = require('../models/liveChatVideoModel');
 const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated.js');
 const liveChat = require('../models/liveChatModel');
 const { isEmptyObject } = require('./common');
+const { getVideoDurationInSeconds } = require('get-video-duration');
+
 
 const gateway = {
     ipfs: 'https://ipfs.io/ipfs/',
@@ -52,6 +54,7 @@ async function getVideo(req, res, next) {
             req.videoInfo = {
                 videoId: req.params.videoId,
                 link: link + videoFound.networkStatus.CID,
+                CID: videoFound.networkStatus.CID,
                 title: videoFound.title,
                 view: videoFound.view,
                 like: videoFound.like,
@@ -74,6 +77,17 @@ async function getVideo(req, res, next) {
     }
 }
 
+function updateVideoDuration(req, res, next) {
+    const videoId = req.params.videoId;
+    console.log(req.params.videoId);
+    getVideoDurationInSeconds('https://ipfs.io/ipfs/' + req.videoInfo.CID)
+    .then(async (duration) => {       
+        await Video.findByIdAndUpdate(videoId, { durationInSecond: duration });
+    })
+    .catch((error) => {console.error(error)});
+    next();
+}
+
 function render(req, res, next) {
     res.render('video', {
         userInfo: req.userInfo,
@@ -88,7 +102,9 @@ router.get(
     increaseView,
     getVideo,
     checkSubscribed,
+    updateVideoDuration,
     render
+    
 );
 
 module.exports = router;
