@@ -2,19 +2,13 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const reportElementSchema = new Schema(
+const videoReportSchema = new Schema(
     {
-        reporter: {
+        reportId: {
             type: Schema.Types.ObjectId,
-            ref: 'User',
+            ref: 'VideoReport',
             required: true,
         },
-        reportCode: Number,
-        other: String,
-        timestamp: {
-            type: Number,
-            default: Date.now,
-        }
     },
     { _id: false }
 );
@@ -45,7 +39,7 @@ const VideoSchema = new Schema({
         type: Number,
         default: 0,
     },
-    reports: [reportElementSchema],
+    reports: [videoReportSchema],
     isBanned: {
         status: {
             type: Boolean,
