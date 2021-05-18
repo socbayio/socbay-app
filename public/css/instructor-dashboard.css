@@ -1684,7 +1684,8 @@ i.icon1 {
 /* --- My Courses --- */
 
 .my_courses_tabs {
-    margin-top: 50px;
+    /* margin-top: 50px; NTN*/
+    margin-top: 5px;
 }
 
 .my_crse_nav .nav-item {

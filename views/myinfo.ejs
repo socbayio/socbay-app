@@ -55,7 +55,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="_215b15">
+		<div class="_215b15 mb-0">
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-lg-12">						
@@ -80,14 +80,14 @@
 						<div class="course_tab_content">
 							<div class="tab-content" id="nav-tabContent">
 								<div class="tab-pane fade show active" id="nav-purchased" role="tabpanel">
-									<div class="_htg451">
+									<div class="_htg451 mt-0 mb-0">
 										<div class="_htg452">
 											<div class="row">
 												<div class="col-md-9">
                                                     <% for(let videoCount = 0; videoCount<userInfo.uploadedVideos.length; videoCount++) { %>
 													<div class="fcrse_1 mt-20">
 														<a href="/video/<%=userInfo.uploadedVideos[videoCount]._id%>" class="hf_img">
-															<img src="<%=userInfo.uploadedVideos[videoCount].thumbnail%>" alt="">
+															<img src="https://ipfs.io/ipfs/<%=userInfo.uploadedVideos[videoCount].thumbnail%>" alt="">
 															<div class="course-overlay">
 																<span class="play_btn1"><i class="uil uil-play"></i></span>
 																<div class="crse_timer">
@@ -190,14 +190,14 @@
 									</div>
 								</div>
 								<div class="tab-pane fade show" id="nav-subscriptions" role="tabpanel">
-									<div class="_htg451">
+									<div class="_htg451 mt-0 mb-0">
 										<div class="_htg452">
 											<div class="row">
                                                 <% for(let subCount = 0; subCount < userInfo.subscriptions.length; subCount++){ %>
 												<div class="col-lg-3 col-md-4">
 													<div class="fcrse_1 mt-30">
 														<div class="tutor_img">
-															<a href="#"><img src="<%=userInfo.subscriptions[subCount].profilePicture%>" alt=""></a>												
+															<a href="#"><img src="http://ipfs.io/ipfs/<%=userInfo.subscriptions[subCount].profilePicture%>" alt=""></a>												
 														</div>
 														<div class="tutor_content_dt">
 															<div class="tutor150">

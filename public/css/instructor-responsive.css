@@ -15,7 +15,7 @@
 }
 
 .header_right ul li:nth-child(2) {
-	display: none !important;
+	/* display: none !important; NTN*/
 }
 
 .option_links {
