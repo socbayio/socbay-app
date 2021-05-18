@@ -41,11 +41,24 @@
     "Something for Nothing": "Кое что задаром",
     "Harry Potter and the Philosopher's Stone": "Гарри Поттер и Философский камень",
     "reportVideo": {
-        "caption": "Báo cáo vi phạm video",
-        "reportA": "Video bị report vì lý do A",
-        "reportB": "Video bị report vì lý do B",
-        "reportC": "Video bị report vì lý do C",
-        "descriptions": "Thông tin thêm"
+        "caption": "Báo cáo vi phạm Video",
+        "reportChoose": "Lựa chọn lý do",
+        "reportDesPlaceholder": "Miêu tả lý do vì sao bạn báo cáo video này...",
+        "reportSexual": "Nội dung khiêu dâm",
+        "reportSexual_1": "Hình ảnh hoạt động tình dục",
+        "reportSexual_2": "Khỏa thân",
+        "reportSexual_3": "Khiêu gợi nhưng không khỏa thân",
+        "reportCopyright": "Vi phạm bản quyền",
+        "reportCopyright_1": "Vấn đề bản quyền",
+        "reportCopyright_2": "Vấn đề quyền riêng tư",
+        "reportCopyright_3": "Vi phạm nhãn hiệu",
+        "reportCopyright_4": "Nội dung phỉ báng",
+        "reportCopyright_5": "Hàng giả",
+        "reportCopyright_6": "Vấn đề pháp lý khác",
+        "reportOther": "Lý do khác",
+        "reportOtherPlaceholder": "Lý do khác...",
+        "descriptions": "Miêu tả thêm",
+        "feedbackThanks": "Cảm ơn những phản hồi của bạn."
     },
     "button": {
         "ok": "OK",
@@ -54,6 +67,8 @@
         "send": "Gửi"
     },
     "commonCaption": {
-        "description": "Descriptions"
+        "description": "Miêu tả",
+        "chooseOption": "Xin hãy lựa chọn",
+        "notification": "Thông báo"
     }
 }

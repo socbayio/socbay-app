@@ -40,10 +40,23 @@
     },
     "reportVideo": {
         "caption": "Report Video",
-        "reportA": "Video reported because of A",
-        "reportB": "Video reported because of B",
-        "reportC": "Video reported because of C",
-        "descriptions": "Descriptions"
+        "reportChoose": "Choose one",
+        "reportDesPlaceholder": "Describle the reason why you report video...",
+        "reportSexual": "Sexual content",
+        "reportSexual_1": "Graphic sexual activity",
+        "reportSexual_2": "Nudity",
+        "reportSexual_3": "Suggestive but without nudity",
+        "reportCopyright": "Ingringes my rights",
+        "reportCopyright_1": "Copyright issue",
+        "reportCopyright_2": "Privacy issue",
+        "reportCopyright_3": "Trademark infringement",
+        "reportCopyright_4": "Defamation",
+        "reportCopyright_5": "Counterfeit",
+        "reportCopyright_6": "Other legal issue",
+        "reportOther": "Other",
+        "reportOtherPlaceholder": "Other reason...",
+        "descriptions": "Descriptions",
+        "feedbackThanks": "Thank you for your feedback for the video."
     },
     "button": {
         "ok": "OK",
@@ -52,6 +65,8 @@
         "send": "Send"
     },
     "commonCaption": {
-        "descriptions": "Miêu tả"
+        "descriptions": "Descriptions",
+        "chooseOption": "Please choose one option",
+        "notification": "Notification"
     }
 }
