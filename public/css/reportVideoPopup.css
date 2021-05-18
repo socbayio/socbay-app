@@ -53,9 +53,20 @@
     margin-left: 20px;
 }
 
-.reportContent textarea {
+.repReason {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.repReason .other {
+    overflow: hidden;
+    min-height: 40px;
+}
+
+#reportDesc {
     width: 100%;
     min-height: 100px;
+    overflow: hidden;
 }
 
 .reportBtns {
@@ -96,4 +107,8 @@
 
 .reportedMessage {
     margin-left: 20px;
+}
+
+#reportNotif {
+    color: red;
 }
