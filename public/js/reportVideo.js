@@ -38,16 +38,31 @@ $(document).ready(function () {
         reportPopup.style.display = 'none';
     });
 
-    reportBtn.addEventListener('click', function (e) {
+    reportBtn.addEventListener('click', async function (e) {
         e.preventDefault();
-        const data = validateDataChosen();
 
-        if (!data) {
+        const report = validateDataChosen();
+
+        document.getElementById('reportNotif').style.display = 'none';
+        if (!report) {
             document.getElementById('reportNotif').style.display = 'flex';
             return;
         }
 
-        console.log('data sent');
+        const reportInfo = {
+            videoId: document.getElementById('videoId').value,
+            reportCode: report.reportCode,
+            descriptions: report.descriptions,
+        };
+
+        const result = await sendData(reportInfo);
+
+        if (result.success === 'OK') {
+            document.getElementsByClassName('reportVideoMain')[0].style.display = 'none';
+            document.getElementsByClassName('reportedVideoMain')[0].style.display = 'flex';
+        } else {
+            document.getElementsByClassName('reportVideo')[0].style.display = 'none';
+        }
     });
 });
 
@@ -72,7 +87,7 @@ function validateDataChosen() {
         if (otherReasonValue === '') return null;
 
         reportInfo.reportCode = reportType;
-        reportInfo.description = otherReasonValue + '|' + reportDesc;
+        reportInfo.descriptions = otherReasonValue + '|' + reportDesc;
     }
 
     // Report type: 'not other'
@@ -90,31 +105,17 @@ function validateDataChosen() {
     return reportInfo;
 }
 
-function reportVideo() {
-    const videoId = document.getElementById('videoId').value;
-    const reportCode = document.querySelector('input[name="reportCode"]:checked').value;
-    const descriptions = document.getElementById('descriptions').value;
-
-    const reportInfo = {
-        videoId: videoId,
-        reportCode: reportCode,
-        descriptions: descriptions,
-    };
-
-    sendData(reportInfo);
-}
-
 function sendData(reportInfo) {
-    fetch('/video/report', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ reportInfo: reportInfo }),
-    })
-        .then((res) => res.json())
-        .then((data) => {
-            document.getElementsByClassName('reportVideo')[0].style.display = 'none';
-            document.getElementsByClassName('reportedVideoMain')[0].style.display = 'flex';
-
-            console.log(data);
-        });
+    return new Promise((resolve, reject) => {
+        fetch('/video/report', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ reportInfo: reportInfo }),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                resolve(data);
+            })
+            .catch((e) => reject(e));
+    });
 }
