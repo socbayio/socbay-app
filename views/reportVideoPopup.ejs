@@ -14,41 +14,40 @@
                 <p><%=t('reportVideo.caption')%></p>
                 <div id="reportNotif">*Please choose your option</div>
                 <div class="repReason">
-                    <input type="radio" name="reportCode" value="sexual" id="A"/>
-                    <label for="A">Sexual content</label>
-                    <div>
-                        <div>
-                            <select class="ui hj145 dropdown cntry152 prompt srch_explore" name='sexual'>
-                                <option value="notselected">Choose one</option>
-                                <option value="1">Graphic sexual activity</option>
-                                <option value="2">Nudity</option>
-                                <option value="3">Suggestive but without nudity</option>
-                            </select>
-                        </div>
+                    <input type="radio" class="reportType" name="reportType" value="sexual" id="sexualReason"/>
+                    <label for="sexualReason">Sexual content</label>
+                    <div class="reportsexual reportSelect">
+                        <select class="ui hj145 dropdown cntry152 prompt srch_explore" id="sexual">
+                            <option value="notselected">Choose one</option>
+                            <option value="1">Graphic sexual activity</option>
+                            <option value="2">Nudity</option>
+                            <option value="3">Suggestive but without nudity</option>
+                        </select>
+                    </div>
+                    
+                </div>
+                <div class="repReason">
+                    <input type="radio" class="reportType" name="reportType" value="copyright" id="copyrightReason"/>
+                    <label for="copyrightReason">Ingringes my rights</label>
+                    <div class="reportcopyright reportSelect">
+                        <select class="ui hj145 dropdown cntry152 prompt srch_explore" id="copyright">
+                            <option value="notselected">Choose one</option>
+                            <option value="1">Copyright issue</option>
+                            <option value="2">Privacy issue</option>
+                            <option value="3">Trademark infringement</option>
+                            <option value="4">Defamation</option>
+                            <option value="5">Counterfeit</option>
+                            <option value="6">Other legal issue</option>
+                        </select>
                     </div>
                 </div>
                 <div class="repReason">
-                    <input type="radio" name="reportCode" value="copyright" id="B"/>
-                    <label for="B">Ingringes my rights</label>
-                    <div>
-                        <div>
-                            <select class="ui hj145 dropdown cntry152 prompt srch_explore" name='copyright'>
-                                <option value="notselected">Choose one</option>
-                                <option value="1">Copyright issue</option>
-                                <option value="2">Privacy issue</option>
-                                <option value="3">Trademark infringement</option>
-                                <option value="4">Defamation</option>
-                                <option value="5">Counterfeit</option>
-                                <option value="6">Other legal issue</option>
-                            </select>
+                    <input type="radio" class="reportType" name="reportType" value="other" id="otherReason"/>
+                    <label for="otherReason">Other</label>
+                    <div class="reportother reportSelect">
+                        <div class="ui form swdh30">
+                            <textarea class="other" rows="1" name="other" id="other" placeholder="Other reason"></textarea>
                         </div>
-                    </div>
-                </div>
-                <div class="repReason">
-                    <input type="radio" name="reportCode" value="other" id="C"/>
-                    <label for="C">Other</label>
-                    <div class="ui form swdh30">
-                        <textarea class="other" rows="1" name="other" id="otherReason" placeholder="Other reason"></textarea>
                     </div>
                 </div>
                 <p><%=t('reportVideo.descriptions')%></p>

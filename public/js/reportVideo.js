@@ -1,12 +1,24 @@
 $(document).ready(function () {
     const reportSpan = document.getElementById('reportSpan');
     const reportPopup = document.getElementsByClassName('reportVideo')[0];
-    const reportedMain =
-        document.getElementsByClassName('reportedVideoMain')[0];
+    const reportedMain = document.getElementsByClassName('reportedVideoMain')[0];
     const reportMain = document.getElementsByClassName('reportVideoMain')[0];
     const bg = document.getElementsByClassName('reportVideoBg')[0];
     const reportBtn = document.getElementById('sendBtn');
     const cancelBtn = document.getElementById('cancelBtn');
+
+    const reasonRadioInputs = document.querySelectorAll('.reportType');
+
+    reasonRadioInputs.forEach((item) => {
+        item.addEventListener('click', function (e) {
+            // Hide all selects
+            document.querySelectorAll('.reportSelect').forEach((item) => {
+                item.style.display = 'none';
+            });
+            // Display chosen input select
+            document.getElementsByClassName('report' + this.value)[0].style.display = 'block';
+        });
+    });
 
     reportSpan.addEventListener('click', function (e) {
         e.preventDefault();
@@ -28,15 +40,59 @@ $(document).ready(function () {
 
     reportBtn.addEventListener('click', function (e) {
         e.preventDefault();
-        reportVideo();
+        const data = validateDataChosen();
+
+        if (!data) {
+            document.getElementById('reportNotif').style.display = 'flex';
+            return;
+        }
+
+        console.log('data sent');
     });
 });
 
+function validateDataChosen() {
+    const reportInfo = {
+        reportCode: '',
+        descriptions: '',
+    };
+
+    // Get chosen radio for report type
+    const chosenOption = document.querySelector('input[name="reportType"]:checked');
+    if (!chosenOption) return null;
+
+    const reportType = chosenOption.value;
+    const reportDesc = document.getElementById('reportDesc').value;
+
+    // Report type: 'other'
+    if (reportType === 'other') {
+        const otherReasonValue = document.getElementById(reportType).value;
+
+        // return null if other reason is not specified
+        if (otherReasonValue === '') return null;
+
+        reportInfo.reportCode = reportType;
+        reportInfo.description = otherReasonValue + '|' + reportDesc;
+    }
+
+    // Report type: 'not other'
+    if (reportType !== 'other') {
+        const selectedReasonValue = document.getElementById(reportType).value;
+
+        // return null if no reason selected
+        if (selectedReasonValue === 'notselected') return null;
+
+        reportInfo.reportCode = reportType + '_' + selectedReasonValue;
+        reportInfo.descriptions = reportDesc;
+    }
+
+    // Return
+    return reportInfo;
+}
+
 function reportVideo() {
     const videoId = document.getElementById('videoId').value;
-    const reportCode = document.querySelector(
-        'input[name="reportCode"]:checked'
-    ).value;
+    const reportCode = document.querySelector('input[name="reportCode"]:checked').value;
     const descriptions = document.getElementById('descriptions').value;
 
     const reportInfo = {
@@ -56,11 +112,8 @@ function sendData(reportInfo) {
     })
         .then((res) => res.json())
         .then((data) => {
-            document.getElementsByClassName('reportVideo')[0].style.display =
-                'none';
-            document.getElementsByClassName(
-                'reportedVideoMain'
-            )[0].style.display = 'flex';
+            document.getElementsByClassName('reportVideo')[0].style.display = 'none';
+            document.getElementsByClassName('reportedVideoMain')[0].style.display = 'flex';
 
             console.log(data);
         });

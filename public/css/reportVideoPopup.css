@@ -55,7 +55,6 @@
 
 .repReason {
     margin-left: 20px;
-    margin-bottom: 20px;
 }
 
 .repReason .other {
@@ -111,4 +110,10 @@
 
 #reportNotif {
     color: red;
+    display: none;
+    margin-left: 20px;
+}
+
+.reportSelect {
+    display: none;
 }
