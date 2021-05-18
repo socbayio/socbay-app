@@ -5,7 +5,7 @@
         "viewall": "View All",
         "signin": "Sign In"
     },
-    "categories":{
+    "categories": {
         "gaming": "Gaming",
         "tech": "Tech",
         "finance": "Finance 2.0",
@@ -37,5 +37,21 @@
         "total": "There are {{counter}} books in the list",
         "buttonText": "Refresh button",
         "buttonHTML": "<button onClick='window.location.reload();'>$t(buttonText)</button>"
+    },
+    "reportVideo": {
+        "caption": "Report Video",
+        "reportA": "Video reported because of A",
+        "reportB": "Video reported because of B",
+        "reportC": "Video reported because of C",
+        "descriptions": "Descriptions"
+    },
+    "button": {
+        "ok": "OK",
+        "cancel": "Cancel",
+        "submit": "Submit",
+        "send": "Send"
+    },
+    "commonCaption": {
+        "descriptions": "Miêu tả"
     }
 }

@@ -21,6 +21,16 @@ const networkStatusSchema = new Schema(
         status: String,
         orderFee: Number,
         renewPoolBalance: Number
+    }
+)
+
+const videoReportSchema = new Schema(
+    {
+        reportId: {
+            type: Schema.Types.ObjectId,
+            ref: 'VideoReport',
+            required: true,
+        },
     },
     { _id: false }
 )
@@ -54,6 +64,7 @@ const VideoSchema = new Schema({
         type: Number,
         default: 0,
     },
+    reports: [videoReportSchema],
     isBanned: {
         status: {
             type: Boolean,

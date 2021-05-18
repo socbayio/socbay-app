@@ -5,7 +5,7 @@
         "viewall": "Xem tất cả",
         "signin": "Đăng nhập"
     },
-    "categories":{
+    "categories": {
         "gaming": "Trò chơi",
         "tech": "Công nghệ",
         "finance": "Tài chính",
@@ -39,5 +39,21 @@
         "buttonHTML": "<button onClick='window.location.reload();'>$t(buttonText)</button>"
     },
     "Something for Nothing": "Кое что задаром",
-    "Harry Potter and the Philosopher's Stone": "Гарри Поттер и Философский камень"
+    "Harry Potter and the Philosopher's Stone": "Гарри Поттер и Философский камень",
+    "reportVideo": {
+        "caption": "Báo cáo vi phạm video",
+        "reportA": "Video bị report vì lý do A",
+        "reportB": "Video bị report vì lý do B",
+        "reportC": "Video bị report vì lý do C",
+        "descriptions": "Thông tin thêm"
+    },
+    "button": {
+        "ok": "OK",
+        "cancel": "Hủy bỏ",
+        "submit": "Xác nhận",
+        "send": "Gửi"
+    },
+    "commonCaption": {
+        "description": "Descriptions"
+    }
 }

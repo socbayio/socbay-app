@@ -3,6 +3,8 @@
 
 	<%- include("head"); -%>
 
+	<link rel='stylesheet' href='/css/reportVideoPopup.css'>
+
 <body>
 	
 	<%- include("header"); -%>
@@ -19,8 +21,19 @@
 							<div class="live1452">
 								<iframe src="<%=videoInfo.link%>" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 							</div>
-							<div class="user_dt5">
+							<div class="user_dt5 reportDropdown">
 								<h3><%=videoInfo.title%></h3>
+								<div class="eps_dots more_dropdown dropdownvideopage">
+									<a href="#"><i class="uil uil-ellipsis-h"></i></a>
+									<div class="dropdown-content">
+										<span id="shareSpan"><i class='uil uil-share-alt'></i>Share</span>
+										<% if(!loggedIn) { %>
+											<a href="/login"><span id=""><i class="uil uil-windsock"></i>Report</span></a>
+										<% } else {%>
+											<span id="reportSpan"><i class="uil uil-windsock"></i>Report</span>
+										<% } %>
+									 </div>																										
+								</div>
 							</div>
 							<div class="user_dt5">
 								<div class="user_dt_left">
@@ -60,7 +73,7 @@
 							<div class="user_dt5">
 								<p><%=videoInfo.description%></p>
 							</div>
-						</div>							
+						</div>
 					</div>
 					<div class="col-xl-4 col-lg-4">
 						<div class="right_side">							
@@ -82,16 +95,18 @@
 								</form>
 							</div>													
 						</div>
-					</div>				
+					</div>
 				</div>
 			</div>
 		</div>
 		<%- include("footer"); -%>
+		<input type="hidden" id="videoId" name="videoId" value="<%=videoInfo.videoId%>">
 	</div>
-
 
 	<!-- Body End -->
 
+	<%- include("reportVideoPopup"); -%>
+	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="/owlcarousel/owl.carousel.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -100,6 +115,7 @@
 	<script src="/js/vertical-responsive-menu.min.js"></script>
 	<script src="/js/custom.js"></script>
 	<script src="/js/night-mode.js"></script>
+	<script src="/js/reportVideo.js"></script>
 
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
