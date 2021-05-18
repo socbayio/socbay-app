@@ -221,36 +221,6 @@ const addFileInfo = async (blockNumber, fileName, fileSizeInByte, CID) => {
     return {blockId: blockFound._id, fileId: fileToPush._id}
 };
 
-var addFileToIPFSPromise = function (pathFile) {
-    return new Promise(function (resolve, reject) {
-        pathFile = '"' + pathFile + '"';
-        const addToIPFS = spawn('ipfs', ['add', pathFile], { shell: true });
-
-        var mergeData = '';
-        addToIPFS.stdout.on('data', (data) => {
-            mergeData += data;
-        });
-
-        var mergeError = '';
-        addToIPFS.stderr.on('data', (data) => {
-            mergeError += data;
-        });
-
-        addToIPFS.on('close', (code) => {
-            if (code == 0) {
-                var searchCID = mergeData.match(/added\s([a-zA-Z0-9]*)\s/);
-                if (searchCID[1]) {
-                    resolve(searchCID[1]);
-                } else {
-                    reject(mergeData + mergeError);
-                }
-            } else {
-                reject(mergeError);
-            }
-        });
-    });
-};
-
 // User tasks
 const getAllUsers = async () => {
     const users = await User.find();
@@ -286,7 +256,6 @@ module.exports = {
     uploadFilesNumber,
     uploadTotalSizeInByte,
     addFileInfo,
-    addFileToIPFSPromise,
     getVideoFromTagByLanguage,
     pushFileToMe,
     getAllUsers,
