@@ -37,3 +37,7 @@ h3 {
 .dropdownvideopage {
   margin-right: 15px !important;
 }
+
+.reportDropdown {
+  display:flex !important;
+}

@@ -37,6 +37,30 @@
     justify-content: center;
 }
 
+@media (max-width: 1200px) {
+    .reportVideoMain {
+        width: 40%;
+    }
+}
+
+@media (max-width: 900px) {
+    .reportVideoMain {
+        width: 60%;
+    }
+}
+
+@media (max-width: 600px) {
+    .reportVideoMain {
+        width: 80%;
+    }
+}
+
+@media (max-width: 400px) {
+    .reportVideoMain {
+        width: 90%;
+    }
+}
+
 .reportVideoMain form {
     width: 95%;
     margin: auto;
