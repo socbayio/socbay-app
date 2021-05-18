@@ -42,10 +42,10 @@
 											<thead class="thead-s">
 												<tr>
 													
-													<th>Name</th>
-													<th class="text-center" scope="col">IPFS CID</th>
+													<th class="text-break" style="min-width: 100px;">Name</th>
+													<th class="text-center text-break" style="min-width: 100px;" scope="col">IPFS CID</th>
 													<th class="text-center" scope="col">Size</th>
-													<th class="text-center" scope="col">Title</th>
+													<th class="text-center text-break" style="min-width: 100px;" scope="col">Title</th>
 													<th class="text-center" scope="col">Status</th>
 													<th class="text-center" scope="col">Replicas</th>
 													<th class="text-center" scope="col">Expire</th>
@@ -56,10 +56,10 @@
 												<% for(let fileCount = 0; fileCount < uploadedFiles.length; fileCount++) {%>
 												<tr>
 													
-													<td><%=uploadedFiles[fileCount].fileId.fileName%></td>
-													<td class="text-center"><%=uploadedFiles[fileCount].fileId.CID%></td>
+													<td class="text-break" style="min-width: 100px;"><%=uploadedFiles[fileCount].fileId.fileName%></td>
+													<td class="text-center text-break" style="min-width: 100px;"><%=uploadedFiles[fileCount].fileId.CID%></td>
 													<td class="text-center"><%=Math.round(uploadedFiles[fileCount].fileId.fileSizeInByte/1024/1024*100)/100 + "MB"%></td>													
-													<td class="text-center"><%=uploadedFiles[fileCount].videoInfo && uploadedFiles[fileCount].videoInfo.title%></td>
+													<td class="text-center text-break" style="min-width: 100px;"><%=uploadedFiles[fileCount].videoInfo && uploadedFiles[fileCount].videoInfo.title%></td>
 													<td class="text-center"><b class="course_active">Active</b></td>
 													<td class="text-center"><%=uploadedFiles[fileCount].blockId.currentInfo.replicas%></td>
 													<td class="text-center"><a href="#"><%=uploadedFiles[fileCount].blockId.currentInfo.expiredOnBlockHeight%>.</a></td>
