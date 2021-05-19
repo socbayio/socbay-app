@@ -106,18 +106,34 @@ const getVideoFromTagByLanguage = async (
             },
         },
     ];
-    const tagFound = await videoTag.aggregate(pipeline);
+    let tagFound = await videoTag.aggregate(pipeline);
     if (tagFound.length) {
-        const populatedResult = await Video.populate(tagFound, {
+        await Video.populate(tagFound, {
             path: 'videos.videoId',
         });
+        await uploadBlock.populate(tagFound, {
+            path: 'videos.videoId.thumbnail.blockId',
+            select: 'uploadedToNetwork CID'
+        })
+
         let videoArray = [];
         for (
             let videoCount = 0;
-            videoCount < populatedResult[0].videos.length;
+            videoCount < tagFound[0].videos.length;
             videoCount++
         ) {
-            videoArray.push(populatedResult[0].videos[videoCount].videoId);
+            await tagFound[0].videos[videoCount].videoId.thumbnail.subPopulate('fileId');
+            if (tagFound[0].videos[videoCount].videoId.thumbnail.blockId.uploadedToNetwork) {
+                const link = 
+                    tagFound[0].videos[videoCount].videoId.thumbnail.blockId.CID +
+                    '/' +
+                    tagFound[0].videos[videoCount].videoId.thumbnail.fileId.fileName;
+                tagFound[0].videos[videoCount].videoId.thumbnail = { link };
+            } else {
+                const link = tagFound[0].videos[videoCount].videoId.thumbnail.fileId.CID;
+                tagFound[0].videos[videoCount].videoId.thumbnail  = { link };
+            }
+            videoArray.push(tagFound[0].videos[videoCount].videoId);
         }
         return { name: tagName, videos: videoArray };
     }
@@ -148,15 +164,34 @@ const getVideosChannelOld = async (channelId) => {
 
 const getVideosChannel = async (channelId) => {
     const userFound = await User.findById(channelId).populate(
-        'uploadedVideos.videoId'
+        { 
+            path: 'uploadedVideos.videoId',
+            populate: {
+                path: 'thumbnail.blockId',
+                select: 'uploadedToNetwork CID'
+            }
+        }
     );
 
     if (userFound) {
         channelInfo = {
-            uploadedVideos: userFound.uploadedVideos.map((v) => v.videoId),
+            uploadedVideos: await Promise.all(userFound.uploadedVideos.map( async (video) => {
+                await video.videoId.thumbnail.subPopulate('fileId');
+                if (video.videoId.thumbnail.blockId.uploadedToNetwork) {
+                    video.videoId.thumbnail = {
+                        link: video.videoId.thumbnail.blockId.CID + '/' + video.videoId.thumbnail.fileId.fileName
+                    }
+                } else {
+                    video.videoId.thumbnail = {
+                        link: video.videoId.thumbnail.fileId.CID
+                    }
+                }
+                return video.videoId;
+            })),
             profilePicture: userFound.profilePicture,
             username: userFound.username,
         };
+        console.log(channelInfo.uploadedVideos)
         return channelInfo;
     } else {
         throw new Error('Channel not found');
@@ -199,15 +234,6 @@ const uploadTotalSizeInByte = async (blockNumber, totalSizeInByteAdded) => {
         { $inc: { totalSizeInByte: totalSizeInByteAdded } }
     );
 };
-const addFileInfoOld = async (blockNumber, fileName, fileSizeInByte, CID) => {
-    const blockFound = await uploadBlock.findOneAndUpdate(
-        { blockNumber: blockNumber },
-        { $push: { filesInfo: { fileName, fileSizeInByte, CID } } }
-    );
-    await uploadTotalSizeInByte(blockNumber, fileSizeInByte);
-    await uploadFilesNumber(blockNumber, 1);
-    return {blockId: blockFound._id}
-};
 
 const addFileInfo = async (blockNumber, fileName, fileSizeInByte, CID) => {
     const blockFound = await uploadBlock.findOne(
@@ -246,6 +272,8 @@ const getUserById = async (userId) => {
 
 const isEmptyObject = (obj) =>
     Object.keys(obj).length === 0 && obj.constructor === Object;
+
+
 
 module.exports = {
     getVideosFromTag,

@@ -105,15 +105,11 @@ app.use(
 );
 
 globalConfig.findOne({ variableName: 'updateblock' }, (error, updateBlock) => {
-    uploadBlock.findOne(
-        { blockNumber: updateBlock._doc.currentBlock },
-        (error, currentUploadBlock) => {
-            global.globalCurrentBlock = {
-                blockNumber: updateBlock._doc.currentBlock,
-                totalSize: currentUploadBlock.totalSizeInByte,
-            };
-        }
-    );
+    global.globalCurrentBlock = {
+        blockNumber: updateBlock._doc.currentBlock,
+        filesNumber: updateBlock._doc.filesNumber,
+        totalSizeInByte: updateBlock._doc.totalSizeInByte,
+    };
 });
 
 global.loggedIn = null;
