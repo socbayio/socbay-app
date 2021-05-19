@@ -7,20 +7,20 @@ const videoTag = require('../models/videoTagModel.js');
 const liveChatVideo = require('../models/liveChatVideoModel');
 var path = require('path');
 const config = require("../config.js");
+const { uploadBlock } = require('../models/uploadBlockModel');
 
-const { addFileInfo, addFileToIPFSPromise, pushFileToMe } = require('./common');
+const { addFileInfo, pushFileToMe } = require('./common');
 const { pushVideoToTag, pushVideoToMe } = require('./common');
 
-const { 
-    checkBlockAndUploadToCrust, 
-    uploadBlockToCrust, 
+const {  
     createNewBlock 
 } = require('../crust-socbay-pinner');
 
 const redirectIfNotAuthenticatedMiddleware = require('../middleware/redirectIfNotAuthenticatedMiddleware');
-const verificationUpload = require('../middleware/verificationUpload');
 const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated.js');
 
+const pin = require('../crust-ipfs/pin.js').default;
+const publish = require('../crust-ipfs/publish.js').default;
 
 const createLiveChatForVideo = async (videoId) => {
     await liveChatVideo.create({ videoId: videoId });
@@ -47,7 +47,7 @@ const filesValidation = async (req, res, next) => {
     var validatedVideo = 0;
     var wrongFile = false;
     
-    for (var count = 0; count < req.files.file_data.length; count++){
+    for ( var count = 0; count < req.files.file_data.length; count++ ){
         if (req.files.file_data[count].mimetype.includes("video")){
             validatedVideo++;
             req.files.videoIndex = count;
@@ -67,12 +67,13 @@ const filesValidation = async (req, res, next) => {
     }
 }
 
-/***************************************************************************/
-//@brief        Choose the storage block for each file, use global variable 
-//              for fast access to to its value          
-//@param[in]    file input from krajee fileinput, the sizeLimitInByte of block
-//@returns      path to save the file, block of file
-/***************************************************************************/
+/**
+ * @brief Choose the storage block for each file, use global variable 
+ *        for fast accessing to to its value
+ * @param file input from krajee fileinput
+ * @param sizeLimitInByte of block
+ * @return path to save the file, block of file
+ */
 const chooseStorageBlock = (file, sizeLimitInByte) => {
     let localCurrentBlock = {
         totalSize: globalCurrentBlock.totalSize,
@@ -91,32 +92,37 @@ const chooseStorageBlock = (file, sizeLimitInByte) => {
         localCurrentBlock.blockNumber.toString(),
         file.name
     ); 
-    return {pathFile, block: localCurrentBlock}
+    return { pathFile, block: localCurrentBlock }
 }
 
-/***************************************************************************/
-//@brief        Upload file to block, if block reaches its limit, upload to
-//              Crust   
-//@param[in]    file input from krajee fileinput, the sizeLimitInByte of block
-//@returns      
-/***************************************************************************/
+/**
+ * @brief Upload file to block, if block reaches its limit, upload to Crust
+ * @param file input from krajee fileinput
+ * @param sizeLimitInByte of block
+ * @return fileInfo
+ */
 const uploadFile = async (file, sizeLimitInByte) => {
-    var fileStorageInfo = chooseStorageBlock(file, sizeLimitInByte);
+    const fileStorageInfo = chooseStorageBlock(file, sizeLimitInByte);
     await file.mv(fileStorageInfo.pathFile);
-    const output = await addFileToIPFSPromise(fileStorageInfo.pathFile);
+    const pinnedFile = await pin(fileStorageInfo.pathFile);
     const fileInfo = await addFileInfo(
         fileStorageInfo.block.blockNumber,
         file.name, 
-        file.size,
-        output
+        pinnedFile.fileSize,
+        pinnedFile.cid
     );
     if ( fileStorageInfo.block.totalSize + file.size > sizeLimitInByte){
-        uploadBlockToCrust(
-            config.crustPrivateKey,
-            fileStorageInfo.block.blockNumber
+        const pathFolderToUpload = path.resolve(__dirname, '..', 'public/block', fileStorageInfo.block.blockNumber.toString());
+        const pinnedFolder = await pin(pathFolderToUpload);
+        await uploadBlock.findOneAndUpdate(
+            { blockNumber: fileStorageInfo.block.blockNumber },
+            { CID: pinnedFolder.cid,
+                timeStamp: Date.now()
+            }
         );
+        publish(config.crustPrivateKey, pinnedFolder.cid, 0.00);
     }
-    fileInfo.CID = output;
+    fileInfo.CID = pinnedFile.cid;
     return fileInfo;
 }
 
@@ -140,7 +146,6 @@ router.post(
                 thumbnail: thumbnailInfo.CID,
                 lang: req.body.lang,
                 description: req.body.desc,
-                //durationInSecond:
                 networkStatus: {
                     CID: videoInfo.CID,
                     //fileId: (await videoInfo).fileId,
@@ -150,13 +155,6 @@ router.post(
                 },
                 authorId: req.userInfo.userId
             };
-
-            // await getVideoDurationInSeconds('https://ipfs.io/ipfs/' + videoInfo.CID)
-            // .then((duration) => {
-            //     fileToUpload.durationInSecond = duration;
-            //     fileToUpload.fileUploadStatus = 'Successful';
-            // })
-            // .catch((error) => {console.error(error)});
 
             const uploadedVideo = await Video.create(videoToUpload);
             await pushVideoToTag('newvideos', uploadedVideo._id, uploadedVideo.lang);

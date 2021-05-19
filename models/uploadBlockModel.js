@@ -43,4 +43,4 @@ const uploadBlockSchema = new Schema({
 
 const uploadBlock = mongoose.model('uploadBlock', uploadBlockSchema);
 const subFile = mongoose.model('subFile', subFileSchema);
-module.exports = {uploadBlock, subFile};
+module.exports = { uploadBlock, subFile };

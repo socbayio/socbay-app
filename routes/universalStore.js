@@ -2,13 +2,13 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 const { addFileInfo, addFileToIPFSPromise } = require('./common');
-const { 
-    checkBlockAndUploadToCrust, 
+const {  
     uploadBlockToCrust, 
     createNewBlock 
 } = require('../crust-socbay-pinner');
 var logger = require("../logger").Logger;
 const config = require("../config.js");
+const pin = require('../crust-ipfs/pin').default;
 
 const chooseStorageBlock = (file, sizeLimitInByte) => {
     let localCurrentBlock = {
@@ -51,11 +51,12 @@ router.post('/', async function (req, res, next) {
             file.name
         );
         await file.mv(pathFile);
-        const output = await addFileToIPFSPromise(pathFile);
+        const pinnedFile = await pin(pathFile);
         addFileInfo(
             localCurrentBlock.blockNumber,
-            file.name, file.size,
-            output
+            file.name,
+            pinnedFile.fileSize,
+            pinnedFile.cid
         );
         if ( localCurrentBlock.totalSize + file.size > 100*1024*1024){
             uploadBlockToCrust(
@@ -64,7 +65,7 @@ router.post('/', async function (req, res, next) {
             );
         }
 
-        res.send({CID: output});
+        res.send({CID: pinnedFile.cid});
         res.end();
     } catch (e) {
         //Rework error catching
