@@ -79,7 +79,7 @@
 										<table class="table ucp-table">
 											<thead class="thead-s">
 												<tr>
-													<th class="text-center text-break" style="min-width: 100px;" scope="col">Title</th>
+													<th class="text-break" style="min-width: 100px;" scope="col">Title</th>
 													<th class="cell-ta text-break" style="min-width: 100px; max-width: 200px;" scope="col">CID</th>
 													<th class="cell-ta" scope="col">Size</th>
 													<th class="cell-ta" scope="col">Status</th>
@@ -91,7 +91,7 @@
 											<tbody>
 												<% for(let videoCount = 0; videoCount < uploadedVideos.length; videoCount++) {%>
 												<tr>
-													<td class="text-center text-break" style="min-width: 100px;"><%=uploadedVideos[videoCount].title%></td>
+													<td class="text-break" style="min-width: 100px;"><%=uploadedVideos[videoCount].title%></td>
 													<td class="cell-ta text-break" style="min-width: 100px; max-width: 200px;"><%=uploadedVideos[videoCount].fileId.CID%></td>
 													<td class="cell-ta"><a href="#"><%=Math.round(uploadedVideos[videoCount].fileId.fileSizeInByte/1024/1024*100)/100 +"MB" %></a></td>
 													<td class="text-center"><b class="course_active">Active</b></td>

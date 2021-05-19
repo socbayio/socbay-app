@@ -164,15 +164,34 @@ const getVideosChannelOld = async (channelId) => {
 
 const getVideosChannel = async (channelId) => {
     const userFound = await User.findById(channelId).populate(
-        'uploadedVideos.videoId'
+        { 
+            path: 'uploadedVideos.videoId',
+            populate: {
+                path: 'thumbnail.blockId',
+                select: 'uploadedToNetwork CID'
+            }
+        }
     );
 
     if (userFound) {
         channelInfo = {
-            uploadedVideos: userFound.uploadedVideos.map((v) => v.videoId),
+            uploadedVideos: await Promise.all(userFound.uploadedVideos.map( async (video) => {
+                await video.videoId.thumbnail.subPopulate('fileId');
+                if (video.videoId.thumbnail.blockId.uploadedToNetwork) {
+                    video.videoId.thumbnail = {
+                        link: video.videoId.thumbnail.blockId.CID + '/' + video.videoId.thumbnail.fileId.fileName
+                    }
+                } else {
+                    video.videoId.thumbnail = {
+                        link: video.videoId.thumbnail.fileId.CID
+                    }
+                }
+                return video.videoId;
+            })),
             profilePicture: userFound.profilePicture,
             username: userFound.username,
         };
+        console.log(channelInfo.uploadedVideos)
         return channelInfo;
     } else {
         throw new Error('Channel not found');

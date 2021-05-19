@@ -12,11 +12,30 @@ router.get(
         try {
             userInfo = req.userInfo;
             const userFound = await User.findById(req.userInfo.userId)
-                .populate('uploadedVideos.videoId')
-                .populate('subscriptions.userId');
-            userInfo.uploadedVideos = userFound.uploadedVideos.map(
-                (v) => v.videoId
-            );
+                .populate('subscriptions.userId')
+                .populate(
+                    { 
+                        path: 'uploadedVideos.videoId',
+                        select: 'thumbnail like view title durationInSecond',
+                        populate: {
+                            path: 'thumbnail.blockId',
+                            select: 'uploadedToNetwork CID'
+                        }
+                    }
+                );
+            userInfo.uploadedVideos = await Promise.all(userFound.uploadedVideos.map(async (video) =>{
+                await video.videoId.thumbnail.subPopulate('fileId');
+                if (video.videoId.thumbnail.blockId.uploadedToNetwork) {
+                    video.videoId.thumbnail = {
+                        link: video.videoId.thumbnail.blockId.CID + '/' + video.videoId.thumbnail.fileId.fileName
+                    }
+                } else {
+                    video.videoId.thumbnail = {
+                        link: video.videoId.thumbnail.fileId.CID
+                    }
+                }
+                return video.videoId;
+            }));
             userInfo.subscriptions = userFound.subscriptions.map(
                 (s) => s.userId
             );
