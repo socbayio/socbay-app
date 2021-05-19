@@ -199,15 +199,6 @@ const uploadTotalSizeInByte = async (blockNumber, totalSizeInByteAdded) => {
         { $inc: { totalSizeInByte: totalSizeInByteAdded } }
     );
 };
-const addFileInfoOld = async (blockNumber, fileName, fileSizeInByte, CID) => {
-    const blockFound = await uploadBlock.findOneAndUpdate(
-        { blockNumber: blockNumber },
-        { $push: { filesInfo: { fileName, fileSizeInByte, CID } } }
-    );
-    await uploadTotalSizeInByte(blockNumber, fileSizeInByte);
-    await uploadFilesNumber(blockNumber, 1);
-    return {blockId: blockFound._id}
-};
 
 const addFileInfo = async (blockNumber, fileName, fileSizeInByte, CID) => {
     const blockFound = await uploadBlock.findOne(
@@ -246,6 +237,8 @@ const getUserById = async (userId) => {
 
 const isEmptyObject = (obj) =>
     Object.keys(obj).length === 0 && obj.constructor === Object;
+
+
 
 module.exports = {
     getVideosFromTag,
