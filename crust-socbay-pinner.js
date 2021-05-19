@@ -94,8 +94,6 @@ const uploadBlockToCrust = async(seed,blockNumber)=>{
  */
  const uploadFile = async (file, sizeLimitInByte) => {
     const fileStorageInfo = chooseStorageBlock(file, sizeLimitInByte);
-    console.log('fileStorageInfo')
-    console.log(fileStorageInfo)
     await file.mv(fileStorageInfo.pathFile);
     const pinnedFile = await pin(fileStorageInfo.pathFile);
     const fileInfo = await addFileInfo(
@@ -107,7 +105,6 @@ const uploadBlockToCrust = async(seed,blockNumber)=>{
     if ( fileStorageInfo.block.totalSize + file.size > sizeLimitInByte){
         const pathFolderToUpload = path.resolve(__dirname, 'public/block', fileStorageInfo.block.blockNumber.toString());
         const pinnedFolder = await pin(pathFolderToUpload);
-        console.log(pinnedFolder)
         await uploadBlock.findOneAndUpdate(
             { blockNumber: fileStorageInfo.block.blockNumber },
             { CID: pinnedFolder.cid,
