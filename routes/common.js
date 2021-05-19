@@ -106,18 +106,34 @@ const getVideoFromTagByLanguage = async (
             },
         },
     ];
-    const tagFound = await videoTag.aggregate(pipeline);
+    let tagFound = await videoTag.aggregate(pipeline);
     if (tagFound.length) {
-        const populatedResult = await Video.populate(tagFound, {
+        await Video.populate(tagFound, {
             path: 'videos.videoId',
         });
+        await uploadBlock.populate(tagFound, {
+            path: 'videos.videoId.thumbnail.blockId',
+            select: 'uploadedToNetwork CID'
+        })
+
         let videoArray = [];
         for (
             let videoCount = 0;
-            videoCount < populatedResult[0].videos.length;
+            videoCount < tagFound[0].videos.length;
             videoCount++
         ) {
-            videoArray.push(populatedResult[0].videos[videoCount].videoId);
+            await tagFound[0].videos[videoCount].videoId.thumbnail.subPopulate('fileId');
+            if (tagFound[0].videos[videoCount].videoId.thumbnail.blockId.uploadedToNetwork) {
+                const link = 
+                    tagFound[0].videos[videoCount].videoId.thumbnail.blockId.CID +
+                    '/' +
+                    tagFound[0].videos[videoCount].videoId.thumbnail.fileId.fileName;
+                tagFound[0].videos[videoCount].videoId.thumbnail = { link };
+            } else {
+                const link = tagFound[0].videos[videoCount].videoId.thumbnail.fileId.CID;
+                tagFound[0].videos[videoCount].videoId.thumbnail  = { link };
+            }
+            videoArray.push(tagFound[0].videos[videoCount].videoId);
         }
         return { name: tagName, videos: videoArray };
     }

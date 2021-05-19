@@ -24,6 +24,21 @@ const networkStatusSchema = new Schema(
     }
 )
 
+const thumbnailSchema = new Schema(
+    {
+        blockId: {
+            type: Schema.Types.ObjectId,
+            ref: 'uploadBlock',
+        },
+        fileId: {
+            type: Schema.Types.ObjectId,
+            subRef: 'uploadBlock.filesInfo',
+        },
+        link: String,
+    },
+    { _id: false }
+)
+
 const videoReportSchema = new Schema(
     {
         reportId: {
@@ -41,7 +56,7 @@ const VideoSchema = new Schema({
         required: true,
     },
     thumbnail: {
-        type: String,
+        type: thumbnailSchema,
     },
     lang: String,
     description: String,
@@ -107,6 +122,7 @@ const VideoSchema = new Schema({
 
 VideoSchema.index({ title: 'text', description: 'text' });
 networkStatusSchema.plugin(subReferencesPopulate);
+thumbnailSchema.plugin(subReferencesPopulate);
 
 const Video = mongoose.model('Video', VideoSchema);
 module.exports = Video;

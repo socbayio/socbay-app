@@ -94,7 +94,10 @@ router.post(
             }
             let videoToUpload = {
                 title: req.body.title,
-                thumbnail: thumbnailInfo.CID,
+                thumbnail: {
+                    fileId: thumbnailInfo.fileId,
+                    blockId: thumbnailInfo.blockId
+                },
                 lang: req.body.lang,
                 description: req.body.desc,
                 networkStatus: {
