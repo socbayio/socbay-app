@@ -8,12 +8,19 @@ const liveChatVideo = require('../models/liveChatVideoModel');
 var path = require('path');
 const config = require("../config.js");
 const { uploadBlock } = require('../models/uploadBlockModel');
+var logger = require('../logger').Logger;
 
-const { addFileInfo, pushFileToMe } = require('./common');
-const { pushVideoToTag, pushVideoToMe } = require('./common');
+const { addFileInfo,
+    pushFileToMe,
+    pushVideoToMe,
+    pushVideoToTag,
+    
+} = require('./common');
 
 const {  
-    createNewBlock 
+    createNewBlock,
+    chooseStorageBlock,
+    uploadFile
 } = require('../crust-socbay-pinner');
 
 const redirectIfNotAuthenticatedMiddleware = require('../middleware/redirectIfNotAuthenticatedMiddleware');
@@ -67,64 +74,8 @@ const filesValidation = async (req, res, next) => {
     }
 }
 
-/**
- * @brief Choose the storage block for each file, use global variable 
- *        for fast accessing to to its value
- * @param file input from krajee fileinput
- * @param sizeLimitInByte of block
- * @return path to save the file, block of file
- */
-const chooseStorageBlock = (file, sizeLimitInByte) => {
-    let localCurrentBlock = {
-        totalSize: globalCurrentBlock.totalSize,
-        blockNumber: globalCurrentBlock.blockNumber
-    };
-    globalCurrentBlock.totalSize += file.size;
-    if (globalCurrentBlock.totalSize > sizeLimitInByte){
-        globalCurrentBlock.blockNumber++;
-        globalCurrentBlock.totalSize = 0;
-        createNewBlock();
-    }
-    pathFile = path.resolve(
-        __dirname,
-        '..',
-        'public/block',
-        localCurrentBlock.blockNumber.toString(),
-        file.name
-    ); 
-    return { pathFile, block: localCurrentBlock }
-}
 
-/**
- * @brief Upload file to block, if block reaches its limit, upload to Crust
- * @param file input from krajee fileinput
- * @param sizeLimitInByte of block
- * @return fileInfo
- */
-const uploadFile = async (file, sizeLimitInByte) => {
-    const fileStorageInfo = chooseStorageBlock(file, sizeLimitInByte);
-    await file.mv(fileStorageInfo.pathFile);
-    const pinnedFile = await pin(fileStorageInfo.pathFile);
-    const fileInfo = await addFileInfo(
-        fileStorageInfo.block.blockNumber,
-        file.name, 
-        pinnedFile.fileSize,
-        pinnedFile.cid
-    );
-    if ( fileStorageInfo.block.totalSize + file.size > sizeLimitInByte){
-        const pathFolderToUpload = path.resolve(__dirname, '..', 'public/block', fileStorageInfo.block.blockNumber.toString());
-        const pinnedFolder = await pin(pathFolderToUpload);
-        await uploadBlock.findOneAndUpdate(
-            { blockNumber: fileStorageInfo.block.blockNumber },
-            { CID: pinnedFolder.cid,
-                timeStamp: Date.now()
-            }
-        );
-        publish(config.crustPrivateKey, pinnedFolder.cid, 0.00);
-    }
-    fileInfo.CID = pinnedFile.cid;
-    return fileInfo;
-}
+
 
 router.post(
     '/',
@@ -143,12 +94,15 @@ router.post(
             }
             let videoToUpload = {
                 title: req.body.title,
-                thumbnail: thumbnailInfo.CID,
+                thumbnail: {
+                    fileId: thumbnailInfo.fileId,
+                    blockId: thumbnailInfo.blockId
+                },
                 lang: req.body.lang,
                 description: req.body.desc,
                 networkStatus: {
                     CID: videoInfo.CID,
-                    //fileId: (await videoInfo).fileId,
+                    //fileId: (await videoInfo).fileId, //consider to use that way to fasten the web
                     //blockId: (await videoInfo).blockId,
                     fileId: videoInfo.fileId,
                     blockId: videoInfo.blockId
@@ -165,7 +119,7 @@ router.post(
             await createLiveChatForVideo(uploadedVideo._id);
 
         } catch (e) {
-            console.log(e)
+            logger.error(`Error in storeVideo.js: ${e}`);
         }
     }
 );

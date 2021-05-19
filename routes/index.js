@@ -34,7 +34,6 @@ router.get('/', getInfoIfAuthenticated, async function (req, res, next) {
             skippedVideos: 0,
         });
         const values = await Promise.all(promises);
-
         res.render('index', {
             userInfo: req.userInfo,
             renderVideos: values.filter((x) => x !== undefined),
