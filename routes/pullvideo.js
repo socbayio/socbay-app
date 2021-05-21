@@ -6,6 +6,8 @@ const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated.js'
 const liveChat = require('../models/liveChatModel');
 const { isEmptyObject } = require('./common');
 const { getVideoDurationInSeconds } = require('get-video-duration');
+const logger = require('../logger').Logger;
+
 
 
 const gateway = {
@@ -67,6 +69,7 @@ async function getVideo(req, res, next) {
                 videoAuthorId: videoFound.authorId._id,
                 videoAuthorPicture: videoFound.authorId.profilePicture,
                 description: videoFound.description,
+                durationInSecond: videoFound.durationInSecond,
             };
             req.liveChat = {
                 messages: liveChatVideoFound.messages,
@@ -83,13 +86,14 @@ async function getVideo(req, res, next) {
 }
 
 function updateVideoDuration(req, res, next) {
-    const videoId = req.params.videoId;
-    console.log(req.params.videoId);
-    getVideoDurationInSeconds('https://ipfs.io/ipfs/' + req.videoInfo.CID)
-    .then(async (duration) => {       
-        await Video.findByIdAndUpdate(videoId, { durationInSecond: duration });
-    })
-    .catch((error) => {console.error(error)});
+    if (!req.videoInfo.durationInSecond) {
+        const videoId = req.params.videoId;
+        getVideoDurationInSeconds('https://ipfs.io/ipfs/' + req.videoInfo.CID)
+        .then(async (duration) => {       
+            await Video.findByIdAndUpdate(videoId, { durationInSecond: duration });
+        })
+        .catch((error) => {logger.error(error)});
+    }
     next();
 }
 
