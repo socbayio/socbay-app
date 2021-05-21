@@ -25,15 +25,6 @@ router.get(
                 );
             userInfo.uploadedVideos = await Promise.all(userFound.uploadedVideos.map(async (video) =>{
                 await video.videoId.thumbnail.subPopulate('fileId');
-                if (video.videoId.thumbnail.blockId.uploadedToNetwork) {
-                    video.videoId.thumbnail = {
-                        link: video.videoId.thumbnail.blockId.CID + '/' + video.videoId.thumbnail.fileId.fileName
-                    }
-                } else {
-                    video.videoId.thumbnail = {
-                        link: video.videoId.thumbnail.fileId.CID
-                    }
-                }
                 return video.videoId;
             }));
             userInfo.subscriptions = userFound.subscriptions.map(

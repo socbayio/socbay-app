@@ -1,7 +1,8 @@
 const { ApiPromise, WsProvider } = require('@polkadot/api');
 const { typesBundleForPolkadot } = require('@crustio/type-definitions');
 const { parseObj } = require('./util');
-const { chainAddr } = require('./consts');
+const { chainAddr } = require('../ipfsconfig');
+const logger = require('../logger').Logger;
 
 module.exports = {
     default: async (cid) => {
@@ -18,12 +19,12 @@ module.exports = {
             if (maybeFileUsedInfo) {
                 const replicaCount = maybeFileUsedInfo[0].reported_replica_count;
                 if (replicaCount === 0) {
-                    console.log(`⚠️  ${cid} pending...`);
+                    logger.crustSocbayPinner(`⚠️  ${cid} pending...`);
                 } else {
-                    console.log(`✅  ${cid} picked, replicas: ${replicaCount}`);
+                    logger.crustSocbayPinner(`✅  ${cid} picked, replicas: ${replicaCount}`);
                 }
             } else {
-                console.error(`🗑  ${cid} not exist or expired`);
+                logger.crustSocbayPinner(`🗑  ${cid} not exist or expired`);
             }
 
             // 3. Disconnect with chain
@@ -31,7 +32,7 @@ module.exports = {
 
             return maybeFileUsedInfo;
         } catch (e) {
-            console.error(`Query status failed with ${e}`);
+            logger.error(`Query status failed with ${e}`);
         }
     }
 }
