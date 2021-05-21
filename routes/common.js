@@ -123,16 +123,6 @@ const getVideoFromTagByLanguage = async (
             videoCount++
         ) {
             await tagFound[0].videos[videoCount].videoId.thumbnail.subPopulate('fileId');
-            if (tagFound[0].videos[videoCount].videoId.thumbnail.blockId.uploadedToNetwork) {
-                const link = 
-                    tagFound[0].videos[videoCount].videoId.thumbnail.blockId.CID +
-                    '/' +
-                    tagFound[0].videos[videoCount].videoId.thumbnail.fileId.fileName;
-                tagFound[0].videos[videoCount].videoId.thumbnail = { link };
-            } else {
-                const link = tagFound[0].videos[videoCount].videoId.thumbnail.fileId.CID;
-                tagFound[0].videos[videoCount].videoId.thumbnail  = { link };
-            }
             videoArray.push(tagFound[0].videos[videoCount].videoId);
         }
         return { name: tagName, videos: videoArray };
@@ -177,21 +167,11 @@ const getVideosChannel = async (channelId) => {
         channelInfo = {
             uploadedVideos: await Promise.all(userFound.uploadedVideos.map( async (video) => {
                 await video.videoId.thumbnail.subPopulate('fileId');
-                if (video.videoId.thumbnail.blockId.uploadedToNetwork) {
-                    video.videoId.thumbnail = {
-                        link: video.videoId.thumbnail.blockId.CID + '/' + video.videoId.thumbnail.fileId.fileName
-                    }
-                } else {
-                    video.videoId.thumbnail = {
-                        link: video.videoId.thumbnail.fileId.CID
-                    }
-                }
                 return video.videoId;
             })),
             profilePicture: userFound.profilePicture,
             username: userFound.username,
         };
-        console.log(channelInfo.uploadedVideos)
         return channelInfo;
     } else {
         throw new Error('Channel not found');

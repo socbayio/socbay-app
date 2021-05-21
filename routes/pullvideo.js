@@ -48,16 +48,7 @@ async function getVideo(req, res, next) {
         );
 
         await videoFound.networkStatus.subPopulate('fileId');
-        let complementLink = '';
-        if (videoFound.networkStatus.blockId.uploadedToNetwork) {
-            complementLink = 
-                videoFound.networkStatus.blockId.CID + 
-                '/' +
-                videoFound.networkStatus.fileId.fileName;
-        } else {
-            complementLink = videoFound.networkStatus.fileId.CID;
-        }
-        console.log(complementLink)
+        
         //const liveChatVideoFound = await liveChatVideo.findOne({videoId: req.params.videoId});
         const liveChatVideoFound = await liveChat.findOne({
             channel: 'global',
@@ -67,7 +58,7 @@ async function getVideo(req, res, next) {
         if (videoFound && liveChatVideoFound) {
             req.videoInfo = {
                 videoId: req.params.videoId,
-                link: link + complementLink,
+                link: link + videoFound.networkStatus.fileId.CID,
                 CID: videoFound.networkStatus.CID,
                 title: videoFound.title,
                 view: videoFound.view,
