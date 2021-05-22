@@ -50,7 +50,7 @@ async function getVideo(req, res, next) {
         );
 
         await videoFound.networkStatus.subPopulate('fileId');
-        
+        await videoFound.thumbnail.subPopulate('fileId');
         //const liveChatVideoFound = await liveChatVideo.findOne({videoId: req.params.videoId});
         const liveChatVideoFound = await liveChat.findOne({
             channel: 'global',
@@ -61,6 +61,7 @@ async function getVideo(req, res, next) {
             req.videoInfo = {
                 videoId: req.params.videoId,
                 link: link + videoFound.networkStatus.fileId.CID,
+                thumbnailLink: link + videoFound.thumbnail.fileId.CID,
                 CID: videoFound.networkStatus.CID,
                 title: videoFound.title,
                 view: videoFound.view,
