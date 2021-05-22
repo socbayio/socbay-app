@@ -75,14 +75,16 @@ const uploadBlockToCrust = async(seed,blockNumber)=>{
         globalCurrentBlock.filesNumber = 0;
         createNewBlock();
     }
-    let fileName = (localCurrentBlock.filesNumber+1).toString() + '.' + file.name.split('.').pop();
+    let extension = file.name.split('.').pop();
+    let fileName = '_'+ (localCurrentBlock.filesNumber+1).toString() + '.' + extension;
+    let tempFileName = file.name.substring(0, file.name.length - extension.length - 1);
+    fileName = tempFileName.substring(0, 16 - fileName.length) + fileName;
     pathFile = path.resolve(
         __dirname,
         'public/block',
         localCurrentBlock.blockNumber.toString(),
         fileName
     );
-    console.log(pathFile);
     return { pathFile, block: localCurrentBlock, fileName }
 }
 
