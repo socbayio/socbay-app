@@ -87,11 +87,12 @@
 									</ul>
 								</div>
 							</div>
-							<div class="">
-								<h3>Gateway</h3>
+							<div class="mb-2">
+								<h4>Gateway</h4>
 							</div>
 							<div>
 								<div class="user_cntnt">
+									<a href="/video/<%=videoInfo.videoId%>"><button class="subscribe-btn">Auto</button></a>
 									<a href="/video/<%=videoInfo.videoId%>?gateway=ipfs"><button class="subscribe-btn">IPFS</button></a>
 									<a href="/video/<%=videoInfo.videoId%>?gateway=crust"><button class="subscribe-btn">Crust</button></a>
 									<a href="/video/<%=videoInfo.videoId%>?gateway=oneloveipfs"><button class="subscribe-btn">OneLove</button></a>
@@ -239,5 +240,199 @@
 		 });
 	 </script>
 
+
+ <% if (videoInfo.autoGateway) { %> 
+	<script>
+		const videoCid = "<%=videoInfo.CID%>";
+		var PROBE_ID = 'QmUsz4XnVGmPvC1FbfZRYz6yzgwLuFkZrLs5f65ZrECbk4';
+		var PROBE_FILES = [
+			{
+			'name' : '512KB file',
+			'file_name' : '512KB.hex',
+			'size' : 524288
+			},
+			{
+			'name' : '1MB file',
+			'file_name' : '1024KB.hex',
+			'size' : 1048576
+			}
+		];
+
+		var INLINE_GATEWAYS = [
+			"https://ipfs.io/ipfs/:hash",
+			"https://dweb.link/ipfs/:hash",
+			"https://gateway.ipfs.io/ipfs/:hash",
+			"https://ipfs.infura.io/ipfs/:hash",
+			"https://ninetailed.ninja/ipfs/:hash",
+			"https://10.via0.com/ipfs/:hash",
+			"https://gateway.originprotocol.com/ipfs/:hash",
+			"https://gateway.pinata.cloud/ipfs/:hash",
+			"https://ipfs.sloppyta.co/ipfs/:hash",
+			"https://ipfs.greyh.at/ipfs/:hash",
+			"https://jorropo.net/ipfs/:hash",
+			"https://video.oneloveipfs.com/ipfs/:hash",
+		];
+
+		var gateways = [];
+		var best_gateway = 0;
+
+		// AJAX Queue
+		var ajaxReqs = 0;
+		var ajaxQueue = [];
+		var ajaxActive = 0;
+		var ajaxMaxConc = 4;
+		function addAjax(obj) {
+			ajaxReqs++;
+			var oldSuccess = obj.success;
+			var oldError = obj.error;
+			var callback = function() {
+				ajaxReqs--;
+				if (ajaxActive === ajaxMaxConc && ajaxQueue.length > 0) {
+					var o = ajaxQueue.shift();
+					o.t = (new Date()).getTime();
+					$.ajax(o);
+				} else {
+					ajaxActive--;
+				}
+			}
+			obj.success = function(resp, textStatus, jqXHR) {
+				if (oldSuccess) oldSuccess(resp, textStatus, jqXHR, this.t);
+				callback();
+			};
+			obj.error = function(xhr, status, error) {
+				if (oldError) oldError(xhr, status, error);
+				callback();
+			};
+			if (ajaxActive === ajaxMaxConc) {
+				ajaxQueue.push(obj);
+			} else {
+				ajaxActive++;
+				obj.t = (new Date()).getTime();
+				$.ajax(obj);
+			}
+		}
+
+		function fetch_gateways() {
+			gateways = [];
+			for (i in INLINE_GATEWAYS) {
+				var gw = {
+				'url' : INLINE_GATEWAYS[i],
+				'domain' : INLINE_GATEWAYS[i].replace('http://','').replace('https://','').split(/[/?#]/)[0],
+				'lag' : -1,
+				'speed' : -1
+				};
+				gateways.push(gw);
+			}
+		}
+		
+		function test_speed(i) {
+			var file_path = PROBE_ID + '/' + PROBE_FILES[1].file_name;
+			var task = {
+				url: gateways[i].url.replace(/:hash/, file_path),
+				method: 'GET',
+				timeout: 1000,
+				dataType: 'text',
+				cache: false
+			};
+			task.success = function(data, textStatus, jqXHR, t) {
+				var duration = ((new Date()).getTime() - t) / 1000;
+				var speed_kbps = (PROBE_FILES[1].size /(duration * 1024)).toFixed(2);
+				gateways[i].speed = speed_kbps;
+			};
+
+			/* task.error = function(jqXHR, textStatus, errorThrown) {
+				console.log(gateways[i].domain + ':' + jqXHR.statusText);
+			}; */
+			addAjax(task);
+		}
+
+		function test_lag(i) {
+			gateways[i].lag = -1;
+			var task = {
+				url: gateways[i].url.replace(/:hash/, PROBE_ID + '/1-byte.hex'),
+				method: 'GET',
+				timeout: 500,
+				dataType: 'text',
+				cache: false
+			};
+
+			task.success = function(data, textStatus, jqXHR, t) {
+				var latency = (new Date()).getTime() - t;
+				gateways[i].lag = latency;
+			};
+			/* task.error = function(jqXHR, textStatus, errorThrown) {
+				console.log(gateways[i].domain + ':' + jqXHR.statusText);
+			}; */
+			addAjax(task);
+		}
+
+		function test_all_lag() {
+			for (i in gateways) {
+				test_lag(i);
+			}
+		}
+
+		function test_all_speed() {
+			for (i in gateways) {
+				if (gateways[i].lag > 0) {
+				test_speed(i);
+				}
+			}
+		}
+
+		function choose_best_gateway() {
+			gateways.sort( function(a, b) {
+				return parseFloat(a.lag) - parseFloat(b.lag);
+			});
+			var speed_test_number = 0;
+			var max_speed = 0;
+			best_gateway = 0;
+			for (i in gateways) {
+				if (gateways[i].lag > 0) {
+					speed_test_number++;
+					if (gateways[i].speed > max_speed) {
+						best_gateway = i;
+						max_speed = gateways[i].speed;
+					}
+					if (speed_test_number > 4) {
+						break;
+					}
+				}
+			}
+			console.log('Best gateway:')
+			console.log(gateways[best_gateway]);
+		}
+	</script>
+
+	<script>
+		function wait_and_choose_best_gateway(){
+			if (ajaxActive){
+				setTimeout(wait_and_choose_best_gateway,100);
+			} else {
+				choose_best_gateway();
+			}
+		}
+
+		function wait_and_check(){
+			if (ajaxActive){
+				setTimeout(wait_and_check,100);
+			} else {
+				test_all_speed();
+				wait_and_choose_best_gateway();
+				var mediaSource = document.getElementsByTagName('source')[0];
+				mediaSource.src = gateways[best_gateway].url.replace(/:hash/, videoCid);
+				var player = document.getElementsByTagName('video')[0];
+				player.load();
+			}
+		}
+
+		function test_all() {
+			fetch_gateways();
+			test_all_lag();
+			wait_and_check();
+		}
+		test_all();
+	</script>
+<% } %>
 </body>
 </html>

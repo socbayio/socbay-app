@@ -35,12 +35,12 @@ async function increaseView(req, res, next) {
 }
 
 async function getVideo(req, res, next) {
-    let link = 'https://ipfs.io/ipfs/';
-    if (req.query.gateway in gateway) {
-        link = gateway[req.query.gateway];
-    }
-
     try {
+        let link = 'https://ipfs.io/ipfs/';
+        if (req.query.gateway in gateway) {
+            link = gateway[req.query.gateway];
+        }
+
         const videoFound = await Video.findById(req.params.videoId).populate(
             'authorId',
             'profilePicture username'
@@ -75,6 +75,10 @@ async function getVideo(req, res, next) {
             req.liveChat = {
                 messages: liveChatVideoFound.messages,
             };
+
+            if (req.query.gateway == undefined) {
+                req.videoInfo.autoGateway = true;
+            }
 
             next();
         } else {
