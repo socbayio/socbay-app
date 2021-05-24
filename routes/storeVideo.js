@@ -7,8 +7,7 @@ var logger = require('../logger').Logger;
 const {
     pushFileToMe,
     pushVideoToMe,
-    pushVideoToTag,
-    
+    pushVideoToTag, 
 } = require('./common');
 
 const {  
