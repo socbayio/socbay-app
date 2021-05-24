@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 const Video = require('../models/videoModel.js');
-const User = require('../models/userModel');
 const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated.js');
 const logger = require('../logger').Logger;
 

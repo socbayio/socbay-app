@@ -1,16 +1,10 @@
 var express = require('express');
 var router = express.Router();
-const { getVideoDurationInSeconds } = require('get-video-duration');
 const Video = require('../models/videoModel.js');
-const User = require('../models/userModel.js');
-const videoTag = require('../models/videoTagModel.js');
 const liveChatVideo = require('../models/liveChatVideoModel');
-var path = require('path');
-const config = require("../config.js");
-const { uploadBlock } = require('../models/uploadBlockModel');
 var logger = require('../logger').Logger;
 
-const { addFileInfo,
+const {
     pushFileToMe,
     pushVideoToMe,
     pushVideoToTag,
@@ -18,16 +12,11 @@ const { addFileInfo,
 } = require('./common');
 
 const {  
-    createNewBlock,
-    chooseStorageBlock,
     uploadFile
 } = require('../crust-socbay-pinner');
 
 const redirectIfNotAuthenticatedMiddleware = require('../middleware/redirectIfNotAuthenticatedMiddleware');
 const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated.js');
-
-const pin = require('../crust-ipfs/pin.js').default;
-const publish = require('../crust-ipfs/publish.js').default;
 
 const createLiveChatForVideo = async (videoId) => {
     await liveChatVideo.create({ videoId: videoId });
@@ -73,9 +62,6 @@ const filesValidation = async (req, res, next) => {
         return res.send({});
     }
 }
-
-
-
 
 router.post(
     '/',

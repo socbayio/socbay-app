@@ -13,7 +13,6 @@ function callback(tagName) {
     );
 }
 
-var middleware = require('i18next-express-middleware');
 router.get('/', getInfoIfAuthenticated, async function (req, res, next) {
     try {
         homepageTags = [

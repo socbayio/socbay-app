@@ -65,9 +65,6 @@ var channelRouter = require('./routes/channel');
 var uploadHistoryRouter = require('./routes/uploadHistory');
 var universalUploadRouter = require('./routes/universalUpload');
 var universalStoreRouter = require('./routes/universalStore');
-var blockExplorerRouter = require('./routes/blockExplorer');
-
-var allUsersRouter = require('./routes/allUsers');
 
 /**
   Middleware
@@ -139,9 +136,6 @@ app.use('/channel/:channelId', channelRouter);
 app.use('/uploadhistory', uploadHistoryRouter);
 app.use('/upload', universalUploadRouter);
 app.use('/upload/store', universalStoreRouter);
-app.use('/blockexplorer', blockExplorerRouter);
-
-app.use('/allUsers', allUsersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

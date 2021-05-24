@@ -9,7 +9,6 @@ const VideoReport = require('../models/videoReportModel.js');
 async function getAuthorInfo(req, res, next) {
     const authorInfo = await User.findById(req.body.authorId);
     req.authorInfo = authorInfo;
-    // res.send({ userInfo: req.userInfo, authorInfo: authorInfo });
     next();
 }
 

@@ -3,10 +3,7 @@ const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated.js'
 const redirectIfNotAuthenticatedMiddleware = require('../middleware/redirectIfNotAuthenticatedMiddleware.js');
 var router = express.Router();
 const User = require('../models/userModel');
-const Video = require('../models/videoModel');
-//const { uploadBlock } = require('../models/uploadBlockModel');
 var logger = require("../logger").Logger;
-
 
 router.get('/',
     redirectIfNotAuthenticatedMiddleware,

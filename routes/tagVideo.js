@@ -1,8 +1,5 @@
 var express = require('express');
 var router = express.Router({ mergeParams: true });
-const User = require('../models/userModel.js');
-const Video = require('../models/videoModel.js');
-const videoTag = require('../models/videoTagModel.js');
 const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated');
 const { getVideoFromTagByLanguage } = require('./common.js');
 
