@@ -62,10 +62,16 @@
 						<div class="course_tabs">
 							<nav>
 								<div class="nav nav-tabs tab_crse" id="nav-tab" role="tablist">
-									<a class="nav-item nav-link active" id="nav-courses-tab" data-toggle="tab" href="#nav-purchased" role="tab" aria-selected="true">Uploaded videos</a>
-									<a class="nav-item nav-link" id="nav-subscriptions-tab" data-toggle="tab" href="#nav-subscriptions" role="tab" aria-selected="false">Subscriptions</a>
-                                    <a class="nav-item nav-link" id="nav-reviews-tab" data-toggle="tab" href="#nav-reviews" role="tab" aria-selected="false">Discussion</a>
-									
+									<a class="nav-item nav-link 
+										<% if(tab == 'videos' || tab == undefined) { %>
+											active
+										<% } %>
+									" id="nav-courses-tab" data-toggle="tab" href="#nav-purchased" role="tab">Uploaded videos</a>
+									<a class="nav-item nav-link 
+										<% if(tab == 'subscription') { %>
+											active
+										<% } %>
+									" id="nav-subscriptions-tab" data-toggle="tab" href="#nav-subscriptions" role="tab">Subscriptions</a>
 								</div>
 							</nav>						
 						</div>
@@ -79,7 +85,11 @@
 					<div class="col-lg-12">
 						<div class="course_tab_content">
 							<div class="tab-content" id="nav-tabContent">
-								<div class="tab-pane fade show active" id="nav-purchased" role="tabpanel">
+								<div class="tab-pane fade
+									<% if(tab == 'videos' || tab == undefined) { %>
+										show active
+									<% } %>
+								" id="nav-purchased" role="tabpanel">
 									<div class="_htg451 mt-0 mb-0">
 										<div class="_htg452">
 											<div class="row">
@@ -118,78 +128,11 @@
 										</div>																	
 									</div>							
 								</div>
-								<div class="tab-pane fade" id="nav-reviews" role="tabpanel">
-									<div class="student_reviews">
-										<div class="row">
-											<div class="col-lg-12">
-												<div class="review_right">
-													<div class="review_right_heading">
-														<h3>Discussions</h3>
-													</div>
-												</div>
-												<div class="cmmnt_1526">
-													<div class="cmnt_group">
-														<div class="img160">
-															<img src="images/hd_dp.jpg" alt="">									
-														</div>
-														<textarea class="_cmnt001" placeholder="Add a public comment"></textarea>
-													</div>
-													<button class="cmnt-btn" type="submit">Comment</button>
-												</div>
-												<div class="review_all120">
-													<div class="review_item">
-														<div class="review_usr_dt">
-															<img src="images/left-imgs/img-1.jpg" alt="">
-															<div class="rv1458">
-																<h4 class="tutor_name1">John Doe</h4>
-																<span class="time_145">2 hour ago</span>
-															</div>
-															<div class="eps_dots more_dropdown">
-																<a href="#"><i class="uil uil-ellipsis-v"></i></a>
-																<div class="dropdown-content">
-																	<span><i class='uil uil-comment-alt-edit'></i>Edit</span>
-																	<span><i class='uil uil-trash-alt'></i>Delete</span>
-																</div>																											
-															</div>
-														</div>
-														<p class="rvds10">Nam gravida elit a velit rutrum, eget dapibus ex elementum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce lacinia, nunc sit amet tincidunt venenatis.</p>
-														<div class="rpt101">
-															<a href="#" class="report155"><i class='uil uil-thumbs-up'></i> 10</a>
-															<a href="#" class="report155"><i class='uil uil-thumbs-down'></i> 1</a>
-															<a href="#" class="report155"><i class='uil uil-heart'></i></a>
-															<a href="#" class="report155 ml-3">Reply</a>
-														</div>
-													</div>
-													<div class="review_reply">
-														<div class="review_item">
-															<div class="review_usr_dt">
-																<img src="images/left-imgs/img-3.jpg" alt="">
-																<div class="rv1458">
-																	<h4 class="tutor_name1">Rock Doe</h4>
-																	<span class="time_145">1 hour ago</span>
-																</div>
-																<div class="eps_dots more_dropdown">
-																	<a href="#"><i class="uil uil-ellipsis-v"></i></a>
-																	<div class="dropdown-content">
-																		<span><i class='uil uil-trash-alt'></i>Delete</span>
-																	</div>																											
-																</div>
-															</div>
-															<p class="rvds10">Fusce lacinia, nunc sit amet tincidunt venenatis.</p>
-															<div class="rpt101">
-																<a href="#" class="report155"><i class='uil uil-thumbs-up'></i> 4</a>
-																<a href="#" class="report155"><i class='uil uil-thumbs-down'></i> 2</a>
-																<a href="#" class="report155"><i class='uil uil-heart'></i></a>
-																<a href="#" class="report155 ml-3">Reply</a>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="tab-pane fade show" id="nav-subscriptions" role="tabpanel">
+								<div class="tab-pane fade
+									<% if(tab == 'subscription') { %>
+										show active
+									<% } %>
+									" id="nav-subscriptions" role="tabpanel">
 									<div class="_htg451 mt-0 mb-0">
 										<div class="_htg452">
 											<div class="row">

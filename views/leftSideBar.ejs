@@ -4,20 +4,20 @@
         <div class="left_section">
             <ul>
                 <li class="menu--item">
-                    <a href="/" class="menu--link active" title="Home">
+                    <a href="/" class="menu--link active">
                         <i class='uil uil-home-alt menu--icon'></i>
                         <span class="menu--label"><%=t('leftSideBar.home')%></span>
                     </a>
                 </li>
 
                 <li class="menu--item">
-                    <a href="/explore" class="menu--link disabled" title="Explore">
+                    <a href="/explore" class="menu--link disabled">
                         <i class='uil uil-search menu--icon'></i>
                         <span class="menu--label"><%=t('leftSideBar.explore')%></span>
                     </a>
                 </li>
                 <li class="menu--item menu--item__has_sub_menu">
-                    <label class="menu--link" title="Categories">
+                    <label class="menu--link">
                         <i class='uil uil-layers menu--icon'></i>
                         <span class="menu--label"><%=t('leftSideBar.categories')%></span>
                     </label>
@@ -53,16 +53,9 @@
                 </li>
 
                 <li class="menu--item">
-                    <a href="/upload" target="_blank" class="menu--link" title="Saved Videos">
+                    <a href="/upload" target="_blank" class="menu--link">
                         <i class="uil uil-clipboard-alt menu--icon"></i>
                         <span class="menu--label"><%=t('leftSideBar.universalUpload')%></span>
-                    </a>
-                </li>
-
-                <li class="menu--item">
-                    <a href="savedVideo" class="menu--link disabled" title="Saved Videos">
-                        <i class="uil uil-heart-alt menu--icon"></i>
-                        <span class="menu--label"><%=t('leftSideBar.savedvideos')%></span>
                     </a>
                 </li>
 
@@ -87,7 +80,7 @@
                     <div class="alrt_dot"></div>
                 </li> -->
                 <li class="menu--item">
-                    <a href="/mySubscriptions" class="menu--link disabled" title="Browse Instructors">
+                    <a href="/myinfo?tab=subscription" class="menu--link">
                         <i class='uil uil-plus-circle menu--icon'></i>
                         <span class="menu--label"><%=t('leftSideBar.allsubscriptions')%></span>
                     </a>
@@ -97,19 +90,19 @@
         <div class="left_section pt-2">
             <ul>
                 <li class="menu--item">
-                    <a href="/setting" class="menu--link disabled" title="Setting">
+                    <a href="/setting" class="menu--link disabled">
                         <i class='uil uil-cog menu--icon'></i>
                         <span class="menu--label"><%=t('leftSideBar.setting')%></span>
                     </a>
                 </li>
                 <li class="menu--item">
-                    <a href="/help" class="menu--link disabled" title="Help">
+                    <a href="/help" class="menu--link disabled">
                         <i class='uil uil-question-circle menu--icon'></i>
                         <span class="menu--label"><%=t('leftSideBar.help')%></span>
                     </a>
                 </li>
                 <li class="menu--item">
-                    <a href="/feedback" class="menu--link disabled" title="Send Feedback">
+                    <a href="/feedback" class="menu--link disabled">
                         <i class='uil uil-comment-alt-exclamation menu--icon'></i>
                         <span class="menu--label"><%=t('leftSideBar.sendfeedback')%></span>
                     </a>

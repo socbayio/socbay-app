@@ -32,7 +32,7 @@ router.get(
                 (s) => s.userId
             );
 
-            res.render('myinfo', { userInfo });
+            res.render('myinfo', { userInfo, tab: req.query.tab });
         } catch (e) {
             logger.error(`Myinfo fail with error: ${e}`);
             next(e);
