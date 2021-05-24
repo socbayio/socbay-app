@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router({ mergeParams: true });
 const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated');
 const { getVideoFromTagByLanguage } = require('./common.js');
+const logger = require('../logger').Logger;
 
 router.get('/', getInfoIfAuthenticated, async function (req, res, next) {
     try {
@@ -11,7 +12,7 @@ router.get('/', getInfoIfAuthenticated, async function (req, res, next) {
             renderVideos: values.filter((x) => x !== undefined),
         });
     } catch (e) {
-        console.error(`Tag page fail with error: ${e}`);
+        logger.error(`Tag page fail with error: ${e}`);
         next(e);
     }
 });

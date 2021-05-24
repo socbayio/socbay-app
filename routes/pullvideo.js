@@ -85,7 +85,7 @@ async function getVideo(req, res, next) {
             throw new Error('No livechat | No video');
         }
     } catch (e) {
-        console.error(`Pull video fail with error: ${e}`);
+        logger.error(`Pull video fail with error: ${e}`);
         next(e);
     }
 }

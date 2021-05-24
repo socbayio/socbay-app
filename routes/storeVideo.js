@@ -57,7 +57,7 @@ const filesValidation = async (req, res, next) => {
         next();
     } else {
         //TODO: Log this case and return error
-        console.error("There is hacker");
+        logger.error("There is hacker");
         return res.send({});
     }
 }

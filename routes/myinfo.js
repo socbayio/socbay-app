@@ -3,6 +3,7 @@ const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated.js'
 const redirectIfNotAuthenticatedMiddleware = require('../middleware/redirectIfNotAuthenticatedMiddleware.js');
 var router = express.Router();
 const User = require('../models/userModel.js');
+const logger = require('../logger').Logger;
 
 router.get(
     '/',
@@ -33,7 +34,7 @@ router.get(
 
             res.render('myinfo', { userInfo });
         } catch (e) {
-            console.error(`Myinfo fail with error: ${e}`);
+            logger.error(`Myinfo fail with error: ${e}`);
             next(e);
         }
     }
