@@ -44,7 +44,12 @@
 						<div class="section3125">
 							<div class="mainvideo">
 								<video poster="<%=videoInfo.thumbnailLink%>" class="js-player" playsinline loop autoplay>
-									<source src="<%=videoInfo.link%>">
+									<source src=
+										<% if (!videoInfo.autoGateway) { %>
+											"<%=videoInfo.link%>">
+										<% } else { %>
+											"">
+										<% } %>
 								</video>
 							</div>
 		
