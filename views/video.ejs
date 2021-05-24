@@ -88,7 +88,7 @@
 								</div>
 							</div>
 							<div class="mb-2">
-								<h4>Gateway</h4>
+								<h4 id="gateway">Gateway</h4>
 							</div>
 							<div>
 								<div class="user_cntnt">
@@ -399,8 +399,6 @@
 					}
 				}
 			}
-			console.log('Best gateway:')
-			console.log(gateways[best_gateway]);
 		}
 	</script>
 
@@ -423,6 +421,7 @@
 				mediaSource.src = gateways[best_gateway].url.replace(/:hash/, videoCid);
 				var player = document.getElementsByTagName('video')[0];
 				player.load();
+				document.getElementById("gateway").innerHTML =  "Gateway (" + gateways[best_gateway].domain + ")";
 			}
 		}
 
