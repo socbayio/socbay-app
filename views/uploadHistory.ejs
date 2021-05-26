@@ -16,7 +16,7 @@
 	<!-- Body Start -->
 	<div class="wrapper">
 		<div class="sa4d25">
-			<div class="container-fluid">			
+			<div class="container-fluid" style="min-height: calc(100vh - 90px - 81px - 30px);">			
 				<div class="row">
 					<div class="col-lg-12">	
 						<h2 class="st_title"><i class="uil uil-book-alt"></i>Upload History</h2>
@@ -31,7 +31,7 @@
 									<a class="nav-link active" id="pills-my-courses-tab" data-toggle="pill" href="#pills-my-courses" role="tab" aria-controls="pills-my-courses" aria-selected="true"><i class="uil uil-book-alt"></i>All</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" id="pills-my-purchases-tab" data-toggle="pill" href="#pills-my-purchases" role="tab" aria-controls="pills-my-purchases" aria-selected="false"><i class="uil uil-download-alt"></i>Video</a>
+									<a class="nav-link" id="pills-my-purchases-tab" data-toggle="pill" href="#pills-my-purchases" role="tab" aria-controls="pills-my-purchases" aria-selected="false"><i class="uil uil-video"></i>Video</a>
 								</li>
 							
 							</ul>
@@ -43,7 +43,7 @@
 												<tr>
 													
 													<th class="text-break" style="min-width: 100px;">Name</th>
-													<th class="text-center text-break" style="min-width: 100px;" scope="col">IPFS CID</th>
+													<th class="text-center text-break" style="min-width: 100px;" scope="col">CID</th>
 													<th class="text-center" scope="col">Size</th>
 													<th class="text-center text-break" style="min-width: 100px;" scope="col">Title</th>
 													<th class="text-center" scope="col">Status</th>
@@ -64,8 +64,7 @@
 													<td class="text-center"><%=uploadedFiles[fileCount].blockId.currentInfo.replicas%></td>
 													<td class="text-center"><a href="#"><%=uploadedFiles[fileCount].blockId.currentInfo.expiredOnBlockHeight%>.</a></td>
 													<td class="text-center">
-														<a href="#" title="Edit" class="gray-s"><i class="uil uil-edit-alt"></i></a>
-														<a href="#" title="Delete" class="gray-s"><i class="uil uil-trash-alt"></i></a>
+														<a href="https://ipfs.io/ipfs/<%=uploadedFiles[fileCount].fileId.CID%>" target="_blank" title="Download" class="gray-s"><i class="uil uil-download-alt"></i></a>
 													</td>
 												</tr>
 												<% }%>
@@ -98,9 +97,8 @@
 													<td class="text-center"><%=uploadedVideos[videoCount].blockId.currentInfo.replicas%></td>
 													<td class="text-center"><%=uploadedVideos[videoCount].blockId.currentInfo.expiredOnBlockHeight%></td>
 													<td class="text-center">
-														<a href="#" title="Download" class="gray-s"><i class="uil uil-download-alt"></i></a>
-														<a href="#" title="Delete" class="gray-s"><i class="uil uil-trash-alt"></i></a>
-														<a href="#" title="Print" class="gray-s"><i class="uil uil-print"></i></a>
+														<a href="https://ipfs.io/ipfs/<%=uploadedVideos[videoCount].fileId.CID%>" target="_blank" title="Download" class="gray-s"><i class="uil uil-download-alt"></i></a>
+														<a href="/video/<%=uploadedVideos[videoCount].videoId%>/delete" title="Delete" class="gray-s"><i class="uil uil-trash-alt"></i></a>
 													</td>
 												</tr>
 												<% }%>
@@ -124,11 +122,6 @@
 	<script src="/owlcarousel/owl.carousel.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-<<<<<<< HEAD
-
-=======
-	
->>>>>>> uploaded-files-explorer
 	<script src="/js/vertical-responsive-menu.min.js"></script>
 	<script src="/js/custom1.js"></script>
 	<script src="/js/night-mode.js"></script>
