@@ -11,12 +11,9 @@ router.post('/', redirectIfAuthenticatedMiddleware, function (req, res, next) {
         if (user) {
             bcrypt.compare(password, user.password, (error, same) => {
                 if (same) {
-                    // if passwords match
-
-                    req.session.userId = user._id; // store user session, will talk about it later
-                    req.session.webLang = user.lang; // store language to session
-
-                    res.redirect('/?lng=' + user.lang);
+                    req.session.userId = user._id;
+                    req.session.webLang = user.lang;
+                    res.redirect('/');
                 } else {
                     res.redirect('/login');
                 }

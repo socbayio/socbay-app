@@ -20,7 +20,7 @@ router.post('/', redirectIfAuthenticatedMiddleware, function (req, res, next) {
         req.session.webLang = user.lang;
 
         return res.redirect('/');
-    }); // could do either User.create(req.body,(error, user)=>{res.redirect()})
+    });
 });
 
 module.exports = router;
