@@ -105,7 +105,18 @@
 									<a href="/video/<%=videoInfo.videoId%>?gateway=oneloveipfs"><button class="subscribe-btn">OneLove</button></a>
 								</div>
 							</div>
-							<div class="user_dt5">
+							<% if (videoInfo.ref) { %>
+								<div class="ui search focus mt-30">
+									<div class="ui left icon labeled input swdh11 swdh31">
+										<div class="ui label lb12">
+											Reference
+										</div>
+										<input class="prompt srch_explore" type="text" name="site" value="<%=videoInfo.ref%>" id="id_site" required="" maxlength="64">
+									</div>															
+								</div>
+							<% } %>
+
+							<div class="user_dt5 mt-20">
 								<p><%=videoInfo.description%></p>
 							</div>
 						</div>

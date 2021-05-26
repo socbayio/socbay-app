@@ -62,6 +62,7 @@ async function getVideo(req, res, next) {
                 videoId: req.params.videoId,
                 link: link + videoFound.networkStatus.fileId.CID,
                 thumbnailLink: link + videoFound.thumbnail.fileId.CID,
+                ref: videoFound.ref,
                 CID: videoFound.networkStatus.CID,
                 title: videoFound.title,
                 view: videoFound.view,

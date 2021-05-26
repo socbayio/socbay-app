@@ -71,6 +71,7 @@ router.post(
         const blockSizeLimitInByte = 100*1024*1024;
         res.send({})
         try {
+            console.log(req.body)
             let thumbnailInfo = {};
             let videoInfo = await uploadFile(req.files.file_data[req.files.videoIndex], blockSizeLimitInByte);
 
@@ -84,6 +85,7 @@ router.post(
                     blockId: thumbnailInfo.blockId
                 },
                 lang: req.body.lang,
+                ref: req.body.ref,
                 description: req.body.desc,
                 networkStatus: {
                     CID: videoInfo.CID,
