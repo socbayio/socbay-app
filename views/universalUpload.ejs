@@ -88,7 +88,12 @@
             a.target = "_blank";
             CIDcontent.appendChild(a);
             var recommend = document.createElement('div');
-            recommend.innerHTML = "CID: "+ databack.response.CID;
+			recommend.classList.add('text-break');
+			<% if (!loggedIn) { %>
+				recommend.innerHTML = "CID: "+ databack.response.CID + ". Sign in to keep track of your uploading.";
+			<% } else { %> 
+				recommend.innerHTML = "CID: "+ databack.response.CID;
+			<% } %>
             CIDcontent.appendChild(recommend);
             CIDback.appendChild(CIDcontent);
 		});
