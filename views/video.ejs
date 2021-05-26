@@ -72,8 +72,8 @@
 									<div class="live_user_dt">
 										<div class="user_img5">
 											<a href="/channel/<%=videoInfo.videoAuthorId%>">
-												<img src="/images/left-imgs/img-4.jpg" alt="">	
-											</a>										
+												<img src="https://ipfs.io/ipfs/<%=videoInfo.videoAuthorPicture%>" alt="">	
+											</a>								
 										</div>
 										<div class="user_cntnt">
 											<a href="/channel/<%=videoInfo.videoAuthorId%>"><h4><%=videoInfo.videoAuthor%></h4></a>
@@ -251,7 +251,7 @@
               'settings', // Settings menu
               'pip', // Picture-in-picture (currently Safari only)
               'airplay', // Airplay (currently Safari only)
-              'download', // Show a download button with a link to either the current source or a custom URL you specify in your options
+              //'download', // Show a download button with a link to either the current source or a custom URL you specify in your options
               'fullscreen' // Toggle fullscreen
           	];
 			 const player = Plyr.setup('.js-player', { controls });

@@ -7,3 +7,4 @@ logs/debug.txt
 logs/error.txt
 logs/info.txt
 seeds
+config.js

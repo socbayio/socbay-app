@@ -67,7 +67,7 @@ const UserSchema = new Schema({
     },
     profilePicture: {
         type: String,
-        default: '/images/profilepicture/default.png',
+        default: 'QmTk7aimc3m7ciyqXJeo6CtNnSfoNcHDzFuFHj4Mxo2eXx',
     },
     lang: {
         type: String,
