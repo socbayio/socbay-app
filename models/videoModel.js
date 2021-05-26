@@ -87,6 +87,10 @@ const VideoSchema = new Schema({
         },
         reason: String,
     },
+    isDeleted: {
+        type: Boolean,
+        default: false,
+    },
     fileSize: Number,
     fileId: {
         type: Schema.Types.ObjectId,

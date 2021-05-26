@@ -65,6 +65,7 @@ var channelRouter = require('./routes/channel');
 var uploadHistoryRouter = require('./routes/uploadHistory');
 var universalUploadRouter = require('./routes/universalUpload');
 var universalStoreRouter = require('./routes/universalStore');
+var deleteVideoRouter = require('./routes/deleteVideo');
 
 /**
   Middleware
@@ -126,6 +127,7 @@ app.use('/video', videoRouter);
 app.use('/uploadvideo', uploadVideoRouter);
 app.use('/uploadvideo/store', storeVideoRouter);
 app.use('/video/:videoId', pullvideoRouter);
+app.use('/video/:videoId/delete', deleteVideoRouter);
 app.use('/register/store', storeUser);
 app.use('/aboutus', aboutUsRouter);
 app.use('/tag/:tagId', getCurrentLanguageMiddleware, tagVideoRouter);

@@ -17,17 +17,21 @@ router.get(
                 .populate(
                     { 
                         path: 'uploadedVideos.videoId',
-                        select: 'thumbnail like view title durationInSecond',
+                        select: 'thumbnail like view title durationInSecond isDeleted',
                         populate: {
                             path: 'thumbnail.blockId',
                             select: 'uploadedToNetwork CID'
                         }
                     }
                 );
-            userInfo.uploadedVideos = await Promise.all(userFound.uploadedVideos.map(async (video) =>{
+            const uploadedVideos = await Promise.all(userFound.uploadedVideos.map(async (video) =>{
                 await video.videoId.thumbnail.subPopulate('fileId');
-                return video.videoId;
+                if (!video.videoId.isDeleted) {
+                    return video.videoId;
+                }
+                return null;
             }));
+            userInfo.uploadedVideos = uploadedVideos.filter((x) => x !== null);
             userInfo.subscriptions = userFound.subscriptions.map(
                 (s) => s.userId
             );
