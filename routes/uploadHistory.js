@@ -26,31 +26,27 @@ router.get('/',
                 }
             );
           
-            const uploadedVideos = await Promise.all(userFound.uploadedVideos.map(async (video) => {
+            const uploadedVideosRaw = await Promise.all(userFound.uploadedVideos.map(async (video) => {
+                if (!video.videoId.isDeleted) {
                     await video.videoId.networkStatus.subPopulate('fileId');
-                    //console.log(video.videoId)
                     return {
+                        videoId: video.videoId._id,
                         fileId: video.videoId.networkStatus.fileId, 
                         blockId: video.videoId.networkStatus.blockId,
                         title: video.videoId.title
                     };
-                })
-            )
-    
+                }
+                return null; 
+            }))
+            const uploadedVideos = uploadedVideosRaw.filter((x) => x !== null);
             let file = {};
             const uploadedFiles = [];
-            //console.log(userFound.uploadedFiles)
             for (let fileCount = 0; fileCount < userFound.uploadedFiles.length; fileCount++) {
                 file = {};
                 file = await userFound.uploadedFiles[fileCount].subPopulate('fileId');
-                //console.log(file)
-                //file.blockInfo = userFound.uploadedFiles[fileCount].blockId;
-                //file.videoInfo = userFound.uploadedFiles[fileCount].relatedVideo || null; // Would be null if there is not related video
                 uploadedFiles.push(file);
             }
-            console.log("uploadedfile")
-            console.log(uploadedFiles)
-
+            console.log(uploadedVideos);
             res.render('uploadHistory', { userInfo: req.userInfo, uploadedFiles, uploadedVideos });
         } catch (e) {
             logger.error(`Error found on uploadhistory.js ${e}`);

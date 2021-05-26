@@ -101,18 +101,22 @@ const getVideoFromTagByLanguage = async (
             videoCount < tagFound[0].videos.length;
             videoCount++
         ) {
-            await tagFound[0].videos[videoCount].videoId.thumbnail.subPopulate('fileId');
-            videoArray.push(tagFound[0].videos[videoCount].videoId);
+            if(!tagFound[0].videos[videoCount].videoId.isDeleted){
+                await tagFound[0].videos[videoCount].videoId.thumbnail.subPopulate('fileId');
+                videoArray.push(tagFound[0].videos[videoCount].videoId);
+            }
         }
         return { name: tagName, videos: videoArray };
     }
     return;
 };
 
+
 const getVideosChannel = async (channelId) => {
     const userFound = await User.findById(channelId).populate(
         { 
             path: 'uploadedVideos.videoId',
+            select: 'thumbnail like view title durationInSecond isDeleted',
             populate: {
                 path: 'thumbnail.blockId',
                 select: 'uploadedToNetwork CID'
@@ -121,11 +125,15 @@ const getVideosChannel = async (channelId) => {
     );
 
     if (userFound) {
-        channelInfo = {
-            uploadedVideos: await Promise.all(userFound.uploadedVideos.map( async (video) => {
-                await video.videoId.thumbnail.subPopulate('fileId');
+        const uploadedVideos = await Promise.all(userFound.uploadedVideos.map( async (video) => {
+            await video.videoId.thumbnail.subPopulate('fileId');
+            if (!video.videoId.isDeleted){
                 return video.videoId;
-            })),
+            }
+            return null;
+        }));
+        channelInfo = {
+            uploadedVideos: uploadedVideos.filter((x) => x !== null),
             profilePicture: userFound.profilePicture,
             username: userFound.username,
         };

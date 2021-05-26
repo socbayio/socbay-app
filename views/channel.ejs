@@ -88,31 +88,31 @@
 								<div class="tab-pane fade show active" id="uploaded-videos" role="tabpanel">
 									<div class="section3126">
                                         <div class="row no-gutters">
-                                            <% for(let videoCount2 = 0; videoCount2<channelInfo.uploadedVideos.length; videoCount2++) {%>
+                                            <% for(let videoCount = 0; videoCount<channelInfo.uploadedVideos.length; videoCount++) {%>
                                             
                                                 <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 video-item">
                                                     <div class="item">
                                                         <div class="fcrse_1 mb-20">
-                                                            <a href="/video/<%=channelInfo.uploadedVideos[videoCount2]._id%>" class="fcrse_img">
-                                                                <img src="https://ipfs.io/ipfs/<%=channelInfo.uploadedVideos[videoCount2].thumbnail.fileId.CID%>" alt="">
+                                                            <a href="/video/<%=channelInfo.uploadedVideos[videoCount]._id%>" class="fcrse_img">
+                                                                <img src="https://ipfs.io/ipfs/<%=channelInfo.uploadedVideos[videoCount].thumbnail.fileId.CID%>" alt="">
                                                                 <div class="course-overlay">
                                                                     <span class="play_btn1"><i class="uil uil-play"></i></span>
                                                                      <div class="crse_timer">
-                                                                        <%if(Math.floor(channelInfo.uploadedVideos[videoCount2].durationInSecond/3600)) {%>
-                                                                        <%=Math.floor(channelInfo.uploadedVideos[videoCount2].durationInSecond/3600) +'h'+ Math.floor(channelInfo.uploadedVideos[videoCount2].durationInSecond%3600/60)+ 'm'%>
+                                                                        <%if(Math.floor(channelInfo.uploadedVideos[videoCount].durationInSecond/3600)) {%>
+                                                                        <%=Math.floor(channelInfo.uploadedVideos[videoCount].durationInSecond/3600) +'h'+ Math.floor(channelInfo.uploadedVideos[videoCount].durationInSecond%3600/60)+ 'm'%>
                                                                         <%}else{%>
-                                                                        <%= Math.floor(channelInfo.uploadedVideos[videoCount2].durationInSecond%3600/60)+ 'm'+Math.floor(channelInfo.uploadedVideos[videoCount2].durationInSecond%3600%60)+'s'%>
+                                                                        <%= Math.floor(channelInfo.uploadedVideos[videoCount].durationInSecond%3600/60)+ 'm'+Math.floor(channelInfo.uploadedVideos[videoCount].durationInSecond%3600%60)+'s'%>
                                                                         <%}%>
                                                                     </div>
                                                                 </div>
                                                             </a>
                                                             <div class="fcrse_content">
                                                                 <div class="vdtodt">
-                                                                    <span class="vdt14"><%=channelInfo.uploadedVideos[videoCount2].view%> views</span>
-                                                                    <span class="vdt14"><%=channelInfo.uploadedVideos[videoCount2].like%> rockets</span>
+                                                                    <span class="vdt14"><%=channelInfo.uploadedVideos[videoCount].view%> views</span>
+                                                                    <span class="vdt14"><%=channelInfo.uploadedVideos[videoCount].like%> rockets</span>
                                                                     <!-- <span class="vdt14">15 days ago</span> -->
                                                                 </div>
-                                                                <a href="/video/<%=channelInfo.uploadedVideos[videoCount2]._id%>" class="crse14s title_video_catalog"><%=channelInfo.uploadedVideos[videoCount2].title%></a>
+                                                                <a href="/video/<%=channelInfo.uploadedVideos[videoCount]._id%>" class="crse14s title_video_catalog"><%=channelInfo.uploadedVideos[videoCount].title%></a>
                                                             </div>
                                                         </div>
                                                     </div>
