@@ -3,6 +3,7 @@ var router = express.Router();
 const Video = require('../models/videoModel.js');
 const liveChatVideo = require('../models/liveChatVideoModel');
 var logger = require('../logger').Logger;
+var config = require('../config');
 
 const {
     pushFileToMe,
@@ -68,15 +69,13 @@ router.post(
     getInfoIfAuthenticated,
     filesValidation,
     async (req, res, next) => {
-        const blockSizeLimitInByte = 100*1024*1024;
         res.send({})
         try {
-            console.log(req.body)
             let thumbnailInfo = {};
-            let videoInfo = await uploadFile(req.files.file_data[req.files.videoIndex], blockSizeLimitInByte);
+            let videoInfo = await uploadFile(req.files.file_data[req.files.videoIndex], config.blockSizeLimitInByte);
 
             if (req.files.file_data.length == 2){
-                thumbnailInfo = await uploadFile(req.files.file_data[req.files.thumbnailIndex], blockSizeLimitInByte);
+                thumbnailInfo = await uploadFile(req.files.file_data[req.files.thumbnailIndex], config.blockSizeLimitInByte);
             }
             let videoToUpload = {
                 title: req.body.title,
