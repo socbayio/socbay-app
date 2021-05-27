@@ -71,7 +71,7 @@
 											<span><%=userInfo.emailaddress%></span>
 											<div class="mt-10 d-block d-lg-none">
 												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-													Upload Avatar
+													<%=t('myinfo.uploadavatar')%>
 												</button>
 											</div>	
 										</div>
@@ -192,7 +192,7 @@
 												<div class="col-lg-3 col-md-4">
 													<div class="fcrse_1 mb-20">
 														<div class="tutor_img">
-															<a href="/channel/<%=userInfo.subscriptions[subCount]._id%>"><img src="http://ipfs.io/ipfs/<%=userInfo.subscriptions[subCount].profilePicture%>" alt=""></a>												
+															<a href="/channel/<%=userInfo.subscriptions[subCount]._id%>"><img src="https://ipfs.io/ipfs/<%=userInfo.subscriptions[subCount].profilePicture%>" alt=""></a>												
 														</div>
 														<div class="tutor_content_dt">
 															<div class="tutor150">

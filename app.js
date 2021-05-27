@@ -33,7 +33,7 @@ i18next
             caches: ['cookie'],
         },
         fallbackLng: 'en',
-        preload: ['en', 'vi'],
+        preload: ['en', 'vi','zh'],
     });
 
 /**
