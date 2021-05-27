@@ -13,6 +13,7 @@
     },
     "categories": {
         "gaming": "Gaming",
+        "relax": "Relax",
         "tech": "Tech",
         "finance": "Finance 2.0",
         "cryptonews": "Crypto News",
@@ -112,6 +113,7 @@
         "tag": "Tag",
         "selectcategory": "Select Category",
         "gaming": "Gaming",
+        "relax": "Relax",
         "tech": "Tech",
         "finance": "Finance 2.0",
         "cryptonews": "Crypto News",
@@ -140,5 +142,18 @@
         "network": "Network",
         "crust": "Crust",
         "local": "Local"
+    },
+    "tag": {
+        "newvideos": "newvideos",
+        "searchresults": "searchresults",
+        "gaming": "gaming",
+        "relax": "relax",
+        "tech": "tech",
+        "finance": "finance",
+        "cryptonews": "cryptonews",
+        "news": "news",
+        "lifestyle": "lifestyle",
+        "healthandfitness": "healthandfitness",
+        "music": "music"
     }
 }

@@ -13,6 +13,7 @@
     },
     "categories": {
         "gaming": "Trò chơi",
+        "relax": "Giải trí",
         "tech": "Công nghệ",
         "finance": "Tài chính",
         "cryptonews": "Tin Crypto",
@@ -114,6 +115,7 @@
         "tag": "Danh mục",
         "selectcategory": "Chọn danh mục",
         "gaming": "Trò chơi",
+        "relax": "Giải trí",
         "tech": "Công nghệ",
         "finance": "Tài chính",
         "cryptonews": "Tin Crypto",
@@ -142,5 +144,18 @@
         "network": "Network",
         "crust": "Crust",
         "local": "Máy nội bộ"
+    },
+    "tag": {
+        "newvideos": "videomoi",
+        "searchresults": "ketquatimkiem",
+        "gaming": "trochoi",
+        "relax": "giaitri",
+        "tech": "congnghe",
+        "finance": "taichinh",
+        "cryptonews": "tintuccrypto",
+        "news": "tintuc",
+        "lifestyle": "phongcachsong",
+        "healthandfitness": "suckhoe",
+        "music": "amnhac"
     }
 }

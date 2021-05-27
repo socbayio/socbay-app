@@ -19,6 +19,7 @@ router.get('/', getInfoIfAuthenticated, async function (req, res, next) {
         homepageTags = [
             'newvideos',
             'gaming',
+            'relax',
             'tech',
             'finance',
             'cryptonews',
