@@ -40,12 +40,6 @@
         "privacy": "Privacy Policy",
         "universalUpload": "Upload anything!"
     },
-    "home": {
-        "title": "Book shop",
-        "total": "There are {{counter}} books in the list",
-        "buttonText": "Refresh button",
-        "buttonHTML": "<button onClick='window.location.reload();'>$t(buttonText)</button>"
-    },
     "reportVideo": {
         "caption": "Report Video",
         "reportChoose": "Choose one",
@@ -103,7 +97,8 @@
     },
     "myinfo": {
         "uploadedvideos": "Uploaded videos",
-        "subscriptions": "Subscriptions"
+        "subscriptions": "Subscriptions",
+        "uploadavatar": "Upload avatar"
     },
     "uploadvideo": {
         "uploadvideo": "Upload Video",
@@ -124,6 +119,7 @@
         "language": "Language",
         "english": "English",
         "vietnamese": "Vietnamese",
+        "chinese": "Chinese",
         "description": "Description",
         "upload": "Upload",
         "shortdesc": "Short Description"
