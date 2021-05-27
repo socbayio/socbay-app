@@ -58,20 +58,20 @@
                                     <span><%= userInfo.emailaddress %></span>
                                 </div>							
                             </div>
-                            <a href="/myinfo" class="dp_link_12">View Profile</a>						
+                            <a href="/myinfo" class="dp_link_12"><%=t('header.viewprofile')%></a>						
                         </div>
                         <div class="night_mode_switch__btn">
-                            <a href="#" id="night-mode" class="btn-night-mode">
-                                <i class="uil uil-moon"></i> Night mode
+                            <a href="#" id="night-mode" class="btn-night-mode" style="padding-right: 60px;">
+                                <i class="uil uil-moon"></i> <%=t('header.nightmode')%>
                                 <span class="btn-night-mode-switch">
                                     <span class="uk-switch-button"></span>
                                 </span>
                             </a>
                         </div>
-                        <a href="/myinfo" class="item channel_item">My Info</a>	
-                        <a href="/uploadvideo" class="item channel_item">Upload Video</a>
-                        <a href="/uploadhistory" class="item channel_item">Upload History</a>							
-                        <a href="/logout" class="item channel_item">Sign Out</a>
+                        <a href="/myinfo" class="item channel_item"><%=t('header.myinfo')%></a>	
+                        <a href="/uploadvideo" class="item channel_item"><%=t('header.uploadvideo')%></a>
+                        <a href="/uploadhistory" class="item channel_item"><%=t('header.uploadhistory')%></a>							
+                        <a href="/logout" class="item channel_item"><%=t('header.signout')%></a>
                         
                     </div>
                 </li>

@@ -3,7 +3,13 @@
         "notification": "Thông báo",
         "msg": "Chức năng này đang được phát triển, cảm ơn sự ủng hộ của bạn!",
         "viewall": "Xem tất cả",
-        "signin": "Đăng nhập"
+        "signin": "Đăng nhập",
+        "viewprofile": "Xem tài khoản",
+        "nightmode": "Chế độ ban đêm",
+        "myinfo": "Thông tin của tôi",
+        "uploadvideo": "Tải Video",
+        "uploadhistory": "Lịch sử tải lên",
+        "signout": "Đăng xuất"
     },
     "categories": {
         "gaming": "Trò chơi",
@@ -71,5 +77,70 @@
         "description": "Miêu tả",
         "chooseOption": "Xin hãy lựa chọn",
         "notification": "Thông báo"
+    },
+    "footer": {
+        "language": "Ngôn ngữ"
+    },
+    "login": {
+        "signin": "Đăng nhập",
+        "welcomback": "Xin chào",
+        "donthaveanaccount": "Bạn không có tài khoản?",
+        "signup": "Đăng ký",
+        "emailaddress": "Địa chỉ email",
+        "password": "Mật khẩu"
+    },
+    "register": {
+        "signup": "Đăng ký",
+        "welcometoSocbay": "Chào mừng bạn đến với Socbay.io",
+        "fullname": "Tên hiển thị",
+        "emailaddress": "Địa chỉ Email",
+        "password": "Mật khẩu",
+        "bysigningup": "Khi đăng ký, bạn đồng ý với",
+        "termofuse": "Điều khoản sử dụng",
+        "and": "và",
+        "privacypolicy": "Chính sách bảo mật",
+        "already": "Bạn đã đăng ký tài khoản?",
+        "signin": "Đăng nhập"
+    },
+    "myinfo": {
+        "uploadedvideos": "Video đã tải",
+        "subscriptions": "Kênh đăng ký"
+    },
+    "uploadvideo": {
+        "uploadvideo": "Tải video",
+        "videoandthumbnail": "Video & Ảnh đại diện",
+        "title": "Tiêu đề",
+        "urlreference": "Link video",
+        "tag": "Danh mục",
+        "selectcategory": "Chọn danh mục",
+        "gaming": "Trò chơi",
+        "tech": "Công nghệ",
+        "finance": "Tài chính",
+        "cryptonews": "Tin Crypto",
+        "news": "Tin tức",
+        "lifestyle": "Phong cách sống",
+        "healthandfitness": "Sức khỏe",
+        "music": "Âm nhạc",
+        "language": "Ngôn ngữ",
+        "english": "Tiếng Anh",
+        "vietnamese": "Tiếng Việt",
+        "description": "Mô tả",
+        "upload": "Tải lên",
+        "shortdesc": "Mô tả ngắn gọn"
+    },
+    "uploadhistory": {
+        "uploadhistory": "Lịch sử tải lên",
+        "all": "Tất cả",
+        "videos": "Video",
+        "name": "Tên",
+        "size": "Kích thước",
+        "title": "Tiêu đề",
+        "status": "Trạng thái",
+        "replicas": "Bản sao",
+        "expire": "Hết hạn",
+        "action": "Hành động",
+        "network": "Network",
+        "crust": "Crust",
+        "local": "Máy nội bộ"
     }
 }

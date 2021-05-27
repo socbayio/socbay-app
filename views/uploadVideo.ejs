@@ -26,7 +26,6 @@
 <body>
 
 	<%- include("header"); -%>		
-	
 	<%- include("leftSideBar"); -%>	
 	<!-- Body Start -->
 	<div class="wrapper">
@@ -35,71 +34,62 @@
 				<div class="row justify-content-md-center">
 					<div class="col-lg-8 col-md-10">
 						<div class="section3125 stream_tabs">
-						
 							<div class="tab-content" id="myTabContent">
 								<div class="tab-pane fade show active" id="add-straming" role="tabpanel">
 									<div class="add_stream_content">
-										<h4 class="strm_title">Upload Video</h4>
+										<h4 class="strm_title"><%=t('uploadvideo.uploadvideo')%></h4>
 										<form enctype="multipart/form-data">
 											<div class="group-form">
-												<div style="font-weight: 500; margin-bottom: 10px; margin-top: 30px;">Video & Thumbnail<span style="color:#ed2a26;">*</span> <span id="videoallert" style="color:#ed2a26; font-style: italic; font-weight:400;"></span> <span id="thumballert" style="color:#ed2a26; font-style: italic; font-weight:400;"></span></div>
+												<div style="font-weight: 500; margin-bottom: 10px; margin-top: 30px;"><%=t('uploadvideo.videoandthumbnail')%><span style="color:#ed2a26;">*</span> <span id="videoallert" style="color:#ed2a26; font-style: italic; font-weight:400;"></span> <span id="thumballert" style="color:#ed2a26; font-style: italic; font-weight:400;"></span></div>
 												<input id="filesupload" type="file" class="file" multiple data-preview-file-type="any" data-theme="fas">
 											</div>
 										</form>
 											<div class="group-form">
-												<label>Title<span style="color:#ed2a26;">*</span> <span id="titleallert" style="color:#ed2a26; font-style: italic; font-weight:400;"></span></label>
+												<label><%=t('uploadvideo.title')%><span style="color:#ed2a26;">*</span> <span id="titleallert" style="color:#ed2a26; font-style: italic; font-weight:400;"></span></label>
 												<input name="title" class="_dlor1" type="text" placeholder="" value="" id="title">
 											</div>
-
 											<div class="group-form">
-												<label>URL Reference <span id="urlallert" style="color:#ed2a26; font-style: italic; font-weight:400;"></span></label>
+												<label><%=t('uploadvideo.urlreference')%> <span id="urlallert" style="color:#ed2a26; font-style: italic; font-weight:400;"></span></label>
 												<input name="reference" class="_dlor1" type="url" placeholder="" value="" id="reference">
 											</div>
-
 											<div class="group-form">
-												<label>Tag</label>
+												<label><%=t('uploadvideo.tag')%></label>
 												<select class="ui hj145 dropdown cntry152 prompt srch_explore" name='tag' id="tag">
-													<option value="notselected">Select Category</option>
-													<option value="gaming">Gaming</option>
-													<option value="tech">Tech</option>
-													<option value="finance">Finance 2.0</option>
-													<option value="cryptonews">Crypto News</option>
-													<option value="news">News</option>
-													<option value="lifestyle">Lifestyle</option>
-													<option value="healthandfitness">Health & Fitness</option>
-													<option value="music">Music</option>
+													<option value="notselected"><%=t('uploadvideo.selectcategory')%></option>
+													<option value="gaming"><%=t('uploadvideo.gaming')%></option>
+													<option value="tech"><%=t('uploadvideo.tech')%></option>
+													<option value="finance"><%=t('uploadvideo.finance')%></option>
+													<option value="cryptonews"><%=t('uploadvideo.cryptonews')%></option>
+													<option value="news"><%=t('uploadvideo.news')%></option>
+													<option value="lifestyle"><%=t('uploadvideo.lifestyle')%></option>
+													<option value="healthandfitness"><%=t('uploadvideo.healthandfitness')%></option>
+													<option value="music"><%=t('uploadvideo.music')%></option>
 												</select>
 											</div>
-
 											<div class="group-form">
-												<label>Language</label>
+												<label><%=t('uploadvideo.language')%></label>
 												<select class="ui hj145 dropdown cntry152 prompt srch_explore" name='lang' id="lang">
-													<option value="en">English</option>
-													<option value="vi">Vietnamese</option>
+													<option value="en"><%=t('uploadvideo.english')%></option>
+													<option value="vi"><%=t('uploadvideo.vietnamese')%></option>
 												</select>
 											</div>
-
 											<div class="ui search focus mt-15">
-												<label><b>Description</b></label>
+												<label><b><%=t('uploadvideo.description')%></b></label>
 												<div class="ui form swdh30">
 													<div class="field">
-														<textarea rows="5" name="description" id="desc" placeholder="Short description"></textarea>
+														<textarea rows="5" name="description" id="desc" placeholder="<%=t('uploadvideo.shortdesc')%>"></textarea>
 													</div>
 												</div>
 											</div>
-
-											<button class="_145d1 btn-upload-3"><i class='uil uil-video'></i>Upload</button>
-										
+											<button class="_145d1 btn-upload-3"><i class='uil uil-video'></i><%=t('uploadvideo.upload')%></button>
 									</div>
 								</div>
-							
 							</div>							
 						</div>							
 					</div>								
 				</div>
 			</div>
 		</div>
-
 	</div>
 	<!-- Body End -->
 	<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->

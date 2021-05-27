@@ -3,7 +3,13 @@
         "notification": "Socbay Notification",
         "msg": "This function is under development. Thanks for your understanding",
         "viewall": "View All",
-        "signin": "Sign In"
+        "signin": "Sign In",
+        "viewprofile": "View Profile",
+        "nightmode": "Night mode",
+        "myinfo": "My Info",
+        "uploadvideo": "Upload Video",
+        "uploadhistory": "Upload History",
+        "signout": "Sign Out"
     },
     "categories": {
         "gaming": "Gaming",
@@ -69,5 +75,70 @@
         "descriptions": "Descriptions",
         "chooseOption": "Please choose one option",
         "notification": "Notification"
+    },
+    "footer": {
+        "language": "Language"
+    },
+    "login": {
+        "signin": "Sign In",
+        "welcomback": "Welcome Back",
+        "donthaveanaccount": "Don't have an account?",
+        "signup": "Sign Up",
+        "emailaddress": "Email Address",
+        "password": "Password"
+    },
+    "register": {
+        "signup": "Sign Up",
+        "welcometoSocbay": "Welcome to Socbay.io",
+        "fullname": "Full Name",
+        "emailaddress": "Email Address",
+        "password": "Password",
+        "bysigningup": "By signing up, you agree to our",
+        "termofuse": "Terms of Use",
+        "and": "and",
+        "privacypolicy": "Privacy Policy",
+        "already": "Already have an account?",
+        "signin": "Sign In"
+    },
+    "myinfo": {
+        "uploadedvideos": "Uploaded videos",
+        "subscriptions": "Subscriptions"
+    },
+    "uploadvideo": {
+        "uploadvideo": "Upload Video",
+        "videoandthumbnail": "Video & Thumbnail",
+        "title": "Title",
+        "urlreference": "URL Reference",
+        "tag": "Tag",
+        "selectcategory": "Select Category",
+        "gaming": "Gaming",
+        "tech": "Tech",
+        "finance": "Finance 2.0",
+        "cryptonews": "Crypto News",
+        "news": "News",
+        "lifestyle": "Lifestyle",
+        "healthandfitness": "Health & Fitness",
+        "music": "Music",
+        "language": "Language",
+        "english": "English",
+        "vietnamese": "Vietnamese",
+        "description": "Description",
+        "upload": "Upload",
+        "shortdesc": "Short Description"
+    },
+    "uploadhistory": {
+        "uploadhistory": "Upload History",
+        "all": "All",
+        "videos": "Videos",
+        "name": "Name",
+        "size": "Size",
+        "title": "Title",
+        "status": "Status",
+        "replicas": "Replicas",
+        "expire": "Expire",
+        "action": "Action",
+        "network": "Network",
+        "crust": "Crust",
+        "local": "Local"
     }
 }

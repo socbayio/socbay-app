@@ -46,7 +46,6 @@ router.get('/',
                 file = await userFound.uploadedFiles[fileCount].subPopulate('fileId');
                 uploadedFiles.push(file);
             }
-            console.log(uploadedVideos);
             res.render('uploadHistory', { userInfo: req.userInfo, uploadedFiles, uploadedVideos });
         } catch (e) {
             logger.error(`Error found on uploadhistory.js ${e}`);
