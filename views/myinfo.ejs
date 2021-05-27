@@ -130,7 +130,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="_215b17">
+		<div class="_215b17" style="min-height: calc(100vh - 478.5px);">
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-lg-12">
@@ -194,21 +194,18 @@
 												<div class="col-lg-3 col-md-4">
 													<div class="fcrse_1 mb-20">
 														<div class="tutor_img">
-															<a href="#"><img src="http://ipfs.io/ipfs/<%=userInfo.subscriptions[subCount].profilePicture%>" alt=""></a>												
+															<a href="/channel/<%=userInfo.subscriptions[subCount]._id%>"><img src="http://ipfs.io/ipfs/<%=userInfo.subscriptions[subCount].profilePicture%>" alt=""></a>												
 														</div>
 														<div class="tutor_content_dt">
 															<div class="tutor150">
-																<a href="#" class="tutor_name"><%= userInfo.subscriptions[subCount].username%></a>
-																<div class="mef78" title="Verify">
-																	<i class="uil uil-check-circle"></i>
-																</div>
+																<a href="/channel/<%=userInfo.subscriptions[subCount]._id%>" class="tutor_name"><%= userInfo.subscriptions[subCount].username%></a>
 															</div>
-															<ul class="tutor_social_links">
+															<ul class="tutor_social_links d-none">
 																<li><button class="sbbc145">Subscribed</button></li>
 																<li><button class="sbbc146"><i class="uil uil-bell"></i></button></li>
 															</ul>
 															<div class="tut1250">
-																<span class="vdt15">15 Videos</span>
+																<span class="vdt15"><%=userInfo.subscriptions[subCount].uploadedVideos.length%> Videos</span>
 															</div>
 														</div>
 													</div>										
