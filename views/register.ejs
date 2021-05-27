@@ -5,9 +5,7 @@
 		<meta charset="utf-8">		
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, shrink-to-fit=9">
-		<meta name="description" content="Gambolthemes">
-		<meta name="author" content="Gambolthemes">
-		<title>Socbay - Sign Up</title>
+		<title>Socbay - <%=t('register.signup')%></title>
 		
 		<!-- Favicon Icon -->
 		<link rel="icon" type="image/png" href="images/logo/v3/socbay-icon-32x32.svg">
@@ -43,7 +41,7 @@
 			
 				<div class="col-lg-6 col-md-8">
 					<div class="sign_form">
-						<h2>Welcome to Socbay.io</h2>
+						<h2><%=t('register.welcometoSocbay')%></h2>
 						
 
 						<% if(errors != null && errors.length > 0){ %>
@@ -58,17 +56,17 @@
 						<form action="/register/store" method="POST">
 							<div class="ui search focus">
 								<div class="ui left icon input swdh11 swdh19">
-									<input class="prompt srch_explore" type="text" name="username" value="<%=username%>" id="id_fullname" maxlength="64" placeholder="Full Name">															
+									<input class="prompt srch_explore" type="text" name="username" value="<%=username%>" id="id_fullname" maxlength="64" placeholder="<%=t('register.fullname')%>">															
 								</div>
 							</div>
 							<div class="ui search focus mt-15">
 								<div class="ui left icon input swdh11 swdh19">
-									<input class="prompt srch_explore" type="email" name="emailaddress" value="<%=emailaddress%>" id="id_email" maxlength="64" placeholder="Email Address">															
+									<input class="prompt srch_explore" type="email" name="emailaddress" value="<%=emailaddress%>" id="id_email" maxlength="64" placeholder="<%=t('register.emailaddress')%>">															
 								</div>
 							</div>
 							<div class="ui search focus mt-15">
 								<div class="ui left icon input swdh11 swdh19">
-									<input class="prompt srch_explore" type="password" name="password" value="<%=password%>" id="id_password" maxlength="64" placeholder="Password">															
+									<input class="prompt srch_explore" type="password" name="password" value="<%=password%>" id="id_password" maxlength="64" placeholder="<%=t('register.password')%>">															
 								</div>
 							</div>
 							
@@ -80,10 +78,10 @@
 									</div>
 								</div>
 							</div> -->
-							<button class="login-btn" type="submit">Next</button>
+							<button class="login-btn" type="submit"><%=t('register.signup')%></button>
 						</form>
-						<p class="sgntrm145">By signing up, you agree to our <a href="">Terms of Use</a> and <a href="">Privacy Policy</a>.</p>
-						<p class="mb-0 mt-30">Already have an account? <a href="login">Log In</a></p>
+						<p class="sgntrm145"><%=t('register.bysigningup')%> <a href=""><%=t('register.termofuse')%></a> <%=t('register.and')%> <a href=""><%=t('register.privacypolicy')%></a>.</p>
+						<p class="mb-0 mt-30"><%=t('register.already')%> <a href="login"><%=t('register.signin')%></a></p>
 					</div>
 					<div class="sign_footer"><img src="/images/logo/v3/socbay-icon-32x32.svg" alt="">© 2021 <strong>Socbay.io</strong>. All Rights Reserved.</div>
 				</div>				
