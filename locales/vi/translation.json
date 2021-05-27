@@ -111,7 +111,7 @@
         "uploadvideo": "Tải video",
         "videoandthumbnail": "Video & Ảnh đại diện",
         "title": "Tiêu đề",
-        "urlreference": "Link video",
+        "urlreference": "Nguồn",
         "tag": "Danh mục",
         "selectcategory": "Chọn danh mục",
         "gaming": "Trò chơi",
@@ -157,5 +157,10 @@
         "lifestyle": "phongcachsong",
         "healthandfitness": "suckhoe",
         "music": "amnhac"
+    },
+    "video": {
+        "ref": "Nguồn",
+        "gateway": "Cổng video",
+        "sayst": "Nhắn tin với người lạ..."
     }
 }
