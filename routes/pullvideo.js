@@ -78,7 +78,9 @@ async function getVideo(req, res, next) {
             };
 
             if (req.query.gateway == undefined) {
-                req.videoInfo.autoGateway = true;
+                req.videoInfo.gateway = 'auto';
+            } else {
+                req.videoInfo.gateway = req.query.gateway;
             }
 
             next();

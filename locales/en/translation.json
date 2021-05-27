@@ -109,7 +109,7 @@
         "uploadvideo": "Upload Video",
         "videoandthumbnail": "Video & Thumbnail",
         "title": "Title",
-        "urlreference": "URL Reference",
+        "urlreference": "Source",
         "tag": "Tag",
         "selectcategory": "Select Category",
         "gaming": "Gaming",
@@ -155,5 +155,10 @@
         "lifestyle": "lifestyle",
         "healthandfitness": "healthandfitness",
         "music": "music"
+    },
+    "video": {
+        "ref": "Source",
+        "gateway": "Gateway",
+        "sayst": "Say something..."
     }
 }

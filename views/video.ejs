@@ -45,7 +45,7 @@
 							<div class="mainvideo">
 								<video poster="<%=videoInfo.thumbnailLink%>" class="js-player" playsinline loop autoplay>
 									<source src=
-										<% if (!videoInfo.autoGateway) { %>
+										<% if (videoInfo.gateway != "auto") { %>
 											"<%=videoInfo.link%>">
 										<% } else { %>
 											"">
@@ -95,21 +95,21 @@
 								</div>
 							</div>
 							<div class="mb-2">
-								<h4 id="gateway">Gateway</h4>
+								<h4 id="gateway"><%=t('video.gateway')%></h4>
 							</div>
 							<div>
 								<div class="user_cntnt">
-									<a href="/video/<%=videoInfo.videoId%>"><button class="subscribe-btn">Auto</button></a>
-									<a href="/video/<%=videoInfo.videoId%>?gateway=ipfs"><button class="subscribe-btn">IPFS</button></a>
-									<a href="/video/<%=videoInfo.videoId%>?gateway=crust"><button class="subscribe-btn">Crust</button></a>
-									<a href="/video/<%=videoInfo.videoId%>?gateway=oneloveipfs"><button class="subscribe-btn">OneLove</button></a>
+									<a href="/video/<%=videoInfo.videoId%>"><button id="auto" class="subscribe-btn">Auto</button></a>
+									<a href="/video/<%=videoInfo.videoId%>?gateway=ipfs"><button id="ipfs" class="subscribe-btn">IPFS</button></a>
+									<a href="/video/<%=videoInfo.videoId%>?gateway=crust"><button id="crust" class="subscribe-btn">Crust</button></a>
+									<a href="/video/<%=videoInfo.videoId%>?gateway=oneloveipfs"><button id="oneloveipfs" class="subscribe-btn">OneLove</button></a>
 								</div>
 							</div>
 							<% if (videoInfo.ref) { %>
 								<div class="ui search focus mt-30">
 									<div class="ui left icon labeled input swdh11 swdh31">
 										<div class="ui label lb12">
-											Reference
+											<%=t('video.ref')%>
 										</div>
 										<input class="prompt srch_explore" type="text" name="site" value="<%=videoInfo.ref%>" id="id_site" required="" maxlength="64">
 									</div>															
@@ -136,7 +136,7 @@
 									</div>
 								</div>
 								<form class="live_comment" id="form">
-									<input id="input" class="live_input" type="text" placeholder="Say Something..."/>
+									<input id="input" class="live_input" type="text" placeholder="<%=t('video.sayst')%>"/>
 									<button class="btn_live"><i class='uil uil-message'></i></button>
 								</form>
 							</div>													
@@ -193,6 +193,9 @@
 	  });
 	</script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script>
+		var videoGateway = "<%=videoInfo.gateway%>";
+	</script>
 	<script>
 		function boomVideo() {
 			document.querySelector('#boom-count').textContent++;
@@ -256,10 +259,13 @@
           	];
 			 const player = Plyr.setup('.js-player', { controls });
 		 });
-	 </script>
+	</script>
+	<script>
+		document.getElementById(videoGateway).style.background = "#dedfe0";
+		document.getElementById(videoGateway).style.color = "black";
+	</script>
 
-
- <% if (videoInfo.autoGateway) { %> 
+ <% if (videoInfo.gateway == "auto") { %> 
 	<script>
 		const videoCid = "<%=videoInfo.CID%>";
 		var PROBE_ID = 'QmUsz4XnVGmPvC1FbfZRYz6yzgwLuFkZrLs5f65ZrECbk4';
