@@ -49,14 +49,20 @@ async function getVideo(req, res, next) {
             'uploadedToNetwork CID'
         );
 
+        
+
         await videoFound.networkStatus.subPopulate('fileId');
         await videoFound.thumbnail.subPopulate('fileId');
         //const liveChatVideoFound = await liveChatVideo.findOne({videoId: req.params.videoId});
-        const liveChatVideoFound = await liveChat.findOne({
-            channel: 'global',
+        let liveChatVideoFound = await liveChat.findOne({
+            channel: req.currentLang
+            //channel: 'global'
         });
 
-        // Just for test
+        if (!liveChatVideoFound){
+            liveChatVideoFound = await liveChat.create({channel: req.currentLang});
+        }
+
         if (videoFound && liveChatVideoFound) {
             req.videoInfo = {
                 videoId: req.params.videoId,
@@ -110,6 +116,7 @@ function render(req, res, next) {
         userInfo: req.userInfo,
         liveChat: req.liveChat,
         videoInfo: req.videoInfo,
+        lang: req.currentLang,
     });
 }
 

@@ -161,25 +161,25 @@
 				// }
 			}
 			if (validatedVideo == 0) {
-				document.getElementById("videoallert").innerHTML = "Video is required.";
+				document.getElementById("videoallert").innerHTML = "<%=t('uploadvideo.videoisrequired')%>";
 			} else {
 				document.getElementById("videoallert").innerHTML = "";
 			}
 			if (validatedImage == 0) {
-				document.getElementById("thumballert").innerHTML = "Thumbnail is required.";
+				document.getElementById("thumballert").innerHTML = "<%=t('uploadvideo.thumbnailisrequired')%>";
 			} else {
 				document.getElementById("thumballert").innerHTML = "";
 			}
 			
 			if (!document.getElementById("title").value) {
-				document.getElementById("titleallert").innerHTML = "Title is required."
+				document.getElementById("titleallert").innerHTML = "<%=t('uploadvideo.titleisrequired')%>"
 			} else {
 				document.getElementById("titleallert").innerHTML = "";
 			}
 			if (document.getElementById("reference").value) {
 				if (!validURL(document.getElementById("reference").value)){
 					validatedUrl = false;
-					document.getElementById("urlallert").innerHTML = "Please enter a correct URL."
+					document.getElementById("urlallert").innerHTML = "<%=t('uploadvideo.plsenteracorrectURL')%>"
 				}
 			} else {
 				document.getElementById("urlallert").innerHTML = "";
