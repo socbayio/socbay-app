@@ -54,15 +54,15 @@
 							</div>
 		
 							<div class="user_dt5 reportDropdown">
-								<h3><%=videoInfo.title%></h3>
+								<h3 style="padding-right: 20px;"><%=videoInfo.title%></h3>
 								<div class="eps_dots more_dropdown dropdownvideopage">
 									<a href="#"><i class="uil uil-ellipsis-h"></i></a>
 									<div class="dropdown-content">
-										<span id="shareSpan"><i class='uil uil-share-alt'></i>Share</span>
+										<span id="shareSpan"><i class='uil uil-share-alt'></i><%=t('video.share')%></span>
 										<% if(!loggedIn) { %>
-											<a href="/login"><span id=""><i class="uil uil-windsock"></i>Report</span></a>
+											<a href="/login"><span id=""><i class="uil uil-windsock"></i><%=t('video.report')%></span></a>
 										<% } else {%>
-											<span id="reportSpan"><i class="uil uil-windsock"></i>Report</span>
+											<span id="reportSpan"><i class="uil uil-windsock"></i><%=t('video.report')%></span>
 										<% } %>
 									 </div>																										
 								</div>
@@ -77,8 +77,8 @@
 										</div>
 										<div class="user_cntnt">
 											<a href="/channel/<%=videoInfo.videoAuthorId%>"><h4><%=videoInfo.videoAuthor%></h4></a>
-											<button id="subscribeBtn" class="subscribe-btn">Subscribe</button>
-											<button id="subscribedBtn" class="subscribed-btn">Subscribed</button>
+											<button id="subscribeBtn" class="subscribe-btn"><%=t('video.subscribe')%></button>
+											<button id="subscribedBtn" class="subscribed-btn"><%=t('video.subscribed')%></button>
 										</div>
 									</div>
 								</div>
@@ -125,7 +125,7 @@
 						<div class="right_side">							
 							<div class="fcrse_3">
 								<div class="cater_ttle">
-									<h4>Live Chat</h4>
+									<h4><%=t('video.livechat')%></h4>
 								</div>
 								<div class="live_chat" id="livechat">
 									<div class="chat1" id="messages">
@@ -176,12 +176,12 @@
 	  form.addEventListener('submit', function(e) {
 		e.preventDefault();
 		if (input.value) {
-		  socket.emit('chat message', input.value);
+		  socket.emit('<%=lang%>', input.value, '<%=lang%>');
 		  input.value = '';
 		}
 	  });
   
-	  socket.on('chat message', function(msg) {
+	  socket.on('<%=lang%>', function(msg) {
 		var nameArrayTempo = ['The Fat Dog', 'The Phoenix', 'Redbird', 'The Black Cat', 'The Thirsty Crow', 'The Fat Cow','Lucky Duck'];
 		var messageElement = document.createElement('p');
 		var authorElement = document.createElement('a');
@@ -445,7 +445,7 @@
 				mediaSource.src = gateways[best_gateway].url.replace(/:hash/, videoCid);
 				var player = document.getElementsByTagName('video')[0];
 				player.load();
-				document.getElementById("gateway").innerHTML =  "Gateway (" + gateways[best_gateway].domain + ")";
+				document.getElementById("gateway").innerHTML =  "<%=t('video.gateway')%> (" + gateways[best_gateway].domain + ")";
 			}
 		}
 

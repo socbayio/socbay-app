@@ -122,7 +122,11 @@
         "chinese": "Tiếng Trung",
         "description": "Mô tả",
         "upload": "Tải lên",
-        "shortdesc": "Mô tả ngắn gọn"
+        "shortdesc": "Mô tả ngắn gọn",
+        "videoisrequired": "Bạn chưa chọn video.",
+        "thumbnailisrequired": "Bạn chưa chọn ảnh đại diện video.",
+        "titleisrequired": "Bạn chưa nhập tiêu đề.",
+        "plsenteracorrectURL": "Địa chỉ bạn nhập không chính xác."
     },
     "uploadhistory": {
         "uploadhistory": "Lịch sử tải lên",
@@ -155,6 +159,11 @@
     "video": {
         "ref": "Nguồn",
         "gateway": "Cổng video",
-        "sayst": "Nhắn tin với người lạ..."
+        "sayst": "Nhắn tin với người lạ...",
+        "livechat": "Chuyện trò linh tinh",
+        "share": "Chia sẻ",
+        "report": "Báo cáo",
+        "subscribe": "Đăng ký",
+        "subscribed": "Đã đăng ký"
     }
 }

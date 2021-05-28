@@ -127,7 +127,7 @@ app.use('/logout', userLogout);
 app.use('/video', videoRouter);
 app.use('/uploadvideo', uploadVideoRouter);
 app.use('/uploadvideo/store', storeVideoRouter);
-app.use('/video/:videoId', pullvideoRouter);
+app.use('/video/:videoId',getCurrentLanguageMiddleware, pullvideoRouter);
 app.use('/video/:videoId/delete', deleteVideoRouter);
 app.use('/register/store', storeUser);
 app.use('/aboutus', aboutUsRouter);

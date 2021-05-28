@@ -122,7 +122,11 @@
         "chinese":"中文",
         "description":"描述",
         "upload":"上載",
-        "shortdesc":"簡短說明"
+        "shortdesc":"簡短說明",
+        "videoisrequired": "視頻是必需的。",
+        "thumbnailisrequired": "縮略圖是必需的。",
+        "titleisrequired": "標題為必填項。",
+        "plsenteracorrectURL": "請輸入正確的網址。"
     },
     "uploadhistory":{
         "uploadhistory":"上傳歷史",
@@ -153,8 +157,13 @@
          "music":"音樂"
      },
      "video": {
-         "ref":"來源",
-         "gateway":"閘道",
-         "sayst":"說點什麼..."
+        "ref":"來源",
+        "gateway":"閘道",
+        "sayst":"說點什麼...",
+        "livechat":"在線聊天",
+        "share": "分享",
+        "report": "報告",
+        "subscribe": "訂閱",
+        "subscribed": "已訂閱"
      }
 }

@@ -122,7 +122,11 @@
         "chinese": "Chinese",
         "description": "Description",
         "upload": "Upload",
-        "shortdesc": "Short Description"
+        "shortdesc": "Short Description",
+        "videoisrequired": "Video is required.",
+        "thumbnailisrequired": "Thumbnail is required.",
+        "titleisrequired": "Title is required.",
+        "plsenteracorrectURL": "Please enter a correct URL."
     },
     "uploadhistory": {
         "uploadhistory": "Upload History",
@@ -155,6 +159,11 @@
     "video": {
         "ref": "Source",
         "gateway": "Gateway",
-        "sayst": "Say something..."
+        "sayst": "Say something...",
+        "livechat": "Live Chat",
+        "share": "Share",
+        "report": "Report",
+        "subscribe": "Subscribe",
+        "subscribed": "Subscribed"
     }
 }
