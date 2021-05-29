@@ -9,7 +9,7 @@
                         <a href="/video/<%=renderVideos[tagCount].videos[videoCount]._id%>" class="fcrse_img">
                             <img src="https://ipfs.io/ipfs/<%=renderVideos[tagCount].videos[videoCount].thumbnail.fileId.CID%>" alt="">
                             <div class="course-overlay">
-                                <div class="badge_seller"><%=renderVideos[tagCount].name.toUpperCase()%></div>
+                                <div class="badge_seller"><%=t('tag.' + renderVideos[tagCount].name.toLowerCase(), renderVideos[tagCount].name).toUpperCase()%></div>
                                 <span class="play_btn1"><i class="uil uil-play"></i></span>
                                  <div class="crse_timer">
                                     <%if(Math.floor(renderVideos[tagCount].videos[videoCount].durationInSecond/3600)) {%>
