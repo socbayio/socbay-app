@@ -158,5 +158,16 @@
         "report": "Report",
         "subscribe": "Subscribe",
         "subscribed": "Subscribed"
+    },
+    "title": {
+        "aboutus": "About Us",
+        "channel": "Channel",
+        "home": "Home",
+        "signin": "Sign In",
+        "myinfo": "My Info",
+        "signup": "Sign Up",
+        "universalupload": "Universal Upload",
+        "uploadhistory": "Upload History",
+        "uploadvideo": "Upload Video"
     }
 }

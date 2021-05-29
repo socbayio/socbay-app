@@ -49,8 +49,6 @@ async function getVideo(req, res, next) {
             'uploadedToNetwork CID'
         );
 
-        
-
         await videoFound.networkStatus.subPopulate('fileId');
         await videoFound.thumbnail.subPopulate('fileId');
         //const liveChatVideoFound = await liveChatVideo.findOne({videoId: req.params.videoId});

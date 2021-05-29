@@ -159,5 +159,16 @@
         "report": "Báo cáo",
         "subscribe": "Đăng ký",
         "subscribed": "Đã đăng ký"
+    },
+    "title": {
+        "aboutus": "Thông tin",
+        "channel": "Kênh",
+        "home": "Trang chủ",
+        "signin": "Đăng nhập",
+        "myinfo": "Trang cá nhân",
+        "signup": "Đăng ký",
+        "universalupload": "Tải mọi thứ",
+        "uploadhistory": "Lịch sử đăng tải",
+        "uploadvideo": "Đăng video"
     }
 }

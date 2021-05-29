@@ -35,8 +35,10 @@ router.get(
             userInfo.subscriptions = userFound.subscriptions.map(
                 (s) => s.userId
             );
-
-            res.render('myinfo', { userInfo, tab: req.query.tab });
+            res.render('myinfo', {
+                userInfo, 
+                tab: req.query.tab,
+            });
         } catch (e) {
             logger.error(`Myinfo fail with error: ${e}`);
             next(e);

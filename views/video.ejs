@@ -1,12 +1,11 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-
+	
+<head>
 	<%- include("head"); -%>
-
+	<title>Socbay - <%=videoInfo.title%></title>
 	<link rel='stylesheet' href='/css/reportVideoPopup.css'>
 	<link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
-
-
 	<style>
 		.mainvideo {
 			display: flex;
@@ -15,20 +14,18 @@
 			justify-content:center;
 			margin-bottom: 25px;
 		}
-
 		.plyr {
 			height: 100%;
 			width :100%;
 		}
-
 		@media (max-width: 575.98px) {
 			.mainvideo {
 				height: 190px !important;
 			}
 		}
-	
 	</style>
-
+</head>
+	
 <body>
 	
 	<%- include("header"); -%>
