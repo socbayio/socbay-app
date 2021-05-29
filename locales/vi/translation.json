@@ -22,6 +22,19 @@
         "healthandfitness": "Sức khỏe",
         "music": "Âm nhạc"
     },
+    "tag": {
+        "newvideos": "videomoi",
+        "searchresults": "ketquatimkiem",
+        "gaming": "trochoi",
+        "relax": "giaitri",
+        "tech": "congnghe",
+        "finance": "taichinh",
+        "cryptonews": "tintuccrypto",
+        "news": "tintuc",
+        "lifestyle": "phongcachsong",
+        "healthandfitness": "suckhoe",
+        "music": "amnhac"
+    },
     "leftSideBar": {
         "home": "Trang chủ",
         "explore": "Khám phá",
@@ -100,6 +113,11 @@
         "subscriptions": "Kênh đăng ký",
         "uploadavatar": "Đổi ảnh đại diện"
     },
+    "language": {
+        "english": "Tiếng Anh",
+        "vietnamese": "Tiếng Việt",
+        "chinese": "Tiếng Trung"
+    },
     "uploadvideo": {
         "uploadvideo": "Tải video",
         "videoandthumbnail": "Video & Ảnh đại diện",
@@ -107,19 +125,7 @@
         "urlreference": "Nguồn",
         "tag": "Danh mục",
         "selectcategory": "Chọn danh mục",
-        "gaming": "Trò chơi",
-        "relax": "Giải trí",
-        "tech": "Công nghệ",
-        "finance": "Tài chính",
-        "cryptonews": "Tin Crypto",
-        "news": "Tin tức",
-        "lifestyle": "Phong cách sống",
-        "healthandfitness": "Sức khỏe",
-        "music": "Âm nhạc",
         "language": "Ngôn ngữ",
-        "english": "Tiếng Anh",
-        "vietnamese": "Tiếng Việt",
-        "chinese": "Tiếng Trung",
         "description": "Mô tả",
         "upload": "Tải lên",
         "shortdesc": "Mô tả ngắn gọn",
@@ -143,19 +149,7 @@
         "crust": "Crust",
         "local": "Máy nội bộ"
     },
-    "tag": {
-        "newvideos": "videomoi",
-        "searchresults": "ketquatimkiem",
-        "gaming": "trochoi",
-        "relax": "giaitri",
-        "tech": "congnghe",
-        "finance": "taichinh",
-        "cryptonews": "tintuccrypto",
-        "news": "tintuc",
-        "lifestyle": "phongcachsong",
-        "healthandfitness": "suckhoe",
-        "music": "amnhac"
-    },
+    
     "video": {
         "ref": "Nguồn",
         "gateway": "Cổng video",

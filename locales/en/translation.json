@@ -22,6 +22,19 @@
         "healthandfitness": "Health & Fitness",
         "music": "Music"
     },
+    "tag": {
+        "newvideos": "newvideos",
+        "searchresults": "searchresults",
+        "gaming": "gaming",
+        "relax": "relax",
+        "tech": "tech",
+        "finance": "finance",
+        "cryptonews": "cryptonews",
+        "news": "news",
+        "lifestyle": "lifestyle",
+        "healthandfitness": "healthandfitness",
+        "music": "music"
+    },
     "leftSideBar": {
         "home": "Home",
         "explore": "Explore",
@@ -100,6 +113,11 @@
         "subscriptions": "Subscriptions",
         "uploadavatar": "Upload avatar"
     },
+    "language": {
+        "english": "English",
+        "vietnamese": "Vietnamese",
+        "chinese": "Chinese"
+    },
     "uploadvideo": {
         "uploadvideo": "Upload Video",
         "videoandthumbnail": "Video & Thumbnail",
@@ -107,19 +125,7 @@
         "urlreference": "Source",
         "tag": "Tag",
         "selectcategory": "Select Category",
-        "gaming": "Gaming",
-        "relax": "Relax",
-        "tech": "Tech",
-        "finance": "Finance 2.0",
-        "cryptonews": "Crypto News",
-        "news": "News",
-        "lifestyle": "Lifestyle",
-        "healthandfitness": "Health & Fitness",
-        "music": "Music",
         "language": "Language",
-        "english": "English",
-        "vietnamese": "Vietnamese",
-        "chinese": "Chinese",
         "description": "Description",
         "upload": "Upload",
         "shortdesc": "Short Description",
@@ -142,19 +148,6 @@
         "network": "Network",
         "crust": "Crust",
         "local": "Local"
-    },
-    "tag": {
-        "newvideos": "newvideos",
-        "searchresults": "searchresults",
-        "gaming": "gaming",
-        "relax": "relax",
-        "tech": "tech",
-        "finance": "finance",
-        "cryptonews": "cryptonews",
-        "news": "news",
-        "lifestyle": "lifestyle",
-        "healthandfitness": "healthandfitness",
-        "music": "music"
     },
     "video": {
         "ref": "Source",

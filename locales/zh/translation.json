@@ -22,6 +22,19 @@
         "healthandfitness":"健康與健身",
         "music":"音樂"
     },
+    "tag": {
+        "newvideos":"新影片",
+        "searchresults":"搜索結果",
+        "gaming":"賭博",
+        "relax":"放鬆",
+        "tech":"科技",
+        "finance":"財務",
+		"cryptonews":"加密新聞",
+         "news":"新聞",
+         "lifestyle":"生活方式",
+         "healthandfitness":"健康與健身",
+         "music":"音樂"
+     },
     "leftSideBar":{
         "home":"家",
         "explore":"探索",
@@ -100,6 +113,11 @@
         "subscriptions":"訂閱內容",
         "uploadavatar":"上傳頭像"
     },
+    "language": {
+        "english":"英語",
+        "vietnamese":"越南",
+        "chinese":"中文"
+    },
     "uploadvideo":{
         "uploadvideo":"上傳視頻",
         "videoandthumbnail":"視頻和縮略圖",
@@ -107,19 +125,7 @@
         "urlreference":"源",
         "tag":"標籤",
         "selectcategory":"選擇類別",
-        "gaming":"遊戲",
-        "relax":"放鬆",
-        "tech":"Tech",
-        "finance":"財務 2.0",
-        "cryptonews":"加密新聞",
-        "news":"新聞",
-        "lifestyle":"生活方式",
-        "healthandfitness":"健康與健身",
-        "music":"音樂",
         "language":"語",
-        "english":"英語",
-        "vietnamese":"越南",
-        "chinese":"中文",
         "description":"描述",
         "upload":"上載",
         "shortdesc":"簡短說明",
@@ -143,19 +149,7 @@
         "crust":"Crust",
         "local":"本地"
     },
-    "tag": {
-        "newvideos":"新影片",
-        "searchresults":"搜索結果",
-        "gaming":"賭博",
-        "relax":"放鬆",
-        "tech":"科技",
-        "finance":"財務",
-		"cryptonews":"加密新聞",
-         "news":"新聞",
-         "lifestyle":"生活方式",
-         "healthandfitness":"健康與健身",
-         "music":"音樂"
-     },
+    
      "video": {
         "ref":"來源",
         "gateway":"閘道",
