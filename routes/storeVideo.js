@@ -35,31 +35,35 @@ const thumbnailDictionary = {
 };
 
 const filesValidation = async (req, res, next) => {
-    let fileList = [];
-    if (!Array.isArray(req.files.file_data)){
-        req.files.file_data = [req.files.file_data];
-        req.files.videoIndex = 0;
-    }
-    var validatedVideo = 0;
-    var wrongFile = false;
-    
-    for ( var count = 0; count < req.files.file_data.length; count++ ){
-        if (req.files.file_data[count].mimetype.includes("video")){
-            validatedVideo++;
-            req.files.videoIndex = count;
+    try {
+        if (!Array.isArray(req.files.file_data)){
+            req.files.file_data = [req.files.file_data];
+            req.files.videoIndex = 0;
+        }
+        var validatedVideo = 0;
+        var validatedImage = 0;
+        
+        for ( var count = 0; count < req.files.file_data.length; count++ ){
+            if (req.files.file_data[count].mimetype.includes("video")){
+                validatedVideo++;
+                req.files.videoIndex = count;
+            }
+            if (req.files.file_data[count].mimetype.includes("image")){
+                validatedImage++;
+                req.files.thumbnailIndex = count;
+            }
+        }
+        if ((validatedVideo == 1)&&(validatedImage == 1)&&(req.files.file_data.length == 2)){
+            next();
         } else {
-            req.files.thumbnailIndex = count;
-        }
-        if (!(req.files.file_data[count].mimetype.includes("video")||req.files.file_data[count].mimetype.includes("image"))){
-            wrongFile = true;
+            //TODO: Log this case and return error
+            logger.error("There is hacker");
+            return res.send({});
         }
     }
-    if ((validatedVideo == 1)&&(!wrongFile)&&(req.files.file_data.length<3)){
+    catch (e) {
+        logger.error(`Storevideo error ${e}`);
         next();
-    } else {
-        //TODO: Log this case and return error
-        logger.error("There is hacker");
-        return res.send({});
     }
 }
 
@@ -69,14 +73,10 @@ router.post(
     getInfoIfAuthenticated,
     filesValidation,
     async (req, res, next) => {
-        res.send({})
+        res.send({});
         try {
-            let thumbnailInfo = {};
+            let thumbnailInfo = await uploadFile(req.files.file_data[req.files.thumbnailIndex], config.blockSizeLimitInByte);
             let videoInfo = await uploadFile(req.files.file_data[req.files.videoIndex], config.blockSizeLimitInByte);
-
-            if (req.files.file_data.length == 2){
-                thumbnailInfo = await uploadFile(req.files.file_data[req.files.thumbnailIndex], config.blockSizeLimitInByte);
-            }
             let videoToUpload = {
                 title: req.body.title,
                 thumbnail: {
@@ -103,7 +103,6 @@ router.post(
             await pushFileToMe(req.userInfo.userId, videoInfo.fileId, videoInfo.blockId, uploadedVideo._id);
             await pushFileToMe(req.userInfo.userId, thumbnailInfo.fileId, thumbnailInfo.blockId, null);
             await createLiveChatForVideo(uploadedVideo._id);
-
         } catch (e) {
             logger.error(`Error in storeVideo.js: ${e}`);
         }
