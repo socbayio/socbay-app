@@ -33,13 +33,12 @@ i18next
             caches: ['cookie'],
         },
         fallbackLng: 'en',
-        preload: ['en', 'vi','zh'],
+        preload: ['en', 'vi'],
     });
 
 /**
   Models
  */
-const { uploadBlock } = require('./models/uploadBlockModel');
 const globalConfig = require('./models/globalConfigModel');  
 
 /**

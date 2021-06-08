@@ -48,7 +48,6 @@
 													<th class="text-center text-break" style="min-width: 100px;" scope="col"><%=t('uploadhistory.title')%></th>
 													<th class="text-center" scope="col"><%=t('uploadhistory.network')%></th>
 													<th class="text-center" scope="col"><%=t('uploadhistory.replicas')%></th>
-													<th class="text-center" scope="col"><%=t('uploadhistory.expire')%></th>
 													<th class="text-center" scope="col"><%=t('uploadhistory.action')%></th>
 												</tr>
 											</thead>
@@ -66,7 +65,6 @@
 														<td class="text-center"><b style="font-style: italic;"><%=t('uploadhistory.local')%></b></td>
 													<% } %>
 													<td class="text-center"><%=uploadedFiles[fileCount].blockId.currentInfo.replicas%></td>
-													<td class="text-center"><%=uploadedFiles[fileCount].blockId.currentInfo.expiredOnBlockHeight%></td>
 													<td class="text-center">
 														<a href="https://ipfs.io/ipfs/<%=uploadedFiles[fileCount].fileId.CID%>" target="_blank" title="Download" class="gray-s"><i class="uil uil-download-alt"></i></a>
 													</td>
@@ -87,7 +85,7 @@
 													<th class="cell-ta" scope="col"><%=t('uploadhistory.size')%></th>
 													<th class="cell-ta" scope="col"><%=t('uploadhistory.network')%></th>
 													<th class="text-center" scope="col"><%=t('uploadhistory.replicas')%></th>
-													<th class="text-center" scope="col"><%=t('uploadhistory.expire')%></th>
+
 													<th class="text-center" scope="col"><%=t('uploadhistory.action')%></th>
 												</tr>
 											</thead>
@@ -104,7 +102,6 @@
 														<td class="text-center"><b style="font-style: italic;"><%=t('uploadhistory.local')%></b></td>
 													<% } %>
 													<td class="text-center"><%=uploadedVideos[videoCount].blockId.currentInfo.replicas%></td>
-													<td class="text-center"><%=uploadedVideos[videoCount].blockId.currentInfo.expiredOnBlockHeight%></td>
 													<td class="text-center">
 														<a href="https://ipfs.io/ipfs/<%=uploadedVideos[videoCount].fileId.CID%>" target="_blank" title="Download" class="gray-s"><i class="uil uil-download-alt"></i></a>
 														<a href="/video/<%=uploadedVideos[videoCount].videoId%>/delete" title="Delete" class="gray-s"><i class="uil uil-trash-alt"></i></a>

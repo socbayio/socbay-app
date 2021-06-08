@@ -1,5 +1,7 @@
+const config = require('../config.js')
+
 module.exports = (req, res, next) => {
-    let languagesBase = ['en','vi','zh'];
+    let languagesBase = config.supportedLangs;
     let userLangs = req.languages;
     req.currentLang = userLangs[userLangs.length-1];
     if (userLangs.length > 1){
