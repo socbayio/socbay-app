@@ -1,10 +1,10 @@
-const pageTrafficTracking = require('../models/pageTrafficTrackingModel');
 const ipInfo = require('ipinfo');
+const pageTrafficTracking = require('../models/pageTrafficTrackingModel');
 
 module.exports = (req, res, next) => {
-    let pageUrl = req.url;
-    let headers = req.headers;
-    let ip = req.ip;
+    const pageUrl = req.url;
+    const { headers } = req;
+    const { ip } = req;
     ipInfo(ip, (error, location) => {
         pageTrafficTracking.findOneAndUpdate(
             { pageUrl },
@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
                 $inc: { count: 1 },
                 $push: { visiterInfo: { ip, location, headers } },
             },
-            (error, trackingPage) => {
+            (_error, trackingPage) => {
                 if (!trackingPage) {
                     pageTrafficTracking.create({
                         pageUrl,
