@@ -9,6 +9,7 @@ const { pushFileToMe } = require('./common');
 
 router.post('/', getInfoIfAuthenticated, async (req, res, next) => {
     try {
+        console.log(req.files.file_data);
         const pinnedFile = await uploadFile(
             req.files.file_data,
             config.blockSizeLimitInByte
@@ -21,7 +22,7 @@ router.post('/', getInfoIfAuthenticated, async (req, res, next) => {
                 null
             );
         }
-        res.send({ CID: pinnedFile.CID });
+        res.send({ CID: pinnedFile.CID, name: req.files.file_data.name });
         res.end();
     } catch (e) {
         logger.error(`UniversalStore page fail with error: ${e}`);

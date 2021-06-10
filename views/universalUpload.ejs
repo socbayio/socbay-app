@@ -94,7 +94,7 @@
 					var CIDback = document.getElementById('CIDback');
 					var CIDcontent = document.createElement('h6');
 					var a = document.createElement('a');
-					a.href = "https://ipfs.io/ipfs/" + databack.response.CID;
+					a.href = "https://ipfs.io/ipfs/" + databack.response.CID + "?filename=" + databack.response.name;
 					a.textContent = "Link";
 					a.target = "_blank";
 					CIDcontent.appendChild(a);
