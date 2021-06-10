@@ -1,458 +1,503 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-	
+
 <head>
 	<%- include("head"); -%>
-	<title>Socbay - <%=videoInfo.title%></title>
-	<link rel='stylesheet' href='/css/reportVideoPopup.css'>
-	<link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
-	<style>
-		.mainvideo {
-			display: flex;
-			width: 100%;
-			height: 435px !important;
-			justify-content:center;
-			margin-bottom: 25px;
-		}
-		.plyr {
-			height: 100%;
-			width :100%;
-		}
-		@media (max-width: 575.98px) {
+		<title>Socbay - <%=videoInfo.title%>
+		</title>
+		<link rel='stylesheet' href='/css/reportVideoPopup.css'>
+		<link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
+		<style>
 			.mainvideo {
-				height: 190px !important;
+				display: flex;
+				width: 100%;
+				height: 435px !important;
+				justify-content: center;
+				margin-bottom: 25px;
 			}
-		}
-	</style>
+
+			.plyr {
+				height: 100%;
+				width: 100%;
+			}
+
+			@media (max-width: 575.98px) {
+				.mainvideo {
+					height: 190px !important;
+				}
+			}
+		</style>
 </head>
-	
+
 <body>
-	
+
 	<%- include("header"); -%>
-	
-  	<%- include("leftSideBar"); -%>
 
-	<!-- Body Start -->
-	<div class="wrapper">
-		<div class="sa4d25">
-			<div class="container-fluid">			
-				<div class="row">
-					<div class="col-xl-8 col-lg-8">
-						<div class="section3125">
-							<div class="mainvideo">
-								<video poster="<%=videoInfo.thumbnailLink%>" class="js-player" playsinline loop autoplay>
-									<source src=
-										<% if (videoInfo.gateway != "auto") { %>
+		<%- include("leftSideBar"); -%>
+
+			<!-- Body Start -->
+			<div class="wrapper">
+				<div class="sa4d25">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-xl-8 col-lg-8">
+								<div class="section3125">
+									<div class="mainvideo">
+										<video poster="<%=videoInfo.thumbnailLink%>" class="js-player" playsinline loop
+											autoplay>
+											<source src=<% if (videoInfo.gateway !="auto" ) { %>
 											"<%=videoInfo.link%>">
-										<% } else { %>
-											"">
-										<% } %>
-								</video>
-							</div>
-		
-							<div class="user_dt5 reportDropdown">
-								<h3 style="padding-right: 20px;"><%=videoInfo.title%></h3>
-								<div class="eps_dots more_dropdown dropdownvideopage">
-									<a href="#"><i class="uil uil-ellipsis-h"></i></a>
-									<div class="dropdown-content">
-										<span id="shareSpan"><i class='uil uil-share-alt'></i><%=t('video.share')%></span>
-										<% if(!loggedIn) { %>
-											<a href="/login"><span id=""><i class="uil uil-windsock"></i><%=t('video.report')%></span></a>
-										<% } else {%>
-											<span id="reportSpan"><i class="uil uil-windsock"></i><%=t('video.report')%></span>
-										<% } %>
-									 </div>																										
-								</div>
-							</div>
-							<div class="user_dt5">
-								<div class="user_dt_left">
-									<div class="live_user_dt">
-										<div class="user_img5">
-											<a href="/channel/<%=videoInfo.videoAuthorId%>">
-												<img src="https://ipfs.io/ipfs/<%=videoInfo.videoAuthorPicture%>" alt="">	
-											</a>								
-										</div>
-										<div class="user_cntnt">
-											<a href="/channel/<%=videoInfo.videoAuthorId%>"><h4><%=videoInfo.videoAuthor%></h4></a>
-											<button id="subscribeBtn" class="subscribe-btn"><%=t('video.subscribe')%></button>
-											<button id="subscribedBtn" class="subscribed-btn"><%=t('video.subscribed')%></button>
-										</div>
+												<% } else { %>
+													"">
+													<% } %>
+										</video>
 									</div>
-								</div>
-								<div class="user_dt_right">
-									<ul>
-										<li>
-											<a href="#/" class="lkcm152"><i class='uil uil-eye'></i><span><%=videoInfo.view%></span></a>
-										</li>
-										<li>
-											<a href="#/" class="lkcm152" onclick="boomVideo()"><i class='uil uil-rocket'></i><span id="boom-count"><%=videoInfo.like%></span></a>
-										</li>
-								
-									</ul>
-								</div>
-							</div>
-							<div class="mb-2">
-								<h4 id="gateway"><%=t('video.gateway')%></h4>
-							</div>
-							<div>
-								<div class="user_cntnt">
-									<a href="/video/<%=videoInfo.videoId%>"><button id="auto" class="subscribe-btn">Auto</button></a>
-									<a href="/video/<%=videoInfo.videoId%>?gateway=ipfs"><button id="ipfs" class="subscribe-btn">IPFS</button></a>
-									<a href="/video/<%=videoInfo.videoId%>?gateway=crust"><button id="crust" class="subscribe-btn">Crust</button></a>
-									<a href="/video/<%=videoInfo.videoId%>?gateway=oneloveipfs"><button id="oneloveipfs" class="subscribe-btn">OneLove</button></a>
-								</div>
-							</div>
-							<% if (videoInfo.ref) { %>
-								<div class="ui search focus mt-30">
-									<div class="ui left icon labeled input swdh11 swdh31">
-										<div class="ui label lb12">
-											<%=t('video.ref')%>
-										</div>
-										<input class="prompt srch_explore" type="text" name="site" value="<%=videoInfo.ref%>" id="id_site" required="" maxlength="64">
-									</div>															
-								</div>
-							<% } %>
 
-							<div class="user_dt5 mt-20">
-								<p><%=videoInfo.description%></p>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-4 col-lg-4">
-						<div class="right_side">							
-							<div class="fcrse_3">
-								<div class="cater_ttle">
-									<h4><%=t('video.livechat')%></h4>
+									<div class="user_dt5 reportDropdown">
+										<h3 style="padding-right: 20px;">
+											<%=videoInfo.title%>
+										</h3>
+										<div class="eps_dots more_dropdown dropdownvideopage">
+											<a href="#"><i class="uil uil-ellipsis-h"></i></a>
+											<div class="dropdown-content">
+												<span id="shareSpan"><i class='uil uil-share-alt'></i>
+													<%=t('video.share')%>
+												</span>
+												<% if(!loggedIn) { %>
+													<a href="/login"><span id=""><i class="uil uil-windsock"></i>
+															<%=t('video.report')%>
+														</span></a>
+													<% } else {%>
+														<span id="reportSpan"><i class="uil uil-windsock"></i>
+															<%=t('video.report')%>
+														</span>
+														<% } %>
+											</div>
+										</div>
+									</div>
+									<div class="user_dt5">
+										<div class="user_dt_left">
+											<div class="live_user_dt">
+												<div class="user_img5">
+													<a href="/channel/<%=videoInfo.videoAuthorId%>">
+														<img src="https://ipfs.io/ipfs/<%=videoInfo.videoAuthorPicture%>"
+															alt="">
+													</a>
+												</div>
+												<div class="user_cntnt">
+													<a href="/channel/<%=videoInfo.videoAuthorId%>">
+														<h4>
+															<%=videoInfo.videoAuthor%>
+														</h4>
+													</a>
+													<button id="subscribeBtn" class="subscribe-btn">
+														<%=t('video.subscribe')%>
+													</button>
+													<button id="subscribedBtn" class="subscribed-btn">
+														<%=t('video.subscribed')%>
+													</button>
+												</div>
+											</div>
+										</div>
+										<div class="user_dt_right">
+											<ul>
+												<li>
+													<a href="#/" class="lkcm152"><i class='uil uil-eye'></i><span>
+															<%=videoInfo.view%>
+														</span></a>
+												</li>
+												<li>
+													<a href="#/" class="lkcm152" onclick="boomVideo()"><i
+															class='uil uil-rocket'></i><span id="boom-count">
+															<%=videoInfo.like%>
+														</span></a>
+												</li>
+
+											</ul>
+										</div>
+									</div>
+									<div class="mb-2">
+										<h4 id="gateway">
+											<%=t('video.gateway')%>
+										</h4>
+									</div>
+									<div>
+										<div class="user_cntnt">
+											<a href="/video/<%=videoInfo.videoId%>"><button id="auto"
+													class="subscribe-btn">Auto</button></a>
+											<a href="/video/<%=videoInfo.videoId%>?gateway=ipfs"><button id="ipfs"
+													class="subscribe-btn">IPFS</button></a>
+											<a href="/video/<%=videoInfo.videoId%>?gateway=crust"><button id="crust"
+													class="subscribe-btn">Crust</button></a>
+											<a href="/video/<%=videoInfo.videoId%>?gateway=oneloveipfs"><button
+													id="oneloveipfs" class="subscribe-btn">OneLove</button></a>
+										</div>
+									</div>
+									<% if (videoInfo.ref) { %>
+										<div class="ui search focus mt-30">
+											<div class="ui left icon labeled input swdh11 swdh31">
+												<div class="ui label lb12">
+													<%=t('video.ref')%>
+												</div>
+												<input class="prompt srch_explore" type="text" name="site"
+													value="<%=videoInfo.ref%>" id="id_site" required="" maxlength="64">
+											</div>
+										</div>
+										<% } %>
+
+											<div class="user_dt5 mt-20">
+												<p>
+													<%=videoInfo.description%>
+												</p>
+											</div>
 								</div>
-								<div class="live_chat" id="livechat">
-									<div class="chat1" id="messages">
-										<%for(let chatCount = 0; chatCount < liveChat.messages.length;chatCount++){%>
-											<p><a href="#"><%=liveChat.messages[chatCount].author%></a><%=liveChat.messages[chatCount].message%></p>
-										<%}%>
-										<!-- <p><a href="#">Anonymous 1</a>Great video!</p> -->
+							</div>
+							<div class="col-xl-4 col-lg-4">
+								<div class="right_side">
+									<div class="fcrse_3">
+										<div class="cater_ttle">
+											<h4>
+												<%=t('video.livechat')%>
+											</h4>
+										</div>
+										<div class="live_chat" id="livechat">
+											<div class="chat1" id="messages">
+												<%for(let chatCount=0; chatCount <
+													liveChat.messages.length;chatCount++){%>
+													<p><a href="#">
+															<%=liveChat.messages[chatCount].author%>
+														</a>
+														<%=liveChat.messages[chatCount].message%>
+													</p>
+													<%}%>
+														<!-- <p><a href="#">Anonymous 1</a>Great video!</p> -->
+											</div>
+										</div>
+										<form class="live_comment" id="form">
+											<input id="input" class="live_input" type="text"
+												placeholder="<%=t('video.sayst')%>" autocomplete="off" />
+											<button class="btn_live"><i class='uil uil-message'></i></button>
+										</form>
 									</div>
 								</div>
-								<form class="live_comment" id="form">
-									<input id="input" class="live_input" type="text" placeholder="<%=t('video.sayst')%>" autocomplete="off"/>
-									<button class="btn_live"><i class='uil uil-message'></i></button>
-								</form>
-							</div>													
+							</div>
 						</div>
 					</div>
 				</div>
+				<%- include("footer"); -%>
+					<input type="hidden" id="videoId" name="videoId" value="<%=videoInfo.videoId%>">
 			</div>
-		</div>
-		<%- include("footer"); -%>
-		<input type="hidden" id="videoId" name="videoId" value="<%=videoInfo.videoId%>">
-	</div>
 
-	<!-- Body End -->
+			<!-- Body End -->
 
 
-	<%- include("reportVideoPopup"); -%>
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="/owlcarousel/owl.carousel.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+			<%- include("reportVideoPopup"); -%>
 
-	<script src="/js/vertical-responsive-menu.min.js"></script>
-	<script src="/js/custom.js"></script>
-	<script src="/js/night-mode.js"></script>
-	<script src="/js/reportVideo.js"></script>
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+				<script src="/owlcarousel/owl.carousel.min.js"></script>
+				<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+					integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+					crossorigin="anonymous"></script>
+				<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 
-	<script src="/socket.io/socket.io.js"></script>
-	<script>
-	  var socket = io();
-  
-	  var messages = document.getElementById('messages');
-	  var form = document.getElementById('form');
-	  var input = document.getElementById('input');
-	  var livechat = document.getElementById('livechat');
-  
-	  form.addEventListener('submit', function(e) {
-		e.preventDefault();
-		if (input.value) {
-		  socket.emit('<%=lang%>', input.value, '<%=lang%>');
-		  input.value = '';
-		}
-	  });
-  
-	  socket.on('<%=lang%>', function(msg) {
-		var nameArrayTempo = ['The Fat Dog', 'The Phoenix', 'Redbird', 'The Black Cat', 'The Thirsty Crow', 'The Fat Cow','Lucky Duck'];
-		var messageElement = document.createElement('p');
-		var authorElement = document.createElement('a');
-		authorElement.textContent = nameArrayTempo[Math.floor(Math.random() * nameArrayTempo.length)];
-		messageElement.appendChild(authorElement);
-		messageElement.insertAdjacentHTML( 'beforeend', msg );
-		messages.appendChild(messageElement);
-		livechat.scrollTop = livechat.scrollHeight;
-	  });
-	</script>
-	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-	<script>
-		var videoGateway = "<%=videoInfo.gateway%>";
-	</script>
-	<script>
-		function boomVideo() {
-			document.querySelector('#boom-count').textContent++;
-			axios.post('/boom/<%=videoInfo.videoId%>');
-		}
-	</script>
-	<script src="/js/video.js"></script>
-	<script>
-		if (subscribed()) {
-			document.getElementById('subscribeBtn').style.display = 'none';
-			document.getElementById('subscribedBtn').style.display = 'block';
-		} else {
-			document.getElementById('subscribeBtn').style.display = 'block';
-			document.getElementById('subscribedBtn').style.display = 'none';
-		}
+				<script src="/js/vertical-responsive-menu.min.js"></script>
+				<script src="/js/custom.js"></script>
+				<script src="/js/night-mode.js"></script>
+				<script src="/js/reportVideo.js"></script>
 
-		function subscribed(){
-			if(!'<%= loggedIn %>') return false;
-			if('<%= userInfo.authorSubscribed %>' == "true") return true;
+				<script src="/socket.io/socket.io.js"></script>
+				<script>
+					var socket = io();
 
-			return false;
-		}
-		
-		const videoAuthorId = '<%= videoInfo.videoAuthorId %>';
+					var messages = document.getElementById('messages');
+					var form = document.getElementById('form');
+					var input = document.getElementById('input');
+					var livechat = document.getElementById('livechat');
 
-		const subscribeBtn = document.getElementById('subscribeBtn');
-		subscribeBtn.addEventListener('click', function (e) {
-			if ('<%= loggedIn %>') {
-				subscribeUser(videoAuthorId);
-			} else {
-				location.replace("/login");
-			}
-		});
+					form.addEventListener('submit', function (e) {
+						e.preventDefault();
+						if (input.value) {
+							socket.emit('<%=lang%>', input.value, '<%=lang%>');
+							input.value = '';
+						}
+					});
 
-		const subscribedBtn = document.getElementById('subscribedBtn');
-		subscribedBtn.addEventListener('click', function (e) {
-			unsubscribeUser(videoAuthorId);
-		});
-	</script>
-
-	<script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
-	<script>
-		 document.addEventListener('DOMContentLoaded', () => {
-			const controls = [
-              'play-large', // The large play button in the center
-              //'restart', // Restart playback
-              'rewind', // Rewind by the seek time (default 10 seconds)
-              'play', // Play/pause playback
-              'fast-forward', // Fast forward by the seek time (default 10 seconds)
-              'progress', // The progress bar and scrubber for playback and buffering
-              'current-time', // The current time of playback
-              //'duration', // The full duration of the media
-              //'mute', // Toggle mute
-              //'volume', // Volume control
-              //'captions', // Toggle captions
-              'settings', // Settings menu
-              'pip', // Picture-in-picture (currently Safari only)
-              'airplay', // Airplay (currently Safari only)
-              //'download', // Show a download button with a link to either the current source or a custom URL you specify in your options
-              'fullscreen' // Toggle fullscreen
-          	];
-			 const player = Plyr.setup('.js-player', { controls });
-		 });
-	</script>
-	<script>
-		document.getElementById(videoGateway).style.background = "#dedfe0";
-		document.getElementById(videoGateway).style.color = "black";
-	</script>
-
- <% if (videoInfo.gateway == "auto") { %> 
-	<script>
-		const videoCid = "<%=videoInfo.CID%>";
-		var PROBE_ID = 'QmUsz4XnVGmPvC1FbfZRYz6yzgwLuFkZrLs5f65ZrECbk4';
-		var PROBE_FILES = [
-			{
-			'name' : '512KB file',
-			'file_name' : '512KB.hex',
-			'size' : 524288
-			},
-			{
-			'name' : '1MB file',
-			'file_name' : '1024KB.hex',
-			'size' : 1048576
-			}
-		];
-
-		var INLINE_GATEWAYS = [
-			"https://ipfs.io/ipfs/:hash",
-			"https://dweb.link/ipfs/:hash",
-			"https://gateway.ipfs.io/ipfs/:hash",
-			"https://ipfs.infura.io/ipfs/:hash",
-			"https://ninetailed.ninja/ipfs/:hash",
-			"https://10.via0.com/ipfs/:hash",
-			"https://gateway.originprotocol.com/ipfs/:hash",
-			"https://gateway.pinata.cloud/ipfs/:hash",
-			"https://ipfs.sloppyta.co/ipfs/:hash",
-			"https://ipfs.greyh.at/ipfs/:hash",
-			"https://jorropo.net/ipfs/:hash",
-			"https://video.oneloveipfs.com/ipfs/:hash",
-		];
-
-		var gateways = [];
-		var best_gateway = 0;
-
-		// AJAX Queue
-		var ajaxReqs = 0;
-		var ajaxQueue = [];
-		var ajaxActive = 0;
-		var ajaxMaxConc = 4;
-		function addAjax(obj) {
-			ajaxReqs++;
-			var oldSuccess = obj.success;
-			var oldError = obj.error;
-			var callback = function() {
-				ajaxReqs--;
-				if (ajaxActive === ajaxMaxConc && ajaxQueue.length > 0) {
-					var o = ajaxQueue.shift();
-					o.t = (new Date()).getTime();
-					$.ajax(o);
-				} else {
-					ajaxActive--;
-				}
-			}
-			obj.success = function(resp, textStatus, jqXHR) {
-				if (oldSuccess) oldSuccess(resp, textStatus, jqXHR, this.t);
-				callback();
-			};
-			obj.error = function(xhr, status, error) {
-				if (oldError) oldError(xhr, status, error);
-				callback();
-			};
-			if (ajaxActive === ajaxMaxConc) {
-				ajaxQueue.push(obj);
-			} else {
-				ajaxActive++;
-				obj.t = (new Date()).getTime();
-				$.ajax(obj);
-			}
-		}
-
-		function fetch_gateways() {
-			gateways = [];
-			for (i in INLINE_GATEWAYS) {
-				var gw = {
-				'url' : INLINE_GATEWAYS[i],
-				'domain' : INLINE_GATEWAYS[i].replace('http://','').replace('https://','').split(/[/?#]/)[0],
-				'lag' : -1,
-				'speed' : -1
-				};
-				gateways.push(gw);
-			}
-		}
-		
-		function test_speed(i) {
-			var file_path = PROBE_ID + '/' + PROBE_FILES[1].file_name;
-			var task = {
-				url: gateways[i].url.replace(/:hash/, file_path),
-				method: 'GET',
-				timeout: 1000,
-				dataType: 'text',
-				cache: false
-			};
-			task.success = function(data, textStatus, jqXHR, t) {
-				var duration = ((new Date()).getTime() - t) / 1000;
-				var speed_kbps = (PROBE_FILES[1].size /(duration * 1024)).toFixed(2);
-				gateways[i].speed = speed_kbps;
-			};
-
-			/* task.error = function(jqXHR, textStatus, errorThrown) {
-				console.log(gateways[i].domain + ':' + jqXHR.statusText);
-			}; */
-			addAjax(task);
-		}
-
-		function test_lag(i) {
-			gateways[i].lag = -1;
-			var task = {
-				url: gateways[i].url.replace(/:hash/, PROBE_ID + '/1-byte.hex'),
-				method: 'GET',
-				timeout: 500,
-				dataType: 'text',
-				cache: false
-			};
-
-			task.success = function(data, textStatus, jqXHR, t) {
-				var latency = (new Date()).getTime() - t;
-				gateways[i].lag = latency;
-			};
-			/* task.error = function(jqXHR, textStatus, errorThrown) {
-				console.log(gateways[i].domain + ':' + jqXHR.statusText);
-			}; */
-			addAjax(task);
-		}
-
-		function test_all_lag() {
-			for (i in gateways) {
-				test_lag(i);
-			}
-		}
-
-		function test_all_speed() {
-			for (i in gateways) {
-				if (gateways[i].lag > 0) {
-				test_speed(i);
-				}
-			}
-		}
-
-		function choose_best_gateway() {
-			gateways.sort( function(a, b) {
-				return parseFloat(a.lag) - parseFloat(b.lag);
-			});
-			var speed_test_number = 0;
-			var max_speed = 0;
-			best_gateway = 0;
-			for (i in gateways) {
-				if (gateways[i].lag > 0) {
-					speed_test_number++;
-					if (gateways[i].speed > max_speed) {
-						best_gateway = i;
-						max_speed = gateways[i].speed;
+					socket.on('<%=lang%>', function (msg) {
+						var nameArrayTempo = ['The Fat Dog', 'The Phoenix', 'Redbird', 'The Black Cat', 'The Thirsty Crow', 'The Fat Cow', 'Lucky Duck'];
+						var messageElement = document.createElement('p');
+						var authorElement = document.createElement('a');
+						authorElement.textContent = nameArrayTempo[Math.floor(Math.random() * nameArrayTempo.length)];
+						messageElement.appendChild(authorElement);
+						messageElement.insertAdjacentHTML('beforeend', msg);
+						messages.appendChild(messageElement);
+						livechat.scrollTop = livechat.scrollHeight;
+					});
+				</script>
+				<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+				<script>
+					var videoGateway = "<%=videoInfo.gateway%>";
+				</script>
+				<script>
+					function boomVideo() {
+						document.querySelector('#boom-count').textContent++;
+						axios.post('/boom/<%=videoInfo.videoId%>');
 					}
-					if (speed_test_number > 4) {
-						break;
+				</script>
+				<script src="/js/video.js"></script>
+				<script>
+					if (subscribed()) {
+						document.getElementById('subscribeBtn').style.display = 'none';
+						document.getElementById('subscribedBtn').style.display = 'block';
+					} else {
+						document.getElementById('subscribeBtn').style.display = 'block';
+						document.getElementById('subscribedBtn').style.display = 'none';
 					}
-				}
-			}
-		}
-	</script>
 
-	<script>
-		function wait_and_choose_best_gateway(){
-			if (ajaxActive){
-				setTimeout(wait_and_choose_best_gateway,100);
-			} else {
-				choose_best_gateway();
-			}
-		}
+					function subscribed() {
+						if (!'<%= loggedIn %>') return false;
+						if ('<%= userInfo.authorSubscribed %>' == "true") return true;
 
-		function wait_and_check(){
-			if (ajaxActive){
-				setTimeout(wait_and_check,100);
-			} else {
-				test_all_speed();
-				wait_and_choose_best_gateway();
-				var mediaSource = document.getElementsByTagName('source')[0];
-				mediaSource.src = gateways[best_gateway].url.replace(/:hash/, videoCid);
-				var player = document.getElementsByTagName('video')[0];
-				player.load();
-				document.getElementById("gateway").innerHTML =  "<%=t('video.gateway')%> (" + gateways[best_gateway].domain + ")";
-			}
-		}
+						return false;
+					}
 
-		function test_all() {
-			fetch_gateways();
-			test_all_lag();
-			wait_and_check();
-		}
-		test_all();
-	</script>
-<% } %>
+					const videoAuthorId = '<%= videoInfo.videoAuthorId %>';
+
+					const subscribeBtn = document.getElementById('subscribeBtn');
+					subscribeBtn.addEventListener('click', function (e) {
+						if ('<%= loggedIn %>') {
+							subscribeUser(videoAuthorId);
+						} else {
+							location.replace("/login");
+						}
+					});
+
+					const subscribedBtn = document.getElementById('subscribedBtn');
+					subscribedBtn.addEventListener('click', function (e) {
+						unsubscribeUser(videoAuthorId);
+					});
+				</script>
+
+				<script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
+				<script>
+					document.addEventListener('DOMContentLoaded', () => {
+						const controls = [
+							'play-large', // The large play button in the center
+							//'restart', // Restart playback
+							'rewind', // Rewind by the seek time (default 10 seconds)
+							'play', // Play/pause playback
+							'fast-forward', // Fast forward by the seek time (default 10 seconds)
+							'progress', // The progress bar and scrubber for playback and buffering
+							'current-time', // The current time of playback
+							//'duration', // The full duration of the media
+							//'mute', // Toggle mute
+							//'volume', // Volume control
+							//'captions', // Toggle captions
+							'settings', // Settings menu
+							'pip', // Picture-in-picture (currently Safari only)
+							'airplay', // Airplay (currently Safari only)
+							//'download', // Show a download button with a link to either the current source or a custom URL you specify in your options
+							'fullscreen' // Toggle fullscreen
+						];
+						const player = Plyr.setup('.js-player', { controls });
+					});
+				</script>
+				<script>
+					document.getElementById(videoGateway).style.background = "#dedfe0";
+					document.getElementById(videoGateway).style.color = "black";
+				</script>
+
+				<% if (videoInfo.gateway=="auto" ) { %>
+					<script>
+						const videoCid = "<%=videoInfo.CID%>";
+						var PROBE_ID = 'QmUsz4XnVGmPvC1FbfZRYz6yzgwLuFkZrLs5f65ZrECbk4';
+						var PROBE_FILES = [
+							{
+								'name': '512KB file',
+								'file_name': '512KB.hex',
+								'size': 524288
+							},
+							{
+								'name': '1MB file',
+								'file_name': '1024KB.hex',
+								'size': 1048576
+							}
+						];
+
+						var INLINE_GATEWAYS = [
+							"https://ipfs.io/ipfs/:hash",
+							"https://dweb.link/ipfs/:hash",
+							"https://gateway.ipfs.io/ipfs/:hash",
+							"https://ipfs.infura.io/ipfs/:hash",
+							"https://ninetailed.ninja/ipfs/:hash",
+							"https://10.via0.com/ipfs/:hash",
+							"https://gateway.originprotocol.com/ipfs/:hash",
+							"https://gateway.pinata.cloud/ipfs/:hash",
+							"https://ipfs.sloppyta.co/ipfs/:hash",
+							"https://ipfs.greyh.at/ipfs/:hash",
+							"https://jorropo.net/ipfs/:hash",
+							"https://video.oneloveipfs.com/ipfs/:hash",
+						];
+
+						var gateways = [];
+						var best_gateway = 0;
+
+						// AJAX Queue
+						var ajaxReqs = 0;
+						var ajaxQueue = [];
+						var ajaxActive = 0;
+						var ajaxMaxConc = 4;
+						function addAjax(obj) {
+							ajaxReqs++;
+							var oldSuccess = obj.success;
+							var oldError = obj.error;
+							var callback = function () {
+								ajaxReqs--;
+								if (ajaxActive === ajaxMaxConc && ajaxQueue.length > 0) {
+									var o = ajaxQueue.shift();
+									o.t = (new Date()).getTime();
+									$.ajax(o);
+								} else {
+									ajaxActive--;
+								}
+							}
+							obj.success = function (resp, textStatus, jqXHR) {
+								if (oldSuccess) oldSuccess(resp, textStatus, jqXHR, this.t);
+								callback();
+							};
+							obj.error = function (xhr, status, error) {
+								if (oldError) oldError(xhr, status, error);
+								callback();
+							};
+							if (ajaxActive === ajaxMaxConc) {
+								ajaxQueue.push(obj);
+							} else {
+								ajaxActive++;
+								obj.t = (new Date()).getTime();
+								$.ajax(obj);
+							}
+						}
+
+						function fetch_gateways() {
+							gateways = [];
+							for (i in INLINE_GATEWAYS) {
+								var gw = {
+									'url': INLINE_GATEWAYS[i],
+									'domain': INLINE_GATEWAYS[i].replace('http://', '').replace('https://', '').split(/[/?#]/)[0],
+									'lag': -1,
+									'speed': -1
+								};
+								gateways.push(gw);
+							}
+						}
+
+						function test_speed(i) {
+							var file_path = PROBE_ID + '/' + PROBE_FILES[1].file_name;
+							var task = {
+								url: gateways[i].url.replace(/:hash/, file_path),
+								method: 'GET',
+								timeout: 1000,
+								dataType: 'text',
+								cache: false
+							};
+							task.success = function (data, textStatus, jqXHR, t) {
+								var duration = ((new Date()).getTime() - t) / 1000;
+								var speed_kbps = (PROBE_FILES[1].size / (duration * 1024)).toFixed(2);
+								gateways[i].speed = speed_kbps;
+							};
+
+							/* task.error = function(jqXHR, textStatus, errorThrown) {
+								console.log(gateways[i].domain + ':' + jqXHR.statusText);
+							}; */
+							addAjax(task);
+						}
+
+						function test_lag(i) {
+							gateways[i].lag = -1;
+							var task = {
+								url: gateways[i].url.replace(/:hash/, PROBE_ID + '/1-byte.hex'),
+								method: 'GET',
+								timeout: 500,
+								dataType: 'text',
+								cache: false
+							};
+
+							task.success = function (data, textStatus, jqXHR, t) {
+								var latency = (new Date()).getTime() - t;
+								gateways[i].lag = latency;
+							};
+							/* task.error = function(jqXHR, textStatus, errorThrown) {
+								console.log(gateways[i].domain + ':' + jqXHR.statusText);
+							}; */
+							addAjax(task);
+						}
+
+						function test_all_lag() {
+							for (i in gateways) {
+								test_lag(i);
+							}
+						}
+
+						function test_all_speed() {
+							for (i in gateways) {
+								if (gateways[i].lag > 0) {
+									test_speed(i);
+								}
+							}
+						}
+
+						function choose_best_gateway() {
+							gateways.sort(function (a, b) {
+								return parseFloat(a.lag) - parseFloat(b.lag);
+							});
+							var speed_test_number = 0;
+							var max_speed = 0;
+							best_gateway = 0;
+							for (i in gateways) {
+								if (gateways[i].lag > 0) {
+									speed_test_number++;
+									if (gateways[i].speed > max_speed) {
+										best_gateway = i;
+										max_speed = gateways[i].speed;
+									}
+									if (speed_test_number > 4) {
+										break;
+									}
+								}
+							}
+						}
+					</script>
+
+					<script>
+						function wait_and_choose_best_gateway() {
+							if (ajaxActive) {
+								setTimeout(wait_and_choose_best_gateway, 100);
+							} else {
+								choose_best_gateway();
+							}
+						}
+
+						function wait_and_check() {
+							if (ajaxActive) {
+								setTimeout(wait_and_check, 100);
+							} else {
+								test_all_speed();
+								wait_and_choose_best_gateway();
+								var mediaSource = document.getElementsByTagName('source')[0];
+								mediaSource.src = gateways[best_gateway].url.replace(/:hash/, videoCid);
+								var player = document.getElementsByTagName('video')[0];
+								player.load();
+								document.getElementById("gateway").innerHTML = "<%=t('video.gateway')%> (" + gateways[best_gateway].domain + ")";
+							}
+						}
+
+						function test_all() {
+							fetch_gateways();
+							test_all_lag();
+							wait_and_check();
+						}
+						test_all();
+					</script>
+					<% } %>
 </body>
+
 </html>

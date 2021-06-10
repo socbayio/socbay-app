@@ -1,15 +1,16 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
 
-const User = require('../models/userModel.js');
+const router = express.Router();
+
 const bcrypt = require('bcrypt');
+const User = require('../models/userModel');
 const redirectIfAuthenticatedMiddleware = require('../middleware/redirectIfAuthenticatedMiddleware');
 
-router.post('/', redirectIfAuthenticatedMiddleware, function (req, res, next) {
+router.post('/', redirectIfAuthenticatedMiddleware, (req, res, next) => {
     const { emailaddress, password } = req.body;
-    User.findOne({ emailaddress: emailaddress }, (error, user) => {
+    User.findOne({ emailaddress }, (error, user) => {
         if (user) {
-            bcrypt.compare(password, user.password, (error, same) => {
+            bcrypt.compare(password, user.password, (errorBcrypt, same) => {
                 if (same) {
                     req.session.userId = user._id;
                     req.session.webLang = user.lang;

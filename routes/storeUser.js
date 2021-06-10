@@ -1,10 +1,11 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
 
-const User = require('../models/userModel.js');
+const router = express.Router();
+
+const User = require('../models/userModel');
 const redirectIfAuthenticatedMiddleware = require('../middleware/redirectIfAuthenticatedMiddleware');
 
-router.post('/', redirectIfAuthenticatedMiddleware, function (req, res, next) {
+router.post('/', redirectIfAuthenticatedMiddleware, (req, res, next) => {
     User.create(req.body, (error, user) => {
         if (error) {
             const validationErrors = Object.keys(error.errors).map(

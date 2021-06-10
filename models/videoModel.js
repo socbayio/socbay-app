@@ -1,28 +1,26 @@
 const mongoose = require('mongoose');
 const subReferencesPopulate = require('mongoose-sub-references-populate');
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
-const networkStatusSchema = new Schema(
-    {
-        networkName: String,
-        CID: String,
-        blockId: {
-            type: Schema.Types.ObjectId,
-            ref: 'uploadBlock',
-        },
-        fileId: {
-            type: Schema.Types.ObjectId,
-            subRef: 'uploadBlock.filesInfo',
-        },
-        expiredOnBlock: Number,
-        expiredOnDate: Date,
-        replicas: Number,
-        status: String,
-        orderFee: Number,
-        renewPoolBalance: Number
-    }
-)
+const networkStatusSchema = new Schema({
+    networkName: String,
+    CID: String,
+    blockId: {
+        type: Schema.Types.ObjectId,
+        ref: 'uploadBlock',
+    },
+    fileId: {
+        type: Schema.Types.ObjectId,
+        subRef: 'uploadBlock.filesInfo',
+    },
+    expiredOnBlock: Number,
+    expiredOnDate: Date,
+    replicas: Number,
+    status: String,
+    orderFee: Number,
+    renewPoolBalance: Number,
+});
 
 const thumbnailSchema = new Schema(
     {
@@ -37,7 +35,7 @@ const thumbnailSchema = new Schema(
         link: String,
     },
     { _id: false }
-)
+);
 
 const videoReportSchema = new Schema(
     {
@@ -48,7 +46,7 @@ const videoReportSchema = new Schema(
         },
     },
     { _id: false }
-)
+);
 
 const VideoSchema = new Schema({
     title: {
@@ -98,7 +96,7 @@ const VideoSchema = new Schema({
         subRef: 'uploadBlock.filesInfo',
     },
     networkStatus: {
-        type: networkStatusSchema
+        type: networkStatusSchema,
     },
     /* networkStatus: {
         networkName: String,

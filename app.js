@@ -1,32 +1,36 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var config = require('./config');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const mongoose = require('mongoose');
+const expressSession = require('express-session');
+const flash = require('connect-flash');
+const i18next = require('i18next');
+const i18nextMiddleware = require('i18next-express-middleware');
+const Backend = require('i18next-node-fs-backend');
+const fileUpload = require('express-fileupload');
+
+const config = require('./config');
 
 /**
   MongooseDB
  */
-const mongoose = require('mongoose');
-const expressSession = require('express-session');
-const flash = require('connect-flash');
+
 console.log(config);
 
-mongoose.connect(config.dbServerUrl + 'socbay', config.userAuth);
+mongoose.connect(`${config.dbServerUrl}socbay`, config.userAuth);
 
 /**
   i18next
  */
-const i18next = require('i18next');
-const i18nextMiddleware = require('i18next-express-middleware');
-const Backend = require('i18next-node-fs-backend');
+
 i18next
     .use(Backend)
     .use(i18nextMiddleware.LanguageDetector)
     .init({
         backend: {
-            loadPath: __dirname + '/locales/{{lng}}/{{ns}}.json',
+            loadPath: `${__dirname}/locales/{{lng}}/{{ns}}.json`,
         },
         detection: {
             order: ['querystring', 'cookie', 'header'],
@@ -39,43 +43,40 @@ i18next
 /**
   Models
  */
-const globalConfig = require('./models/globalConfigModel');  
+const globalConfig = require('./models/globalConfigModel');
 
 /**
   Routes
  */
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var registerRouter = require('./routes/register');
-var loginRouter = require('./routes/login');
-var userLoginRouter = require('./routes/userLogin');
-var uploadVideoRouter = require('./routes/uploadVideo');
-var storeVideoRouter = require('./routes/storeVideo');
-var videoRouter = require('./routes/video');
-var storeUser = require('./routes/storeUser');
-var userLogout = require('./routes/logout');
-var aboutUsRouter = require('./routes/aboutUs');
-var pullvideoRouter = require('./routes/pullvideo');
-var tagVideoRouter = require('./routes/tagVideo');
-var boomVideoRouter = require('./routes/boomVideo');
-var searchRouter = require('./routes/searchVideos');
-var myInfoRouter = require('./routes/myinfo.js');
-var channelRouter = require('./routes/channel');
-var uploadHistoryRouter = require('./routes/uploadHistory');
-var universalUploadRouter = require('./routes/universalUpload');
-var universalStoreRouter = require('./routes/universalStore');
-var deleteVideoRouter = require('./routes/deleteVideo');
-var storeProfilePictureRouter = require('./routes/storeProfilePicture');
+const indexRouter = require('./routes/index');
+const registerRouter = require('./routes/register');
+const loginRouter = require('./routes/login');
+const userLoginRouter = require('./routes/userLogin');
+const uploadVideoRouter = require('./routes/uploadVideo');
+const storeVideoRouter = require('./routes/storeVideo');
+const videoRouter = require('./routes/video');
+const storeUser = require('./routes/storeUser');
+const userLogout = require('./routes/logout');
+const aboutUsRouter = require('./routes/aboutUs');
+const pullvideoRouter = require('./routes/pullvideo');
+const tagVideoRouter = require('./routes/tagVideo');
+const boomVideoRouter = require('./routes/boomVideo');
+const searchRouter = require('./routes/searchVideos');
+const myInfoRouter = require('./routes/myinfo');
+const channelRouter = require('./routes/channel');
+const uploadHistoryRouter = require('./routes/uploadHistory');
+const universalUploadRouter = require('./routes/universalUpload');
+const universalStoreRouter = require('./routes/universalStore');
+const deleteVideoRouter = require('./routes/deleteVideo');
+const storeProfilePictureRouter = require('./routes/storeProfilePicture');
 
 /**
   Middleware
  */
-var pageTrafficTracking = require('./middleware/pageTrafficTrackingMiddleware');
-var getCurrentLanguageMiddleware = require('./middleware/getCurrentLanguageMiddleware');
+const pageTrafficTracking = require('./middleware/pageTrafficTrackingMiddleware');
+const getCurrentLanguageMiddleware = require('./middleware/getCurrentLanguageMiddleware');
 
-const fileUpload = require('express-fileupload');
-
-var app = express();
+const app = express();
 
 app.use(i18nextMiddleware.handle(i18next));
 
@@ -118,7 +119,6 @@ app.use('*', (req, res, next) => {
 
 app.use(pageTrafficTracking);
 app.use('/', getCurrentLanguageMiddleware, indexRouter);
-app.use('/users', usersRouter);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 app.use('/user/login', userLoginRouter);
@@ -126,7 +126,7 @@ app.use('/logout', userLogout);
 app.use('/video', videoRouter);
 app.use('/uploadvideo', uploadVideoRouter);
 app.use('/uploadvideo/store', storeVideoRouter);
-app.use('/video/:videoId',getCurrentLanguageMiddleware, pullvideoRouter);
+app.use('/video/:videoId', getCurrentLanguageMiddleware, pullvideoRouter);
 app.use('/video/:videoId/delete', deleteVideoRouter);
 app.use('/register/store', storeUser);
 app.use('/aboutus', aboutUsRouter);
@@ -141,12 +141,12 @@ app.use('/upload/store', universalStoreRouter);
 app.use('/myinfo/uploadavatar', storeProfilePictureRouter);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
     next(createError(404));
 });
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use((err, req, res, next) => {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};

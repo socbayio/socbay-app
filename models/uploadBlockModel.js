@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const subFileSchema = new Schema({
     fileName: String,
@@ -23,7 +23,7 @@ const uploadBlockSchema = new Schema({
     uploadedFilesNumber: Number,
     totalSizeInByte: {
         type: Number,
-        default: 0
+        default: 0,
     },
     orderFee: Number,
     currentInfo: {
@@ -39,7 +39,6 @@ const uploadBlockSchema = new Schema({
         default: false,
     },
 });
-
 
 const uploadBlock = mongoose.model('uploadBlock', uploadBlockSchema);
 const subFile = mongoose.model('subFile', subFileSchema);

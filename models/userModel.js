@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-var uniqueValidator = require('mongoose-unique-validator');
+const uniqueValidator = require('mongoose-unique-validator');
 const subReferencesPopulate = require('mongoose-sub-references-populate');
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const videoElementSchema = new Schema(
     {
@@ -35,7 +35,7 @@ const fileElementSchema = new Schema(
         relatedVideo: {
             type: Schema.Types.ObjectId,
             ref: 'Video',
-        }
+        },
     },
     { _id: false }
 );
@@ -82,10 +82,10 @@ UserSchema.plugin(uniqueValidator);
 fileElementSchema.plugin(subReferencesPopulate);
 
 UserSchema.pre('save', function (next) {
-    if(!this.isModified('password')){
+    if (!this.isModified('password')) {
         return next();
     }
-    
+
     const user = this;
     bcrypt.hash(user.password, 10, (error, hash) => {
         user.password = hash;

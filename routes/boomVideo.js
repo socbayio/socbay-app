@@ -1,6 +1,7 @@
-var express = require('express');
-var router = express.Router({ mergeParams: true });
-const Video = require('../models/videoModel.js');
+const express = require('express');
+
+const router = express.Router({ mergeParams: true });
+const Video = require('../models/videoModel');
 
 router.post('/', async (req, res, next) => {
     try {

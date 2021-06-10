@@ -1,37 +1,57 @@
-<% for (let tagCount = 0; tagCount < renderVideos.length; tagCount++) { %>
-<a href="/tag/<%=renderVideos[tagCount].name.toLowerCase()%>" class="item_title title-video-catalog"><h4 class="item_title">#<%=t('tag.' + renderVideos[tagCount].name.toLowerCase(), renderVideos[tagCount].name.toLowerCase())%></h4></a>
-<div class="section3126">
-    <div class="row no-gutters">
-        <% for(let videoCount = 0; videoCount<renderVideos[tagCount].videos.length; videoCount++) {%>
-            <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 video-item">
-                <div class="item">
-                    <div class="fcrse_1 mb-20">
-                        <a href="/video/<%=renderVideos[tagCount].videos[videoCount]._id%>" class="fcrse_img">
-                            <img src="https://ipfs.io/ipfs/<%=renderVideos[tagCount].videos[videoCount].thumbnail.fileId.CID%>" alt="">
-                            <div class="course-overlay">
-                                <div class="badge_seller"><%=t('tag.' + renderVideos[tagCount].name.toLowerCase(), renderVideos[tagCount].name).toUpperCase()%></div>
-                                <span class="play_btn1"><i class="uil uil-play"></i></span>
-                                 <div class="crse_timer">
-                                    <%if(Math.floor(renderVideos[tagCount].videos[videoCount].durationInSecond/3600)) {%>
-                                    <%=Math.floor(renderVideos[tagCount].videos[videoCount].durationInSecond/3600) +'h'+ Math.floor(renderVideos[tagCount].videos[videoCount].durationInSecond%3600/60)+ 'm'%>
-                                    <%}else{%>
-                                    <%= Math.floor(renderVideos[tagCount].videos[videoCount].durationInSecond%3600/60)+ 'm'+Math.floor(renderVideos[tagCount].videos[videoCount].durationInSecond%3600%60)+'s'%>
-                                    <%}%>
+<% for (let tagCount=0; tagCount < renderVideos.length; tagCount++) { %>
+    <a href="/tag/<%=renderVideos[tagCount].name.toLowerCase()%>" class="item_title title-video-catalog">
+        <h4 class="item_title">#<%=t('tag.' + renderVideos[tagCount].name.toLowerCase(),
+                renderVideos[tagCount].name.toLowerCase())%>
+        </h4>
+    </a>
+    <div class="section3126">
+        <div class="row no-gutters">
+            <% for(let videoCount=0; videoCount<renderVideos[tagCount].videos.length; videoCount++) {%>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 video-item">
+                    <div class="item">
+                        <div class="fcrse_1 mb-20">
+                            <a href="/video/<%=renderVideos[tagCount].videos[videoCount]._id%>" class="fcrse_img">
+                                <img src="https://ipfs.io/ipfs/<%=renderVideos[tagCount].videos[videoCount].thumbnail.fileId.CID%>"
+                                    alt="">
+                                <div class="course-overlay">
+                                    <div class="badge_seller">
+                                        <%=t('tag.' + renderVideos[tagCount].name.toLowerCase(),
+                                            renderVideos[tagCount].name).toUpperCase()%>
+                                    </div>
+                                    <span class="play_btn1"><i class="uil uil-play"></i></span>
+                                    <div class="crse_timer">
+                                        <%if(Math.floor(renderVideos[tagCount].videos[videoCount].durationInSecond
+                                            /3600)) {%>
+                                            <%=Math.floor(renderVideos[tagCount].videos[videoCount].durationInSecond
+                                                /3600) +'h'+
+                                                Math.floor(renderVideos[tagCount].videos[videoCount].durationInSecond%3600/60)+ 'm'
+                                                %>
+                                                <%}else{%>
+                                                    <%= Math.floor(renderVideos[tagCount].videos[videoCount].durationInSecond%3600/60)+ 'm'
+                                                        +Math.floor(renderVideos[tagCount].videos[videoCount].durationInSecond%3600%60)+'s'%>
+                                                        <%}%>
+                                    </div>
                                 </div>
+                            </a>
+                            <div class="fcrse_content">
+                                <div class="vdtodt">
+                                    <span class="vdt14">
+                                        <%=renderVideos[tagCount].videos[videoCount].view%> views
+                                    </span>
+                                    <span class="vdt14">
+                                        <%=renderVideos[tagCount].videos[videoCount].like%> rockets
+                                    </span>
+                                    <!-- <span class="vdt14">15 days ago</span> -->
+                                </div>
+                                <a href="/video/<%=renderVideos[tagCount].videos[videoCount]._id%>"
+                                    class="crse14s title_video_catalog">
+                                    <%=renderVideos[tagCount].videos[videoCount].title%>
+                                </a>
                             </div>
-                        </a>
-                        <div class="fcrse_content">
-                            <div class="vdtodt">
-                                <span class="vdt14"><%=renderVideos[tagCount].videos[videoCount].view%> views</span>
-                                <span class="vdt14"><%=renderVideos[tagCount].videos[videoCount].like%> rockets</span>
-                                <!-- <span class="vdt14">15 days ago</span> -->
-                            </div>
-                            <a href="/video/<%=renderVideos[tagCount].videos[videoCount]._id%>" class="crse14s title_video_catalog"><%=renderVideos[tagCount].videos[videoCount].title%></a>
                         </div>
                     </div>
                 </div>
-            </div>
-        <%}%>
+                <%}%>
+        </div>
     </div>
-</div>
-<%}%>
+    <%}%>

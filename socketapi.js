@@ -2,12 +2,12 @@ const io = require('socket.io')();
 const liveChat = require('./models/liveChatModel');
 
 const socketapi = {
-    io: io,
+    io,
 };
 
 const msgHandle = async (msg, lang) => {
-    io.emit(lang , msg);
-    var nameArrayTempo = [
+    io.emit(lang, msg);
+    const nameArrayTempo = [
         'The Fat Dog',
         'The Phoenix',
         'Redbird',
@@ -16,26 +16,23 @@ const msgHandle = async (msg, lang) => {
         'The Fat Cow',
         'Lucky Duck',
     ];
-    const liveChatFound = await liveChat.findOneAndUpdate(
+    await liveChat.findOneAndUpdate(
         { channel: lang },
         {
             $push: {
                 messages: {
-                    author:
-                        nameArrayTempo[
-                            Math.floor(
-                                Math.random() * nameArrayTempo.length
-                            )
-                        ],
+                    author: nameArrayTempo[
+                        Math.floor(Math.random() * nameArrayTempo.length)
+                    ],
                     message: msg,
                 },
             },
         }
     );
-}
+};
 
 io.on('connection', (socket) => {
-    //socket.on('chat message', msgHandle);
+    // socket.on('chat message', msgHandle);
     socket.on('en', msgHandle);
     socket.on('vi', msgHandle);
     socket.on('zh', msgHandle);

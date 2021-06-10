@@ -1,14 +1,12 @@
-var express = require('express');
-var router = express.Router({ mergeParams: true });
-const Video = require('../models/videoModel.js');
-const liveChatVideo = require('../models/liveChatVideoModel');
-const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated.js');
+const express = require('express');
+
+const router = express.Router({ mergeParams: true });
+const { getVideoDurationInSeconds } = require('get-video-duration');
+const Video = require('../models/videoModel');
+const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated');
 const liveChat = require('../models/liveChatModel');
 const { isEmptyObject } = require('./common');
-const { getVideoDurationInSeconds } = require('get-video-duration');
 const logger = require('../logger').Logger;
-
-
 
 const gateway = {
     ipfs: 'https://ipfs.io/ipfs/',
@@ -20,7 +18,8 @@ async function checkSubscribed(req, res, next) {
     if (!isEmptyObject(req.userInfo)) {
         req.userInfo.authorSubscribed = false;
         const authorSubscribed = req.userInfo.subscriptionsId.find(
-            (s) => s.userId.toString() === req.videoInfo.videoAuthorId.toString()
+            (s) =>
+                s.userId.toString() === req.videoInfo.videoAuthorId.toString()
         );
         req.userInfo.authorSubscribed = authorSubscribed !== undefined;
     }
@@ -28,7 +27,7 @@ async function checkSubscribed(req, res, next) {
 }
 
 async function increaseView(req, res, next) {
-    const videoFound = await Video.findByIdAndUpdate(req.params.videoId, {
+    await Video.findByIdAndUpdate(req.params.videoId, {
         $inc: { view: 1 },
     });
     next();
@@ -41,24 +40,22 @@ async function getVideo(req, res, next) {
             link = gateway[req.query.gateway];
         }
 
-        const videoFound = await Video.findById(req.params.videoId).populate(
-            'authorId',
-            'profilePicture username'
-        ).populate(
-            'networkStatus.blockId',
-            'uploadedToNetwork CID'
-        );
+        const videoFound = await Video.findById(req.params.videoId)
+            .populate('authorId', 'profilePicture username')
+            .populate('networkStatus.blockId', 'uploadedToNetwork CID');
 
         await videoFound.networkStatus.subPopulate('fileId');
         await videoFound.thumbnail.subPopulate('fileId');
-        //const liveChatVideoFound = await liveChatVideo.findOne({videoId: req.params.videoId});
+        // const liveChatVideoFound = await liveChatVideo.findOne({videoId: req.params.videoId});
         let liveChatVideoFound = await liveChat.findOne({
-            channel: req.currentLang
-            //channel: 'global'
+            channel: req.currentLang,
+            // channel: 'global'
         });
 
-        if (!liveChatVideoFound){
-            liveChatVideoFound = await liveChat.create({channel: req.currentLang});
+        if (!liveChatVideoFound) {
+            liveChatVideoFound = await liveChat.create({
+                channel: req.currentLang,
+            });
         }
 
         if (videoFound && liveChatVideoFound) {
@@ -99,12 +96,16 @@ async function getVideo(req, res, next) {
 
 function updateVideoDuration(req, res, next) {
     if (!req.videoInfo.durationInSecond) {
-        const videoId = req.params.videoId;
-        getVideoDurationInSeconds('https://ipfs.io/ipfs/' + req.videoInfo.CID)
-        .then(async (duration) => {       
-            await Video.findByIdAndUpdate(videoId, { durationInSecond: duration });
-        })
-        .catch((error) => {logger.error(error)});
+        const { videoId } = req.params;
+        getVideoDurationInSeconds(`https://ipfs.io/ipfs/${req.videoInfo.CID}`)
+            .then(async (duration) => {
+                await Video.findByIdAndUpdate(videoId, {
+                    durationInSecond: duration,
+                });
+            })
+            .catch((error) => {
+                logger.error(error);
+            });
     }
     next();
 }
@@ -126,7 +127,6 @@ router.get(
     checkSubscribed,
     updateVideoDuration,
     render
-    
 );
 
 module.exports = router;

@@ -1,9 +1,10 @@
-var express = require('express');
-var router = express.Router();
-const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated.js');
+const express = require('express');
+
+const router = express.Router();
+const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated');
 const logger = require('../logger').Logger;
 
-const { getVideoFromTagByLanguage } = require('./common.js');
+const { getVideoFromTagByLanguage } = require('./common');
 
 function callback(tagName) {
     return getVideoFromTagByLanguage(
@@ -14,9 +15,9 @@ function callback(tagName) {
     );
 }
 
-router.get('/', getInfoIfAuthenticated, async function (req, res, next) {
+router.get('/', getInfoIfAuthenticated, async (req, res, next) => {
     try {
-        homepageTags = [
+        const homepageTags = [
             'newvideos',
             'gaming',
             'relax',
@@ -30,7 +31,7 @@ router.get('/', getInfoIfAuthenticated, async function (req, res, next) {
         ];
         const lang = req.currentLang;
         const promises = homepageTags.map(callback, {
-            lang: lang,
+            lang,
             videosNumber: 20,
             skippedVideos: 0,
         });

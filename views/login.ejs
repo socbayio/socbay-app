@@ -1,32 +1,34 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 
-	<head>
-		<meta charset="utf-8">		
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, shrink-to-fit=9">
-		<meta name="description" content="Distributed Video Platform">
-		<title>Socbay - <%=t('title.signin')%></title>
-		
-		<!-- Favicon Icon -->
-		<link rel="icon" type="image/png" href="images/logo/v3/socbay-icon-32x32.svg">
-		
-		<!-- Stylesheets -->
-		<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,500' rel='stylesheet'>
-		<link href="css/vertical-responsive-menu.min.css" rel="stylesheet">
-		<link href="css/style.css" rel="stylesheet">
-		<link href="css/responsive.css" rel="stylesheet">
-		<link href="css/night-mode.css" rel="stylesheet">
-		
-		<!-- Vendor Stylesheets -->
-		<link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
-		<link rel="stylesheet" href="/owlcarousel/assets/owl.carousel.min.css" />
-		<link rel="stylesheet" href="/owlcarousel/assets/owl.theme.default.min.css" />
-		<link rel='stylesheet' href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, shrink-to-fit=9">
+	<meta name="description" content="Distributed Video Platform">
+	<title>Socbay - <%=t('title.signin')%>
+	</title>
 
-	</head>
+	<!-- Favicon Icon -->
+	<link rel="icon" type="image/png" href="images/logo/v3/socbay-icon-32x32.svg">
+
+	<!-- Stylesheets -->
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,500' rel='stylesheet'>
+	<link href="css/vertical-responsive-menu.min.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+	<link href="css/responsive.css" rel="stylesheet">
+	<link href="css/night-mode.css" rel="stylesheet">
+
+	<!-- Vendor Stylesheets -->
+	<link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
+	<link rel="stylesheet" href="/owlcarousel/assets/owl.carousel.min.css" />
+	<link rel="stylesheet" href="/owlcarousel/assets/owl.theme.default.min.css" />
+	<link rel='stylesheet' href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+
+</head>
 
 <body>
 	<!-- Signup Start -->
@@ -36,45 +38,63 @@
 				<div class="col-lg-12">
 					<div class="main_logo25" id="logo">
 						<a href="/"><img src="/images/logo/v3/socbay-135x32.svg" alt=""></a>
-						<a href="/"><img class="logo-inverse" src="/images/logo/v3/socbay-135x32-inverse.svg" alt=""></a>
+						<a href="/"><img class="logo-inverse" src="/images/logo/v3/socbay-135x32-inverse.svg"
+								alt=""></a>
 					</div>
 				</div>
-			
+
 				<div class="col-lg-6 col-md-8">
 					<div class="sign_form">
-						<h2><%=t('login.welcomback')%></h2>
+						<h2>
+							<%=t('login.welcomback')%>
+						</h2>
 						<form action="/user/login" method="POST">
 							<div class="ui search focus mt-80">
 								<div class="ui left icon input swdh95">
-									<input class="prompt srch_explore" type="text" name="emailaddress" value="" id="id_email" required="" maxlength="64" placeholder="<%=t('login.emailaddress')%>">															
+									<input class="prompt srch_explore" type="text" name="emailaddress" value=""
+										id="id_email" required="" maxlength="64"
+										placeholder="<%=t('login.emailaddress')%>">
 									<i class="uil uil-envelope icon icon2"></i>
 								</div>
 							</div>
 							<div class="ui search focus mt-15">
 								<div class="ui left icon input swdh95">
-									<input class="prompt srch_explore" type="password" name="password" value="" id="id_password" required="" maxlength="64" placeholder="<%=t('login.password')%>">
+									<input class="prompt srch_explore" type="password" name="password" value=""
+										id="id_password" required="" maxlength="64"
+										placeholder="<%=t('login.password')%>">
 									<i class="uil uil-key-skeleton-alt icon icon2"></i>
 								</div>
 							</div>
-							<button class="login-btn" type="submit"><%=t('login.signin')%></button>
+							<button class="login-btn" type="submit">
+								<%=t('login.signin')%>
+							</button>
 						</form>
 						<p class="sgntrm145 d-none">Or <a href="">Forgot Password</a>.</p>
-						<p class="mb-0 mt-30 hvsng145"><%=t('login.donthaveanaccount')%> <a href="/register"><%=t('login.signup')%></a></p>
+						<p class="mb-0 mt-30 hvsng145">
+							<%=t('login.donthaveanaccount')%> <a href="/register">
+									<%=t('login.signup')%>
+								</a>
+						</p>
 					</div>
-					<div class="sign_footer"><img src="images/logo/v3/socbay-icon-32x32.svg" alt="">© 2021 <strong>Socbay.io</strong>. All Rights Reserved.</div>
-				</div>				
-			</div>				
-		</div>				
+					<div class="sign_footer"><img src="images/logo/v3/socbay-icon-32x32.svg" alt="">© 2021
+						<strong>Socbay.io</strong>. All Rights Reserved.
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<!-- Signup End -->
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="/owlcarousel/owl.carousel.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-	
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+
 	<script src="/js/custom.js"></script>
 	<script src="/js/night-mode.js"></script>
 
 </body>
+
 </html>

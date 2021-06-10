@@ -3,143 +3,175 @@
 
 <head>
 	<%- include('head'); -%>
-	<title>Socbay - <%=t('title.channel')%> <%=channelInfo.username%></title>
-	<style>
-        .video-catalog-container {
-            padding-left: 0px !important;
-        }
-        .title-video-catalog {
-            padding-left: 1em !important;
-        }
-        .video-item {
-            padding-left: 1em !important;
-        }
-    
-        a.item_title.title-video-catalog {
-            margin-bottom: 10px !important;
-        }
-    
-        .fcrse_1.mb-20 {
-            padding-bottom: 5px !important;
-        }
-    </style>
+		<title>Socbay - <%=t('title.channel')%>
+				<%=channelInfo.username%>
+		</title>
+		<style>
+			.video-catalog-container {
+				padding-left: 0px !important;
+			}
+
+			.title-video-catalog {
+				padding-left: 1em !important;
+			}
+
+			.video-item {
+				padding-left: 1em !important;
+			}
+
+			a.item_title.title-video-catalog {
+				margin-bottom: 10px !important;
+			}
+
+			.fcrse_1.mb-20 {
+				padding-bottom: 5px !important;
+			}
+		</style>
 </head>
 
 <body>
 
 	<%- include('header'); -%>
 
-    <%- include('leftSideBar'); -%>
+		<%- include('leftSideBar'); -%>
 
-	<!-- Body Start -->
-	<div class="wrapper _bg4586">
-		<div class="_216b01">
-			<div class="container-fluid">			
-				<div class="row justify-content-md-center">
-					<div class="col-md-10">
-						<div class="section3125 rpt145">							
-							<div class="row">						
-								<div class="col-lg-7">
-									<div class="dp_dt150">						
-										<div class="img148">
-											<img src="https://ipfs.io/ipfs/<%=channelInfo.profilePicture%>" alt="">										
+			<!-- Body Start -->
+			<div class="wrapper _bg4586">
+				<div class="_216b01">
+					<div class="container-fluid">
+						<div class="row justify-content-md-center">
+							<div class="col-md-10">
+								<div class="section3125 rpt145">
+									<div class="row">
+										<div class="col-lg-7">
+											<div class="dp_dt150">
+												<div class="img148">
+													<img src="https://ipfs.io/ipfs/<%=channelInfo.profilePicture%>"
+														alt="">
+												</div>
+												<div class="prfledt1">
+													<h2>
+														<%=channelInfo.username%>
+													</h2>
+												</div>
+											</div>
 										</div>
-										<div class="prfledt1">
-											<h2><%=channelInfo.username%></h2>
-										</div>										
+										<div class="col-lg-5">
+											<div class="rgt-145 d-none">
+												<ul class="tutor_social_links">
+													<li><a href="#" class="fb"><i class="fab fa-facebook-f"></i></a>
+													</li>
+													<li><a href="#" class="tw"><i class="fab fa-twitter"></i></a></li>
+													<li><a href="#" class="ln"><i class="fab fa-linkedin-in"></i></a>
+													</li>
+													<li><a href="#" class="yu"><i class="fab fa-youtube"></i></a></li>
+												</ul>
+											</div>
+										</div>
 									</div>
-								</div>
-								<div class="col-lg-5">
-									<div class="rgt-145 d-none">
-										<ul class="tutor_social_links">
-											<li><a href="#" class="fb"><i class="fab fa-facebook-f"></i></a></li>
-											<li><a href="#" class="tw"><i class="fab fa-twitter"></i></a></li>
-											<li><a href="#" class="ln"><i class="fab fa-linkedin-in"></i></a></li>
-											<li><a href="#" class="yu"><i class="fab fa-youtube"></i></a></li>
-										</ul>
-									</div>
-								</div>												
-							</div>							
-						</div>							
-					</div>															
-				</div>
-			</div>
-		</div>
-		<div class="_215b15">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-lg-12">						
-						<div class="course_tabs">
-							<nav>
-								<div class="nav nav-tabs tab_crse" id="nav-tab" role="tablist">
-									<a class="nav-item nav-link active" id="nav-courses-tab" data-toggle="tab" href="#uploaded-videos" role="tab" aria-selected="true">Uploaded videos</a>									
-								</div>
-							</nav>						
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="_215b17">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-lg-12 video-catalog-container">
-						<div class="course_tab_content">
-							<div class="tab-content" id="nav-tabContent">
-								<div class="tab-pane fade show active" id="uploaded-videos" role="tabpanel">
-									<div class="section3126">
-                                        <div class="row no-gutters">
-                                            <% for(let videoCount = 0; videoCount<channelInfo.uploadedVideos.length; videoCount++) {%>
-                                            
-                                                <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 video-item">
-                                                    <div class="item">
-                                                        <div class="fcrse_1 mb-20">
-                                                            <a href="/video/<%=channelInfo.uploadedVideos[videoCount]._id%>" class="fcrse_img">
-                                                                <img src="https://ipfs.io/ipfs/<%=channelInfo.uploadedVideos[videoCount].thumbnail.fileId.CID%>" alt="">
-                                                                <div class="course-overlay">
-                                                                    <span class="play_btn1"><i class="uil uil-play"></i></span>
-                                                                     <div class="crse_timer">
-                                                                        <%if(Math.floor(channelInfo.uploadedVideos[videoCount].durationInSecond/3600)) {%>
-                                                                        <%=Math.floor(channelInfo.uploadedVideos[videoCount].durationInSecond/3600) +'h'+ Math.floor(channelInfo.uploadedVideos[videoCount].durationInSecond%3600/60)+ 'm'%>
-                                                                        <%}else{%>
-                                                                        <%= Math.floor(channelInfo.uploadedVideos[videoCount].durationInSecond%3600/60)+ 'm'+Math.floor(channelInfo.uploadedVideos[videoCount].durationInSecond%3600%60)+'s'%>
-                                                                        <%}%>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                            <div class="fcrse_content">
-                                                                <div class="vdtodt">
-                                                                    <span class="vdt14"><%=channelInfo.uploadedVideos[videoCount].view%> views</span>
-                                                                    <span class="vdt14"><%=channelInfo.uploadedVideos[videoCount].like%> rockets</span>
-                                                                    <!-- <span class="vdt14">15 days ago</span> -->
-                                                                </div>
-                                                                <a href="/video/<%=channelInfo.uploadedVideos[videoCount]._id%>" class="crse14s title_video_catalog"><%=channelInfo.uploadedVideos[videoCount].title%></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                    
-                                            <%}%>
-                                        </div>
-                                    </div>							
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-        <%- include('footer'); -%>
-	</div>
-	<!-- Body End -->
+				<div class="_215b15">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="course_tabs">
+									<nav>
+										<div class="nav nav-tabs tab_crse" id="nav-tab" role="tablist">
+											<a class="nav-item nav-link active" id="nav-courses-tab" data-toggle="tab"
+												href="#uploaded-videos" role="tab" aria-selected="true">Uploaded
+												videos</a>
+										</div>
+									</nav>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="_215b17">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-lg-12 video-catalog-container">
+								<div class="course_tab_content">
+									<div class="tab-content" id="nav-tabContent">
+										<div class="tab-pane fade show active" id="uploaded-videos" role="tabpanel">
+											<div class="section3126">
+												<div class="row no-gutters">
+													<% for(let videoCount=0;
+														videoCount<channelInfo.uploadedVideos.length; videoCount++) {%>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-	<script src="/owlcarousel/owl.carousel.min.js"></script>
-	
-	<script src="/js/custom.js"></script>
-	<script src="/js/night-mode.js"></script>
-	<script src="/js/vertical-responsive-menu.min.js"></script>
-	
+														<div
+															class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 video-item">
+															<div class="item">
+																<div class="fcrse_1 mb-20">
+																	<a href="/video/<%=channelInfo.uploadedVideos[videoCount]._id%>"
+																		class="fcrse_img">
+																		<img src="https://ipfs.io/ipfs/<%=channelInfo.uploadedVideos[videoCount].thumbnail.fileId.CID%>"
+																			alt="">
+																		<div class="course-overlay">
+																			<span class="play_btn1"><i
+																					class="uil uil-play"></i></span>
+																			<div class="crse_timer">
+																				<%if(Math.floor(channelInfo.uploadedVideos[videoCount].durationInSecond
+																					/3600)) {%>
+																					<%=Math.floor(channelInfo.uploadedVideos[videoCount].durationInSecond
+																						/3600) +'h'+
+																						Math.floor(channelInfo.uploadedVideos[videoCount].durationInSecond%3600/60)+ 'm'
+																						%>
+																						<%}else{%>
+																							<%= Math.floor(channelInfo.uploadedVideos[videoCount].durationInSecond%3600/60)+ 'm'
+																								+Math.floor(channelInfo.uploadedVideos[videoCount].durationInSecond%3600%60)+'s'%>
+																								<%}%>
+																			</div>
+																		</div>
+																	</a>
+																	<div class="fcrse_content">
+																		<div class="vdtodt">
+																			<span class="vdt14">
+																				<%=channelInfo.uploadedVideos[videoCount].view%>
+																					views
+																			</span>
+																			<span class="vdt14">
+																				<%=channelInfo.uploadedVideos[videoCount].like%>
+																					rockets
+																			</span>
+																			<!-- <span class="vdt14">15 days ago</span> -->
+																		</div>
+																		<a href="/video/<%=channelInfo.uploadedVideos[videoCount]._id%>"
+																			class="crse14s title_video_catalog">
+																			<%=channelInfo.uploadedVideos[videoCount].title%>
+																		</a>
+																	</div>
+																</div>
+															</div>
+														</div>
+
+														<%}%>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<%- include('footer'); -%>
+			</div>
+			<!-- Body End -->
+
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+			<script src="/owlcarousel/owl.carousel.min.js"></script>
+
+			<script src="/js/custom.js"></script>
+			<script src="/js/night-mode.js"></script>
+			<script src="/js/vertical-responsive-menu.min.js"></script>
+
 </body>
+
 </html>

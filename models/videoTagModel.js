@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 const videoElementSchema = new Schema(
     {
@@ -12,7 +13,7 @@ const videoElementSchema = new Schema(
         timestamp: {
             type: Number,
             default: Date.now,
-        }
+        },
     },
     { _id: false }
 );

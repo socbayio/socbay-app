@@ -1,240 +1,295 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<%- include('head'); -%>
-	<title>Socbay - <%=t('title.myinfo')%></title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
-	<link href="/bootstrapfileinput/assets/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
-	<link href="/bootstrapfileinput/assets/themes/explorer-fas/theme.css" media="all" rel="stylesheet" type="text/css"/>
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+		<title>Socbay - <%=t('title.myinfo')%>
+		</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+			crossorigin="anonymous">
+		<link href="/bootstrapfileinput/assets/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
+		<link href="/bootstrapfileinput/assets/themes/explorer-fas/theme.css" media="all" rel="stylesheet"
+			type="text/css" />
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"
+			crossorigin="anonymous"></script>
 
-	<!-- uploadpageassets -->
-	<script src="/bootstrapfileinput/assets/js/plugins/piexif.js" type="text/javascript"></script>
-	<script src="/bootstrapfileinput/assets/js/plugins/sortable.js" type="text/javascript"></script>
-	<script src="/bootstrapfileinput/assets/js/fileinput.js" type="text/javascript"></script>
-	<script src="/bootstrapfileinput/assets/js/locales/fr.js" type="text/javascript"></script>
-	<script src="/bootstrapfileinput/assets/js/locales/es.js" type="text/javascript"></script>
-	<script src="/bootstrapfileinput/assets/themes/fas/theme.js" type="text/javascript"></script>
-	<script src="/bootstrapfileinput/assets/themes/explorer-fas/theme.js" type="text/javascript"></script>
+		<!-- uploadpageassets -->
+		<script src="/bootstrapfileinput/assets/js/plugins/piexif.js" type="text/javascript"></script>
+		<script src="/bootstrapfileinput/assets/js/plugins/sortable.js" type="text/javascript"></script>
+		<script src="/bootstrapfileinput/assets/js/fileinput.js" type="text/javascript"></script>
+		<script src="/bootstrapfileinput/assets/js/locales/fr.js" type="text/javascript"></script>
+		<script src="/bootstrapfileinput/assets/js/locales/es.js" type="text/javascript"></script>
+		<script src="/bootstrapfileinput/assets/themes/fas/theme.js" type="text/javascript"></script>
+		<script src="/bootstrapfileinput/assets/themes/explorer-fas/theme.js" type="text/javascript"></script>
 
-	<link href="/bootstrapfileinput/assets/themes/explorer-fas/theme.css" media="all" rel="stylesheet" type="text/css"/>
-	<link href="/bootstrapfileinput/assets/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
-	<style>
-        .video-catalog-container {
-            padding-left: 0px !important;
-        }
-        .title-video-catalog {
-            padding-left: 1em !important;
-        }
-        .video-item {
-            padding-left: 1em !important;
-        }
-    
-        a.item_title.title-video-catalog {
-            margin-bottom: 10px !important;
-        }
-    
-        .fcrse_1.mb-20 {
-            padding-bottom: 5px !important;
-        }
-    </style>
+		<link href="/bootstrapfileinput/assets/themes/explorer-fas/theme.css" media="all" rel="stylesheet"
+			type="text/css" />
+		<link href="/bootstrapfileinput/assets/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+		<style>
+			.video-catalog-container {
+				padding-left: 0px !important;
+			}
+
+			.title-video-catalog {
+				padding-left: 1em !important;
+			}
+
+			.video-item {
+				padding-left: 1em !important;
+			}
+
+			a.item_title.title-video-catalog {
+				margin-bottom: 10px !important;
+			}
+
+			.fcrse_1.mb-20 {
+				padding-bottom: 5px !important;
+			}
+		</style>
 </head>
 
 <body>
-
 	<%- include('header'); -%>
-
-    <%- include("leftSideBar"); -%>
-
-	<!-- Body Start -->
-	<div class="wrapper _bg4586">
-		<div class="_216b01">
-			<div class="container-fluid">			
-				<div class="row justify-content-md-center">
-					<div class="col-md-10">
-						<div class="section3125 rpt145">							
-							<div class="row">						
-								<div class="col-lg-7">
-									<a href="#" class="_216b22 d-none">										
-										<span><i class="uil uil-cog"></i></span>Setting
-									</a>
-									<div class="dp_dt150">						
-										<div class="img148">
-											<img id="avatar" src="https://ipfs.io/ipfs/<%=userInfo.profilePicture%>" alt="">										
-										</div>
-										<div class="prfledt1">
-											<h2><%=userInfo.username%></h2>
-											<span><%=userInfo.emailaddress%></span>
-											<div class="mt-10 d-block d-lg-none">
-												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-													<%=t('myinfo.uploadavatar')%>
-												</button>
-											</div>	
-										</div>
-																		
-									</div>
-									<div class="d-none d-lg-block">
-										<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-											Upload Avatar
-										</button>
-									</div>	
-								</div>
-								<div class="col-lg-5 d-none">
-									<a href="#" class="_216b12">										
-										<span><i class="uil uil-cog"></i></span>Setting
-									</a>
-									<div class="rgt-145">
-										<ul class="tutor_social_links">
-											<li><a href="#" class="fb"><i class="fab fa-facebook-f"></i></a></li>
-											<li><a href="#" class="tw"><i class="fab fa-twitter"></i></a></li>
-											<li><a href="#" class="ln"><i class="fab fa-linkedin-in"></i></a></li>
-											<li><a href="#" class="yu"><i class="fab fa-youtube"></i></a></li>
-										</ul>
-									</div>
-									<ul class="_bty149">
-										<li><button class="msg125 btn500" onclick="window.location.href = 'setting.html';">Edit</button></li>								
-									</ul>
-									
-								</div>													
-							</div>							
-						</div>							
-					</div>															
-				</div>
-			</div>
-		</div>
-		<div class="_215b15">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-lg-12">						
-						<div class="course_tabs">
-							<nav>
-								<div class="nav nav-tabs tab_crse" id="nav-tab" role="tablist">
-									<a class="nav-item nav-link 
-										<% if(tab == 'videos' || tab == undefined) { %>
-											active
-										<% } %>
-									" id="nav-courses-tab" data-toggle="tab" href="#nav-purchased" role="tab"><%=t('myinfo.uploadedvideos')%></a>
-									<a class="nav-item nav-link 
-										<% if(tab == 'subscription') { %>
-											active
-										<% } %>
-									" id="nav-subscriptions-tab" data-toggle="tab" href="#nav-subscriptions" role="tab"><%=t('myinfo.subscriptions')%></a>
-								</div>
-							</nav>						
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="_215b17" style="min-height: calc(100vh - 478.5px);">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="course_tab_content">
-							<div class="tab-content" id="nav-tabContent">
-								<div class="tab-pane fade
-									<% if(tab == 'videos' || tab == undefined) { %>
-										show active
-									<% } %>
-								" id="nav-purchased" role="tabpanel">
-
-								<div class="section3126">
-									<div class="row no-gutters">
-										
-										<% for(let videoCount = 0; videoCount<userInfo.uploadedVideos.length; videoCount++) { %>
-										
-											<div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 video-item">
-												<div class="item">
-													<div class="fcrse_1 mb-20">
-														<a href="/video/<%=userInfo.uploadedVideos[videoCount]._id%>" class="fcrse_img">
-															<img src="https://ipfs.io/ipfs/<%=userInfo.uploadedVideos[videoCount].thumbnail.fileId.CID%>" alt="">
-															<div class="course-overlay">
-																<span class="play_btn1"><i class="uil uil-play"></i></span>
-																 <div class="crse_timer">
-																	<%if(Math.floor(userInfo.uploadedVideos[videoCount].durationInSecond/3600)) {%>
-																	<%=Math.floor(userInfo.uploadedVideos[videoCount].durationInSecond/3600) +'h'+ Math.floor(userInfo.uploadedVideos[videoCount].durationInSecond%3600/60)+ 'm'%>
-																	<%}else{%>
-																	<%= Math.floor(userInfo.uploadedVideos[videoCount].durationInSecond%3600/60)+ 'm'+Math.floor(userInfo.uploadedVideos[videoCount].durationInSecond%3600%60)+'s'%>
-																	<%}%>
-																</div>
-															</div>
-														</a>
-														<div class="fcrse_content">
-															<div class="vdtodt">
-																<span class="vdt14"><%=userInfo.uploadedVideos[videoCount].view%> views</span>
-																<span class="vdt14"><%=userInfo.uploadedVideos[videoCount].like%> rockets</span>
-																<!-- <span class="vdt14">15 days ago</span> -->
-															</div>
-															<a href="/video/<%=userInfo.uploadedVideos[videoCount]._id%>" class="crse14s title_video_catalog"><%=userInfo.uploadedVideos[videoCount].title%></a>
-														</div>
+		<%- include("leftSideBar"); -%>
+			<!-- Body Start -->
+			<div class="wrapper _bg4586">
+				<div class="_216b01">
+					<div class="container-fluid">
+						<div class="row justify-content-md-center">
+							<div class="col-md-10">
+								<div class="section3125 rpt145">
+									<div class="row">
+										<div class="col-lg-7">
+											<a href="#" class="_216b22 d-none">
+												<span><i class="uil uil-cog"></i></span>Setting
+											</a>
+											<div class="dp_dt150">
+												<div class="img148">
+													<img id="avatar"
+														src="https://ipfs.io/ipfs/<%=userInfo.profilePicture%>" alt="">
+												</div>
+												<div class="prfledt1">
+													<h2>
+														<%=userInfo.username%>
+													</h2>
+													<span>
+														<%=userInfo.emailaddress%>
+													</span>
+													<div class="mt-10 d-block d-lg-none">
+														<button type="button" class="btn btn-primary"
+															data-toggle="modal" data-target="#exampleModal">
+															<%=t('myinfo.uploadavatar')%>
+														</button>
 													</div>
 												</div>
+
 											</div>
-								
-										<%}%>
+											<div class="d-none d-lg-block">
+												<button type="button" class="btn btn-primary" data-toggle="modal"
+													data-target="#exampleModal">
+													Upload Avatar
+												</button>
+											</div>
+										</div>
+										<div class="col-lg-5 d-none">
+											<a href="#" class="_216b12">
+												<span><i class="uil uil-cog"></i></span>Setting
+											</a>
+											<div class="rgt-145">
+												<ul class="tutor_social_links">
+													<li><a href="#" class="fb"><i class="fab fa-facebook-f"></i></a>
+													</li>
+													<li><a href="#" class="tw"><i class="fab fa-twitter"></i></a></li>
+													<li><a href="#" class="ln"><i class="fab fa-linkedin-in"></i></a>
+													</li>
+													<li><a href="#" class="yu"><i class="fab fa-youtube"></i></a></li>
+												</ul>
+											</div>
+											<ul class="_bty149">
+												<li><button class="msg125 btn500"
+														onclick="window.location.href = 'setting.html';">Edit</button>
+												</li>
+											</ul>
+
+										</div>
 									</div>
-								</div>
-								</div>
-						
-								<div class="tab-pane fade
-									<% if(tab == 'subscription') { %>
-										show active
-									<% } %>
-									" id="nav-subscriptions" role="tabpanel">
-									<div class="_htg451 mt-0 mb-0">
-										<div class="_htg452">
-											<div class="row">
-                                                <% for(let subCount = 0; subCount < userInfo.subscriptions.length; subCount++){ %>
-												<div class="col-lg-3 col-md-4">
-													<div class="fcrse_1 mb-20">
-														<div class="tutor_img">
-															<a href="/channel/<%=userInfo.subscriptions[subCount]._id%>"><img src="https://ipfs.io/ipfs/<%=userInfo.subscriptions[subCount].profilePicture%>" alt=""></a>												
-														</div>
-														<div class="tutor_content_dt">
-															<div class="tutor150">
-																<a href="/channel/<%=userInfo.subscriptions[subCount]._id%>" class="tutor_name"><%= userInfo.subscriptions[subCount].username%></a>
-															</div>
-															<ul class="tutor_social_links d-none">
-																<li><button class="sbbc145">Subscribed</button></li>
-																<li><button class="sbbc146"><i class="uil uil-bell"></i></button></li>
-															</ul>
-															<div class="tut1250">
-																<span class="vdt15"><%=userInfo.subscriptions[subCount].uploadedVideos.length%> Videos</span>
-															</div>
-														</div>
-													</div>										
-												</div>
-                                                <%}%>
-											</div>				
-										</div>																	
-									</div>							
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-		
-        <%- include('footer'); -%>
+				<div class="_215b15">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="course_tabs">
+									<nav>
+										<div class="nav nav-tabs tab_crse" id="nav-tab" role="tablist">
+											<a class="nav-item nav-link 
+										<% if(tab == 'videos' || tab == undefined) { %>
+											active
+										<% } %>
+									" id="nav-courses-tab" data-toggle="tab" href="#nav-purchased" role="tab">
+												<%=t('myinfo.uploadedvideos')%>
+											</a>
+											<a class="nav-item nav-link 
+										<% if(tab == 'subscription') { %>
+											active
+										<% } %>
+									" id="nav-subscriptions-tab" data-toggle="tab" href="#nav-subscriptions" role="tab">
+												<%=t('myinfo.subscriptions')%>
+											</a>
+										</div>
+									</nav>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="_215b17" style="min-height: calc(100vh - 478.5px);">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="course_tab_content">
+									<div class="tab-content" id="nav-tabContent">
+										<div class="tab-pane fade
+									<% if(tab == 'videos' || tab == undefined) { %>
+										show active
+									<% } %>
+								" id="nav-purchased" role="tabpanel">
+
+											<div class="section3126">
+												<div class="row no-gutters">
+
+													<% for(let videoCount=0; videoCount<userInfo.uploadedVideos.length;
+														videoCount++) { %>
+
+														<div
+															class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 video-item">
+															<div class="item">
+																<div class="fcrse_1 mb-20">
+																	<a href="/video/<%=userInfo.uploadedVideos[videoCount]._id%>"
+																		class="fcrse_img">
+																		<img src="https://ipfs.io/ipfs/<%=userInfo.uploadedVideos[videoCount].thumbnail.fileId.CID%>"
+																			alt="">
+																		<div class="course-overlay">
+																			<span class="play_btn1"><i
+																					class="uil uil-play"></i></span>
+																			<div class="crse_timer">
+																				<%if(Math.floor(userInfo.uploadedVideos[videoCount].durationInSecond
+																					/3600)) {%>
+																					<%=Math.floor(userInfo.uploadedVideos[videoCount].durationInSecond
+																						/3600) +'h'+
+																						Math.floor(userInfo.uploadedVideos[videoCount].durationInSecond%3600/60)+ 'm'
+																						%>
+																						<%}else{%>
+																							<%= Math.floor(userInfo.uploadedVideos[videoCount].durationInSecond%3600/60)+ 'm'
+																								+Math.floor(userInfo.uploadedVideos[videoCount].durationInSecond%3600%60)+'s'%>
+																								<%}%>
+																			</div>
+																		</div>
+																	</a>
+																	<div class="fcrse_content">
+																		<div class="vdtodt">
+																			<span class="vdt14">
+																				<%=userInfo.uploadedVideos[videoCount].view%>
+																					views
+																			</span>
+																			<span class="vdt14">
+																				<%=userInfo.uploadedVideos[videoCount].like%>
+																					rockets
+																			</span>
+																			<!-- <span class="vdt14">15 days ago</span> -->
+																		</div>
+																		<a href="/video/<%=userInfo.uploadedVideos[videoCount]._id%>"
+																			class="crse14s title_video_catalog">
+																			<%=userInfo.uploadedVideos[videoCount].title%>
+																		</a>
+																	</div>
+																</div>
+															</div>
+														</div>
+
+														<%}%>
+												</div>
+											</div>
+										</div>
+
+										<div class="tab-pane fade
+									<% if(tab == 'subscription') { %>
+										show active
+									<% } %>
+									" id="nav-subscriptions" role="tabpanel">
+											<div class="_htg451 mt-0 mb-0">
+												<div class="_htg452">
+													<div class="row">
+														<% for(let subCount=0; subCount < userInfo.subscriptions.length;
+															subCount++){ %>
+															<div class="col-lg-3 col-md-4">
+																<div class="fcrse_1 mb-20">
+																	<div class="tutor_img">
+																		<a
+																			href="/channel/<%=userInfo.subscriptions[subCount]._id%>"><img
+																				src="https://ipfs.io/ipfs/<%=userInfo.subscriptions[subCount].profilePicture%>"
+																				alt=""></a>
+																	</div>
+																	<div class="tutor_content_dt">
+																		<div class="tutor150">
+																			<a href="/channel/<%=userInfo.subscriptions[subCount]._id%>"
+																				class="tutor_name">
+																				<%=
+																					userInfo.subscriptions[subCount].username%>
+																			</a>
+																		</div>
+																		<ul class="tutor_social_links d-none">
+																			<li><button
+																					class="sbbc145">Subscribed</button>
+																			</li>
+																			<li><button class="sbbc146"><i
+																						class="uil uil-bell"></i></button>
+																			</li>
+																		</ul>
+																		<div class="tut1250">
+																			<span class="vdt15">
+																				<%=userInfo.subscriptions[subCount].uploadedVideos.length%>
+																					Videos
+																			</span>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<%}%>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<%- include('footer'); -%>
 
 
-   
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-	  <div class="modal-content">
-		<div class="modal-header">
-		  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		  </button>
-		</div>
-		<div class="modal-body">
-		  <div class="file-loading">
-			<input id="profilepicture" name="profilepicture" type="file"'>
+
+					<!-- Modal -->
+					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+						aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-lg" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<div class="file-loading">
+										<input id="profilepicture" name="profilepicture" type="file"'>
 		  </div>
 		  <div id="kartik-file-errors"></div>
 		</div>
@@ -261,26 +316,24 @@
 
    
 	<script>
-		$(document).ready(function() {
+		$(document).ready(function () {
 			$("#profilepicture").fileinput({
 				showPreview: false,
 				showUpload: false,
-				elErrorContainer: '#kartik-file-errors',
-				allowedFileExtensions: ["jpg", "png", "gif"],
+				elErrorContainer: ' #kartik-file-errors', allowedFileExtensions: ["jpg", "png", "gif"],
 				uploadUrl: '/myinfo/uploadavatar'
 			});
-		}).on('fileuploaded', function(event, databack) {
-			var avatar = document.getElementById('avatar');
+		}).on('fileuploaded', function (event,
+			databack) {
+				var avatar = document.getElementById('avatar');
 			avatar.src = "https://ipfs.io/ipfs/" + databack.response.CID;
 			console.log(avatar.src)
-		});
-
-		$("#uploadprofilepicture").on("click", function() {
-			console.log('abcde');
-			$("#profilepicture").fileinput('upload');
-        });
-	</script>
+		}); $("#uploadprofilepicture").on("click", function
+			() {
+				console.log('abcde'); $("#profilepicture").fileinput('upload');
+		});</script>
 
 
 </body>
+
 </html>

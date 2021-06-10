@@ -1,10 +1,10 @@
-var express = require('express');
-const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated.js');
+const express = require('express');
+const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated');
 const redirectIfNotAuthenticated = require('../middleware/redirectIfNotAuthenticatedMiddleware');
 
-var router = express.Router();
-const User = require('../models/userModel.js');
-const VideoReport = require('../models/videoReportModel.js');
+const router = express.Router();
+const User = require('../models/userModel');
+const VideoReport = require('../models/videoReportModel');
 
 async function getAuthorInfo(req, res, next) {
     const authorInfo = await User.findById(req.body.authorId);
@@ -17,11 +17,12 @@ async function subscribeUser(req, res, next) {
 
     const updatedUser = await User.findById(req.userInfo.userId);
     if (
-        !updatedUser.subscriptions.some(sub => sub.userId.toString() === authorId.toString()) && 
+        !updatedUser.subscriptions.some(
+            (sub) => sub.userId.toString() === authorId.toString()
+        ) &&
         !(req.userInfo.userId.toString() == authorId.toString())
-        )
-    {
-        updatedUser.subscriptions.push({userId: authorId});
+    ) {
+        updatedUser.subscriptions.push({ userId: authorId });
         await updatedUser.save();
     }
 
@@ -31,7 +32,7 @@ async function subscribeUser(req, res, next) {
 async function unsubscribeUser(req, res, next) {
     const authorId = req.authorInfo._id;
 
-    const updatedUser = await User.findOneAndUpdate(
+    await User.findOneAndUpdate(
         { _id: req.userInfo.userId },
         { $pull: { subscriptions: { userId: authorId } } }
     );
@@ -39,7 +40,7 @@ async function unsubscribeUser(req, res, next) {
     res.send({});
 }
 
-router.get('/', getInfoIfAuthenticated, function (req, res, next) {
+router.get('/', getInfoIfAuthenticated, (req, res, next) => {
     res.render('video', { userInfo: req.userInfo });
 });
 
@@ -66,10 +67,10 @@ async function saveToDb(req, res, next) {
     };
 
     try {
-        const reportInfo = req.body.reportInfo;
+        const { reportInfo } = req.body;
         reportInfo.userId = req.userInfo.userId;
 
-        const report = await VideoReport.create(reportInfo);
+        await VideoReport.create(reportInfo);
     } catch (err) {
         req.result.success = 'Failed';
         req.result.errorMessage = err.message;

@@ -1,13 +1,14 @@
-var express = require('express');
-const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated.js');
-const redirectIfNotAuthenticatedMiddleware = require('../middleware/redirectIfNotAuthenticatedMiddleware.js');
-var router = express.Router();
+const express = require('express');
+const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated');
+const redirectIfNotAuthenticatedMiddleware = require('../middleware/redirectIfNotAuthenticatedMiddleware');
+
+const router = express.Router();
 
 router.get(
     '/',
     redirectIfNotAuthenticatedMiddleware,
     getInfoIfAuthenticated,
-    function (req, res, next) {
+    (req, res, next) => {
         res.render('uploadVideo', { userInfo: req.userInfo });
     }
 );

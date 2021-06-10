@@ -1,25 +1,20 @@
-var express = require('express');
-var router = express.Router();
-const Video = require('../models/videoModel.js');
+const express = require('express');
+
+const router = express.Router();
+const Video = require('../models/videoModel');
 const liveChatVideo = require('../models/liveChatVideoModel');
-var logger = require('../logger').Logger;
-var config = require('../config');
+const logger = require('../logger').Logger;
+const config = require('../config');
 
-const {
-    pushFileToMe,
-    pushVideoToMe,
-    pushVideoToTag, 
-} = require('./common');
+const { pushFileToMe, pushVideoToMe, pushVideoToTag } = require('./common');
 
-const {  
-    uploadFile
-} = require('../crust-socbay-pinner');
+const { uploadFile } = require('../crust-socbay-pinner');
 
 const redirectIfNotAuthenticatedMiddleware = require('../middleware/redirectIfNotAuthenticatedMiddleware');
-const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated.js');
+const getInfoIfAuthenticated = require('../middleware/getInfoIfAuthenticated');
 
 const createLiveChatForVideo = async (videoId) => {
-    await liveChatVideo.create({ videoId: videoId });
+    await liveChatVideo.create({ videoId });
 };
 
 const thumbnailDictionary = {
@@ -36,36 +31,39 @@ const thumbnailDictionary = {
 
 const filesValidation = async (req, res, next) => {
     try {
-        if (!Array.isArray(req.files.file_data)){
+        if (!Array.isArray(req.files.file_data)) {
             req.files.file_data = [req.files.file_data];
             req.files.videoIndex = 0;
         }
-        var validatedVideo = 0;
-        var validatedImage = 0;
-        
-        for ( var count = 0; count < req.files.file_data.length; count++ ){
-            if (req.files.file_data[count].mimetype.includes("video")){
+        let validatedVideo = 0;
+        let validatedImage = 0;
+
+        for (let count = 0; count < req.files.file_data.length; count++) {
+            if (req.files.file_data[count].mimetype.includes('video')) {
                 validatedVideo++;
                 req.files.videoIndex = count;
             }
-            if (req.files.file_data[count].mimetype.includes("image")){
+            if (req.files.file_data[count].mimetype.includes('image')) {
                 validatedImage++;
                 req.files.thumbnailIndex = count;
             }
         }
-        if ((validatedVideo == 1)&&(validatedImage == 1)&&(req.files.file_data.length == 2)){
+        if (
+            validatedVideo == 1 &&
+            validatedImage == 1 &&
+            req.files.file_data.length == 2
+        ) {
             next();
         } else {
-            //TODO: Log this case and return error
-            logger.error("There is hacker");
+            // TODO: Log this case and return error
+            logger.error('There is hacker');
             return res.send({});
         }
-    }
-    catch (e) {
+    } catch (e) {
         logger.error(`Storevideo error ${e}`);
         next();
     }
-}
+};
 
 router.post(
     '/',
@@ -75,33 +73,61 @@ router.post(
     async (req, res, next) => {
         res.send({});
         try {
-            let thumbnailInfo = await uploadFile(req.files.file_data[req.files.thumbnailIndex], config.blockSizeLimitInByte);
-            let videoInfo = await uploadFile(req.files.file_data[req.files.videoIndex], config.blockSizeLimitInByte);
-            let videoToUpload = {
+            const thumbnailInfo = await uploadFile(
+                req.files.file_data[req.files.thumbnailIndex],
+                config.blockSizeLimitInByte
+            );
+            const videoInfo = await uploadFile(
+                req.files.file_data[req.files.videoIndex],
+                config.blockSizeLimitInByte
+            );
+            const videoToUpload = {
                 title: req.body.title,
                 thumbnail: {
                     fileId: thumbnailInfo.fileId,
-                    blockId: thumbnailInfo.blockId
+                    blockId: thumbnailInfo.blockId,
                 },
                 lang: req.body.lang,
                 ref: req.body.ref,
                 description: req.body.desc,
                 networkStatus: {
                     CID: videoInfo.CID,
-                    //fileId: (await videoInfo).fileId, //consider to use that way to fasten the web
-                    //blockId: (await videoInfo).blockId,
+                    // fileId: (await videoInfo).fileId, //consider to use that way to fasten the web
+                    // blockId: (await videoInfo).blockId,
                     fileId: videoInfo.fileId,
-                    blockId: videoInfo.blockId
+                    blockId: videoInfo.blockId,
                 },
-                authorId: req.userInfo.userId
+                authorId: req.userInfo.userId,
             };
 
             const uploadedVideo = await Video.create(videoToUpload);
-            await pushVideoToTag('newvideos', uploadedVideo._id, uploadedVideo.lang);
-            await pushVideoToTag(req.body.tag, uploadedVideo._id, uploadedVideo.lang);
-            await pushVideoToMe(req.userInfo.userId, uploadedVideo._id, uploadedVideo.lang);
-            await pushFileToMe(req.userInfo.userId, videoInfo.fileId, videoInfo.blockId, uploadedVideo._id);
-            await pushFileToMe(req.userInfo.userId, thumbnailInfo.fileId, thumbnailInfo.blockId, null);
+            await pushVideoToTag(
+                'newvideos',
+                uploadedVideo._id,
+                uploadedVideo.lang
+            );
+            await pushVideoToTag(
+                req.body.tag,
+                uploadedVideo._id,
+                uploadedVideo.lang
+            );
+            await pushVideoToMe(
+                req.userInfo.userId,
+                uploadedVideo._id,
+                uploadedVideo.lang
+            );
+            await pushFileToMe(
+                req.userInfo.userId,
+                videoInfo.fileId,
+                videoInfo.blockId,
+                uploadedVideo._id
+            );
+            await pushFileToMe(
+                req.userInfo.userId,
+                thumbnailInfo.fileId,
+                thumbnailInfo.blockId,
+                null
+            );
             await createLiveChatForVideo(uploadedVideo._id);
         } catch (e) {
             logger.error(`Error in storeVideo.js: ${e}`);

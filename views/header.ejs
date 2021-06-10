@@ -16,28 +16,46 @@
             <div class="ui simple dropdown item">
                 <a href="#" class="option_links p-0" title="categories"><i class="uil uil-apps"></i></a>
                 <div class="menu dropdown_category5">
-                    <a href="/tag/gaming" class="item channel_item"><%=t('categories.gaming')%></a>
-                    <a href="/tag/relax" class="item channel_item"><%=t('categories.relax')%></a>
-                    <a href="/tag/tech" class="item channel_item"><%=t('categories.tech')%></a>
-                    <a href="/tag/finance" class="item channel_item"><%=t('categories.finance')%></a>
-                    <a href="/tag/cryptonews" class="item channel_item"><%=t('categories.cryptonews')%></a>
-                    <a href="/tag/news" class="item channel_item"><%=t('categories.news')%></a>
-                    <a href="/tag/lifestyle" class="item channel_item"><%=t('categories.lifestyle')%></a>
-                    <a href="/tag/healthandfitness" class="item channel_item"><%=t('categories.healthandfitness')%></a>
-                    <a href="/tag/music" class="item channel_item"><%=t('categories.music')%></a>
-                   
+                    <a href="/tag/gaming" class="item channel_item">
+                        <%=t('categories.gaming')%>
+                    </a>
+                    <a href="/tag/relax" class="item channel_item">
+                        <%=t('categories.relax')%>
+                    </a>
+                    <a href="/tag/tech" class="item channel_item">
+                        <%=t('categories.tech')%>
+                    </a>
+                    <a href="/tag/finance" class="item channel_item">
+                        <%=t('categories.finance')%>
+                    </a>
+                    <a href="/tag/cryptonews" class="item channel_item">
+                        <%=t('categories.cryptonews')%>
+                    </a>
+                    <a href="/tag/news" class="item channel_item">
+                        <%=t('categories.news')%>
+                    </a>
+                    <a href="/tag/lifestyle" class="item channel_item">
+                        <%=t('categories.lifestyle')%>
+                    </a>
+                    <a href="/tag/healthandfitness" class="item channel_item">
+                        <%=t('categories.healthandfitness')%>
+                    </a>
+                    <a href="/tag/music" class="item channel_item">
+                        <%=t('categories.music')%>
+                    </a>
+
                 </div>
             </div>
         </div>
     </div>
     <div class="search120">
         <form action="/search" method="GET">
-        <div class="ui search">
-            <div class="ui left icon input swdh10">
-                <input name="keyword" class="prompt srch10" type="text" placeholder="Search.." autocomplete="off">
-                <i class='uil uil-search-alt icon icon1'></i>
+            <div class="ui search">
+                <div class="ui left icon input swdh10">
+                    <input name="keyword" class="prompt srch10" type="text" placeholder="Search.." autocomplete="off">
+                    <i class='uil uil-search-alt icon icon1'></i>
+                </div>
             </div>
-        </div>
         </form>
     </div>
     <div class="header_right">
@@ -53,40 +71,57 @@
                                 <img src="https://ipfs.io/ipfs/<%= userInfo.profilePicture %>" alt="">
                                 <div class="pd_content">
                                     <div class="rhte85">
-                                        <h6><%= userInfo.username %></h6>
+                                        <h6>
+                                            <%= userInfo.username %>
+                                        </h6>
                                     </div>
-                                    <span><%= userInfo.emailaddress %></span>
-                                </div>							
+                                    <span>
+                                        <%= userInfo.emailaddress %>
+                                    </span>
+                                </div>
                             </div>
-                            <a href="/myinfo" class="dp_link_12"><%=t('header.viewprofile')%></a>						
+                            <a href="/myinfo" class="dp_link_12">
+                                <%=t('header.viewprofile')%>
+                            </a>
                         </div>
                         <div class="night_mode_switch__btn">
                             <a href="#" id="night-mode" class="btn-night-mode" style="padding-right: 60px;">
-                                <i class="uil uil-moon"></i> <%=t('header.nightmode')%>
-                                <span class="btn-night-mode-switch">
-                                    <span class="uk-switch-button"></span>
-                                </span>
+                                <i class="uil uil-moon"></i>
+                                <%=t('header.nightmode')%>
+                                    <span class="btn-night-mode-switch">
+                                        <span class="uk-switch-button"></span>
+                                    </span>
                             </a>
                         </div>
-                        <a href="/myinfo" class="item channel_item"><%=t('header.myinfo')%></a>	
-                        <a href="/uploadvideo" class="item channel_item"><%=t('header.uploadvideo')%></a>
-                        <a href="/uploadhistory" class="item channel_item"><%=t('header.uploadhistory')%></a>							
-                        <a href="/logout" class="item channel_item"><%=t('header.signout')%></a>
-                        
+                        <a href="/myinfo" class="item channel_item">
+                            <%=t('header.myinfo')%>
+                        </a>
+                        <a href="/uploadvideo" class="item channel_item">
+                            <%=t('header.uploadvideo')%>
+                        </a>
+                        <a href="/uploadhistory" class="item channel_item">
+                            <%=t('header.uploadhistory')%>
+                        </a>
+                        <a href="/logout" class="item channel_item">
+                            <%=t('header.signout')%>
+                        </a>
+
                     </div>
                 </li>
-            </ul>	
-        <% } %>
-       
-        <% if(!loggedIn) { %>
-            <ul>
-                <li>
-                    <a href="/login" class="upload_btn" title="Create New Course"><i class='uil uil-user'></i><%=t('header.signin')%></a>
-                </li>
-    
             </ul>
-        <% } %>
-        
+            <% } %>
+
+                <% if(!loggedIn) { %>
+                    <ul>
+                        <li>
+                            <a href="/login" class="upload_btn" title="Create New Course"><i class='uil uil-user'></i>
+                                <%=t('header.signin')%>
+                            </a>
+                        </li>
+
+                    </ul>
+                    <% } %>
+
     </div>
 </header>
 <!-- Header End -->

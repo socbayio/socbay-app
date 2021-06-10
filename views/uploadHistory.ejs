@@ -1,138 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
- 	<%- include('head') -%>
-	 <title>Socbay - <%=t('title.uploadhistory')%></title>
-	<link href="css/instructor-dashboard.css" rel="stylesheet">
-    <link href="css/instructor-responsive.css" rel="stylesheet">
-    <link href="css/datepicker.min.css" rel="stylesheet">
+	<%- include('head') -%>
+		<title>Socbay - <%=t('title.uploadhistory')%>
+		</title>
+		<link href="css/instructor-dashboard.css" rel="stylesheet">
+		<link href="css/instructor-responsive.css" rel="stylesheet">
+		<link href="css/datepicker.min.css" rel="stylesheet">
 </head>
+
 <body>
 	<!-- Header Start -->
 	<%- include('header') -%>
-	<!-- Header End -->
-	<!-- Left Sidebar Start -->
-    <%- include("leftSideBar"); -%>
-	<!-- Left Sidebar End -->
-	<!-- Body Start -->
-	<div class="wrapper">
-		<div class="sa4d25">
-			<div class="container-fluid" style="min-height: calc(100vh - 90px - 81px - 30px);">			
-				<div class="row">
-					<div class="col-lg-12">	
-						<h2 class="st_title"><i class="uil uil-book-alt"></i><%=t('uploadhistory.uploadhistory')%></h2>
-					</div>					
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div class="my_courses_tabs">
-							<ul class="nav nav-pills my_crse_nav" id="pills-tab" role="tablist">
-								<li class="nav-item">
-									<a class="nav-link active" id="pills-my-courses-tab" data-toggle="pill" href="#pills-my-courses" role="tab" aria-controls="pills-my-courses" aria-selected="true"><i class="uil uil-book-alt"></i><%=t('uploadhistory.all')%></a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" id="pills-my-purchases-tab" data-toggle="pill" href="#pills-my-purchases" role="tab" aria-controls="pills-my-purchases" aria-selected="false"><i class="uil uil-video"></i><%=t('uploadhistory.videos')%></a>
-								</li>
-							
-							</ul>
-							<div class="tab-content" id="pills-tabContent">
-								<div class="tab-pane fade show active" id="pills-my-courses" role="tabpanel">
-									<div class="table-responsive mt-30">
-										<table class="table ucp-table">
-											<thead class="thead-s">
-												<tr>
-													
-													<th class="text-break" style="min-width: 100px;"><%=t('uploadhistory.name')%></th>
-													<th class="text-center text-break" style="min-width: 100px;" scope="col">CID</th>
-													<th class="text-center" scope="col"><%=t('uploadhistory.size')%></th>
-													<th class="text-center text-break" style="min-width: 100px;" scope="col"><%=t('uploadhistory.title')%></th>
-													<th class="text-center" scope="col"><%=t('uploadhistory.network')%></th>
-													<th class="text-center" scope="col"><%=t('uploadhistory.replicas')%></th>
-													<th class="text-center" scope="col"><%=t('uploadhistory.action')%></th>
-												</tr>
-											</thead>
-											<tbody>
-												<% for(let fileCount = 0; fileCount < uploadedFiles.length; fileCount++) {%>
-												<tr>
-													
-													<td class="text-break" style="min-width: 100px;"><%=uploadedFiles[fileCount].fileId.fileName%></td>
-													<td class="text-center text-break" style="min-width: 100px;"><%=uploadedFiles[fileCount].fileId.CID%></td>
-													<td class="text-center"><%=Math.round(uploadedFiles[fileCount].fileId.fileSizeInByte/1024/1024*100)/100 + "MB"%></td>													
-													<td class="text-center text-break" style="min-width: 100px;"><%=uploadedFiles[fileCount].relatedVideo && uploadedFiles[fileCount].relatedVideo.title%></td>
-													<% if(uploadedFiles[fileCount].blockId.currentInfo.replicas){ %>
-														<td class="text-center"><b class="course_active"><%=t('uploadhistory.crust')%></b></td>
-													<% } else { %>
-														<td class="text-center"><b style="font-style: italic;"><%=t('uploadhistory.local')%></b></td>
-													<% } %>
-													<td class="text-center"><%=uploadedFiles[fileCount].blockId.currentInfo.replicas%></td>
-													<td class="text-center">
-														<a href="https://ipfs.io/ipfs/<%=uploadedFiles[fileCount].fileId.CID%>" target="_blank" title="Download" class="gray-s"><i class="uil uil-download-alt"></i></a>
-													</td>
-												</tr>
-												<% }%>
-										
-											</tbody>
-										</table>
+		<!-- Header End -->
+		<!-- Left Sidebar Start -->
+		<%- include("leftSideBar"); -%>
+			<!-- Left Sidebar End -->
+			<!-- Body Start -->
+			<div class="wrapper">
+				<div class="sa4d25">
+					<div class="container-fluid" style="min-height: calc(100vh - 90px - 81px - 30px);">
+						<div class="row">
+							<div class="col-lg-12">
+								<h2 class="st_title"><i class="uil uil-book-alt"></i>
+									<%=t('uploadhistory.uploadhistory')%>
+								</h2>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="my_courses_tabs">
+									<ul class="nav nav-pills my_crse_nav" id="pills-tab" role="tablist">
+										<li class="nav-item">
+											<a class="nav-link active" id="pills-my-courses-tab" data-toggle="pill"
+												href="#pills-my-courses" role="tab" aria-controls="pills-my-courses"
+												aria-selected="true"><i class="uil uil-book-alt"></i>
+												<%=t('uploadhistory.all')%>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" id="pills-my-purchases-tab" data-toggle="pill"
+												href="#pills-my-purchases" role="tab" aria-controls="pills-my-purchases"
+												aria-selected="false"><i class="uil uil-video"></i>
+												<%=t('uploadhistory.videos')%>
+											</a>
+										</li>
+
+									</ul>
+									<div class="tab-content" id="pills-tabContent">
+										<div class="tab-pane fade show active" id="pills-my-courses" role="tabpanel">
+											<div class="table-responsive mt-30">
+												<table class="table ucp-table">
+													<thead class="thead-s">
+														<tr>
+
+															<th class="text-break" style="min-width: 100px;">
+																<%=t('uploadhistory.name')%>
+															</th>
+															<th class="text-center text-break" style="min-width: 100px;"
+																scope="col">CID</th>
+															<th class="text-center" scope="col">
+																<%=t('uploadhistory.size')%>
+															</th>
+															<th class="text-center text-break" style="min-width: 100px;"
+																scope="col">
+																<%=t('uploadhistory.title')%>
+															</th>
+															<th class="text-center" scope="col">
+																<%=t('uploadhistory.network')%>
+															</th>
+															<th class="text-center" scope="col">
+																<%=t('uploadhistory.replicas')%>
+															</th>
+															<th class="text-center" scope="col">
+																<%=t('uploadhistory.action')%>
+															</th>
+														</tr>
+													</thead>
+													<tbody>
+														<% for(let fileCount=0; fileCount < uploadedFiles.length;
+															fileCount++) {%>
+															<tr>
+
+																<td class="text-break" style="min-width: 100px;">
+																	<%=uploadedFiles[fileCount].fileId.fileName%>
+																</td>
+																<td class="text-center text-break"
+																	style="min-width: 100px;">
+																	<%=uploadedFiles[fileCount].fileId.CID%>
+																</td>
+																<td class="text-center">
+																	<%=Math.round(uploadedFiles[fileCount].fileId.fileSizeInByte
+																		/1024/1024*100)/100 + "MB" %>
+																</td>
+																<td class="text-center text-break"
+																	style="min-width: 100px;">
+																	<%=uploadedFiles[fileCount].relatedVideo &&
+																		uploadedFiles[fileCount].relatedVideo.title%>
+																</td>
+																<% if(uploadedFiles[fileCount].blockId.currentInfo.replicas){
+																	%>
+																	<td class="text-center"><b class="course_active">
+																			<%=t('uploadhistory.crust')%>
+																		</b></td>
+																	<% } else { %>
+																		<td class="text-center"><b
+																				style="font-style: italic;">
+																				<%=t('uploadhistory.local')%>
+																			</b></td>
+																		<% } %>
+																			<td class="text-center">
+																				<%=uploadedFiles[fileCount].blockId.currentInfo.replicas%>
+																			</td>
+																			<td class="text-center">
+																				<a href="https://ipfs.io/ipfs/<%=uploadedFiles[fileCount].fileId.CID%>"
+																					target="_blank" title="Download"
+																					class="gray-s"><i
+																						class="uil uil-download-alt"></i></a>
+																			</td>
+															</tr>
+															<% }%>
+
+													</tbody>
+												</table>
+											</div>
+										</div>
+										<div class="tab-pane fade" id="pills-my-purchases" role="tabpanel">
+											<div class="table-responsive mt-30">
+												<table class="table ucp-table">
+													<thead class="thead-s">
+														<tr>
+															<th class="text-break" style="min-width: 100px;"
+																scope="col">
+																<%=t('uploadhistory.title')%>
+															</th>
+															<th class="cell-ta text-break"
+																style="min-width: 100px; max-width: 200px;" scope="col">
+																CID</th>
+															<th class="cell-ta" scope="col">
+																<%=t('uploadhistory.size')%>
+															</th>
+															<th class="cell-ta" scope="col">
+																<%=t('uploadhistory.network')%>
+															</th>
+															<th class="text-center" scope="col">
+																<%=t('uploadhistory.replicas')%>
+															</th>
+
+															<th class="text-center" scope="col">
+																<%=t('uploadhistory.action')%>
+															</th>
+														</tr>
+													</thead>
+													<tbody>
+														<% for(let videoCount=0; videoCount < uploadedVideos.length;
+															videoCount++) {%>
+															<tr>
+																<td class="text-break" style="min-width: 100px;">
+																	<%=uploadedVideos[videoCount].title%>
+																</td>
+																<td class="cell-ta text-break"
+																	style="min-width: 100px; max-width: 200px;">
+																	<%=uploadedVideos[videoCount].fileId.CID%>
+																</td>
+																<td class="cell-ta">
+																	<%=Math.round(uploadedVideos[videoCount].fileId.fileSizeInByte
+																		/1024/1024*100)/100 +"MB" %>
+																</td>
+
+																<% if(uploadedVideos[videoCount].blockId.currentInfo.replicas){
+																	%>
+																	<td class="text-center"><b class="course_active">
+																			<%=t('uploadhistory.crust')%>
+																		</b></td>
+																	<% } else { %>
+																		<td class="text-center"><b
+																				style="font-style: italic;">
+																				<%=t('uploadhistory.local')%>
+																			</b></td>
+																		<% } %>
+																			<td class="text-center">
+																				<%=uploadedVideos[videoCount].blockId.currentInfo.replicas%>
+																			</td>
+																			<td class="text-center">
+																				<a href="https://ipfs.io/ipfs/<%=uploadedVideos[videoCount].fileId.CID%>"
+																					target="_blank" title="Download"
+																					class="gray-s"><i
+																						class="uil uil-download-alt"></i></a>
+																				<a href="/video/<%=uploadedVideos[videoCount].videoId%>/delete"
+																					title="Delete" class="gray-s"><i
+																						class="uil uil-trash-alt"></i></a>
+																			</td>
+															</tr>
+															<% }%>
+
+													</tbody>
+												</table>
+											</div>
+										</div>
+
 									</div>
 								</div>
-								<div class="tab-pane fade" id="pills-my-purchases" role="tabpanel">
-									<div class="table-responsive mt-30">
-										<table class="table ucp-table">
-											<thead class="thead-s">
-												<tr>
-													<th class="text-break" style="min-width: 100px;" scope="col"><%=t('uploadhistory.title')%></th>
-													<th class="cell-ta text-break" style="min-width: 100px; max-width: 200px;" scope="col">CID</th>
-													<th class="cell-ta" scope="col"><%=t('uploadhistory.size')%></th>
-													<th class="cell-ta" scope="col"><%=t('uploadhistory.network')%></th>
-													<th class="text-center" scope="col"><%=t('uploadhistory.replicas')%></th>
-
-													<th class="text-center" scope="col"><%=t('uploadhistory.action')%></th>
-												</tr>
-											</thead>
-											<tbody>
-												<% for(let videoCount = 0; videoCount < uploadedVideos.length; videoCount++) {%>
-												<tr>
-													<td class="text-break" style="min-width: 100px;"><%=uploadedVideos[videoCount].title%></td>
-													<td class="cell-ta text-break" style="min-width: 100px; max-width: 200px;"><%=uploadedVideos[videoCount].fileId.CID%></td>
-													<td class="cell-ta"><%=Math.round(uploadedVideos[videoCount].fileId.fileSizeInByte/1024/1024*100)/100 +"MB" %></td>
-													
-													<% if(uploadedVideos[videoCount].blockId.currentInfo.replicas){ %>
-														<td class="text-center"><b class="course_active"><%=t('uploadhistory.crust')%></b></td>
-													<% } else { %>
-														<td class="text-center"><b style="font-style: italic;"><%=t('uploadhistory.local')%></b></td>
-													<% } %>
-													<td class="text-center"><%=uploadedVideos[videoCount].blockId.currentInfo.replicas%></td>
-													<td class="text-center">
-														<a href="https://ipfs.io/ipfs/<%=uploadedVideos[videoCount].fileId.CID%>" target="_blank" title="Download" class="gray-s"><i class="uil uil-download-alt"></i></a>
-														<a href="/video/<%=uploadedVideos[videoCount].videoId%>/delete" title="Delete" class="gray-s"><i class="uil uil-trash-alt"></i></a>
-													</td>
-												</tr>
-												<% }%>
-											
-											</tbody>
-										</table>
-									</div>								
-								</div>
-							
 							</div>
 						</div>
 					</div>
 				</div>
+				<%- include('footer') -%>
 			</div>
-		</div>
-		<%- include('footer') -%>
-	</div>
-	<!-- Body End -->
+			<!-- Body End -->
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="/owlcarousel/owl.carousel.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-	<script src="/js/vertical-responsive-menu.min.js"></script>
-	<script src="/js/custom1.js"></script>
-	<script src="/js/night-mode.js"></script>
-	<script src="/js/datepicker.min.js"></script>
-	<script src="/js/i18n/datepicker.en.js"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+			<script src="/owlcarousel/owl.carousel.min.js"></script>
+			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+				integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+				crossorigin="anonymous"></script>
+			<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+			<script src="/js/vertical-responsive-menu.min.js"></script>
+			<script src="/js/custom1.js"></script>
+			<script src="/js/night-mode.js"></script>
+			<script src="/js/datepicker.min.js"></script>
+			<script src="/js/i18n/datepicker.en.js"></script>
 
 </body>
+
 </html>

@@ -1,77 +1,107 @@
 <!-- Left Sidebar Start -->
 <nav class="vertical_nav">
-    <div class="left_section menu_left" id="js-menu" >
+    <div class="left_section menu_left" id="js-menu">
         <div class="left_section">
             <ul>
                 <li class="menu--item">
                     <a href="/" class="menu--link active">
                         <i class='uil uil-home-alt menu--icon'></i>
-                        <span class="menu--label"><%=t('leftSideBar.home')%></span>
+                        <span class="menu--label">
+                            <%=t('leftSideBar.home')%>
+                        </span>
                     </a>
                 </li>
 
                 <li class="menu--item">
                     <a href="/explore" class="menu--link disabled">
                         <i class='uil uil-search menu--icon'></i>
-                        <span class="menu--label"><%=t('leftSideBar.explore')%></span>
+                        <span class="menu--label">
+                            <%=t('leftSideBar.explore')%>
+                        </span>
                     </a>
                 </li>
                 <li class="menu--item menu--item__has_sub_menu">
                     <label class="menu--link">
                         <i class='uil uil-layers menu--icon'></i>
-                        <span class="menu--label"><%=t('leftSideBar.categories')%></span>
+                        <span class="menu--label">
+                            <%=t('leftSideBar.categories')%>
+                        </span>
                     </label>
                     <ul class="sub_menu">
                         <li class="sub_menu--item">
-                            <a href="/tag/gaming" class="sub_menu--link"><%=t('categories.gaming')%></a>
+                            <a href="/tag/gaming" class="sub_menu--link">
+                                <%=t('categories.gaming')%>
+                            </a>
                         </li>
                         <li class="sub_menu--item">
-                            <a href="/tag/relax" class="sub_menu--link"><%=t('categories.relax')%></a>
+                            <a href="/tag/relax" class="sub_menu--link">
+                                <%=t('categories.relax')%>
+                            </a>
                         </li>
                         <li class="sub_menu--item">
-                            <a href="/tag/tech" class="sub_menu--link"><%=t('categories.tech')%></a>
+                            <a href="/tag/tech" class="sub_menu--link">
+                                <%=t('categories.tech')%>
+                            </a>
                         </li>
                         <li class="sub_menu--item">
-                            <a href="/tag/finance" class="sub_menu--link"><%=t('categories.finance')%></a>
+                            <a href="/tag/finance" class="sub_menu--link">
+                                <%=t('categories.finance')%>
+                            </a>
                         </li>
                         <li class="sub_menu--item">
-                            <a href="/tag/cryptonews" class="sub_menu--link"><%=t('categories.cryptonews')%></a>
+                            <a href="/tag/cryptonews" class="sub_menu--link">
+                                <%=t('categories.cryptonews')%>
+                            </a>
                         </li>
                         <li class="sub_menu--item">
-                            <a href="/tag/news" class="sub_menu--link"><%=t('categories.news')%></a>
+                            <a href="/tag/news" class="sub_menu--link">
+                                <%=t('categories.news')%>
+                            </a>
                         </li>
-                    
+
                         <li class="sub_menu--item">
-                            <a href="/tag/lifestyle" class="sub_menu--link"><%=t('categories.lifestyle')%></a>
+                            <a href="/tag/lifestyle" class="sub_menu--link">
+                                <%=t('categories.lifestyle')%>
+                            </a>
                         </li>
-         
+
                         <li class="sub_menu--item">
-                            <a href="/tag/healthandfitness" class="sub_menu--link"><%=t('categories.healthandfitness')%></a>
+                            <a href="/tag/healthandfitness" class="sub_menu--link">
+                                <%=t('categories.healthandfitness')%>
+                            </a>
                         </li>
                         <li class="sub_menu--item">
-                            <a href="/tag/music" class="sub_menu--link"><%=t('categories.music')%></a>
+                            <a href="/tag/music" class="sub_menu--link">
+                                <%=t('categories.music')%>
+                            </a>
                         </li>
-             
+
                     </ul>
                 </li>
 
                 <li class="menu--item">
                     <a href="/upload" target="_blank" class="menu--link">
                         <i class="uil uil-clipboard-alt menu--icon"></i>
-                        <span class="menu--label"><%=t('leftSideBar.universalUpload')%></span>
+                        <span class="menu--label">
+                            <%=t('leftSideBar.universalUpload')%>
+                        </span>
                     </a>
                 </li>
 
             </ul>
         </div>
         <div class="left_section">
-            <h6 class="left_title"><%=t('leftSideBar.subscriptions')%></h6>
-            
+            <h6 class="left_title">
+                <%=t('leftSideBar.subscriptions')%>
+            </h6>
+
             <ul>
                 <li class="menu--item">
                     <a href="/myinfo?tab=subscription" class="menu--link">
                         <i class='uil uil-plus-circle menu--icon'></i>
-                        <span class="menu--label"><%=t('leftSideBar.allsubscriptions')%></span>
+                        <span class="menu--label">
+                            <%=t('leftSideBar.allsubscriptions')%>
+                        </span>
                     </a>
                 </li>
             </ul>
@@ -81,31 +111,47 @@
                 <li class="menu--item">
                     <a href="/setting" class="menu--link disabled">
                         <i class='uil uil-cog menu--icon'></i>
-                        <span class="menu--label"><%=t('leftSideBar.setting')%></span>
+                        <span class="menu--label">
+                            <%=t('leftSideBar.setting')%>
+                        </span>
                     </a>
                 </li>
                 <li class="menu--item">
                     <a href="/help" class="menu--link disabled">
                         <i class='uil uil-question-circle menu--icon'></i>
-                        <span class="menu--label"><%=t('leftSideBar.help')%></span>
+                        <span class="menu--label">
+                            <%=t('leftSideBar.help')%>
+                        </span>
                     </a>
                 </li>
                 <li class="menu--item">
                     <a href="/feedback" class="menu--link disabled">
                         <i class='uil uil-comment-alt-exclamation menu--icon'></i>
-                        <span class="menu--label"><%=t('leftSideBar.sendfeedback')%></span>
+                        <span class="menu--label">
+                            <%=t('leftSideBar.sendfeedback')%>
+                        </span>
                     </a>
                 </li>
             </ul>
         </div>
         <div class="left_footer">
             <ul>
-                <li><a href="/aboutus"><%=t('leftSideBar.about')%></a></li>
-                <li><a href="/press" class="disabled"><%=t('leftSideBar.press')%></a></li>
-                <li><a href="/contactus" class="disabled"><%=t('leftSideBar.contactus')%></a></li>
-                
-                <li><a href="/coming_soon" class="disabled"><%=t('leftSideBar.career')%></a></li>
-                <li><a href="/terms_of_use" class="disabled"><%=t('leftSideBar.privacy')%></a></li>
+                <li><a href="/aboutus">
+                        <%=t('leftSideBar.about')%>
+                    </a></li>
+                <li><a href="/press" class="disabled">
+                        <%=t('leftSideBar.press')%>
+                    </a></li>
+                <li><a href="/contactus" class="disabled">
+                        <%=t('leftSideBar.contactus')%>
+                    </a></li>
+
+                <li><a href="/coming_soon" class="disabled">
+                        <%=t('leftSideBar.career')%>
+                    </a></li>
+                <li><a href="/terms_of_use" class="disabled">
+                        <%=t('leftSideBar.privacy')%>
+                    </a></li>
             </ul>
             <div class="left_footer_content">
                 <p>© 2021 <strong>Socbay.io</strong>. All Rights Reserved.</p>

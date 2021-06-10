@@ -1,19 +1,15 @@
-const videoTag = require('../models/videoTagModel.js');
-const Video = require('../models/videoModel.js');
-const User = require('../models/userModel.js');
+const videoTag = require('../models/videoTagModel');
+const Video = require('../models/videoModel');
+const User = require('../models/userModel');
 const { uploadBlock, subFile } = require('../models/uploadBlockModel');
 
 // Video tasks
 const getVideosFromTag = async (tagName) => {
-    const tagFound = await videoTag.findOne({ tagName: tagName });
+    const tagFound = await videoTag.findOne({ tagName });
     if (tagFound) {
-        var videoArray = [];
+        const videoArray = [];
         let video = {};
-        for (
-            let videoCount = 0;
-            videoCount < tagFound.videos.length;
-            videoCount++
-        ) {
+        for (let videoCount = 0; videoCount < tagFound.videos.length; videoCount++) {
             try {
                 video = await Video.findById(tagFound.videos[videoCount]);
                 if (video) {
@@ -27,16 +23,10 @@ const getVideosFromTag = async (tagName) => {
 };
 
 const getVideosFromTagPromiseStyle = async (tagName) => {
-    const tagFound = await videoTag
-        .findOne({ tagName: tagName })
-        .populate('videos.videoId');
+    const tagFound = await videoTag.findOne({ tagName }).populate('videos.videoId');
     if (tagFound) {
-        videoArray = [];
-        for (
-            let videoCount = 0;
-            videoCount < tagFound.videos.length;
-            videoCount++
-        ) {
+        const videoArray = [];
+        for (let videoCount = 0; videoCount < tagFound.videos.length; videoCount++) {
             videoArray.push(tagFound.videos[videoCount].videoId);
         }
         return { name: tagName, videos: videoArray };
@@ -44,12 +34,7 @@ const getVideosFromTagPromiseStyle = async (tagName) => {
     return;
 };
 
-const getVideoFromTagByLanguage = async (
-    tagName,
-    lang,
-    videosNumber,
-    skippedVideos
-) => {
+const getVideoFromTagByLanguage = async (tagName, lang, videosNumber, skippedVideos) => {
     const pipeline = [
         {
             $match: {
@@ -92,16 +77,12 @@ const getVideoFromTagByLanguage = async (
         });
         await uploadBlock.populate(tagFound, {
             path: 'videos.videoId.thumbnail.blockId',
-            select: 'uploadedToNetwork CID'
-        })
+            select: 'uploadedToNetwork CID',
+        });
 
         let videoArray = [];
-        for (
-            let videoCount = 0;
-            videoCount < tagFound[0].videos.length;
-            videoCount++
-        ) {
-            if(!tagFound[0].videos[videoCount].videoId.isDeleted){
+        for (let videoCount = 0; videoCount < tagFound[0].videos.length; videoCount++) {
+            if (!tagFound[0].videos[videoCount].videoId.isDeleted) {
                 await tagFound[0].videos[videoCount].videoId.thumbnail.subPopulate('fileId');
                 videoArray.push(tagFound[0].videos[videoCount].videoId);
             }
@@ -111,27 +92,26 @@ const getVideoFromTagByLanguage = async (
     return;
 };
 
-
 const getVideosChannel = async (channelId) => {
-    const userFound = await User.findById(channelId).populate(
-        { 
-            path: 'uploadedVideos.videoId',
-            select: 'thumbnail like view title durationInSecond isDeleted',
-            populate: {
-                path: 'thumbnail.blockId',
-                select: 'uploadedToNetwork CID'
-            }
-        }
-    );
+    const userFound = await User.findById(channelId).populate({
+        path: 'uploadedVideos.videoId',
+        select: 'thumbnail like view title durationInSecond isDeleted',
+        populate: {
+            path: 'thumbnail.blockId',
+            select: 'uploadedToNetwork CID',
+        },
+    });
 
     if (userFound) {
-        const uploadedVideos = await Promise.all(userFound.uploadedVideos.map( async (video) => {
-            await video.videoId.thumbnail.subPopulate('fileId');
-            if (!video.videoId.isDeleted){
-                return video.videoId;
-            }
-            return null;
-        }));
+        const uploadedVideos = await Promise.all(
+            userFound.uploadedVideos.map(async (video) => {
+                await video.videoId.thumbnail.subPopulate('fileId');
+                if (!video.videoId.isDeleted) {
+                    return video.videoId;
+                }
+                return null;
+            })
+        );
         channelInfo = {
             uploadedVideos: uploadedVideos.filter((x) => x !== null),
             profilePicture: userFound.profilePicture,
@@ -144,52 +124,35 @@ const getVideosChannel = async (channelId) => {
 };
 
 const pushVideoToTag = async (tagName, videoId, lang) => {
-    const videoTagFound = await videoTag.findOneAndUpdate(
-        { tagName: tagName },
-        { $push: { videos: { videoId, lang } } }
-    );
+    const videoTagFound = await videoTag.findOneAndUpdate({ tagName: tagName }, { $push: { videos: { videoId, lang } } });
     if (!videoTagFound) {
         videoTag.create({ tagName: tagName, videos: [{ videoId, lang }] });
     }
 };
 
 const pushVideoToMe = async (myId, videoId, lang) => {
-    const videoTagFound = await User.findOneAndUpdate(
-        { _id: myId },
-        { $push: { uploadedVideos: { videoId, lang } } }
-    );
+    const videoTagFound = await User.findOneAndUpdate({ _id: myId }, { $push: { uploadedVideos: { videoId, lang } } });
 };
 
 const pushFileToMe = async (myId, fileId, blockId, videoId) => {
-    const videoTagFound = await User.findOneAndUpdate(
-        { _id: myId },
-        { $push: { uploadedFiles: { fileId, blockId, relatedVideo: videoId } } }
-    );
+    const videoTagFound = await User.findOneAndUpdate({ _id: myId }, { $push: { uploadedFiles: { fileId, blockId, relatedVideo: videoId } } });
 };
 
 const uploadFilesNumber = async (blockNumber, numberAddedFiles) => {
-    const blockFound = await uploadBlock.findOneAndUpdate(
-        { blockNumber: blockNumber },
-        { $inc: { uploadedFilesNumber: numberAddedFiles } }
-    );
+    const blockFound = await uploadBlock.findOneAndUpdate({ blockNumber: blockNumber }, { $inc: { uploadedFilesNumber: numberAddedFiles } });
 };
 const uploadTotalSizeInByte = async (blockNumber, totalSizeInByteAdded) => {
-    const blockFound = await uploadBlock.findOneAndUpdate(
-        { blockNumber: blockNumber },
-        { $inc: { totalSizeInByte: totalSizeInByteAdded } }
-    );
+    const blockFound = await uploadBlock.findOneAndUpdate({ blockNumber: blockNumber }, { $inc: { totalSizeInByte: totalSizeInByteAdded } });
 };
 
 const addFileInfo = async (blockNumber, fileName, fileSizeInByte, CID) => {
-    const blockFound = await uploadBlock.findOne(
-        { blockNumber: blockNumber }
-    );
-    var fileToPush = new subFile({fileName, fileSizeInByte, CID})
+    const blockFound = await uploadBlock.findOne({ blockNumber: blockNumber });
+    var fileToPush = new subFile({ fileName, fileSizeInByte, CID });
     blockFound.filesInfo.push(fileToPush);
     blockFound.save();
     await uploadTotalSizeInByte(blockNumber, fileSizeInByte);
     await uploadFilesNumber(blockNumber, 1);
-    return {blockId: blockFound._id, fileId: fileToPush._id}
+    return { blockId: blockFound._id, fileId: fileToPush._id };
 };
 
 // User tasks
@@ -215,10 +178,7 @@ const getUserById = async (userId) => {
     return userFound;
 };
 
-const isEmptyObject = (obj) =>
-    Object.keys(obj).length === 0 && obj.constructor === Object;
-
-
+const isEmptyObject = (obj) => Object.keys(obj).length === 0 && obj.constructor === Object;
 
 module.exports = {
     getVideosFromTag,

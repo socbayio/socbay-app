@@ -2,30 +2,32 @@
 <html lang="en">
 
 <head>
-	<meta charset="utf-8">		
+	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, shrink-to-fit=9">
-	<title>Socbay - <%=t('title.signup')%></title>
-	
+	<title>Socbay - <%=t('title.signup')%>
+	</title>
+
 	<!-- Favicon Icon -->
 	<link rel="icon" type="image/png" href="images/logo/v3/socbay-icon-32x32.svg">
-	
+
 	<!-- Stylesheets -->
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,500' rel='stylesheet'>
 	<link href="css/vertical-responsive-menu.min.css" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
 	<link href="css/responsive.css" rel="stylesheet">
 	<link href="css/night-mode.css" rel="stylesheet">
-	
+
 	<!-- Vendor Stylesheets -->
 	<link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
 	<link rel="stylesheet" href="/owlcarousel/assets/owl.carousel.css" />
 	<link rel="stylesheet" href="/owlcarousel/assets/owl.theme.default.min.css" />
 	<link rel='stylesheet' href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 
-</head> 
+</head>
 
 <body>
 	<!-- Signup Start -->
@@ -35,42 +37,53 @@
 				<div class="col-lg-12">
 					<div class="main_logo25" id="logo">
 						<a href="/"><img src="/images/logo/v3/socbay-135x32.svg" alt=""></a>
-						<a href="/"><img class="logo-inverse" src="/images/logo/v3/socbay-135x32-inverse.svg" alt=""></a>
+						<a href="/"><img class="logo-inverse" src="/images/logo/v3/socbay-135x32-inverse.svg"
+								alt=""></a>
 					</div>
 				</div>
-			
+
 				<div class="col-lg-6 col-md-8">
 					<div class="sign_form">
-						<h2><%=t('register.welcometoSocbay')%></h2>
-						
+						<h2>
+							<%=t('register.welcometoSocbay')%>
+						</h2>
 
-						<% if(errors != null && errors.length > 0){ %>
-						<ul class="list-group"></ul>
-						<% for (var i = 0; i < errors.length; i++) { %>
-						<li class="list-group-item list-group-item-danger"><%= errors[i] %></li>
-						<% } %>
-						</ul>
-						<% } %>
-						<br>
 
-						<form action="/register/store" method="POST">
-							<div class="ui search focus">
-								<div class="ui left icon input swdh11 swdh19">
-									<input class="prompt srch_explore" type="text" name="username" value="<%=username%>" id="id_fullname" maxlength="64" placeholder="<%=t('register.fullname')%>">															
-								</div>
-							</div>
-							<div class="ui search focus mt-15">
-								<div class="ui left icon input swdh11 swdh19">
-									<input class="prompt srch_explore" type="email" name="emailaddress" value="<%=emailaddress%>" id="id_email" maxlength="64" placeholder="<%=t('register.emailaddress')%>">															
-								</div>
-							</div>
-							<div class="ui search focus mt-15">
-								<div class="ui left icon input swdh11 swdh19">
-									<input class="prompt srch_explore" type="password" name="password" value="<%=password%>" id="id_password" maxlength="64" placeholder="<%=t('register.password')%>">															
-								</div>
-							</div>
-							
-							<!-- <div class="ui form mt-30 checkbox_sign">
+						<% if(errors !=null && errors.length> 0){ %>
+							<ul class="list-group"></ul>
+							<% for (var i=0; i < errors.length; i++) { %>
+								<li class="list-group-item list-group-item-danger">
+									<%= errors[i] %>
+								</li>
+								<% } %>
+									</ul>
+									<% } %>
+										<br>
+
+										<form action="/register/store" method="POST">
+											<div class="ui search focus">
+												<div class="ui left icon input swdh11 swdh19">
+													<input class="prompt srch_explore" type="text" name="username"
+														value="<%=username%>" id="id_fullname" maxlength="64"
+														placeholder="<%=t('register.fullname')%>">
+												</div>
+											</div>
+											<div class="ui search focus mt-15">
+												<div class="ui left icon input swdh11 swdh19">
+													<input class="prompt srch_explore" type="email" name="emailaddress"
+														value="<%=emailaddress%>" id="id_email" maxlength="64"
+														placeholder="<%=t('register.emailaddress')%>">
+												</div>
+											</div>
+											<div class="ui search focus mt-15">
+												<div class="ui left icon input swdh11 swdh19">
+													<input class="prompt srch_explore" type="password" name="password"
+														value="<%=password%>" id="id_password" maxlength="64"
+														placeholder="<%=t('register.password')%>">
+												</div>
+											</div>
+
+											<!-- <div class="ui form mt-30 checkbox_sign">
 								<div class="inline field">
 									<div class="ui checkbox mncheck">
 										<input type="checkbox" tabindex="0" class="hidden">
@@ -78,25 +91,43 @@
 									</div>
 								</div>
 							</div> -->
-							<button class="login-btn" type="submit"><%=t('register.signup')%></button>
-						</form>
-						<p class="sgntrm145"><%=t('register.bysigningup')%> <a href=""><%=t('register.termofuse')%></a> <%=t('register.and')%> <a href=""><%=t('register.privacypolicy')%></a>.</p>
-						<p class="mb-0 mt-30"><%=t('register.already')%> <a href="login"><%=t('register.signin')%></a></p>
+											<button class="login-btn" type="submit">
+												<%=t('register.signup')%>
+											</button>
+										</form>
+										<p class="sgntrm145">
+											<%=t('register.bysigningup')%> <a href="">
+													<%=t('register.termofuse')%>
+												</a>
+												<%=t('register.and')%> <a href="">
+														<%=t('register.privacypolicy')%>
+													</a>.
+										</p>
+										<p class="mb-0 mt-30">
+											<%=t('register.already')%> <a href="login">
+													<%=t('register.signin')%>
+												</a>
+										</p>
 					</div>
-					<div class="sign_footer"><img src="/images/logo/v3/socbay-icon-32x32.svg" alt="">© 2021 <strong>Socbay.io</strong>. All Rights Reserved.</div>
-				</div>				
-			</div>				
-		</div>				
+					<div class="sign_footer"><img src="/images/logo/v3/socbay-icon-32x32.svg" alt="">© 2021
+						<strong>Socbay.io</strong>. All Rights Reserved.
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<!-- Signup End -->
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-	
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+
 	<script src="/owlcarousel/owl.carousel.js"></script>
 	<script src="/js/custom.js"></script>
 	<script src="/js/night-mode.js"></script>
-	
+
 </body>
+
 </html>
