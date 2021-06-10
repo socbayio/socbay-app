@@ -1,5 +1,5 @@
-const trafficTracking = require('../models/trafficTrackingModel');
 const ipInfo = require('ipinfo');
+const trafficTracking = require('../models/trafficTrackingModel');
 
 module.exports = (req, res, next) => {
     ipInfo(req.ip, (error, cLoc) => {
@@ -10,9 +10,9 @@ module.exports = (req, res, next) => {
                 params: req.params,
                 query: req.query,
                 ip: req.ip,
-                cLoc: cLoc,
+                cLoc,
             },
-            (error, log) => {}
+            (_error, _log) => {}
         );
     });
     next();
