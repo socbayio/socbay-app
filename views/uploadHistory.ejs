@@ -114,7 +114,7 @@
 																				<%=uploadedFiles[fileCount].blockId.currentInfo.replicas%>
 																			</td>
 																			<td class="text-center">
-																				<a href="https://ipfs.io/ipfs/<%=uploadedFiles[fileCount].fileId.CID%>"
+																				<a href="https://ipfs.io/ipfs/<%=uploadedFiles[fileCount].fileId.CID%>?filename=<%=uploadedFiles[fileCount].fileId.fileName%>"
 																					target="_blank" title="Download"
 																					class="gray-s"><i
 																						class="uil uil-download-alt"></i></a>
@@ -184,7 +184,7 @@
 																				<%=uploadedVideos[videoCount].blockId.currentInfo.replicas%>
 																			</td>
 																			<td class="text-center">
-																				<a href="https://ipfs.io/ipfs/<%=uploadedVideos[videoCount].fileId.CID%>"
+																				<a href="https://ipfs.io/ipfs/<%=uploadedVideos[videoCount].fileId.CID%>?filename=<%=uploadedVideos[videoCount].fileId.fileName%>"
 																					target="_blank" title="Download"
 																					class="gray-s"><i
 																						class="uil uil-download-alt"></i></a>
