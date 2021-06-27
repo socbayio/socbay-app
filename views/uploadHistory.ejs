@@ -230,17 +230,16 @@
 				async function connectWallet() {
 					const extensions = await web3Enable('Socbay Dapp');
 					if (extensions.length === 0) {
+						localStorage.setItem('webIsAllowed', false);
 						return null;
 					}
 					const allAccounts = await web3Accounts();
-					console.log(allAccounts);
+					localStorage.setItem('webIsAllowed', true);
 					return allAccounts;
 				}
-			</script>
-			<script>
-				$("#connectWalletButton").click(function (event) {
-					connectWallet().then(function (allAccounts) {
 
+				function renderWallet() {
+					connectWallet().then(function (allAccounts) {
 						if (allAccounts.length) {
 							$(".walletwrapper").remove();
 							$("#walletnumber").html(allAccounts.length).addClass("d-block");
@@ -248,6 +247,8 @@
 								var wrapper = $("<a/>", {
 									href: "#",
 									"class": "channel_my item walletwrapper",
+									"data-wallet": accountCnt,
+									onclick: `getPreferedWallet(${accountCnt})`
 								});
 								var addrWrapper = $("<div/>", { "class": "profile_link" });
 								var addrAvatar = $("<img/>", { src: "images/left-imgs/img-6.jpg", alt: "" });
@@ -260,9 +261,26 @@
 								wrapper.append(addrWrapper);
 								$('#connectWalletButton').before(wrapper);
 							}
+							$("#connectWalletButton").html('Refresh <i class="uil uil-refresh"></i>');
+						} else {
+							$("#walletnumber").addClass("d-none");
 						}
 					})
+				}
+
+				$("#connectWalletButton").click(function (event) {
+					renderWallet();
 				});
+
+				function getPreferedWallet(x) {
+					localStorage.setItem('preferedWallet', x);
+				}
+
+				$(document).ready(function () {
+					if (localStorage.getItem('webIsAllowed') == "true") {
+						renderWallet();
+					}
+				})
 			</script>
 
 </body>
