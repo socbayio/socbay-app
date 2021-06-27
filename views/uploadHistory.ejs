@@ -12,7 +12,7 @@
 
 <body>
 	<!-- Header Start -->
-	<%- include('header') -%>
+	<%- include('header_wallet') -%>
 		<!-- Header End -->
 		<!-- Left Sidebar Start -->
 		<%- include("leftSideBar"); -%>
@@ -118,6 +118,10 @@
 																					target="_blank" title="Download"
 																					class="gray-s"><i
 																						class="uil uil-download-alt"></i></a>
+																				<a onclick="connectWallet()"
+																					title="Download" class="gray-s"><i
+																						class="uil uil-download-alt"></i></a>
+
 																			</td>
 															</tr>
 															<% }%>
@@ -221,6 +225,45 @@
 			<script src="/js/night-mode.js"></script>
 			<script src="/js/datepicker.min.js"></script>
 			<script src="/js/i18n/datepicker.en.js"></script>
+			<script src="/js/socbay_extension_dapp.js"></script>
+			<script>
+				async function connectWallet() {
+					const extensions = await web3Enable('Socbay Dapp');
+					if (extensions.length === 0) {
+						return null;
+					}
+					const allAccounts = await web3Accounts();
+					console.log(allAccounts);
+					return allAccounts;
+				}
+			</script>
+			<script>
+				$("#connectWalletButton").click(function (event) {
+					connectWallet().then(function (allAccounts) {
+
+						if (allAccounts.length) {
+							$(".walletwrapper").remove();
+							$("#walletnumber").html(allAccounts.length).addClass("d-block");
+							for (var accountCnt = 0; accountCnt < allAccounts.length; accountCnt++) {
+								var wrapper = $("<a/>", {
+									href: "#",
+									"class": "channel_my item walletwrapper",
+								});
+								var addrWrapper = $("<div/>", { "class": "profile_link" });
+								var addrAvatar = $("<img/>", { src: "images/left-imgs/img-6.jpg", alt: "" });
+								var pd_content = $("<div/>", { "class": "pd_content" });
+								var nameAddr = $("<h6/>").html(allAccounts[accountCnt].meta.name);
+								var addr = $("<p/>", { "class": "text-break" }).html(allAccounts[accountCnt].address);
+								var extensionName = $("<span/>").html(allAccounts[accountCnt].meta.source);
+								pd_content.append(nameAddr, addr);
+								addrWrapper.append(addrAvatar, pd_content);
+								wrapper.append(addrWrapper);
+								$('#connectWalletButton').before(wrapper);
+							}
+						}
+					})
+				});
+			</script>
 
 </body>
 

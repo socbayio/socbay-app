@@ -8,12 +8,12 @@ const socketapi = {
 const msgHandle = async (msg, lang) => {
     io.emit(lang, msg);
     const nameArrayTempo = [
-        'The Fat Dog',
-        'The Phoenix',
+        'Fat Dog',
+        'Phoenix',
         'Redbird',
-        'The Black Cat',
-        'The Thirsty Crow',
-        'The Fat Cow',
+        'Black Cat',
+        'Thirsty Crow',
+        'Fat Cow',
         'Lucky Duck',
     ];
     await liveChat.findOneAndUpdate(
