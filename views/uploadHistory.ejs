@@ -118,10 +118,10 @@
 																					target="_blank" title="Download"
 																					class="gray-s"><i
 																						class="uil uil-download-alt"></i></a>
-																				<a onclick="connectWallet()"
+																				<a href="#"
+																					onclick="placeStorageOrderSocbay('<%=uploadedFiles[fileCount].fileId.CID%>',<%=uploadedFiles[fileCount].fileId.fileSizeInByte%>,0.0)"
 																					title="Download" class="gray-s"><i
-																						class="uil uil-download-alt"></i></a>
-
+																						class="uil uil-upload"></i></a>
 																			</td>
 															</tr>
 															<% }%>
@@ -198,12 +198,10 @@
 																			</td>
 															</tr>
 															<% }%>
-
 													</tbody>
 												</table>
 											</div>
 										</div>
-
 									</div>
 								</div>
 							</div>
@@ -238,6 +236,7 @@
 					if (localStorage.getItem('preferedWallet') == null) {
 						localStorage.setItem('preferedWallet', 0);
 					}
+					console.log(allAccounts)
 					return allAccounts;
 				}
 
@@ -299,8 +298,33 @@
 						renderWallet();
 					}
 				})
-			</script>
 
+				function placeStorageOrderSocbay(cid, file_size, tips) {
+					connectWallet().then(async function (allAccounts) {
+						var account = allAccounts[localStorage.getItem('preferedWallet')];
+
+						// Connect Crust chain
+						const wsProvider = new WsProvider('wss://api.decloudf.com/');
+						const api = await ApiPromise.create({ provider: wsProvider, typesBundle: typesBundleForPolkadot });
+
+						await api.isReadyOrError;
+
+						const transferExtrinsic = api.tx.market.placeStorageOrder(cid, file_size, tips);
+
+						const injector = await web3FromSource(account.meta.source);
+
+						transferExtrinsic.signAndSend(account.address, { signer: injector.signer }, ({ status }) => {
+							if (status.isInBlock) {
+								console.log(`Completed at block hash #${status.asInBlock.toString()}`);
+							} else {
+								console.log(`Current status: ${status.type}`);
+							}
+						}).catch((error) => {
+							console.log(':( transaction failed', error);
+						});
+					})
+				}
+			</script>
 </body>
 
 </html>
