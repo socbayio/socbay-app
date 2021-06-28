@@ -235,6 +235,9 @@
 					}
 					const allAccounts = await web3Accounts();
 					localStorage.setItem('webIsAllowed', true);
+					if (localStorage.getItem('preferedWallet') == null) {
+						localStorage.setItem('preferedWallet', 0);
+					}
 					return allAccounts;
 				}
 
@@ -247,15 +250,21 @@
 								var wrapper = $("<a/>", {
 									href: "#",
 									"class": "channel_my item walletwrapper",
-									"data-wallet": accountCnt,
 									onclick: `getPreferedWallet(${accountCnt})`
 								});
 								var addrWrapper = $("<div/>", { "class": "profile_link" });
+								var redDot = $("<div/>", { "class": "alrt_dot" });
 								var addrAvatar = $("<img/>", { src: "images/left-imgs/img-6.jpg", alt: "" });
 								var pd_content = $("<div/>", { "class": "pd_content" });
 								var nameAddr = $("<h6/>").html(allAccounts[accountCnt].meta.name);
 								var addr = $("<p/>", { "class": "text-break" }).html(allAccounts[accountCnt].address);
 								var extensionName = $("<span/>").html(allAccounts[accountCnt].meta.source);
+
+								if (accountCnt == localStorage.getItem('preferedWallet')) {
+									wrapper.addClass("active selected");
+									nameAddr.append(redDot);
+								}
+
 								pd_content.append(nameAddr, addr);
 								addrWrapper.append(addrAvatar, pd_content);
 								wrapper.append(addrWrapper);
@@ -274,6 +283,15 @@
 
 				function getPreferedWallet(x) {
 					localStorage.setItem('preferedWallet', x);
+					var listWallet = $(".walletwrapper");
+					for (var count = 0; count < listWallet.length; count++) {
+						if (listWallet[count].children[0].children[1].children[0].children[0]) {
+							listWallet[count].children[0].children[1].children[0].children[0].remove()
+						}
+					}
+					var para = document.createElement("div");
+					para.className = "alrt_dot";
+					listWallet[x].children[0].children[1].children[0].appendChild(para);
 				}
 
 				$(document).ready(function () {
