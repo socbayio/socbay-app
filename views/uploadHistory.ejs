@@ -12,7 +12,7 @@
 
 <body>
 	<!-- Header Start -->
-	<%- include('header') -%>
+	<%- include('header_wallet') -%>
 		<!-- Header End -->
 		<!-- Left Sidebar Start -->
 		<%- include("leftSideBar"); -%>
@@ -118,10 +118,14 @@
 																					target="_blank" title="Download"
 																					class="gray-s"><i
 																						class="uil uil-download-alt"></i></a>
+																				<a href="#"
+																					onclick="placeStorageOrderSocbay('<%=uploadedFiles[fileCount].fileId.CID%>',<%=uploadedFiles[fileCount].fileId.fileSizeInByte%>,0.0)"
+																					title="Publish to Crust Network by your own wallet"
+																					class="gray-s"><i
+																						class="uil uil-upload"></i></a>
 																			</td>
 															</tr>
 															<% }%>
-
 													</tbody>
 												</table>
 											</div>
@@ -194,12 +198,10 @@
 																			</td>
 															</tr>
 															<% }%>
-
 													</tbody>
 												</table>
 											</div>
 										</div>
-
 									</div>
 								</div>
 							</div>
@@ -207,6 +209,45 @@
 					</div>
 				</div>
 				<%- include('footer') -%>
+					<!-- Order Status Modal -->
+					<div class="modal fade" id="orderStatusModal" tabindex="-1" aria-labelledby="orderStatusModalLabel"
+						aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title m-auto" id="orderStatusModalLabel">
+										Order Successful!
+									</h4>
+								</div>
+								<div class="modal-body">
+									<div>Your order has been successfully registered. Please visit <a
+											id="socbayExplorerLink" href="#" target="_blank">Socbay Explorer</a>
+										to check your order status in real time</div>
+									<div id="blockHash"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Spinning Modal -->
+					<div class="modal fade" id="spinningModal" tabindex="-1" aria-labelledby="spinningModalLabel"
+						aria-hidden="true">
+						<div class="modal-dialog modal-sm">
+							<div class="modal-content">
+								<div class="modal-header" style="border-color: transparent;">
+									<h4 class="modal-title m-auto" id="orderStatusModalLabel">
+										Waiting for the Crust Wallet popup. Make sure you don't have any waiting
+										transaction in your Crust Wallet!
+									</h4>
+								</div>
+								<div class="modal-body">
+									<div class="d-flex justify-content-center">
+										<div class="spinner-border text-danger" role="status">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 			</div>
 			<!-- Body End -->
 
@@ -221,7 +262,132 @@
 			<script src="/js/night-mode.js"></script>
 			<script src="/js/datepicker.min.js"></script>
 			<script src="/js/i18n/datepicker.en.js"></script>
+			<script src="/js/socbay_extension_dapp.js"></script>
+			<script>
+				async function connectWallet() {
+					const extensions = await web3Enable('Socbay Dapp');
+					if (extensions.length === 0) {
+						localStorage.setItem('webIsAllowed', false);
+						return null;
+					}
+					const allAccounts = await web3Accounts();
+					localStorage.setItem('webIsAllowed', true);
+					if (localStorage.getItem('preferedWallet') == null) {
+						localStorage.setItem('preferedWallet', 0);
+					}
+					console.log(allAccounts);
+					return allAccounts;
+				}
 
+				function renderWallet() {
+					connectWallet().then(function (allAccounts) {
+						if (allAccounts.length) {
+							$(".walletwrapper").remove();
+							$("#walletnumber").html(allAccounts.length).addClass("d-block");
+							for (var accountCnt = 0; accountCnt < allAccounts.length; accountCnt++) {
+								var wrapper = $("<a/>", {
+									href: "#",
+									"class": "channel_my item walletwrapper",
+									onclick: `getPreferedWallet(${accountCnt})`
+								});
+								var addrWrapper = $("<div/>", { "class": "profile_link" });
+								var redDot = $("<div/>", { "class": "alrt_dot" });
+								var addrAvatar = $("<img/>", { src: "images/left-imgs/img-6.jpg", alt: "" });
+								var pd_content = $("<div/>", { "class": "pd_content" });
+								var nameAddr = $("<h6/>").html(allAccounts[accountCnt].meta.name);
+								var addr = $("<p/>", { "class": "text-break" }).html(allAccounts[accountCnt].address);
+								var extensionName = $("<span/>").html(allAccounts[accountCnt].meta.source);
+
+								if (accountCnt == localStorage.getItem('preferedWallet')) {
+									wrapper.addClass("active selected");
+									nameAddr.append(redDot);
+								}
+
+								pd_content.append(nameAddr, addr);
+								addrWrapper.append(addrAvatar, pd_content);
+								wrapper.append(addrWrapper);
+								$('#connectWalletButton').before(wrapper);
+							}
+							$("#connectWalletButton").html('Refresh <i class="uil uil-refresh"></i>');
+						} else {
+							$("#walletnumber").addClass("d-none");
+						}
+					})
+				}
+
+				$("#connectWalletButton").click(function (event) {
+					renderWallet();
+				});
+
+				function getPreferedWallet(x) {
+					localStorage.setItem('preferedWallet', x);
+					var listWallet = $(".walletwrapper");
+					for (var count = 0; count < listWallet.length; count++) {
+						if (listWallet[count].children[0].children[1].children[0].children[0]) {
+							listWallet[count].children[0].children[1].children[0].children[0].remove()
+						}
+					}
+					var para = document.createElement("div");
+					para.className = "alrt_dot";
+					listWallet[x].children[0].children[1].children[0].appendChild(para);
+				}
+
+				$(document).ready(function () {
+					if (localStorage.getItem('webIsAllowed') == "true") {
+						renderWallet();
+					}
+				})
+
+				const spinningModal = new bootstrap.Modal(
+					document.getElementById("spinningModal"),
+					{}
+				);
+
+				const orderStatusModal = new bootstrap.Modal(
+					document.getElementById("orderStatusModal"),
+					{}
+				);
+
+				function orderSucessfulStatusModal(cid, blockHash) {
+					const blockHashLink = "https://crust.subscan.io/block/" + blockHash;
+					const socbayExplorerLink = "/explorer?cid=" + cid;
+					document.getElementById("blockHash").innerHTML = `Block Hash: <a class="text-break" target="_blank" href="${blockHashLink}">${blockHash}</a>`
+					document.getElementById("socbayExplorerLink").setAttribute("href", socbayExplorerLink);
+					orderStatusModal.show();
+				}
+
+				function placeStorageOrderSocbay(cid, file_size, tips) {
+					spinningModal.show();
+
+					connectWallet().then(async function (allAccounts) {
+						var account = allAccounts[localStorage.getItem('preferedWallet')];
+
+						// Connect Crust chain
+						const wsProvider = new WsProvider('wss://api.decloudf.com/');
+						const api = await ApiPromise.create({ provider: wsProvider, typesBundle: typesBundleForPolkadot });
+
+						await api.isReadyOrError;
+
+						const transferExtrinsic = api.tx.market.placeStorageOrder(cid, file_size, tips);
+
+						const injector = await web3FromSource(account.meta.source);
+
+						transferExtrinsic.signAndSend(account.address, { signer: injector.signer }, ({ status }) => {
+							spinningModal.hide();
+							if (status.isInBlock) {
+								console.log(`Completed at block hash #${status.asInBlock.toString()}`);
+								orderSucessfulStatusModal(cid, status.asInBlock.toString());
+
+							} else {
+								console.log(`Current status: ${status.type}`);
+							}
+						}).catch((error) => {
+							console.log(':( transaction failed', error);
+						});
+					})
+
+				}
+			</script>
 </body>
 
 </html>

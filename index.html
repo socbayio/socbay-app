@@ -1,0 +1,22 @@
+<div id="jqueryElem"></div>
+<button type="button" id="jqueryButton">Hello</Button>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+	$( "#jqueryButton" ).on( "click", function( event ) {
+			var link = $("<a/>", {
+						href: "#",
+						"class": "channel_my item",
+					});
+			var addrWrapper = $("<div/>", {"class": "profile_link"});
+			var addrAvatar = $("<img/>",{src: "images/left-imgs/img-6.jpg", alt:""});
+			var pd_content = $("<div/>", {"class": "pd_content"});
+			var nameAddr = $("<h6/>").html("CRU CONTROLLER");
+			var addr = $("<p/>", {"class":"text-break"}).html("5CyUPj1cDmRhVomEJV6hjwgB5Y24tXQrx1g4D1U1QTCqA1td");
+			var extensionName = $("<span/>").html("Crust Wallet");
+			pd_content.append(nameAddr,addr,extensionName);
+			addrWrapper.append(addrAvatar,pd_content);
+			link.append(addrWrapper);
+		$('#jqueryElem').append(link);
+});
+</script>

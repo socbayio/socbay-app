@@ -69,6 +69,7 @@ const universalUploadRouter = require('./routes/universalUpload');
 const universalStoreRouter = require('./routes/universalStore');
 const deleteVideoRouter = require('./routes/deleteVideo');
 const storeProfilePictureRouter = require('./routes/storeProfilePicture');
+const explorerRouter = require('./routes/explorer');
 
 /**
   Middleware
@@ -139,6 +140,7 @@ app.use('/uploadhistory', uploadHistoryRouter);
 app.use('/upload', universalUploadRouter);
 app.use('/upload/store', universalStoreRouter);
 app.use('/myinfo/uploadavatar', storeProfilePictureRouter);
+app.use('/explorer', explorerRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

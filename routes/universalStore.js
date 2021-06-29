@@ -9,7 +9,6 @@ const { pushFileToMe } = require('./common');
 
 router.post('/', getInfoIfAuthenticated, async (req, res, next) => {
     try {
-        console.log(req.files.file_data);
         const pinnedFile = await uploadFile(
             req.files.file_data,
             config.blockSizeLimitInByte
