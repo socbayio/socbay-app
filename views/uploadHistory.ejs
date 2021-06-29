@@ -234,8 +234,8 @@
 						<div class="modal-dialog modal-sm">
 							<div class="modal-content">
 								<div class="modal-header" style="border-color: transparent;">
-									<h4 class="modal-title m-auto" id="orderStatusModalLabel">
-										Waiting for the Crust Wallet popup. Make sure you don't have any waiting
+									<h4 class="modal-title m-auto" id="spinningModalLabel">
+										Waiting for the Crust Wallet popup. Make sure there are not any waiting
 										transaction in your Crust Wallet!
 									</h4>
 								</div>
@@ -244,6 +244,32 @@
 										<div class="spinner-border text-danger" role="status">
 										</div>
 									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="modal fade" id="missingExtensionModal" tabindex="-1"
+						aria-labelledby="missingExtensionModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-sm">
+							<div class="modal-content">
+								<div class="modal-header" style="border-color: transparent;">
+									<h4 class="modal-title m-auto" id="missingExtensionModalLabel">
+										There is not a compatible wallet extension. Visit <a
+											href="https://wiki.crust.network/docs/en/crustWallet" target="_blank">Crust
+											Wallet</a> to learn how to install the Crust Wallet extension.
+									</h4>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+					<div class="modal fade" id="rawSpinningModal" tabindex="-1" aria-labelledby="rawSpinningModalLabel"
+						aria-hidden="true">
+						<div class="modal-dialog modal-sm">
+							<div class="d-flex justify-content-center">
+								<div class="spinner-border text-danger" role="status">
 								</div>
 							</div>
 						</div>
@@ -281,6 +307,10 @@
 
 				function renderWallet() {
 					connectWallet().then(function (allAccounts) {
+						if (allAccounts == null) {
+							missingExtensionModal.show();
+							return;
+						}
 						if (allAccounts.length) {
 							$(".walletwrapper").remove();
 							$("#walletnumber").html(allAccounts.length).addClass("d-block");
@@ -348,6 +378,16 @@
 					{}
 				);
 
+				const missingExtensionModal = new bootstrap.Modal(
+					document.getElementById("missingExtensionModal"),
+					{}
+				);
+
+				const rawSpinningModal = new bootstrap.Modal(
+					document.getElementById("rawSpinningModal"),
+					{}
+				);
+
 				function orderSucessfulStatusModal(cid, blockHash) {
 					const blockHashLink = "https://crust.subscan.io/block/" + blockHash;
 					const socbayExplorerLink = "/explorer?cid=" + cid;
@@ -357,16 +397,20 @@
 				}
 
 				function placeStorageOrderSocbay(cid, file_size, tips) {
-					spinningModal.show();
-
 					connectWallet().then(async function (allAccounts) {
+						if (allAccounts == null) {
+							missingExtensionModal.show();
+							return;
+						}
+						spinningModal.show();
 						var account = allAccounts[localStorage.getItem('preferedWallet')];
-
 						// Connect Crust chain
 						const wsProvider = new WsProvider('wss://api.decloudf.com/');
 						const api = await ApiPromise.create({ provider: wsProvider, typesBundle: typesBundleForPolkadot });
 
 						await api.isReadyOrError;
+
+						var orderIsSuccess = false;
 
 						const transferExtrinsic = api.tx.market.placeStorageOrder(cid, file_size, tips);
 
@@ -374,11 +418,16 @@
 
 						transferExtrinsic.signAndSend(account.address, { signer: injector.signer }, ({ status }) => {
 							spinningModal.hide();
+							if (!orderIsSuccess) {
+								rawSpinningModal.show();
+							}
 							if (status.isInBlock) {
 								console.log(`Completed at block hash #${status.asInBlock.toString()}`);
+								orderIsSuccess = true;
+								rawSpinningModal.hide();
 								orderSucessfulStatusModal(cid, status.asInBlock.toString());
-
 							} else {
+								rawSpinningModal.hide();
 								console.log(`Current status: ${status.type}`);
 							}
 						}).catch((error) => {
