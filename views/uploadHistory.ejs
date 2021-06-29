@@ -209,6 +209,45 @@
 					</div>
 				</div>
 				<%- include('footer') -%>
+					<!-- Order Status Modal -->
+					<div class="modal fade" id="orderStatusModal" tabindex="-1" aria-labelledby="orderStatusModalLabel"
+						aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title m-auto" id="orderStatusModalLabel">
+										Order Successful!
+									</h4>
+								</div>
+								<div class="modal-body">
+									<div>Your order has been successfully registered. Please visit <a
+											id="socbayExplorerLink" href="#" target="_blank">Socbay Explorer</a>
+										to check your order status in real time</div>
+									<div id="blockHash"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Spinning Modal -->
+					<div class="modal fade" id="spinningModal" tabindex="-1" aria-labelledby="spinningModalLabel"
+						aria-hidden="true">
+						<div class="modal-dialog modal-sm">
+							<div class="modal-content">
+								<div class="modal-header" style="border-color: transparent;">
+									<h4 class="modal-title m-auto" id="orderStatusModalLabel">
+										Waiting for the Crust Wallet popup. Make sure you don't have any waiting
+										transaction in your Crust Wallet!
+									</h4>
+								</div>
+								<div class="modal-body">
+									<div class="d-flex justify-content-center">
+										<div class="spinner-border text-danger" role="status">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 			</div>
 			<!-- Body End -->
 
@@ -236,7 +275,7 @@
 					if (localStorage.getItem('preferedWallet') == null) {
 						localStorage.setItem('preferedWallet', 0);
 					}
-					console.log(allAccounts)
+					console.log(allAccounts);
 					return allAccounts;
 				}
 
@@ -299,7 +338,27 @@
 					}
 				})
 
+				const spinningModal = new bootstrap.Modal(
+					document.getElementById("spinningModal"),
+					{}
+				);
+
+				const orderStatusModal = new bootstrap.Modal(
+					document.getElementById("orderStatusModal"),
+					{}
+				);
+
+				function orderSucessfulStatusModal(cid, blockHash) {
+					const blockHashLink = "https://crust.subscan.io/block/" + blockHash;
+					const socbayExplorerLink = "/explorer?cid=" + cid;
+					document.getElementById("blockHash").innerHTML = `Block Hash: <a class="text-break" target="_blank" href="${blockHashLink}">${blockHash}</a>`
+					document.getElementById("socbayExplorerLink").setAttribute("href", socbayExplorerLink);
+					orderStatusModal.show();
+				}
+
 				function placeStorageOrderSocbay(cid, file_size, tips) {
+					spinningModal.show();
+
 					connectWallet().then(async function (allAccounts) {
 						var account = allAccounts[localStorage.getItem('preferedWallet')];
 
@@ -314,8 +373,11 @@
 						const injector = await web3FromSource(account.meta.source);
 
 						transferExtrinsic.signAndSend(account.address, { signer: injector.signer }, ({ status }) => {
+							spinningModal.hide();
 							if (status.isInBlock) {
 								console.log(`Completed at block hash #${status.asInBlock.toString()}`);
+								orderSucessfulStatusModal(cid, status.asInBlock.toString());
+
 							} else {
 								console.log(`Current status: ${status.type}`);
 							}
@@ -323,6 +385,7 @@
 							console.log(':( transaction failed', error);
 						});
 					})
+
 				}
 			</script>
 </body>

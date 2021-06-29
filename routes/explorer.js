@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get('/', async (req, res, next) => {
     try {
-        res.render('explorer');
+        res.render('explorer', { cid: req.query.cid });
     } catch (e) {
         next(e);
     }
