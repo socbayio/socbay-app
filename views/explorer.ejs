@@ -88,7 +88,7 @@
     async function getOrderInfo() {
       spinningModal.show();
       const cid = document.getElementById("floatingInput").value;
-      const wsProvider = new WsProvider('wss://api.crust.network');
+      const wsProvider = new WsProvider('wss://api.decloudf.com');
       const api = await ApiPromise.create({ provider: wsProvider, typesBundle: typesBundleForPolkadot });
       await api.isReadyOrError;
       const fileObj = await api.query.market.files(cid);
