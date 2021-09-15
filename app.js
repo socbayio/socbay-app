@@ -17,8 +17,6 @@ const config = require('./config');
   MongooseDB
  */
 
-console.log(config);
-
 mongoose.connect(`${config.dbServerUrl}socbay`, config.userAuth);
 
 /**
@@ -37,7 +35,7 @@ i18next
             caches: ['cookie'],
         },
         fallbackLng: 'en',
-        preload: ['en', 'vi'],
+        preload: ['en'],
     });
 
 /**
@@ -65,8 +63,6 @@ const searchRouter = require('./routes/searchVideos');
 const myInfoRouter = require('./routes/myinfo');
 const channelRouter = require('./routes/channel');
 const uploadHistoryRouter = require('./routes/uploadHistory');
-const universalUploadRouter = require('./routes/universalUpload');
-const universalStoreRouter = require('./routes/universalStore');
 const deleteVideoRouter = require('./routes/deleteVideo');
 const storeProfilePictureRouter = require('./routes/storeProfilePicture');
 const explorerRouter = require('./routes/explorer');
@@ -137,8 +133,6 @@ app.use('/search', searchRouter);
 app.use('/myinfo', myInfoRouter);
 app.use('/channel/:channelId', channelRouter);
 app.use('/uploadhistory', uploadHistoryRouter);
-app.use('/upload', universalUploadRouter);
-app.use('/upload/store', universalStoreRouter);
 app.use('/myinfo/uploadavatar', storeProfilePictureRouter);
 app.use('/explorer', explorerRouter);
 
