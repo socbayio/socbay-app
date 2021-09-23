@@ -1,5 +1,5 @@
 module.exports = {
     seedsPath: './seeds',
-    chainAddr: 'wss://api.crust.network',
+    chainAddr: 'wss://rpc.crust.network',
     ipfsTimeout: 60000, // 60s
-}
+};
