@@ -47,7 +47,12 @@ module.exports = {
             // const seeds = fs.readFileSync(seedsPath, 'utf8');
 
             // 5. Send place storage order tx
-            const tx = chain.tx.market.placeStorageOrder(cid, fileSize, 0.0);
+            const tx = chain.tx.market.placeStorageOrder(
+                cid,
+                fileSize,
+                0.0,
+                ''
+            );
             const res = await sendTx(tx, seeds);
             if (res) {
                 logger.crustSocbayPinner(`Publish ${cid} success`);

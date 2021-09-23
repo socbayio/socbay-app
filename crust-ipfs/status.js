@@ -10,18 +10,22 @@ module.exports = {
             // 1. Try connect to Crust Network
             const chain = new ApiPromise({
                 provider: new WsProvider(chainAddr),
-                typesBundle: typesBundleForPolkadot
+                typesBundle: typesBundleForPolkadot,
             });
             await chain.isReadyOrError;
 
             // 2. Query on-chain file data
-            const maybeFileUsedInfo = parseObj(await chain.query.market.files(cid));
+            const maybeFileUsedInfo = parseObj(
+                await chain.query.market.files(cid)
+            );
             if (maybeFileUsedInfo) {
-                const replicaCount = maybeFileUsedInfo[0].reported_replica_count;
+                const replicaCount = maybeFileUsedInfo.reported_replica_count;
                 if (replicaCount === 0) {
                     logger.crustSocbayPinner(`⚠️  ${cid} pending...`);
                 } else {
-                    logger.crustSocbayPinner(`✅  ${cid} picked, replicas: ${replicaCount}`);
+                    logger.crustSocbayPinner(
+                        `✅  ${cid} picked, replicas: ${replicaCount}`
+                    );
                 }
             } else {
                 logger.crustSocbayPinner(`🗑  ${cid} not exist or expired`);
@@ -34,5 +38,5 @@ module.exports = {
         } catch (e) {
             logger.error(`Query status failed with ${e}`);
         }
-    }
-}
+    },
+};
